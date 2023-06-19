@@ -1,0 +1,41 @@
+#![allow(
+    dead_code,
+    mutable_transmutes,
+    non_camel_case_types,
+    non_snake_case,
+    non_upper_case_globals,
+    unused_assignments,
+    unused_mut
+)]
+use c2rust_out::*;
+extern "C" {
+    fn gmtime(__timer: *const i64) -> *mut tm;
+    fn asctime(__tp: *const tm) -> *mut i8;
+    fn printf(_: *const i8, _: ...) -> i32;
+}
+#[derive(Copy, Clone)]
+#[repr(C)]
+pub struct tm {
+    pub tm_sec: i32,
+    pub tm_min: i32,
+    pub tm_hour: i32,
+    pub tm_mday: i32,
+    pub tm_mon: i32,
+    pub tm_year: i32,
+    pub tm_wday: i32,
+    pub tm_yday: i32,
+    pub tm_isdst: i32,
+    pub tm_gmtoff: i64,
+    pub tm_zone: *const i8,
+}
+fn main_0() -> i32 {
+    let mut t: i64 = 0;
+    unsafe {
+        printf(b"%s\0" as *const u8 as *const i8, asctime(gmtime(&mut t)));
+    }
+    return 0;
+}
+
+pub fn main() {
+    ::std::process::exit(main_0() as i32);
+}

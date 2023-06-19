@@ -1,0 +1,11 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "main.c"
+    ],
+    "directory": "/home/c00834010/dev/crusts-benchmarks/benchmark1-c2rust-txl-19-06-2023/long_primes/i",
+    "file": "/home/c00834010/dev/crusts-benchmarks/benchmark1-c2rust-txl-19-06-2023/long_primes/i/main.c"
+  }
+]
