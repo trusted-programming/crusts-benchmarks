@@ -1,0 +1,55 @@
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-22/convex_hull)
+error[E0133]: dereference of raw pointer is unsafe and requires unsafe function or block
+   --> src/main.rs:112:28
+    |
+112 |         print!("({}, {})", (*ptr).data.x, (*ptr).data.y);
+    |                            ^^^^^^^^^^^^^ dereference of raw pointer
+    |
+    = note: raw pointers may be null, dangling or unaligned; they can violate aliasing rules and cause data races: all of these are undefined behavior
+    = note: this error originates in the macro `$crate::format_args` which comes from the expansion of the macro `print` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0133]: dereference of raw pointer is unsafe and requires unsafe function or block
+   --> src/main.rs:112:43
+    |
+112 |         print!("({}, {})", (*ptr).data.x, (*ptr).data.y);
+    |                                           ^^^^^^^^^^^^^ dereference of raw pointer
+    |
+    = note: raw pointers may be null, dangling or unaligned; they can violate aliasing rules and cause data races: all of these are undefined behavior
+    = note: this error originates in the macro `$crate::format_args` which comes from the expansion of the macro `print` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0133]: dereference of raw pointer is unsafe and requires unsafe function or block
+   --> src/main.rs:113:15
+    |
+113 |         ptr = (*ptr).next;
+    |               ^^^^^^^^^^^ dereference of raw pointer
+    |
+    = note: raw pointers may be null, dangling or unaligned; they can violate aliasing rules and cause data races: all of these are undefined behavior
+
+error[E0133]: dereference of raw pointer is unsafe and requires unsafe function or block
+   --> src/main.rs:116:30
+    |
+116 |         print!(", ({}, {})", (*ptr).data.x, (*ptr).data.y);
+    |                              ^^^^^^^^^^^^^ dereference of raw pointer
+    |
+    = note: raw pointers may be null, dangling or unaligned; they can violate aliasing rules and cause data races: all of these are undefined behavior
+    = note: this error originates in the macro `$crate::format_args` which comes from the expansion of the macro `print` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0133]: dereference of raw pointer is unsafe and requires unsafe function or block
+   --> src/main.rs:116:45
+    |
+116 |         print!(", ({}, {})", (*ptr).data.x, (*ptr).data.y);
+    |                                             ^^^^^^^^^^^^^ dereference of raw pointer
+    |
+    = note: raw pointers may be null, dangling or unaligned; they can violate aliasing rules and cause data races: all of these are undefined behavior
+    = note: this error originates in the macro `$crate::format_args` which comes from the expansion of the macro `print` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0133]: dereference of raw pointer is unsafe and requires unsafe function or block
+   --> src/main.rs:117:15
+    |
+117 |         ptr = (*ptr).next;
+    |               ^^^^^^^^^^^ dereference of raw pointer
+    |
+    = note: raw pointers may be null, dangling or unaligned; they can violate aliasing rules and cause data races: all of these are undefined behavior
+
+For more information about this error, try `rustc --explain E0133`.
+error: could not compile `c2rust_out` (bin "main") due to 6 previous errors

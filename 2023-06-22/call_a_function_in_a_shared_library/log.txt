@@ -1,0 +1,45 @@
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-22/call_a_function_in_a_shared_library)
+error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
+  --> src/main.rs:24:1
+   |
+24 | / pub struct _IO_FILE {
+25 | |     pub _flags: i32,
+26 | |     pub _IO_read_ptr: *mut i8,
+27 | |     pub _IO_read_end: *mut i8,
+...  |
+53 | |     pub _unused2: [i8; 20],
+54 | | }
+   | |_^
+   |
+   = note: requested on the command line with `-D missing-debug-implementations`
+
+error: unsafe block missing a safety comment
+  --> src/main.rs:59:5
+   |
+59 |     unsafe {
+   |     ^^^^^^^^
+   |
+   = help: consider adding a safety comment on the preceding line
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+   = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
+
+error: unsafe block missing a safety comment
+  --> src/main.rs:73:5
+   |
+73 |     unsafe {
+   |     ^^^^^^^^
+   |
+   = help: consider adding a safety comment on the preceding line
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: used `expect()` on an `Option` value
+  --> src/main.rs:83:25
+   |
+83 |             imghandle = extopenimage.expect("non-null function pointer")(
+   |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: if this value is `None`, it will panic
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#expect_used
+   = note: requested on the command line with `-D clippy::expect-used`
+
+error: could not compile `c2rust_out` (bin "main") due to 4 previous errors

@@ -1,0 +1,139 @@
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-22/optional_parameters)
+error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
+  --> src/main.rs:26:1
+   |
+26 | / pub struct __va_list_tag {
+27 | |     pub gp_offset: u32,
+28 | |     pub fp_offset: u32,
+29 | |     pub overflow_arg_area: *mut libc::c_void,
+30 | |     pub reg_save_area: *mut libc::c_void,
+31 | | }
+   | |_^
+   |
+   = note: requested on the command line with `-D missing-debug-implementations`
+
+error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
+  --> src/main.rs:37:1
+   |
+37 | / pub struct _IO_FILE {
+38 | |     pub _flags: i32,
+39 | |     pub _IO_read_ptr: *mut i8,
+40 | |     pub _IO_read_end: *mut i8,
+...  |
+66 | |     pub _unused2: [i8; 20],
+67 | | }
+   | |_^
+
+error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
+  --> src/main.rs:85:1
+   |
+85 | / pub struct sTable {
+86 | |     pub rows: *mut *mut String_0,
+87 | |     pub n_rows: i32,
+88 | |     pub n_cols: i32,
+89 | | }
+   | |_^
+
+error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
+  --> src/main.rs:94:1
+   |
+94 | / pub struct C2RustUnnamed_0 {
+95 | |     pub compare: CompareFctn,
+96 | |     pub column: i32,
+97 | |     pub reversed: i32,
+98 | | }
+   | |_^
+
+error: unsafe block missing a safety comment
+   --> src/main.rs:107:5
+    |
+107 |     unsafe {
+    |     ^^^^^^^^
+    |
+    = help: consider adding a safety comment on the preceding line
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+    = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
+
+error: used `expect()` on an `Option` value
+   --> src/main.rs:121:16
+    |
+121 |         return (sortSpec.compare).expect("non-null function pointer")(left, right);
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: if this value is `None`, it will panic
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#expect_used
+    = note: requested on the command line with `-D clippy::expect-used`
+
+error: unsafe function's docs miss `# Safety` section
+   --> src/main.rs:126:1
+    |
+126 | pub unsafe extern "C" fn sortTable(mut tbl: Table, mut argSpec: *const i8, mut args: ...) -> i32 {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#missing_safety_doc
+    = note: requested on the command line with `-D clippy::missing-safety-doc`
+
+error: unsafe block missing a safety comment
+   --> src/main.rs:171:5
+    |
+171 |     unsafe {
+    |     ^^^^^^^^
+    |
+    = help: consider adding a safety comment on the preceding line
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: unsafe block missing a safety comment
+   --> src/main.rs:202:5
+    |
+202 |     unsafe {
+    |     ^^^^^^^^
+    |
+    = help: consider adding a safety comment on the preceding line
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: unsafe block missing a safety comment
+   --> src/main.rs:333:5
+    |
+333 |     unsafe {
+    |     ^^^^^^^^
+    |
+    = help: consider adding a safety comment on the preceding line
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: unsafe block missing a safety comment
+   --> src/main.rs:337:5
+    |
+337 |     unsafe {
+    |     ^^^^^^^^
+    |
+    = help: consider adding a safety comment on the preceding line
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: unsafe block missing a safety comment
+   --> src/main.rs:347:5
+    |
+347 |     unsafe {
+    |     ^^^^^^^^
+    |
+    = help: consider adding a safety comment on the preceding line
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: unsafe block missing a safety comment
+   --> src/main.rs:356:5
+    |
+356 |     unsafe {
+    |     ^^^^^^^^
+    |
+    = help: consider adding a safety comment on the preceding line
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: unsafe block missing a safety comment
+   --> src/main.rs:366:5
+    |
+366 |     unsafe {
+    |     ^^^^^^^^
+    |
+    = help: consider adding a safety comment on the preceding line
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: could not compile `c2rust_out` (bin "main") due to 14 previous errors

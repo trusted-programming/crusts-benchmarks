@@ -1,0 +1,35 @@
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-22/k_means_clustering)
+error[E0133]: dereference of raw pointer is unsafe and requires unsafe function or block
+  --> src/main.rs:60:22
+   |
+60 |     let mut x: f64 = (*a).x - (*b).x;
+   |                      ^^^^^^ dereference of raw pointer
+   |
+   = note: raw pointers may be null, dangling or unaligned; they can violate aliasing rules and cause data races: all of these are undefined behavior
+
+error[E0133]: dereference of raw pointer is unsafe and requires unsafe function or block
+  --> src/main.rs:60:31
+   |
+60 |     let mut x: f64 = (*a).x - (*b).x;
+   |                               ^^^^^^ dereference of raw pointer
+   |
+   = note: raw pointers may be null, dangling or unaligned; they can violate aliasing rules and cause data races: all of these are undefined behavior
+
+error[E0133]: dereference of raw pointer is unsafe and requires unsafe function or block
+  --> src/main.rs:61:22
+   |
+61 |     let mut y: f64 = (*a).y - (*b).y;
+   |                      ^^^^^^ dereference of raw pointer
+   |
+   = note: raw pointers may be null, dangling or unaligned; they can violate aliasing rules and cause data races: all of these are undefined behavior
+
+error[E0133]: dereference of raw pointer is unsafe and requires unsafe function or block
+  --> src/main.rs:61:31
+   |
+61 |     let mut y: f64 = (*a).y - (*b).y;
+   |                               ^^^^^^ dereference of raw pointer
+   |
+   = note: raw pointers may be null, dangling or unaligned; they can violate aliasing rules and cause data races: all of these are undefined behavior
+
+For more information about this error, try `rustc --explain E0133`.
+error: could not compile `c2rust_out` (bin "main") due to 4 previous errors

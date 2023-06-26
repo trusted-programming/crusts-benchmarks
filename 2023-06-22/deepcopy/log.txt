@@ -1,0 +1,33 @@
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-22/deepcopy)
+error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
+  --> src/main.rs:14:1
+   |
+14 | / pub struct layer1 {
+15 | |     pub a: i32,
+16 | | }
+   | |_^
+   |
+   = note: requested on the command line with `-D missing-debug-implementations`
+
+error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
+  --> src/main.rs:19:1
+   |
+19 | / pub struct layer2 {
+20 | |     pub l1: layer1,
+21 | |     pub b: libc::c_float,
+22 | |     pub c: libc::c_float,
+23 | | }
+   | |_^
+
+error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
+  --> src/main.rs:26:1
+   |
+26 | / pub struct layer3 {
+27 | |     pub l2: layer2,
+28 | |     pub l1: layer1,
+29 | |     pub d: i32,
+30 | |     pub e: i32,
+31 | | }
+   | |_^
+
+error: could not compile `c2rust_out` (bin "main") due to 3 previous errors

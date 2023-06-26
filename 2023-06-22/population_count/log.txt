@@ -1,0 +1,2 @@
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-22/population_count)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.24s

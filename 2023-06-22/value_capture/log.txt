@@ -1,0 +1,58 @@
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-22/value_capture)
+error: this arithmetic operation will overflow
+  --> src/main.rs:28:12
+   |
+28 |     return x * x;
+   |            ^^^^^ attempt to compute `-559038737_i32 * -559038737_i32`, which would overflow
+   |
+   = note: `#[deny(arithmetic_overflow)]` on by default
+
+error: unsafe block missing a safety comment
+  --> src/main.rs:33:5
+   |
+33 |     unsafe {
+   |     ^^^^^^^^
+   |
+   = help: consider adding a safety comment on the preceding line
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+   = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
+
+error: unsafe block missing a safety comment
+  --> src/main.rs:85:5
+   |
+85 |     unsafe {
+   |     ^^^^^^^^
+   |
+   = help: consider adding a safety comment on the preceding line
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: used `expect()` on an `Option` value
+   --> src/main.rs:100:21
+    |
+100 |                     (funcs[i as usize]).expect("non-null function pointer"),
+    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: if this value is `None`, it will panic
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#expect_used
+    = note: requested on the command line with `-D clippy::expect-used`
+
+error: unsafe block missing a safety comment
+   --> src/main.rs:111:5
+    |
+111 |     unsafe {
+    |     ^^^^^^^^
+    |
+    = help: consider adding a safety comment on the preceding line
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: literal out of range for `i32`
+  --> src/main.rs:27:22
+   |
+27 |     let mut x: i32 = 0xdeadbeef;
+   |                      ^^^^^^^^^^
+   |
+   = note: the literal `0xdeadbeef` (decimal `3735928559`) does not fit into the type `i32` and will become `-559038737i32`
+   = help: consider using the type `u32` instead
+   = note: `#[deny(overflowing_literals)]` on by default
+
+error: could not compile `c2rust_out` (bin "main") due to 6 previous errors
