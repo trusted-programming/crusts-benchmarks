@@ -1,0 +1,84 @@
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-27/evaluate_binomial_coefficients)
+error: arithmetic operation that can potentially result in unexpected side-effects
+  --> src/main.rs:21:28
+   |
+21 |         y = x.wrapping_rem(y);
+   |                            ^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+   = note: requested on the command line with `-D clippy::arithmetic-side-effects`
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+  --> src/main.rs:49:27
+   |
+49 |             .wrapping_div(n)
+   |                           ^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+  --> src/main.rs:54:33
+   |
+54 |             nr = n.wrapping_div(g);
+   |                                 ^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+  --> src/main.rs:55:33
+   |
+55 |             dr = d.wrapping_div(g);
+   |                                 ^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+  --> src/main.rs:57:32
+   |
+57 |             r = r.wrapping_div(g);
+   |                                ^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+  --> src/main.rs:58:34
+   |
+58 |             dr = dr.wrapping_div(g);
+   |                                  ^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+  --> src/main.rs:62:31
+   |
+62 |                 .wrapping_div(nr)
+   |                               ^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+  --> src/main.rs:67:32
+   |
+67 |             r = r.wrapping_div(dr);
+   |                                ^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+  --> src/main.rs:74:32
+   |
+74 |             r = r.wrapping_div(d);
+   |                                ^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+
+error: default numeric fallback might occur
+  --> src/main.rs:86:12
+   |
+86 |     return 0;
+   |            ^ help: consider adding suffix: `0_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+   = note: requested on the command line with `-D clippy::default-numeric-fallback`
+
+error: could not compile `c2rust_out` (bin "main") due to 10 previous errors

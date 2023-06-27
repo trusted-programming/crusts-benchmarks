@@ -1,0 +1,204 @@
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-27/proper_divisors)
+error: default numeric fallback might occur
+  --> src/main.rs:17:21
+   |
+17 |         if n % i == 0 {
+   |                     ^ help: consider adding suffix: `0_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+   = note: requested on the command line with `-D clippy::default-numeric-fallback`
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+  --> src/main.rs:17:12
+   |
+17 |         if n % i == 0 {
+   |            ^^^^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+   = note: requested on the command line with `-D clippy::arithmetic-side-effects`
+
+error: default numeric fallback might occur
+  --> src/main.rs:38:15
+   |
+38 |     while n % 2 == 0 {
+   |               ^ help: consider adding suffix: `2_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+  --> src/main.rs:38:20
+   |
+38 |     while n % 2 == 0 {
+   |                    ^ help: consider adding suffix: `0_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+  --> src/main.rs:41:14
+   |
+41 |         n /= 2;
+   |              ^ help: consider adding suffix: `2_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+  --> src/main.rs:43:13
+   |
+43 |     prod *= 1 + count;
+   |             ^ help: consider adding suffix: `1_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+  --> src/main.rs:44:9
+   |
+44 |     i = 3;
+   |         ^ help: consider adding suffix: `3_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+  --> src/main.rs:46:17
+   |
+46 |         count = 0;
+   |                 ^ help: consider adding suffix: `0_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+  --> src/main.rs:47:24
+   |
+47 |         while n % i == 0 {
+   |                        ^ help: consider adding suffix: `0_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+  --> src/main.rs:52:17
+   |
+52 |         prod *= 1 + count;
+   |                 ^ help: consider adding suffix: `1_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+  --> src/main.rs:55:12
+   |
+55 |     if n > 2 {
+   |            ^ help: consider adding suffix: `2_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+  --> src/main.rs:56:17
+   |
+56 |         prod *= 2;
+   |                 ^ help: consider adding suffix: `2_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+  --> src/main.rs:58:19
+   |
+58 |     return prod - 1;
+   |                   ^ help: consider adding suffix: `1_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+  --> src/main.rs:43:5
+   |
+43 |     prod *= 1 + count;
+   |     ^^^^^^^^^^^^^^^^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+  --> src/main.rs:45:11
+   |
+45 |     while i * i <= n {
+   |           ^^^^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+  --> src/main.rs:47:15
+   |
+47 |         while n % i == 0 {
+   |               ^^^^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+  --> src/main.rs:50:13
+   |
+50 |             n /= i;
+   |             ^^^^^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+  --> src/main.rs:52:9
+   |
+52 |         prod *= 1 + count;
+   |         ^^^^^^^^^^^^^^^^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+  --> src/main.rs:56:9
+   |
+56 |         prod *= 2;
+   |         ^^^^^^^^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+  --> src/main.rs:58:12
+   |
+58 |     return prod - 1;
+   |            ^^^^^^^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+
+error: default numeric fallback might occur
+  --> src/main.rs:63:16
+   |
+63 |     while i <= 10 {
+   |                ^^ help: consider adding suffix: `10_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+  --> src/main.rs:65:28
+   |
+65 |         proper_divisors(i, 1 != 0);
+   |                            ^ help: consider adding suffix: `1_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+  --> src/main.rs:65:33
+   |
+65 |         proper_divisors(i, 1 != 0);
+   |                                 ^ help: consider adding suffix: `0_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+  --> src/main.rs:72:18
+   |
+72 |     while i_0 <= 20000 {
+   |                  ^^^^^ help: consider adding suffix: `20_000_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+  --> src/main.rs:82:12
+   |
+82 |     return 0;
+   |            ^ help: consider adding suffix: `0_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: could not compile `c2rust_out` (bin "main") due to 25 previous errors

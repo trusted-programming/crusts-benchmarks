@@ -1,0 +1,171 @@
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-27/ordered_words)
+error: unsafe block missing a safety comment
+  --> src/main.rs:12:5
+   |
+12 |     unsafe {
+   |     ^^^^^^^^
+   |
+   = help: consider adding a safety comment on the preceding line
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+   = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
+
+error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
+  --> src/main.rs:44:1
+   |
+44 | / pub struct _IO_FILE {
+45 | |     pub _flags: i32,
+46 | |     pub _IO_read_ptr: *mut i8,
+47 | |     pub _IO_read_end: *mut i8,
+...  |
+73 | |     pub _unused2: [i8; 20],
+74 | | }
+   | |_^
+   |
+   = note: requested on the command line with `-D missing-debug-implementations`
+
+error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
+  --> src/main.rs:80:1
+   |
+80 | / pub struct Node {
+81 | |     pub word: TWord,
+82 | |     pub next: *mut Node,
+83 | | }
+   | |_^
+
+error: default numeric fallback might occur
+   --> src/main.rs:114:13
+    |
+114 |         i = 0;
+    |             ^ help: consider adding suffix: `0_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+    = note: requested on the command line with `-D clippy::default-numeric-fallback`
+
+error: default numeric fallback might occur
+   --> src/main.rs:119:24
+    |
+119 |                 return 0;
+    |                        ^ help: consider adding suffix: `0_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+   --> src/main.rs:124:16
+    |
+124 |         return 1;
+    |                ^ help: consider adding suffix: `1_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: unsafe block missing a safety comment
+  --> src/main.rs:86:5
+   |
+86 |     unsafe {
+   |     ^^^^^^^^
+   |
+   = help: consider adding a safety comment on the preceding line
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+   --> src/main.rs:116:63
+    |
+116 |             if *word.offset(i as isize) as i32 > *word.offset((i + 1i32) as isize) as i32
+    |                                                               ^^^^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+    = note: requested on the command line with `-D clippy::arithmetic-side-effects`
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+   --> src/main.rs:117:33
+    |
+117 |                 && *word.offset((i + 1i32) as isize) as i32 != '\0' as i32
+    |                                 ^^^^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+
+error: unsafe block missing a safety comment
+   --> src/main.rs:130:5
+    |
+130 |     unsafe {
+    |     ^^^^^^^^
+    |
+    = help: consider adding a safety comment on the preceding line
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: unsafe block missing a safety comment
+   --> src/main.rs:169:5
+    |
+169 |     unsafe {
+    |     ^^^^^^^^
+    |
+    = help: consider adding a safety comment on the preceding line
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: unsafe block missing a safety comment
+   --> src/main.rs:181:5
+    |
+181 |     unsafe {
+    |     ^^^^^^^^
+    |
+    = help: consider adding a safety comment on the preceding line
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: default numeric fallback might occur
+   --> src/main.rs:199:20
+    |
+199 |             return 1;
+    |                    ^ help: consider adding suffix: `1_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+   --> src/main.rs:204:88
+    |
+204 |         while fscanf(fp, b"%99s\n\0" as *const u8 as *const i8, line.as_mut_ptr()) != -1 {
+    |                                                                                        ^ help: consider adding suffix: `1_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+   --> src/main.rs:206:71
+    |
+206 |                 && is_ordered_word(line.as_mut_ptr() as *const i8) != 0
+    |                                                                       ^ help: consider adding suffix: `0_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+   --> src/main.rs:212:71
+    |
+212 |                 && is_ordered_word(line.as_mut_ptr() as *const i8) != 0
+    |                                                                       ^ help: consider adding suffix: `0_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+   --> src/main.rs:219:16
+    |
+219 |         return 0;
+    |                ^ help: consider adding suffix: `0_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: unsafe block missing a safety comment
+   --> src/main.rs:193:5
+    |
+193 |     unsafe {
+    |     ^^^^^^^^
+    |
+    = help: consider adding a safety comment on the preceding line
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: unsafe block missing a safety comment
+   --> src/main.rs:224:5
+    |
+224 |     unsafe {
+    |     ^^^^^^^^
+    |
+    = help: consider adding a safety comment on the preceding line
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: could not compile `c2rust_out` (bin "main") due to 19 previous errors

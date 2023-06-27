@@ -1,0 +1,52 @@
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-27/multiplication_tables)
+error: default numeric fallback might occur
+  --> src/main.rs:16:9
+   |
+16 |     j = 1;
+   |         ^ help: consider adding suffix: `1_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+   = note: requested on the command line with `-D clippy::default-numeric-fallback`
+
+error: default numeric fallback might occur
+  --> src/main.rs:26:9
+   |
+26 |     j = 0;
+   |         ^ help: consider adding suffix: `0_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+  --> src/main.rs:36:9
+   |
+36 |     i = 1;
+   |         ^ help: consider adding suffix: `1_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+  --> src/main.rs:38:13
+   |
+38 |         j = 1;
+   |             ^ help: consider adding suffix: `1_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+  --> src/main.rs:52:12
+   |
+52 |     return 0;
+   |            ^ help: consider adding suffix: `0_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+  --> src/main.rs:43:33
+   |
+43 |                 print!("{:3} ", i * j)
+   |                                 ^^^^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+   = note: requested on the command line with `-D clippy::arithmetic-side-effects`
+
+error: could not compile `c2rust_out` (bin "main") due to 6 previous errors

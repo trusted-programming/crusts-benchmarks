@@ -1,0 +1,35 @@
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-27/n_plus_one_half)
+error: default numeric fallback might occur
+  --> src/main.rs:14:9
+   |
+14 |     i = 1;
+   |         ^ help: consider adding suffix: `1_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+   = note: requested on the command line with `-D clippy::default-numeric-fallback`
+
+error: default numeric fallback might occur
+  --> src/main.rs:15:16
+   |
+15 |     while i <= 10 {
+   |                ^^ help: consider adding suffix: `10_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+  --> src/main.rs:17:17
+   |
+17 |         if i == 10 {
+   |                 ^^ help: consider adding suffix: `10_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+  --> src/main.rs:25:12
+   |
+25 |     return 0;
+   |            ^ help: consider adding suffix: `0_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: could not compile `c2rust_out` (bin "main") due to 4 previous errors

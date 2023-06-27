@@ -1,0 +1,392 @@
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-27/dining_philosophers)
+error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
+  --> src/main.rs:40:1
+   |
+40 | / pub struct __va_list_tag {
+41 | |     pub gp_offset: u32,
+42 | |     pub fp_offset: u32,
+43 | |     pub overflow_arg_area: *mut libc::c_void,
+44 | |     pub reg_save_area: *mut libc::c_void,
+45 | | }
+   | |_^
+   |
+   = note: requested on the command line with `-D missing-debug-implementations`
+
+error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
+  --> src/main.rs:48:1
+   |
+48 | / pub struct __pthread_internal_list {
+49 | |     pub __prev: *mut __pthread_internal_list,
+50 | |     pub __next: *mut __pthread_internal_list,
+51 | | }
+   | |_^
+
+error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
+  --> src/main.rs:55:1
+   |
+55 | / pub struct __pthread_mutex_s {
+56 | |     pub __lock: i32,
+57 | |     pub __count: u32,
+58 | |     pub __owner: i32,
+...  |
+63 | |     pub __list: __pthread_list_t,
+64 | | }
+   | |_^
+
+error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
+  --> src/main.rs:67:1
+   |
+67 | / pub union pthread_mutexattr_t {
+68 | |     pub __size: [i8; 4],
+69 | |     pub __align: i32,
+70 | | }
+   | |_^
+
+error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
+  --> src/main.rs:73:1
+   |
+73 | / pub union pthread_attr_t {
+74 | |     pub __size: [i8; 56],
+75 | |     pub __align: i64,
+76 | | }
+   | |_^
+
+error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
+  --> src/main.rs:79:1
+   |
+79 | / pub union pthread_mutex_t {
+80 | |     pub __data: __pthread_mutex_s,
+81 | |     pub __size: [i8; 40],
+82 | |     pub __align: i64,
+83 | | }
+   | |_^
+
+error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
+   --> src/main.rs:95:1
+    |
+95  | / pub struct _IO_FILE {
+96  | |     pub _flags: i32,
+97  | |     pub _IO_read_ptr: *mut i8,
+98  | |     pub _IO_read_end: *mut i8,
+...   |
+124 | |     pub _unused2: [i8; 20],
+125 | | }
+    | |_^
+
+error: unsafe function's docs miss `# Safety` section
+   --> src/main.rs:161:1
+    |
+161 | pub unsafe extern "C" fn print(mut y: i32, mut x: i32, mut fmt: *const i8, mut args: ...) {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#missing_safety_doc
+    = note: requested on the command line with `-D clippy::missing-safety-doc`
+
+error: default numeric fallback might occur
+   --> src/main.rs:186:31
+    |
+186 |     print!("\x1B[{};{}H", y + 1, x);
+    |                               ^ help: consider adding suffix: `1_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+    = note: requested on the command line with `-D clippy::default-numeric-fallback`
+
+error: default numeric fallback might occur
+   --> src/main.rs:188:27
+    |
+188 |     print!("\x1B[{};{}H", 5 + 1, 1);
+    |                           ^ help: consider adding suffix: `5_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+   --> src/main.rs:188:31
+    |
+188 |     print!("\x1B[{};{}H", 5 + 1, 1);
+    |                               ^ help: consider adding suffix: `1_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+   --> src/main.rs:188:34
+    |
+188 |     print!("\x1B[{};{}H", 5 + 1, 1);
+    |                                  ^ help: consider adding suffix: `1_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+   --> src/main.rs:186:27
+    |
+186 |     print!("\x1B[{};{}H", y + 1, x);
+    |                           ^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+    = note: requested on the command line with `-D clippy::arithmetic-side-effects`
+
+error: default numeric fallback might occur
+   --> src/main.rs:200:37
+    |
+200 |     f[(id & 1i32) as usize] = (id + 1) % 5;
+    |                                     ^ help: consider adding suffix: `1_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+   --> src/main.rs:200:42
+    |
+200 |     f[(id & 1i32) as usize] = (id + 1) % 5;
+    |                                          ^ help: consider adding suffix: `5_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+   --> src/main.rs:209:9
+    |
+209 |     i = 0;
+    |         ^ help: consider adding suffix: `0_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+   --> src/main.rs:211:19
+    |
+211 |         while i < 2 {
+    |                   ^ help: consider adding suffix: `2_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+   --> src/main.rs:213:21
+    |
+213 |             if i == 0 {
+    |                     ^ help: consider adding suffix: `0_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+   --> src/main.rs:227:9
+    |
+227 |     i = 0;
+    |         ^ help: consider adding suffix: `0_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+   --> src/main.rs:229:18
+    |
+229 |         ration = 3 + rand() % 8;
+    |                  ^ help: consider adding suffix: `3_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+   --> src/main.rs:229:31
+    |
+229 |         ration = 3 + rand() % 8;
+    |                               ^ help: consider adding suffix: `8_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+   --> src/main.rs:237:9
+    |
+237 |     i = 0;
+    |         ^ help: consider adding suffix: `0_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+   --> src/main.rs:239:19
+    |
+239 |         while i < 2 {
+    |                   ^ help: consider adding suffix: `2_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+   --> src/main.rs:200:31
+    |
+200 |     f[(id & 1i32) as usize] = (id + 1) % 5;
+    |                               ^^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+
+error: unsafe block missing a safety comment
+   --> src/main.rs:201:5
+    |
+201 |     unsafe {
+    |     ^^^^^^^^
+    |
+    = help: consider adding a safety comment on the preceding line
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+    = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
+
+error: unsafe block missing a safety comment
+   --> src/main.rs:210:5
+    |
+210 |     unsafe {
+    |     ^^^^^^^^
+    |
+    = help: consider adding a safety comment on the preceding line
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+   --> src/main.rs:218:17
+    |
+218 |                 12 + (f[i as usize] != id) as i32 * 6,
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+
+error: unsafe block missing a safety comment
+   --> src/main.rs:228:5
+    |
+228 |     unsafe {
+    |     ^^^^^^^^
+    |
+    = help: consider adding a safety comment on the preceding line
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+   --> src/main.rs:229:18
+    |
+229 |         ration = 3 + rand() % 8;
+    |                  ^^^^^^^^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+   --> src/main.rs:231:23
+    |
+231 |             print(id, 24 + i * 4, b"nom\0" as *const u8 as *const i8);
+    |                       ^^^^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+
+error: unsafe block missing a safety comment
+   --> src/main.rs:238:5
+    |
+238 |     unsafe {
+    |     ^^^^^^^^
+    |
+    = help: consider adding a safety comment on the preceding line
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: default numeric fallback might occur
+   --> src/main.rs:255:26
+    |
+255 |             t = rand() % 5;
+    |                          ^ help: consider adding suffix: `5_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+   --> src/main.rs:261:17
+    |
+261 |             i = 0;
+    |                 ^ help: consider adding suffix: `0_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+   --> src/main.rs:269:24
+    |
+269 |                 if i < 5 {
+    |                        ^ help: consider adding suffix: `5_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+   --> src/main.rs:276:23
+    |
+276 |             if !(t != 0) {
+    |                       ^ help: consider adding suffix: `0_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: unsafe block missing a safety comment
+   --> src/main.rs:252:5
+    |
+252 |     unsafe {
+    |     ^^^^^^^^
+    |
+    = help: consider adding a safety comment on the preceding line
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+   --> src/main.rs:265:21
+    |
+265 |                     i + 12,
+    |                     ^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+   --> src/main.rs:275:20
+    |
+275 |             usleep((500000 + rand() % 1000000i32) as u32);
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+
+error: unsafe block missing a safety comment
+   --> src/main.rs:285:5
+    |
+285 |     unsafe {
+    |     ^^^^^^^^
+    |
+    = help: consider adding a safety comment on the preceding line
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: default numeric fallback might occur
+   --> src/main.rs:304:9
+    |
+304 |     i = 0;
+    |         ^ help: consider adding suffix: `0_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+   --> src/main.rs:306:19
+    |
+306 |         while i < 5 {
+    |                   ^ help: consider adding suffix: `5_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+   --> src/main.rs:316:9
+    |
+316 |     i = 0;
+    |         ^ help: consider adding suffix: `0_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+   --> src/main.rs:318:19
+    |
+318 |         while i < 5 {
+    |                   ^ help: consider adding suffix: `5_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: unsafe block missing a safety comment
+   --> src/main.rs:305:5
+    |
+305 |     unsafe {
+    |     ^^^^^^^^
+    |
+    = help: consider adding a safety comment on the preceding line
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: unsafe block missing a safety comment
+   --> src/main.rs:317:5
+    |
+317 |     unsafe {
+    |     ^^^^^^^^
+    |
+    = help: consider adding a safety comment on the preceding line
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: could not compile `c2rust_out` (bin "main") due to 45 previous errors

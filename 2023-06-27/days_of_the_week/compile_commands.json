@@ -1,0 +1,11 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "main.c"
+    ],
+    "directory": "/home/c00834010/dev/crusts-benchmarks/2023-06-27/days_of_the_week",
+    "file": "/home/c00834010/dev/crusts-benchmarks/2023-06-27/days_of_the_week/main.c"
+  }
+]

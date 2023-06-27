@@ -1,0 +1,52 @@
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-27/babbage_problem)
+error: default numeric fallback might occur
+  --> src/main.rs:17:23
+   |
+17 |         if !(square % 1000000 != 269696 && square < 2147483647) {
+   |                       ^^^^^^^ help: consider adding suffix: `1_000_000_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+   = note: requested on the command line with `-D clippy::default-numeric-fallback`
+
+error: default numeric fallback might occur
+  --> src/main.rs:17:34
+   |
+17 |         if !(square % 1000000 != 269696 && square < 2147483647) {
+   |                                  ^^^^^^ help: consider adding suffix: `269_696_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+  --> src/main.rs:17:53
+   |
+17 |         if !(square % 1000000 != 269696 && square < 2147483647) {
+   |                                                     ^^^^^^^^^^ help: consider adding suffix: `2_147_483_647_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+  --> src/main.rs:23:17
+   |
+23 |     if square > 2147483647 {
+   |                 ^^^^^^^^^^ help: consider adding suffix: `2_147_483_647_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+  --> src/main.rs:31:12
+   |
+31 |     return 0;
+   |            ^ help: consider adding suffix: `0_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+  --> src/main.rs:16:18
+   |
+16 |         square = current * current;
+   |                  ^^^^^^^^^^^^^^^^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+   = note: requested on the command line with `-D clippy::arithmetic-side-effects`
+
+error: could not compile `c2rust_out` (bin "main") due to 6 previous errors

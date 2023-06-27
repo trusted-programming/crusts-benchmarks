@@ -1,0 +1,9 @@
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-27/calculate_pi)
+error[E0425]: cannot find function `mpf_set_default_prec` in this scope
+  --> src/main.rs:15:5
+   |
+15 |     mpf_set_default_prec(300000);
+   |     ^^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `c2rust_out` (bin "main") due to previous error

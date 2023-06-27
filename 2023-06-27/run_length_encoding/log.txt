@@ -1,0 +1,86 @@
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-27/run_length_encoding)
+error[E0133]: dereference of raw pointer is unsafe and requires unsafe function or block
+   --> src/main.rs:185:13
+    |
+185 |         c = ((*in_0).get).expect("non-null function pointer")(in_0);
+    |             ^^^^^^^^^^^^^ dereference of raw pointer
+    |
+    = note: raw pointers may be null, dangling or unaligned; they can violate aliasing rules and cause data races: all of these are undefined behavior
+
+error[E0133]: call to unsafe function is unsafe and requires unsafe function or block
+   --> src/main.rs:185:13
+    |
+185 |         c = ((*in_0).get).expect("non-null function pointer")(in_0);
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ call to unsafe function
+    |
+    = note: consult the function's documentation for information on how to avoid undefined behavior
+
+error[E0133]: dereference of raw pointer is unsafe and requires unsafe function or block
+   --> src/main.rs:193:17
+    |
+193 |                 ((*out).put).expect("non-null function pointer")(
+    |                 ^^^^^^^^^^^^ dereference of raw pointer
+    |
+    = note: raw pointers may be null, dangling or unaligned; they can violate aliasing rules and cause data races: all of these are undefined behavior
+
+error[E0133]: dereference of raw pointer is unsafe and requires unsafe function or block
+   --> src/main.rs:195:21
+    |
+195 |                     ((*in_0).get).expect("non-null function pointer")(in_0),
+    |                     ^^^^^^^^^^^^^ dereference of raw pointer
+    |
+    = note: raw pointers may be null, dangling or unaligned; they can violate aliasing rules and cause data races: all of these are undefined behavior
+
+error[E0133]: call to unsafe function is unsafe and requires unsafe function or block
+   --> src/main.rs:195:21
+    |
+195 |                     ((*in_0).get).expect("non-null function pointer")(in_0),
+    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ call to unsafe function
+    |
+    = note: consult the function's documentation for information on how to avoid undefined behavior
+
+error[E0133]: call to unsafe function is unsafe and requires unsafe function or block
+   --> src/main.rs:193:17
+    |
+193 | /                 ((*out).put).expect("non-null function pointer")(
+194 | |                     out,
+195 | |                     ((*in_0).get).expect("non-null function pointer")(in_0),
+196 | |                 );
+    | |_________________^ call to unsafe function
+    |
+    = note: consult the function's documentation for information on how to avoid undefined behavior
+
+error[E0133]: dereference of raw pointer is unsafe and requires unsafe function or block
+   --> src/main.rs:202:17
+    |
+202 |             c = ((*in_0).get).expect("non-null function pointer")(in_0);
+    |                 ^^^^^^^^^^^^^ dereference of raw pointer
+    |
+    = note: raw pointers may be null, dangling or unaligned; they can violate aliasing rules and cause data races: all of these are undefined behavior
+
+error[E0133]: call to unsafe function is unsafe and requires unsafe function or block
+   --> src/main.rs:202:17
+    |
+202 |             c = ((*in_0).get).expect("non-null function pointer")(in_0);
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ call to unsafe function
+    |
+    = note: consult the function's documentation for information on how to avoid undefined behavior
+
+error[E0133]: dereference of raw pointer is unsafe and requires unsafe function or block
+   --> src/main.rs:205:17
+    |
+205 |                 ((*out).put).expect("non-null function pointer")(out, c);
+    |                 ^^^^^^^^^^^^ dereference of raw pointer
+    |
+    = note: raw pointers may be null, dangling or unaligned; they can violate aliasing rules and cause data races: all of these are undefined behavior
+
+error[E0133]: call to unsafe function is unsafe and requires unsafe function or block
+   --> src/main.rs:205:17
+    |
+205 |                 ((*out).put).expect("non-null function pointer")(out, c);
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ call to unsafe function
+    |
+    = note: consult the function's documentation for information on how to avoid undefined behavior
+
+For more information about this error, try `rustc --explain E0133`.
+error: could not compile `c2rust_out` (bin "main") due to 10 previous errors

@@ -1,0 +1,11 @@
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-27/modular_exponentiation)
+error: default numeric fallback might occur
+  --> src/main.rs:12:12
+   |
+12 |     return 0;
+   |            ^ help: consider adding suffix: `0_i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+   = note: requested on the command line with `-D clippy::default-numeric-fallback`
+
+error: could not compile `c2rust_out` (bin "main") due to previous error

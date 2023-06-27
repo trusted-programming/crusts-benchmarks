@@ -1,0 +1,330 @@
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-27/numerical_integration)
+error: unsafe block missing a safety comment
+  --> src/main.rs:11:5
+   |
+11 |     unsafe {
+   |     ^^^^^^^^
+   |
+   = help: consider adding a safety comment on the preceding line
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+   = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
+
+error: unsafe block missing a safety comment
+  --> src/main.rs:39:5
+   |
+39 |     unsafe {
+   |     ^^^^^^^^
+   |
+   = help: consider adding a safety comment on the preceding line
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: used `expect()` on an `Option` value
+  --> src/main.rs:42:17
+   |
+42 |                 func.expect("non-null function pointer"),
+   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: if this value is `None`, it will panic
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#expect_used
+   = note: requested on the command line with `-D clippy::expect-used`
+
+error: unsafe block missing a safety comment
+  --> src/main.rs:61:5
+   |
+61 |     unsafe {
+   |     ^^^^^^^^
+   |
+   = help: consider adding a safety comment on the preceding line
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: used `expect()` on an `Option` value
+  --> src/main.rs:64:17
+   |
+64 |                 func.expect("non-null function pointer"),
+   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: if this value is `None`, it will panic
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#expect_used
+
+error: unsafe block missing a safety comment
+  --> src/main.rs:83:5
+   |
+83 |     unsafe {
+   |     ^^^^^^^^
+   |
+   = help: consider adding a safety comment on the preceding line
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: used `expect()` on an `Option` value
+  --> src/main.rs:86:17
+   |
+86 |                 func.expect("non-null function pointer"),
+   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: if this value is `None`, it will panic
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#expect_used
+
+error: default numeric fallback might occur
+   --> src/main.rs:110:13
+    |
+110 |         i = 1;
+    |             ^ help: consider adding suffix: `1_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+    = note: requested on the command line with `-D clippy::default-numeric-fallback`
+
+error: unsafe block missing a safety comment
+   --> src/main.rs:102:5
+    |
+102 |     unsafe {
+    |     ^^^^^^^^
+    |
+    = help: consider adding a safety comment on the preceding line
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: used `expect()` on an `Option` value
+   --> src/main.rs:104:13
+    |
+104 |             func.expect("non-null function pointer"),
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: if this value is `None`, it will panic
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#expect_used
+
+error: used `expect()` on an `Option` value
+   --> src/main.rs:106:57
+    |
+106 |             + ::core::mem::transmute::<_, fn(_) -> f64>(func.expect("non-null function pointer"))(
+    |                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: if this value is `None`, it will panic
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#expect_used
+
+error: used `expect()` on an `Option` value
+   --> src/main.rs:114:21
+    |
+114 |                     func.expect("non-null function pointer"),
+    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: if this value is `None`, it will panic
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#expect_used
+
+error: default numeric fallback might occur
+   --> src/main.rs:135:9
+    |
+135 |     i = 0;
+    |         ^ help: consider adding suffix: `0_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+   --> src/main.rs:145:9
+    |
+145 |     i = 1;
+    |         ^ help: consider adding suffix: `1_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: unsafe block missing a safety comment
+   --> src/main.rs:136:5
+    |
+136 |     unsafe {
+    |     ^^^^^^^^
+    |
+    = help: consider adding a safety comment on the preceding line
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: used `expect()` on an `Option` value
+   --> src/main.rs:139:17
+    |
+139 |                 func.expect("non-null function pointer"),
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: if this value is `None`, it will panic
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#expect_used
+
+error: unsafe block missing a safety comment
+   --> src/main.rs:146:5
+    |
+146 |     unsafe {
+    |     ^^^^^^^^
+    |
+    = help: consider adding a safety comment on the preceding line
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: used `expect()` on an `Option` value
+   --> src/main.rs:149:17
+    |
+149 |                 func.expect("non-null function pointer"),
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: if this value is `None`, it will panic
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#expect_used
+
+error: used `expect()` on an `Option` value
+   --> src/main.rs:156:17
+    |
+156 |                 func.expect("non-null function pointer"),
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: if this value is `None`, it will panic
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#expect_used
+
+error: used `expect()` on an `Option` value
+   --> src/main.rs:159:21
+    |
+159 |                     func.expect("non-null function pointer"),
+    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: if this value is `None`, it will panic
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#expect_used
+
+error: unsafe block missing a safety comment
+   --> src/main.rs:183:5
+    |
+183 |     unsafe {
+    |     ^^^^^^^^
+    |
+    = help: consider adding a safety comment on the preceding line
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: default numeric fallback might occur
+   --> src/main.rs:273:13
+    |
+273 |         j = 0;
+    |             ^ help: consider adding suffix: `0_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+   --> src/main.rs:278:17
+    |
+278 |             i = 0;
+    |                 ^ help: consider adding suffix: `0_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+   --> src/main.rs:279:23
+    |
+279 |             while i < 5 {
+    |                       ^ help: consider adding suffix: `5_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: default numeric fallback might occur
+   --> src/main.rs:315:12
+    |
+315 |     return 0;
+    |            ^ help: consider adding suffix: `0_i32`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#default_numeric_fallback
+
+error: unsafe block missing a safety comment
+   --> src/main.rs:202:5
+    |
+202 |     unsafe {
+    |     ^^^^^^^^
+    |
+    = help: consider adding a safety comment on the preceding line
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
+
+error: used `expect()` on an `Option` value
+   --> src/main.rs:280:22
+    |
+280 |                   ic = (Some(
+    |  ______________________^
+281 | |                     (*f.as_mut_ptr().offset(i as isize)).expect("non-null function pointer"),
+282 | |                 ))
+283 | |                 .expect("non-null function pointer")(
+    | |____________________________________________________^
+    |
+    = help: if this value is `None`, it will panic
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#expect_used
+
+error: used `expect()` on an `Option` value
+   --> src/main.rs:281:21
+    |
+281 |                     (*f.as_mut_ptr().offset(i as isize)).expect("non-null function pointer"),
+    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: if this value is `None`, it will panic
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#expect_used
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+   --> src/main.rs:284:27
+    |
+284 |                     ivals[(2 * j) as usize],
+    |                           ^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+    = note: requested on the command line with `-D clippy::arithmetic-side-effects`
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+   --> src/main.rs:285:27
+    |
+285 |                     ivals[(2 * j + 1i32) as usize],
+    |                           ^^^^^^^^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+
+error: used `expect()` on an `Option` value
+   --> src/main.rs:295:21
+    |
+295 | /                     (Some(
+296 | |                         (*If.as_mut_ptr().offset(j as isize)).expect("non-null function pointer")
+297 | |                     ))
+298 | |                     .expect("non-null function pointer")(
+    | |________________________________________________________^
+    |
+    = help: if this value is `None`, it will panic
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#expect_used
+
+error: used `expect()` on an `Option` value
+   --> src/main.rs:296:25
+    |
+296 |                         (*If.as_mut_ptr().offset(j as isize)).expect("non-null function pointer")
+    |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: if this value is `None`, it will panic
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#expect_used
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+   --> src/main.rs:299:31
+    |
+299 |                         ivals[(2 * j + 1i32) as usize]
+    |                               ^^^^^^^^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+
+error: used `expect()` on an `Option` value
+   --> src/main.rs:300:25
+    |
+300 |                       ) - (Some(
+    |  _________________________^
+301 | |                         (*If.as_mut_ptr().offset(j as isize)).expect("non-null function pointer"),
+302 | |                     ))
+303 | |                     .expect("non-null function pointer")(
+    | |________________________________________________________^
+    |
+    = help: if this value is `None`, it will panic
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#expect_used
+
+error: used `expect()` on an `Option` value
+   --> src/main.rs:301:25
+    |
+301 |                         (*If.as_mut_ptr().offset(j as isize)).expect("non-null function pointer"),
+    |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: if this value is `None`, it will panic
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#expect_used
+
+error: arithmetic operation that can potentially result in unexpected side-effects
+   --> src/main.rs:304:31
+    |
+304 |                         ivals[(2 * j) as usize]
+    |                               ^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
+
+error: could not compile `c2rust_out` (bin "main") due to 36 previous errors
