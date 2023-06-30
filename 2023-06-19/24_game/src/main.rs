@@ -217,7 +217,7 @@ pub extern "C" fn new_expr() -> expr {
             let fresh0 = pool_ptr;
             pool_ptr = pool_ptr + 1;
             return pool.as_mut_ptr().offset(fresh0 as isize);
-        }
+        };
     }
     return 0 as expr;
 }
@@ -241,7 +241,7 @@ pub extern "C" fn take() -> i32 {
         if str[pos as usize] as i32 != '\0' as i32 {
             pos += 1;
             return pos;
-        }
+        };
     }
     return 0;
 }
@@ -331,7 +331,7 @@ pub extern "C" fn get_digit() -> expr {
                 i;
             }
             bail(b"Invalid digit\0" as *const u8 as *const i8);
-        }
+        };
     }
     return 0 as expr;
 }

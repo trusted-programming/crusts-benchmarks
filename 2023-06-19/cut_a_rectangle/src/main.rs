@@ -101,7 +101,7 @@ pub extern "C" fn solve(mut hh: i32, mut ww: i32, mut recur: i32) -> u64 {
         next[3 as usize] = w + 1;
         if recur != 0 {
             cnt = 0;
-        }
+        };
     }
     x = cx + 1;
     unsafe {

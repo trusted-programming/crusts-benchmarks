@@ -31,7 +31,9 @@ pub type StatObject = *mut stat_obj_struct;
 pub extern "C" fn NewStatObject(mut action: u32) -> StatObject {
     let mut so: StatObject = 0 as *mut stat_obj_struct;
     unsafe {
-        so = malloc(::core::mem::size_of::<sStatObject>() as u64) as StatObject;
+        unsafe {
+            so = malloc(::core::mem::size_of::<sStatObject>() as u64) as StatObject;
+        };
     }
     (*so).sum = 0.0f64;
     (*so).sum2 = 0.0f64;

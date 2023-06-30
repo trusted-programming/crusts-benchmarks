@@ -20,7 +20,7 @@ pub extern "C" fn coef(mut n: i32) {
     unsafe {
         if n < 0 || n > 63 {
             abort();
-        }
+        };
     }
     i = 0;
     unsafe {

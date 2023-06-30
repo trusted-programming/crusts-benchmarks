@@ -54,15 +54,18 @@ pub extern "C" fn update(mut x: integ) {
     let mut t: f64 = 0.;
     let mut v: f64 = 0.;
     unsafe {
-        let mut f: Option<unsafe extern "C" fn(f64) -> f64> = None;
-        f = (*x).func;
-        gettimeofday(&mut tv, 0 as *mut libc::c_void);
-        t = ((tv.tv_sec - (*x).start.tv_sec) * 1000000 + tv.tv_usec - (*x).start.tv_usec) as f64
-            * 1e-6f64;
-        v = if f.is_some() {
-            f.expect("non-null function pointer")(t)
-        } else {
-            0 as f64
+        unsafe {
+            let mut f: Option<unsafe extern "C" fn(f64) -> f64> = None;
+            f = (*x).func;
+            gettimeofday(&mut tv, 0 as *mut libc::c_void);
+            t = ((tv.tv_sec - (*x).start.tv_sec) * 1000000 + tv.tv_usec - (*x).start.tv_usec)
+                as f64
+                * 1e-6f64;
+            v = if f.is_some() {
+                f.expect("non-null function pointer")(t)
+            } else {
+                0 as f64
+            };
         };
     }
     (*x).v += ((*x).last_v + v) * (t - (*x).last_t) / 2 as f64;
@@ -84,7 +87,9 @@ pub extern "C" fn tick(mut a: *mut libc::c_void) -> *mut libc::c_void {
 pub extern "C" fn set_input(mut x: integ, mut func: Option<unsafe extern "C" fn(f64) -> f64>) {
     update(x);
     unsafe {
-        (*x).func = func;
+        unsafe {
+            (*x).func = func;
+        };
     }
     (*x).last_t = 0 as f64;
     unsafe {

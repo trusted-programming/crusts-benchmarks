@@ -102,7 +102,7 @@ pub extern "C" fn update(mut player: *mut i8, mut move_0: i32) {
                 "The winner is {}.\n\n",
                 build_str_from_raw_ptr(player as *mut u8)
             );
-        }
+        };
     }
 }
 
@@ -145,7 +145,7 @@ pub extern "C" fn human() {
     unsafe {
         if move_0 == 0 {
             exit(0);
-        }
+        };
     }
     update(b"human\0" as *const u8 as *const i8 as *mut i8, move_0);
 }

@@ -72,7 +72,7 @@ pub extern "C" fn Game_update(mut move_0: u32) -> i32 {
             holeRow = i;
             holeCollumn = j;
             return 1;
-        }
+        };
     }
     return 0;
 }

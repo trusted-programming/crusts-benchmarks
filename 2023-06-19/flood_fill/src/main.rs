@@ -77,13 +77,15 @@ pub extern "C" fn floodFill(mut i: i32, mut j: i32) {
             floodFill(i + 1, j);
             floodFill(i, j - 1);
             floodFill(i, j + 1);
-        }
+        };
     }
 }
 
 #[no_mangle]
 pub extern "C" fn skipLine(mut file: *mut FILE) {
-    unsafe { while ferror(file) == 0 && feof(file) == 0 && fgetc(file) != '\n' as i32 {} }
+    unsafe {
+        while ferror(file) == 0 && feof(file) == 0 && fgetc(file) != '\n' as i32 {}
+    }
 }
 
 #[no_mangle]

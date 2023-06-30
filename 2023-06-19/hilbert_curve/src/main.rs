@@ -27,7 +27,7 @@ pub extern "C" fn rot(mut n: i32, mut p: *mut point, mut rx: i32, mut ry: i32) {
             t = (*p).x;
             (*p).x = (*p).y;
             (*p).y = t;
-        }
+        };
     }
 }
 

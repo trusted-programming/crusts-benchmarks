@@ -1,0 +1,11 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "main.c"
+    ],
+    "directory": "/home/c00834010/dev/crusts-benchmarks/2023-06-30/repeat_a_string",
+    "file": "/home/c00834010/dev/crusts-benchmarks/2023-06-30/repeat_a_string/main.c"
+  }
+]

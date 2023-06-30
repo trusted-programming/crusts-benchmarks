@@ -1,9 +1,0 @@
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-27/jacobi_symbol)
-error[E0601]: `main` function not found in crate `main`
- --> src/main.rs:1:2
-  |
-1 |
-  |  ^ consider adding a `main` function to `src/main.rs`
-
-For more information about this error, try `rustc --explain E0601`.
-error: could not compile `c2rust_out` (bin "main") due to previous error

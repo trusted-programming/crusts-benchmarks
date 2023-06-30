@@ -124,7 +124,7 @@ pub extern "C" fn do_draw() {
         print!("\x1B[2J\x1B[HScore: {}", game.total_score);
         if game.score_last_move != 0 {
             print!(" (+{})", game.score_last_move);
-        }
+        };
     }
     print!("\n");
     let mut i: i32 = 0;

@@ -141,7 +141,7 @@ pub extern "C" fn adjust_balance(mut rootp: *mut *mut node) {
         }
         if root != nnil {
             set_height(root);
-        }
+        };
     }
 }
 
@@ -175,7 +175,7 @@ pub extern "C" fn insert(mut rootp: *mut *mut node, mut value: i32) {
                 value,
             );
             adjust_balance(rootp);
-        }
+        };
     }
 }
 
@@ -246,7 +246,7 @@ pub extern "C" fn show_tree(mut root: *mut node, mut prev: *mut trunk, mut is_le
         show_tree((*root).kid[1 as usize], &mut this_disp, 0);
         if prev.is_null() {
             puts(b"\0" as *const u8 as *const i8);
-        }
+        };
     }
 }
 

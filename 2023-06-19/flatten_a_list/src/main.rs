@@ -130,7 +130,7 @@ pub extern "C" fn flatten(mut from: list, mut to: list) -> list {
                 i += 1;
                 i;
             }
-        }
+        };
     }
     return to;
 }

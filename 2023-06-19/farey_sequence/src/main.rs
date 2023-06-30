@@ -73,7 +73,7 @@ pub extern "C" fn farey_len(mut n: i32) -> u64 {
             );
         } else if *cache.offset(n as isize) != 0 {
             return *cache.offset(n as isize);
-        }
+        };
     }
     let mut len: u64 = (n as u64).wrapping_mul((n + 3i32) as u64).wrapping_div(2);
     let mut p: i32 = 0;
