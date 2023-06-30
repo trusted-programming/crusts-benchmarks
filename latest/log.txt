@@ -1,4 +1,4 @@
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/100_doors)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/100_doors)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:21:13
    |
@@ -25,7 +25,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/100_prisoners)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/100_prisoners)
 error[E0308]: mismatched types
   --> src/main.rs:28:25
    |
@@ -36,7 +36,7 @@ error[E0308]: mismatched types
 
 For more information about this error, try `rustc --explain E0308`.
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/15_puzzle_game)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/15_puzzle_game)
 error[E0308]: mismatched types
   --> src/main.rs:38:25
    |
@@ -47,7 +47,7 @@ error[E0308]: mismatched types
 
 For more information about this error, try `rustc --explain E0308`.
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/2048)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/2048)
 error[E0308]: mismatched types
   --> src/main.rs:38:25
    |
@@ -58,7 +58,7 @@ error[E0308]: mismatched types
 
 For more information about this error, try `rustc --explain E0308`.
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/21_game)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/21_game)
 error[E0308]: mismatched types
   --> src/main.rs:29:25
    |
@@ -69,7 +69,7 @@ error[E0308]: mismatched types
 
 For more information about this error, try `rustc --explain E0308`.
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/24_game)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/24_game)
 error: argument never used
    --> src/main.rs:489:21
     |
@@ -107,7 +107,7 @@ note: associated function defined here
 
 For more information about this error, try `rustc --explain E0308`.
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/4_rings_puzzle)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/4_rings_puzzle)
 error: unsafe block missing a safety comment
   --> src/main.rs:38:5
    |
@@ -180,7 +180,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 8 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/99_bottles_of_beer)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/99_bottles_of_beer)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:16:149
    |
@@ -191,7 +191,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = note: requested on the command line with `-D clippy::arithmetic-side-effects`
 
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/9_billion_names_of_God_the_integer)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/9_billion_names_of_God_the_integer)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:17:26
    |
@@ -202,7 +202,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = note: requested on the command line with `-D clippy::arithmetic-side-effects`
 
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/ABC_problem)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/ABC_problem)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -232,7 +232,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/AKS_test_for_primes)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/AKS_test_for_primes)
 error: unsafe block missing a safety comment
   --> src/main.rs:20:5
    |
@@ -329,7 +329,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 11 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/A_plus_B)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/A_plus_B)
 error: unsafe block missing a safety comment
   --> src/main.rs:17:5
    |
@@ -350,7 +350,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = note: requested on the command line with `-D clippy::arithmetic-side-effects`
 
 error: could not compile `c2rust_out` (bin "main") due to 2 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/abbreviations_automatic)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/abbreviations_automatic)
 error: unsafe block missing a safety comment
   --> src/main.rs:12:5
    |
@@ -403,7 +403,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = note: requested on the command line with `-D clippy::arithmetic-side-effects`
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/abbreviations_easy)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/abbreviations_easy)
 error: unsafe block missing a safety comment
   --> src/main.rs:12:5
    |
@@ -557,7 +557,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 16 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/abbreviations_simple)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/abbreviations_simple)
 error: unsafe block missing a safety comment
   --> src/main.rs:12:5
    |
@@ -702,7 +702,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 15 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/abelian_sandpile_model)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/abelian_sandpile_model)
 error: unsafe block missing a safety comment
   --> src/main.rs:12:5
    |
@@ -870,7 +870,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 19 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/abundant_deficient_and_perfect_number_classifications)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/abundant_deficient_and_perfect_number_classifications)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:24:16
    |
@@ -913,7 +913,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/abundant_odd_numbers)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/abundant_odd_numbers)
 error: unsafe block missing a safety comment
   --> src/main.rs:19:5
    |
@@ -970,7 +970,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 6 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/accumulator_factory)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/accumulator_factory)
 error[E0599]: no method named `wrapping_add` found for type `f64` in the current scope
   --> src/main.rs:16:17
    |
@@ -979,7 +979,7 @@ error[E0599]: no method named `wrapping_add` found for type `f64` in the current
 
 For more information about this error, try `rustc --explain E0599`.
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/ackermann_function)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/ackermann_function)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:18:26
    |
@@ -1014,7 +1014,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 4 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/active_object)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/active_object)
 error[E0133]: dereference of raw pointer is unsafe and requires unsafe function or block
   --> src/main.rs:68:16
    |
@@ -1057,7 +1057,7 @@ error[E0133]: dereference of raw pointer is unsafe and requires unsafe function 
 
 For more information about this error, try `rustc --explain E0133`.
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/aliquot_sequence_classifications)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/aliquot_sequence_classifications)
 error: unsafe block missing a safety comment
   --> src/main.rs:12:5
    |
@@ -1194,7 +1194,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 15 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/almost_prime)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/almost_prime)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:17:20
    |
@@ -1229,7 +1229,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 4 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/amicable_pairs)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/amicable_pairs)
 error: unsafe block missing a safety comment
   --> src/main.rs:16:5
    |
@@ -1277,7 +1277,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/anagrams)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/anagrams)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:28:1
    |
@@ -1385,7 +1385,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 11 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/angle_difference_between_two_bearings)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/angle_difference_between_two_bearings)
 error: unsafe block missing a safety comment
   --> src/main.rs:12:5
    |
@@ -1449,7 +1449,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = note: requested on the command line with `-D clippy::arithmetic-side-effects`
 
 error: could not compile `c2rust_out` (bin "main") due to 6 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/apply_a_callback_to_an_array)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/apply_a_callback_to_an_array)
 error: docs for function which may panic missing `# Panics` section
   --> src/main.rs:17:1
    |
@@ -1489,7 +1489,7 @@ error: used `expect()` on an `Option` value
    = note: requested on the command line with `-D clippy::expect-used`
 
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/apply_a_digital_filter)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/apply_a_digital_filter)
 error: unsafe block missing a safety comment
   --> src/main.rs:12:5
    |
@@ -1620,7 +1620,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 14 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/approximate_equility)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/approximate_equility)
 error: unsafe block missing a safety comment
   --> src/main.rs:17:5
    |
@@ -1660,7 +1660,7 @@ error: approximate value of `f64::consts::PI` found
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#approx_constant
 
 error: could not compile `c2rust_out` (bin "main") due to 4 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/arbitrary_precision_integers)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/arbitrary_precision_integers)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -1681,7 +1681,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 2 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/arithmetic_geometric_mean)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/arithmetic_geometric_mean)
 error: unsafe block missing a safety comment
   --> src/main.rs:22:5
    |
@@ -1711,7 +1711,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/arithmetic_mean)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/arithmetic_mean)
 error: unsafe block missing a safety comment
   --> src/main.rs:14:5
    |
@@ -1742,7 +1742,7 @@ error: approximate value of `f64::consts::PI` found
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#approx_constant
 
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/array_concatenation)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/array_concatenation)
 error: unsafe block missing a safety comment
   --> src/main.rs:24:5
    |
@@ -1763,9 +1763,9 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 2 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/array_length)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.59s
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/assertions)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/array_length)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.56s
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/assertions)
 error: unsafe block missing a safety comment
   --> src/main.rs:22:5
    |
@@ -1777,7 +1777,7 @@ error: unsafe block missing a safety comment
    = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
 
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/atomic_updates)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/atomic_updates)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:30:1
    |
@@ -2011,7 +2011,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 26 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/attractive_numbers)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/attractive_numbers)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:24:11
    |
@@ -2054,7 +2054,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/average_loop_length)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/average_loop_length)
 error[E0308]: mismatched types
   --> src/main.rs:17:25
    |
@@ -2065,7 +2065,7 @@ error[E0308]: mismatched types
 
 For more information about this error, try `rustc --explain E0308`.
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/average_mode)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/average_mode)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:20:1
    |
@@ -2180,7 +2180,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 13 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/avl_tree)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/avl_tree)
 error[E0308]: mismatched types
   --> src/main.rs:28:25
    |
@@ -2191,7 +2191,7 @@ error[E0308]: mismatched types
 
 For more information about this error, try `rustc --explain E0308`.
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/babbage_problem)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/babbage_problem)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:16:18
    |
@@ -2202,7 +2202,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = note: requested on the command line with `-D clippy::arithmetic-side-effects`
 
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/balanced_brackets)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/balanced_brackets)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -2283,7 +2283,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 9 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/bankers_algorithm)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/bankers_algorithm)
 error: unsafe block missing a safety comment
   --> src/main.rs:29:5
    |
@@ -2372,7 +2372,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 10 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/base64_decode_data)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/base64_decode_data)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -2444,7 +2444,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 8 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/bell_numbers)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/bell_numbers)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:18:5
    |
@@ -2524,7 +2524,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 9 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/benfords_law)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/benfords_law)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:26:1
    |
@@ -2629,7 +2629,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 11 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/bernoulli_numbers)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/bernoulli_numbers)
 error[E0425]: cannot find function `main_0` in this scope
   --> src/main.rs:30:26
    |
@@ -2638,7 +2638,7 @@ error[E0425]: cannot find function `main_0` in this scope
 
 For more information about this error, try `rustc --explain E0425`.
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/best_shuffle)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/best_shuffle)
 error: unsafe block missing a safety comment
   --> src/main.rs:12:5
    |
@@ -2711,7 +2711,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 8 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/binary_digits)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/binary_digits)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -2741,7 +2741,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/binary_search)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/binary_search)
 error: unsafe block missing a safety comment
   --> src/main.rs:14:5
    |
@@ -2811,7 +2811,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 8 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/bioinformatics_base_count)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/bioinformatics_base_count)
 error: unsafe block missing a safety comment
   --> src/main.rs:12:5
    |
@@ -2958,7 +2958,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 16 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/bitcoin_address_validation)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/bitcoin_address_validation)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -3006,7 +3006,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/bitwise_io)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/bitwise_io)
 error: unsafe block missing a safety comment
   --> src/main.rs:12:5
    |
@@ -3112,7 +3112,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 11 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/box_the_compass)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/box_the_compass)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -3150,7 +3150,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 4 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/brace_expansion)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/brace_expansion)
 error: unsafe block missing a safety comment
   --> src/main.rs:12:5
    |
@@ -3321,7 +3321,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 18 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/caesar_cipher)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/caesar_cipher)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -3368,7 +3368,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/calculate_pi)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/calculate_pi)
 error[E0425]: cannot find function `mpf_set_default_prec` in this scope
   --> src/main.rs:15:5
    |
@@ -3377,7 +3377,7 @@ error[E0425]: cannot find function `mpf_set_default_prec` in this scope
 
 For more information about this error, try `rustc --explain E0425`.
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/calculating_the_value_of_e)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/calculating_the_value_of_e)
 error: unsafe block missing a safety comment
   --> src/main.rs:16:5
    |
@@ -3425,7 +3425,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/calendar)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/calendar)
 error: unsafe block missing a safety comment
   --> src/main.rs:12:5
    |
@@ -3689,7 +3689,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 30 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/call_a_function_in_a_shared_library)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/call_a_function_in_a_shared_library)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:24:1
    |
@@ -3734,7 +3734,7 @@ error: used `expect()` on an `Option` value
    = note: requested on the command line with `-D clippy::expect-used`
 
 error: could not compile `c2rust_out` (bin "main") due to 4 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/call_an_object_method)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/call_an_object_method)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -3803,7 +3803,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 7 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/canonicalize_cidr)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/canonicalize_cidr)
 error: unsafe block missing a safety comment
   --> src/main.rs:12:5
    |
@@ -3901,7 +3901,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 10 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/carmichael_3_strong_pseudoprimes)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/carmichael_3_strong_pseudoprimes)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:22:31
    |
@@ -3976,7 +3976,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 9 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/cartesian_product_of_two_or_more_lists)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/cartesian_product_of_two_or_more_lists)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -4148,7 +4148,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 20 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/casting_out_nines)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/casting_out_nines)
 error: unsafe block missing a safety comment
   --> src/main.rs:21:5
    |
@@ -4177,7 +4177,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/catalan_numbers)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/catalan_numbers)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:26:39
    |
@@ -4230,7 +4230,7 @@ error: unsafe block missing a safety comment
    = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
 
 error: could not compile `c2rust_out` (bin "main") due to 6 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/catamorphism)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/catamorphism)
 error: docs for function which may panic missing `# Panics` section
   --> src/main.rs:14:1
    |
@@ -4291,7 +4291,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 6 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/chaocipher)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/chaocipher)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -4378,9 +4378,9 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 10 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/character_codes)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.58s
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/check_input_device_is_a_terminal)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/character_codes)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.56s
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/check_input_device_is_a_terminal)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:23:1
    |
@@ -4406,7 +4406,7 @@ error: unsafe block missing a safety comment
    = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
 
 error: could not compile `c2rust_out` (bin "main") due to 2 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/check_output_device_is_a_terminal)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/check_output_device_is_a_terminal)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:23:1
    |
@@ -4432,7 +4432,7 @@ error: unsafe block missing a safety comment
    = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
 
 error: could not compile `c2rust_out` (bin "main") due to 2 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/check_that_file_exists)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/check_that_file_exists)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:16:1
    |
@@ -4476,7 +4476,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 4 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/chinese_remainder_theorem)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/chinese_remainder_theorem)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:23:13
    |
@@ -4545,7 +4545,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 8 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/chinese_zodiac)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/chinese_zodiac)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -4601,7 +4601,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 6 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/cholesky_decomposition)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/cholesky_decomposition)
 error: unsafe block missing a safety comment
   --> src/main.rs:19:5
    |
@@ -4713,7 +4713,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 13 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/circles_of_given_radius_through_two_points)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/circles_of_given_radius_through_two_points)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:17:1
    |
@@ -4770,7 +4770,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 6 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/circular_primes)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/circular_primes)
 error[E0425]: cannot find function `main_0` in this scope
    --> src/main.rs:104:30
     |
@@ -4779,7 +4779,7 @@ error[E0425]: cannot find function `main_0` in this scope
 
 For more information about this error, try `rustc --explain E0425`.
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/combinations)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/combinations)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:16:15
    |
@@ -4824,7 +4824,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/comma_quibbling)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/comma_quibbling)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -4863,7 +4863,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 4 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/command_line_arguments)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/command_line_arguments)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -4904,7 +4904,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = note: requested on the command line with `-D clippy::arithmetic-side-effects`
 
 error: could not compile `c2rust_out` (bin "main") due to 4 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/compile_time_calculation)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/compile_time_calculation)
 error: unsafe block missing a safety comment
   --> src/main.rs:15:5
    |
@@ -4916,7 +4916,7 @@ error: unsafe block missing a safety comment
    = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
 
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/concurrent_computing)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/concurrent_computing)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:28:1
    |
@@ -5046,7 +5046,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 13 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/constrained_random_points_on_a_circle)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/constrained_random_points_on_a_circle)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:16:29
    |
@@ -5115,7 +5115,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 8 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/construct_from_rational_number)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/construct_from_rational_number)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:16:1
    |
@@ -5182,7 +5182,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 7 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/continued_fraction)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/continued_fraction)
 error: docs for function which may panic missing `# Panics` section
   --> src/main.rs:14:1
    |
@@ -5236,7 +5236,7 @@ error: used `expect()` on an `Option` value
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#expect_used
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/convert_decimal_number_to_rational)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/convert_decimal_number_to_rational)
 error: unsafe block missing a safety comment
   --> src/main.rs:17:5
    |
@@ -5338,7 +5338,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 12 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/convert_seconds_to_compound_duration)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/convert_seconds_to_compound_duration)
 error: unsafe block missing a safety comment
   --> src/main.rs:12:5
    |
@@ -5402,7 +5402,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = note: requested on the command line with `-D clippy::arithmetic-side-effects`
 
 error: could not compile `c2rust_out` (bin "main") due to 6 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/convex_hull)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/convex_hull)
 error[E0133]: dereference of raw pointer is unsafe and requires unsafe function or block
    --> src/main.rs:112:28
     |
@@ -5457,7 +5457,7 @@ error[E0133]: dereference of raw pointer is unsafe and requires unsafe function 
 
 For more information about this error, try `rustc --explain E0133`.
 error: could not compile `c2rust_out` (bin "main") due to 6 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/conways_game_of_life)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/conways_game_of_life)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:24:1
    |
@@ -5650,7 +5650,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 22 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/copy_a_string)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/copy_a_string)
 error: unsafe block missing a safety comment
   --> src/main.rs:12:5
    |
@@ -5694,7 +5694,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 4 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/count_in_factors)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/count_in_factors)
 error: unsafe block missing a safety comment
   --> src/main.rs:16:5
    |
@@ -5739,7 +5739,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/count_the_coins)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/count_the_coins)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:18:1
    |
@@ -5836,7 +5836,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 11 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/cramers_rule)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/cramers_rule)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:19:1
    |
@@ -5958,7 +5958,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 13 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/crc32)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/crc32)
 error: unsafe block missing a safety comment
   --> src/main.rs:16:5
    |
@@ -5979,7 +5979,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 2 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/create_a_two_dimentional_array_at_runtime)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/create_a_two_dimentional_array_at_runtime)
 error: unsafe block missing a safety comment
   --> src/main.rs:15:5
    |
@@ -6043,7 +6043,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 7 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/create_an_html_table)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/create_an_html_table)
 error: unsafe block missing a safety comment
   --> src/main.rs:18:5
    |
@@ -6055,7 +6055,7 @@ error: unsafe block missing a safety comment
    = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
 
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/csv_data_manipulation)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/csv_data_manipulation)
 error: unsafe block missing a safety comment
   --> src/main.rs:12:5
    |
@@ -6202,7 +6202,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = note: requested on the command line with `-D clippy::arithmetic-side-effects`
 
 error: could not compile `c2rust_out` (bin "main") due to 15 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/csv_to_html_translation)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/csv_to_html_translation)
 error: unsafe block missing a safety comment
   --> src/main.rs:18:5
    |
@@ -6214,7 +6214,7 @@ error: unsafe block missing a safety comment
    = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
 
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/cuban_primes)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/cuban_primes)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:27:1
    |
@@ -6335,7 +6335,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 13 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/cumulative_standard_deviation)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/cumulative_standard_deviation)
 error[E0133]: dereference of raw pointer is unsafe and requires unsafe function or block
   --> src/main.rs:36:5
    |
@@ -6450,7 +6450,7 @@ error[E0133]: dereference of raw pointer is unsafe and requires unsafe function 
 
 For more information about this error, try `rustc --explain E0133`.
 error: could not compile `c2rust_out` (bin "main") due to 14 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/currying)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/currying)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:16:1
    |
@@ -6501,7 +6501,7 @@ error: unsafe block missing a safety comment
    = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/cusip)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/cusip)
 error: unsafe block missing a safety comment
   --> src/main.rs:12:5
    |
@@ -6613,7 +6613,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 12 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/cut_a_rectangle)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/cut_a_rectangle)
 error: unsafe block missing a safety comment
   --> src/main.rs:31:5
    |
@@ -6749,7 +6749,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 16 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/damm_algorithm)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/damm_algorithm)
 error: unsafe block missing a safety comment
   --> src/main.rs:16:5
    |
@@ -6770,7 +6770,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 2 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/date_format)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/date_format)
 error[E0308]: mismatched types
   --> src/main.rs:28:25
    |
@@ -6781,7 +6781,7 @@ error[E0308]: mismatched types
 
 For more information about this error, try `rustc --explain E0308`.
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/days_between_dates)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/days_between_dates)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -6948,7 +6948,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 17 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/days_of_the_week)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/days_of_the_week)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:19:18
    |
@@ -6993,7 +6993,7 @@ error: unsafe block missing a safety comment
    = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/deal_cards_for_freecell)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/deal_cards_for_freecell)
 error: unsafe block missing a safety comment
   --> src/main.rs:16:36
    |
@@ -7309,7 +7309,7 @@ error[E0080]: could not evaluate static initializer
 
 For more information about this error, try `rustc --explain E0080`.
 error: could not compile `c2rust_out` (bin "main") due to 38 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/deepcopy)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/deepcopy)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:14:1
    |
@@ -7342,7 +7342,7 @@ error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debu
    | |_^
 
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/delegates)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/delegates)
 error[E0133]: dereference of raw pointer is unsafe and requires unsafe function or block
   --> src/main.rs:52:15
    |
@@ -7370,7 +7370,7 @@ error[E0133]: call to unsafe function is unsafe and requires unsafe function or 
 
 For more information about this error, try `rustc --explain E0133`.
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/department_number)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/department_number)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:27:24
    |
@@ -7381,7 +7381,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = note: requested on the command line with `-D clippy::arithmetic-side-effects`
 
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/deranged_anagrams)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/deranged_anagrams)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -7506,7 +7506,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 13 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/determine_if_a_string_has_all_same_characters)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/determine_if_a_string_has_all_same_characters)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -7555,7 +7555,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/determine_if_a_string_has_all_unique_characters)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/determine_if_a_string_has_all_unique_characters)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -7652,7 +7652,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 10 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/determine_if_a_string_is_collapsible)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/determine_if_a_string_is_collapsible)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -7773,7 +7773,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 13 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/determine_if_a_string_is_squeezable)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/determine_if_a_string_is_squeezable)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -7894,7 +7894,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 13 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/determine_if_only_one_instance_is_running)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/determine_if_only_one_instance_is_running)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:35:1
    |
@@ -7968,7 +7968,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 7 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/dice_game_probabilities)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/dice_game_probabilities)
 error: unsafe block missing a safety comment
   --> src/main.rs:31:5
    |
@@ -8007,7 +8007,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 4 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/digital_root)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/digital_root)
 error: unsafe block missing a safety comment
   --> src/main.rs:14:5
    |
@@ -8052,7 +8052,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/dining_philosophers)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/dining_philosophers)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:40:1
    |
@@ -8267,7 +8267,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 23 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/discordian_date)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/discordian_date)
 error[E0308]: mismatched types
   --> src/main.rs:17:25
    |
@@ -8278,7 +8278,7 @@ error[E0308]: mismatched types
 
 For more information about this error, try `rustc --explain E0308`.
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/dot_product)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/dot_product)
 error: unsafe block missing a safety comment
   --> src/main.rs:29:5
    |
@@ -8299,7 +8299,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = note: requested on the command line with `-D clippy::arithmetic-side-effects`
 
 error: could not compile `c2rust_out` (bin "main") due to 2 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/dragon_curve)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/dragon_curve)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:30:1
    |
@@ -8551,7 +8551,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 29 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/draw_a_sphere)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/draw_a_sphere)
 error: unsafe block missing a safety comment
   --> src/main.rs:23:5
    |
@@ -8590,7 +8590,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 4 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/dutch_national_flag_problem)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/dutch_national_flag_problem)
 error[E0308]: mismatched types
   --> src/main.rs:28:25
    |
@@ -8601,7 +8601,7 @@ error[E0308]: mismatched types
 
 For more information about this error, try `rustc --explain E0308`.
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/egyptian_division)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/egyptian_division)
 error: unsafe block missing a safety comment
   --> src/main.rs:26:5
    |
@@ -8622,7 +8622,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 2 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/emirp_primes)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/emirp_primes)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:20:27
    |
@@ -8670,7 +8670,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/empty_directory)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/empty_directory)
 error: unsafe block missing a safety comment
   --> src/main.rs:12:5
    |
@@ -8746,7 +8746,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = note: requested on the command line with `-D clippy::arithmetic-side-effects`
 
 error: could not compile `c2rust_out` (bin "main") due to 7 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/entropy)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/entropy)
 error: unsafe block missing a safety comment
   --> src/main.rs:19:5
    |
@@ -8785,7 +8785,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 4 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/environment_variables)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/environment_variables)
 error: unsafe block missing a safety comment
   --> src/main.rs:16:5
    |
@@ -8797,7 +8797,7 @@ error: unsafe block missing a safety comment
    = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
 
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/ethiopian_multiplication)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/ethiopian_multiplication)
 error: unsafe block missing a safety comment
   --> src/main.rs:14:5
    |
@@ -8818,7 +8818,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 2 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/euler_method)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/euler_method)
 error: docs for function which may panic missing `# Panics` section
   --> src/main.rs:16:1
    |
@@ -8863,7 +8863,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 4 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/evaluate_binomial_coefficients)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/evaluate_binomial_coefficients)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:21:28
    |
@@ -8938,7 +8938,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 9 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/evolutionary_algorithm)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/evolutionary_algorithm)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -9038,7 +9038,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 11 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/exponential)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/exponential)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:18:1
    |
@@ -9161,9 +9161,9 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 12 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/extreme_floating_point_values)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.81s
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/factor_of_an_integer)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/extreme_floating_point_values)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.57s
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/factor_of_an_integer)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:18:1
    |
@@ -9264,7 +9264,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 11 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/factors_of_a_mersenne_number)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/factors_of_a_mersenne_number)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:21:11
    |
@@ -9323,7 +9323,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 7 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/fairshare_between_two_and_more)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/fairshare_between_two_and_more)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:19:28
    |
@@ -9368,7 +9368,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/farey_sequence)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/farey_sequence)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:17:1
    |
@@ -9457,7 +9457,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 10 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/fasta_format)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/fasta_format)
 error: unsafe block missing a safety comment
   --> src/main.rs:12:5
    |
@@ -9518,7 +9518,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 6 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/fermat_numbers)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/fermat_numbers)
 error: unsafe block missing a safety comment
   --> src/main.rs:13:5
    |
@@ -9550,7 +9550,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = note: requested on the command line with `-D clippy::arithmetic-side-effects`
 
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/fibonacci_n_step_number_sequences)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/fibonacci_n_step_number_sequences)
 error: unsafe block missing a safety comment
   --> src/main.rs:16:5
    |
@@ -9588,7 +9588,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 4 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/fibonacci_word)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/fibonacci_word)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -9664,7 +9664,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 8 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/filter)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/filter)
 error: docs for function which may panic missing `# Panics` section
   --> src/main.rs:26:1
    |
@@ -9715,7 +9715,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 4 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/find_the_intersection_of_two_lines)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/find_the_intersection_of_two_lines)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -9800,7 +9800,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 9 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/find_the_last_sunday_of_each_month)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/find_the_last_sunday_of_each_month)
 error: unsafe block missing a safety comment
   --> src/main.rs:15:5
    |
@@ -9872,7 +9872,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 8 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/first_class_functions)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/first_class_functions)
 error[E0133]: dereference of raw pointer is unsafe and requires unsafe function or block
   --> src/main.rs:92:12
    |
@@ -9915,7 +9915,7 @@ error[E0133]: call to unsafe function is unsafe and requires unsafe function or 
 
 For more information about this error, try `rustc --explain E0133`.
 error: could not compile `c2rust_out` (bin "main") due to 4 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/five_weekends)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/five_weekends)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -9959,7 +9959,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = note: requested on the command line with `-D clippy::arithmetic-side-effects`
 
 error: could not compile `c2rust_out` (bin "main") due to 4 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/flatten_a_list)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/flatten_a_list)
 error[E0133]: dereference of raw pointer is unsafe and requires unsafe function or block
   --> src/main.rs:44:18
    |
@@ -10003,7 +10003,7 @@ error[E0133]: dereference of raw pointer is unsafe and requires unsafe function 
 
 For more information about this error, try `rustc --explain E0133`.
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/flood_fill)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/flood_fill)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:28:1
    |
@@ -10130,7 +10130,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 13 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/floyds_triangle)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/floyds_triangle)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:18:9
    |
@@ -10173,9 +10173,9 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/formatted_numeric_output)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.60s
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/function_composition)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/formatted_numeric_output)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.57s
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/function_composition)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:19:1
    |
@@ -10285,7 +10285,7 @@ error: used `expect()` on an `Option` value
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#expect_used
 
 error: could not compile `c2rust_out` (bin "main") due to 11 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/fusc_sequence)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/fusc_sequence)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:19:16
    |
@@ -10296,7 +10296,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = note: requested on the command line with `-D clippy::arithmetic-side-effects`
 
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/gaussian_elimination)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/gaussian_elimination)
 error: unsafe block missing a safety comment
   --> src/main.rs:16:5
    |
@@ -10416,7 +10416,7 @@ error: approximate value of `f64::consts::PI` found
     = note: requested on the command line with `-D clippy::approx-constant`
 
 error: could not compile `c2rust_out` (bin "main") due to 14 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/general_fizzbuzz)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/general_fizzbuzz)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -10483,7 +10483,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 7 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/generate_chess960_starting_position)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/generate_chess960_starting_position)
 error[E0308]: mismatched types
   --> src/main.rs:17:25
    |
@@ -10494,7 +10494,7 @@ error[E0308]: mismatched types
 
 For more information about this error, try `rustc --explain E0308`.
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/generate_random_chess_position)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/generate_random_chess_position)
 error[E0308]: mismatched types
   --> src/main.rs:28:25
    |
@@ -10505,7 +10505,7 @@ error[E0308]: mismatched types
 
 For more information about this error, try `rustc --explain E0308`.
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/generic_swap)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/generic_swap)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:14:1
    |
@@ -10538,7 +10538,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/gray_code)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/gray_code)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -10596,7 +10596,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 6 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/greatest_subsequential_sum)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/greatest_subsequential_sum)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:14:1
    |
@@ -10665,7 +10665,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 7 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/guess_the_number_with_feedback)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/guess_the_number_with_feedback)
 error: unsafe block missing a safety comment
   --> src/main.rs:16:5
    |
@@ -10694,7 +10694,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/hailstone_sequence)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/hailstone_sequence)
 error: unsafe block missing a safety comment
   --> src/main.rs:17:5
    |
@@ -10756,7 +10756,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 7 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/hamming_numbers)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/hamming_numbers)
 error: unsafe block missing a safety comment
   --> src/main.rs:24:5
    |
@@ -10802,7 +10802,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/hash_from_two_arrays)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/hash_from_two_arrays)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:18:1
    |
@@ -11018,7 +11018,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 21 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/haversine_formula)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/haversine_formula)
 error[E0599]: no method named `wrapping_sub` found for type `f64` in the current scope
   --> src/main.rs:22:15
    |
@@ -11027,7 +11027,7 @@ error[E0599]: no method named `wrapping_sub` found for type `f64` in the current
 
 For more information about this error, try `rustc --explain E0599`.
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/hilbert_curve)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/hilbert_curve)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:14:1
    |
@@ -11132,7 +11132,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 12 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/hofstadter_q_sequence)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/hofstadter_q_sequence)
 error: unsafe block missing a safety comment
   --> src/main.rs:15:5
    |
@@ -11163,7 +11163,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/horners_rule_for_polynomial_evaluation)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/horners_rule_for_polynomial_evaluation)
 error: unsafe block missing a safety comment
   --> src/main.rs:14:5
    |
@@ -11175,7 +11175,7 @@ error: unsafe block missing a safety comment
    = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
 
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/host_introspection)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/host_introspection)
 error[E0133]: dereference of raw pointer is unsafe and requires unsafe function or block
   --> src/main.rs:18:8
    |
@@ -11186,7 +11186,7 @@ error[E0133]: dereference of raw pointer is unsafe and requires unsafe function 
 
 For more information about this error, try `rustc --explain E0133`.
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/huffman_coding)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/huffman_coding)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -11407,7 +11407,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 25 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/identity_matrix)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/identity_matrix)
 error: unsafe block missing a safety comment
   --> src/main.rs:18:5
    |
@@ -11456,7 +11456,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/increasing_gaps_between_consecutive_niven_numbers)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/increasing_gaps_between_consecutive_niven_numbers)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:30:20
    |
@@ -11477,7 +11477,7 @@ error: unsafe block missing a safety comment
    = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
 
 error: could not compile `c2rust_out` (bin "main") due to 2 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/increment_a_numerical_string)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/increment_a_numerical_string)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -11556,9 +11556,9 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 9 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/infinity)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.57s
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/input_loop)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/infinity)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.61s
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/input_loop)
 error: unsafe block missing a safety comment
   --> src/main.rs:12:5
    |
@@ -11619,7 +11619,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 6 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/integer)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/integer)
 error: unsafe block missing a safety comment
   --> src/main.rs:16:5
    |
@@ -11700,7 +11700,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 9 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/integer_comparison)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/integer_comparison)
 error: unsafe block missing a safety comment
   --> src/main.rs:17:5
    |
@@ -11712,7 +11712,7 @@ error: unsafe block missing a safety comment
    = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
 
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/integer_roots)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/integer_roots)
 error: docs for function which may panic missing `# Panics` section
   --> src/main.rs:19:1
    |
@@ -11788,7 +11788,7 @@ error: used `unwrap()` on an `Option` value
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#unwrap_used
 
 error: could not compile `c2rust_out` (bin "main") due to 7 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/inverted_index)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/inverted_index)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -11954,7 +11954,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 17 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/isbn13_check_digit)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/isbn13_check_digit)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -12001,7 +12001,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/iterated_digits_squaring)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/iterated_digits_squaring)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:17:13
    |
@@ -12044,7 +12044,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/jacobi_symbol)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/jacobi_symbol)
 error[E0601]: `main` function not found in crate `main`
  --> src/main.rs:1:2
   |
@@ -12053,7 +12053,7 @@ error[E0601]: `main` function not found in crate `main`
 
 For more information about this error, try `rustc --explain E0601`.
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/jortsort)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/jortsort)
 error: unsafe block missing a safety comment
   --> src/main.rs:30:5
    |
@@ -12144,7 +12144,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 10 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/josephus_problem)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/josephus_problem)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:17:13
    |
@@ -12171,7 +12171,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/k_means_clustering)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/k_means_clustering)
 error[E0133]: dereference of raw pointer is unsafe and requires unsafe function or block
   --> src/main.rs:60:22
    |
@@ -12206,7 +12206,7 @@ error[E0133]: dereference of raw pointer is unsafe and requires unsafe function 
 
 For more information about this error, try `rustc --explain E0133`.
 error: could not compile `c2rust_out` (bin "main") due to 4 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/kernighans_large_earthquake_problem)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/kernighans_large_earthquake_problem)
 error: unsafe block missing a safety comment
   --> src/main.rs:12:5
    |
@@ -12250,7 +12250,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 4 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/knapsack_problem_0_1)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/knapsack_problem_0_1)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -12392,7 +12392,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 16 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/knapsack_problem_continuous)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/knapsack_problem_continuous)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -12434,7 +12434,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 4 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/knights_tour)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/knights_tour)
 error: used `unwrap()` on an `Option` value
   --> src/main.rs:13:5
    |
@@ -12737,7 +12737,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 35 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/knuths_algorithm_s)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/knuths_algorithm_s)
 error[E0308]: mismatched types
   --> src/main.rs:17:25
    |
@@ -12748,7 +12748,7 @@ error[E0308]: mismatched types
 
 For more information about this error, try `rustc --explain E0308`.
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/langtons_ant)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/langtons_ant)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:26:1
    |
@@ -12948,7 +12948,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 23 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/largest_int_from_concatenated_ints)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/largest_int_from_concatenated_ints)
 error: unsafe block missing a safety comment
   --> src/main.rs:20:5
    |
@@ -12969,7 +12969,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 2 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/last_letter_first_letter)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/last_letter_first_letter)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -13038,9 +13038,9 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 7 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/leap_year)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.58s
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/least_common_multiple)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/leap_year)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.55s
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/least_common_multiple)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:17:13
    |
@@ -13059,7 +13059,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 2 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/left_factorials)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/left_factorials)
 error: unsafe block missing a safety comment
   --> src/main.rs:27:5
    |
@@ -13071,7 +13071,7 @@ error: unsafe block missing a safety comment
    = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
 
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/leonardo_numbers)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/leonardo_numbers)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:26:27
    |
@@ -13100,7 +13100,7 @@ error: unsafe block missing a safety comment
    = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
 
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/levenshtein_distance)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/levenshtein_distance)
 error: unsafe block missing a safety comment
   --> src/main.rs:17:5
    |
@@ -13186,7 +13186,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 10 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/levenshtein_distance_alignment)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/levenshtein_distance_alignment)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -13309,7 +13309,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 14 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/list_comprehensions)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/list_comprehensions)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:18:1
    |
@@ -13413,7 +13413,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 11 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/long_primes)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/long_primes)
 error: unsafe block missing a safety comment
   --> src/main.rs:17:5
    |
@@ -13507,7 +13507,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 11 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/longest_common_prefix)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/longest_common_prefix)
 error: unsafe block missing a safety comment
   --> src/main.rs:12:5
    |
@@ -13575,7 +13575,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 7 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/longest_common_substring)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/longest_common_substring)
 error: unsafe block missing a safety comment
   --> src/main.rs:14:5
    |
@@ -13596,7 +13596,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 2 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/longest_increasing_subsequence)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/longest_increasing_subsequence)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:17:1
    |
@@ -13629,7 +13629,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = note: requested on the command line with `-D clippy::arithmetic-side-effects`
 
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/loop_over_multiple_arrays_simultaneously)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/loop_over_multiple_arrays_simultaneously)
 error: unsafe block missing a safety comment
   --> src/main.rs:20:5
    |
@@ -13641,7 +13641,7 @@ error: unsafe block missing a safety comment
    = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
 
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/loops_nested)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/loops_nested)
 error[E0308]: mismatched types
   --> src/main.rs:17:25
    |
@@ -13652,7 +13652,7 @@ error[E0308]: mismatched types
 
 For more information about this error, try `rustc --explain E0308`.
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/lu_decomposition)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/lu_decomposition)
 error: unsafe block missing a safety comment
   --> src/main.rs:21:5
    |
@@ -13796,7 +13796,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 16 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/lucas_lehmer_test)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/lucas_lehmer_test)
 error[E0425]: cannot find function `lucas_lehmer` in this scope
   --> src/main.rs:64:16
    |
@@ -13805,7 +13805,7 @@ error[E0425]: cannot find function `lucas_lehmer` in this scope
 
 For more information about this error, try `rustc --explain E0425`.
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/luhn_test_of_credit_card_numbers)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/luhn_test_of_credit_card_numbers)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -13852,7 +13852,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/machine_code)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/machine_code)
 error: docs for function which may panic missing `# Panics` section
   --> src/main.rs:24:1
    |
@@ -13917,7 +13917,7 @@ error: literal out of range for `i8`
    = help: consider using the type `u8` instead
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/mad_libs)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/mad_libs)
 error: unsafe block missing a safety comment
   --> src/main.rs:12:5
    |
@@ -14070,7 +14070,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 16 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/magic_8_ball)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/magic_8_ball)
 error[E0308]: mismatched types
   --> src/main.rs:29:25
    |
@@ -14081,7 +14081,7 @@ error[E0308]: mismatched types
 
 For more information about this error, try `rustc --explain E0308`.
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/magic_squares_of_doubly_even_order)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/magic_squares_of_doubly_even_order)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -14196,7 +14196,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 13 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/magic_squares_of_odd_order)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/magic_squares_of_odd_order)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:16:5
    |
@@ -14244,7 +14244,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/magic_squares_of_singly_even_order)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/magic_squares_of_singly_even_order)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -14449,7 +14449,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 24 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/magnanimous_numbers)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/magnanimous_numbers)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -14520,7 +14520,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 8 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/mandelbrot_set)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/mandelbrot_set)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:24:1
    |
@@ -14546,7 +14546,7 @@ error: unsafe block missing a safety comment
    = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
 
 error: could not compile `c2rust_out` (bin "main") due to 2 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/map_range)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/map_range)
 error: unsafe block missing a safety comment
   --> src/main.rs:21:5
    |
@@ -14558,7 +14558,7 @@ error: unsafe block missing a safety comment
    = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
 
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/matrix_chain_multiplication)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/matrix_chain_multiplication)
 error: unsafe block missing a safety comment
   --> src/main.rs:22:5
    |
@@ -14683,7 +14683,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 14 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/matrix_exponentiation_operator)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/matrix_exponentiation_operator)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:26:1
    |
@@ -14864,7 +14864,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 18 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/matrix_multiplication)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/matrix_multiplication)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:16:1
    |
@@ -14915,7 +14915,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/matrix_transposition)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/matrix_transposition)
 error: unsafe block missing a safety comment
   --> src/main.rs:19:5
    |
@@ -14944,7 +14944,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/maximum_triangle_path_sum)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/maximum_triangle_path_sum)
 error: unsafe block missing a safety comment
   --> src/main.rs:28:5
    |
@@ -14993,7 +14993,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/mcnuggets_problem)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/mcnuggets_problem)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:20:15
    |
@@ -15044,7 +15044,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 6 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/mean_angle)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/mean_angle)
 error: unsafe block missing a safety comment
   --> src/main.rs:18:5
    |
@@ -15056,7 +15056,7 @@ error: unsafe block missing a safety comment
    = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
 
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/median)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/median)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:18:1
    |
@@ -15097,7 +15097,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = note: requested on the command line with `-D clippy::arithmetic-side-effects`
 
 error: could not compile `c2rust_out` (bin "main") due to 4 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/memory_allocation)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/memory_allocation)
 error: unsafe block missing a safety comment
   --> src/main.rs:18:5
    |
@@ -15109,7 +15109,7 @@ error: unsafe block missing a safety comment
    = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
 
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/menu)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/menu)
 error: unsafe block missing a safety comment
   --> src/main.rs:12:5
    |
@@ -15170,7 +15170,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 6 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/middle_three_digits)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/middle_three_digits)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -15217,9 +15217,9 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/modular_exponentiation)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.67s
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/modular_inverse)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/modular_exponentiation)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.54s
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/modular_inverse)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:23:13
    |
@@ -15246,7 +15246,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/monte_carlo_methods)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/monte_carlo_methods)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:23:1
    |
@@ -15272,7 +15272,7 @@ error: unsafe block missing a safety comment
    = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
 
 error: could not compile `c2rust_out` (bin "main") due to 2 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/monty_hall_problem)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/monty_hall_problem)
 error[E0308]: mismatched types
   --> src/main.rs:17:25
    |
@@ -15283,7 +15283,7 @@ error[E0308]: mismatched types
 
 For more information about this error, try `rustc --explain E0308`.
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/morse_code)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/morse_code)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:31:1
    |
@@ -15380,7 +15380,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 10 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/move_to_front_algorithm)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/move_to_front_algorithm)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -15437,7 +15437,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 6 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/multiplication_tables)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/multiplication_tables)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:43:33
    |
@@ -15448,7 +15448,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = note: requested on the command line with `-D clippy::arithmetic-side-effects`
 
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/munchausen_numbers)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/munchausen_numbers)
 error: unsafe block missing a safety comment
   --> src/main.rs:16:5
    |
@@ -15460,7 +15460,7 @@ error: unsafe block missing a safety comment
    = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
 
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/munching_squares)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/munching_squares)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:27:1
    |
@@ -15536,7 +15536,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 8 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/mutual_recursion)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/mutual_recursion)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:14:36
    |
@@ -15555,9 +15555,9 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 2 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/n_plus_one_half)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.72s
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/n_queens_problem)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/n_plus_one_half)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.56s
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/n_queens_problem)
 error: unsafe block missing a safety comment
   --> src/main.rs:19:5
    |
@@ -15630,7 +15630,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 8 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/n_smooth_numbers)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/n_smooth_numbers)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:25:1
    |
@@ -15692,7 +15692,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 6 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/negative_base_numbers)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/negative_base_numbers)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -15790,7 +15790,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 11 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/next_highest_int_from_digits)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/next_highest_int_from_digits)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -15873,7 +15873,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 9 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/nim_game)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/nim_game)
 error: unsafe block missing a safety comment
   --> src/main.rs:17:5
    |
@@ -15902,7 +15902,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/nimber_arithmetic)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/nimber_arithmetic)
 error: docs for function which may panic missing `# Panics` section
   --> src/main.rs:60:1
    |
@@ -15942,7 +15942,7 @@ error: used `expect()` on an `Option` value
    = note: requested on the command line with `-D clippy::expect-used`
 
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/nth)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/nth)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -15990,7 +15990,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/null_object)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/null_object)
 error: unsafe block missing a safety comment
   --> src/main.rs:15:5
    |
@@ -16002,7 +16002,7 @@ error: unsafe block missing a safety comment
    = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
 
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/number_names)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/number_names)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -16123,7 +16123,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 14 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/numerical_integration)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/numerical_integration)
 error[E0599]: no method named `wrapping_add` found for type `f64` in the current scope
   --> src/main.rs:44:19
    |
@@ -16144,7 +16144,7 @@ error[E0599]: no method named `wrapping_add` found for type `f64` in the current
 
 For more information about this error, try `rustc --explain E0599`.
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/old_lady_swallowed_a_fly)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/old_lady_swallowed_a_fly)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -16165,7 +16165,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 2 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/one_dimensional_cellular_automata)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/one_dimensional_cellular_automata)
 error: unsafe block missing a safety comment
   --> src/main.rs:17:5
    |
@@ -16215,7 +16215,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/one_of_n_lines_in_a_file)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/one_of_n_lines_in_a_file)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:17:28
    |
@@ -16260,7 +16260,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/optional_parameters)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/optional_parameters)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:26:1
    |
@@ -16470,7 +16470,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 22 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/ordered_words)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/ordered_words)
 error: unsafe block missing a safety comment
   --> src/main.rs:12:5
    |
@@ -16576,7 +16576,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 11 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/palindrome_dates)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/palindrome_dates)
 error[E0308]: mismatched types
   --> src/main.rs:28:25
    |
@@ -16587,7 +16587,7 @@ error[E0308]: mismatched types
 
 For more information about this error, try `rustc --explain E0308`.
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/palindrome_detection)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/palindrome_detection)
 error: unsafe block missing a safety comment
   --> src/main.rs:17:5
    |
@@ -16658,7 +16658,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 8 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/pangram_checker)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/pangram_checker)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -16697,7 +16697,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 4 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/parametric_polymorphism)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/parametric_polymorphism)
 error[E0133]: dereference of raw pointer is unsafe and requires unsafe function or block
   --> src/main.rs:47:12
    |
@@ -16860,7 +16860,7 @@ error[E0133]: dereference of raw pointer is unsafe and requires unsafe function 
 
 For more information about this error, try `rustc --explain E0133`.
 error: could not compile `c2rust_out` (bin "main") due to 20 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/parse_an_ip_address)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/parse_an_ip_address)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -17021,7 +17021,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 18 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/partition_an_integer_x_into_n_primes)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/partition_an_integer_x_into_n_primes)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:30:1
    |
@@ -17146,7 +17146,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 13 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/pascals_triangle)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/pascals_triangle)
 error: unsafe block missing a safety comment
   --> src/main.rs:22:5
    |
@@ -17175,7 +17175,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/perfect_numbers)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/perfect_numbers)
 error: unsafe block missing a safety comment
   --> src/main.rs:16:5
    |
@@ -17212,7 +17212,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 4 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/perfect_shuffle)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/perfect_shuffle)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:24:1
    |
@@ -17309,7 +17309,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 10 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/permutations)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/permutations)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -17398,7 +17398,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 10 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/phrase_reversals)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/phrase_reversals)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -17455,7 +17455,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 6 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/population_count)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/population_count)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:27:11
    |
@@ -17466,7 +17466,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = note: requested on the command line with `-D clippy::arithmetic-side-effects`
 
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/power_set)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/power_set)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -17551,7 +17551,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 9 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/price_fraction)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/price_fraction)
 error: unsafe block missing a safety comment
   --> src/main.rs:42:5
    |
@@ -17563,7 +17563,7 @@ error: unsafe block missing a safety comment
    = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
 
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/prime_conspiracy)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/prime_conspiracy)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:22:1
    |
@@ -17679,7 +17679,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 13 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/prime_decomposition)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/prime_decomposition)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:31:1
    |
@@ -17833,7 +17833,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 17 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/primorial_numbers)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/primorial_numbers)
 error: unsafe block missing a safety comment
   --> src/main.rs:20:5
    |
@@ -17872,7 +17872,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 4 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/priority_queue)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/priority_queue)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -18005,7 +18005,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 15 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/proper_divisors)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/proper_divisors)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:17:12
    |
@@ -18064,7 +18064,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 7 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/pythagorean_mean)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/pythagorean_mean)
 error[E0599]: no method named `wrapping_add` found for type `f64` in the current scope
   --> src/main.rs:28:23
    |
@@ -18073,7 +18073,7 @@ error[E0599]: no method named `wrapping_add` found for type `f64` in the current
 
 For more information about this error, try `rustc --explain E0599`.
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/pythagorean_quadruples)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/pythagorean_quadruples)
 error: unsafe block missing a safety comment
   --> src/main.rs:17:5
    |
@@ -18121,7 +18121,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/pythagorean_triples)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/pythagorean_triples)
 error: unsafe block missing a safety comment
   --> src/main.rs:46:5
    |
@@ -18151,7 +18151,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/quaternion_type)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/quaternion_type)
 error[E0133]: dereference of raw pointer is unsafe and requires unsafe function or block
    --> src/main.rs:264:9
     |
@@ -18222,7 +18222,7 @@ error[E0133]: dereference of raw pointer is unsafe and requires unsafe function 
 
 For more information about this error, try `rustc --explain E0133`.
 error: could not compile `c2rust_out` (bin "main") due to 8 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/queue_definition)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/queue_definition)
 error[E0133]: dereference of raw pointer is unsafe and requires unsafe function or block
   --> src/main.rs:41:13
    |
@@ -18289,7 +18289,7 @@ error[E0133]: dereference of raw pointer is unsafe and requires unsafe function 
 
 For more information about this error, try `rustc --explain E0133`.
 error: could not compile `c2rust_out` (bin "main") due to 8 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/quickselect_algorithm)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/quickselect_algorithm)
 error: unsafe block missing a safety comment
   --> src/main.rs:16:5
    |
@@ -18359,7 +18359,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 8 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/ramer_douglas_line_simplification)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/ramer_douglas_line_simplification)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:24:1
    |
@@ -18400,7 +18400,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 4 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/random_number)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/random_number)
 error: unsafe block missing a safety comment
   --> src/main.rs:19:5
    |
@@ -18431,7 +18431,7 @@ error: approximate value of `f64::consts::PI` found
    = note: requested on the command line with `-D clippy::approx-constant`
 
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/random_number_generator)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/random_number_generator)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:36:38
    |
@@ -18442,7 +18442,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = note: requested on the command line with `-D clippy::arithmetic-side-effects`
 
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/range_consolidation)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/range_consolidation)
 error[E0133]: dereference of raw pointer is unsafe and requires unsafe function or block
    --> src/main.rs:106:24
     |
@@ -18463,7 +18463,7 @@ error[E0133]: dereference of raw pointer is unsafe and requires unsafe function 
 
 For more information about this error, try `rustc --explain E0133`.
 error: could not compile `c2rust_out` (bin "main") due to 2 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/range_expansion)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/range_expansion)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -18502,7 +18502,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 4 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/range_extraction)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/range_extraction)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -18565,7 +18565,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 7 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/rational)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/rational)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:16:1
    |
@@ -18741,7 +18741,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 21 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/ray_casting_algorithm)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/ray_casting_algorithm)
 error[E0599]: no method named `wrapping_sub` found for type `f64` in the current scope
    --> src/main.rs:169:23
     |
@@ -18762,7 +18762,7 @@ error[E0599]: no method named `wrapping_add` found for type `f64` in the current
 
 For more information about this error, try `rustc --explain E0599`.
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/regular_expression)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/regular_expression)
 error: unsafe block missing a safety comment
   --> src/main.rs:12:5
    |
@@ -18823,7 +18823,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 6 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/remove_duplicate_elements)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/remove_duplicate_elements)
 error: unsafe block missing a safety comment
   --> src/main.rs:19:5
    |
@@ -18862,7 +18862,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 4 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/repeat)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/repeat)
 error: docs for function which may panic missing `# Panics` section
   --> src/main.rs:13:1
    |
@@ -18926,7 +18926,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = note: requested on the command line with `-D clippy::arithmetic-side-effects`
 
 error: could not compile `c2rust_out` (bin "main") due to 6 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/repeat_a_string)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/repeat_a_string)
 error: unsafe block missing a safety comment
   --> src/main.rs:20:5
    |
@@ -18947,7 +18947,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 2 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/rock_paper_scissors)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/rock_paper_scissors)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -19002,7 +19002,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 6 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/roman_numerals_decode)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/roman_numerals_decode)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -19065,7 +19065,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 7 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/roman_numerals_encode)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/roman_numerals_encode)
 error: unsafe block missing a safety comment
   --> src/main.rs:12:5
    |
@@ -19118,7 +19118,7 @@ error: unsafe block missing a safety comment
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 5 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/root_mean_square)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/root_mean_square)
 error: unsafe block missing a safety comment
   --> src/main.rs:16:5
    |
@@ -19130,7 +19130,7 @@ error: unsafe block missing a safety comment
    = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
 
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/roots_of_unity)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/roots_of_unity)
 error: unsafe block missing a safety comment
   --> src/main.rs:20:5
    |
@@ -19183,7 +19183,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 6 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/rot_13)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/rot_13)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:26:1
    |
@@ -19265,7 +19265,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = note: requested on the command line with `-D clippy::arithmetic-side-effects`
 
 error: could not compile `c2rust_out` (bin "main") due to 8 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/rpg_attributes_generator)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/rpg_attributes_generator)
 error[E0308]: mismatched types
   --> src/main.rs:17:25
    |
@@ -19276,7 +19276,7 @@ error[E0308]: mismatched types
 
 For more information about this error, try `rustc --explain E0308`.
 error: could not compile `c2rust_out` (bin "main") due to previous error
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/run_length_encoding)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/run_length_encoding)
 error[E0133]: dereference of raw pointer is unsafe and requires unsafe function or block
    --> src/main.rs:185:13
     |
@@ -19362,7 +19362,7 @@ error[E0133]: call to unsafe function is unsafe and requires unsafe function or 
 
 For more information about this error, try `rustc --explain E0133`.
 error: could not compile `c2rust_out` (bin "main") due to 10 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/runge_kutta_method)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/runge_kutta_method)
 error: docs for function which may panic missing `# Panics` section
   --> src/main.rs:17:1
    |
@@ -19465,9 +19465,9 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 10 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/self_describing_numbers)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.59s
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/semiprime)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/self_describing_numbers)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.57s
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/semiprime)
 error: arithmetic operation that can potentially result in unexpected side-effects
   --> src/main.rs:17:24
    |
@@ -19502,7 +19502,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 4 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/sequence_of_non_squares)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/sequence_of_non_squares)
 error: unsafe block missing a safety comment
   --> src/main.rs:24:5
    |
@@ -19532,7 +19532,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/set)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/set)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -19553,7 +19553,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 2 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/sexy_primes)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/sexy_primes)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -19962,9 +19962,9 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 50 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/short_circuit_evaluation)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.64s
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/show_ascii_table)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/short_circuit_evaluation)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.68s
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/show_ascii_table)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -19994,7 +19994,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = note: requested on the command line with `-D clippy::arithmetic-side-effects`
 
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/show_the_epoch)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/show_the_epoch)
 error: unsafe block missing a safety comment
   --> src/main.rs:11:5
    |
@@ -20029,7 +20029,7 @@ error: unsafe block missing a safety comment
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#undocumented_unsafe_blocks
 
 error: could not compile `c2rust_out` (bin "main") due to 3 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/sierpinski_arrowhead_curve)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/sierpinski_arrowhead_curve)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:26:1
    |
@@ -20179,7 +20179,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 16 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/sierpinski_triangle)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/sierpinski_triangle)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:29:1
    |
@@ -20423,7 +20423,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
     = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 28 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/sieve_of_eratosthenes)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/sieve_of_eratosthenes)
 error: unsafe block missing a safety comment
   --> src/main.rs:19:5
    |
@@ -20526,7 +20526,7 @@ error: arithmetic operation that can potentially result in unexpected side-effec
    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#arithmetic_side_effects
 
 error: could not compile `c2rust_out` (bin "main") due to 12 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/simple_moving_average)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/simple_moving_average)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:19:1
    |
@@ -20615,7 +20615,7 @@ error: unsafe block missing a safety comment
     = note: requested on the command line with `-D clippy::undocumented-unsafe-blocks`
 
 error: could not compile `c2rust_out` (bin "main") due to 9 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/value_capture)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/value_capture)
 error: this arithmetic operation will overflow
   --> src/main.rs:28:5
    |
@@ -20690,7 +20690,7 @@ error: literal out of range for `i32`
    = note: `#[deny(overflowing_literals)]` on by default
 
 error: could not compile `c2rust_out` (bin "main") due to 8 previous errors
-   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/2023-06-30/write_a_ppm_file)
+   Compiling c2rust_out v0.0.0 (/home/c00834010/dev/crusts-benchmarks/latest/write_a_ppm_file)
 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
   --> src/main.rs:23:1
    |

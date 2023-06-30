@@ -5,7 +5,7 @@
       "-c",
       "main.c"
     ],
-    "directory": "/home/c00834010/dev/crusts-benchmarks/2023-06-30/bitcoin_address_validation",
-    "file": "/home/c00834010/dev/crusts-benchmarks/2023-06-30/bitcoin_address_validation/main.c"
+    "directory": "/home/c00834010/dev/crusts-benchmarks/latest/bitcoin_address_validation",
+    "file": "/home/c00834010/dev/crusts-benchmarks/latest/bitcoin_address_validation/main.c"
   }
 ]

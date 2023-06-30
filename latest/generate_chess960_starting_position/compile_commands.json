@@ -5,7 +5,7 @@
       "-c",
       "main.c"
     ],
-    "directory": "/home/c00834010/dev/crusts-benchmarks/2023-06-30/generate_chess960_starting_position",
-    "file": "/home/c00834010/dev/crusts-benchmarks/2023-06-30/generate_chess960_starting_position/main.c"
+    "directory": "/home/c00834010/dev/crusts-benchmarks/latest/generate_chess960_starting_position",
+    "file": "/home/c00834010/dev/crusts-benchmarks/latest/generate_chess960_starting_position/main.c"
   }
 ]
