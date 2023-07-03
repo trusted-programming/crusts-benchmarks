@@ -13,6 +13,7 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn rc_crc32(mut crc: u32, mut buf: *const i8, mut len: u64) -> u32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         static mut table: [u32; 256] = [0; 256];
         static mut have_table: i32 = 0_i32;
@@ -57,6 +58,7 @@ pub extern "C" fn rc_crc32(mut crc: u32, mut buf: *const i8, mut len: u64) -> u3
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut s: *const i8 =
             (b"The quick brown fox jumps over the lazy dog\0" as *const u8).cast::<i8>();

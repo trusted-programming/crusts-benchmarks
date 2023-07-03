@@ -8,6 +8,7 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -34,6 +35,7 @@ pub static mut l_alphabet: *const i8 = (b"HXUCZVAMDSLKPEFJRIGTWOBNYQ\0" as *cons
 pub static mut r_alphabet: *const i8 = (b"PTLNBQDEOYSFAVZKGJRIHWXUMC\0" as *const u8).cast::<i8>();
 #[no_mangle]
 pub extern "C" fn chao(mut in_0: *const i8, mut out: *mut i8, mut mode: u32, mut show_steps: i32) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut j: i32 = 0;
@@ -124,6 +126,7 @@ pub extern "C" fn chao(mut in_0: *const i8, mut out: *mut i8, mut mode: u32, mut
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut plain_text: *const i8 = (b"WELLDONEISBETTERTHANWELLSAID\0" as *const u8).cast::<i8>();
         let mut cipher_text: *mut i8 = malloc((strlen(plain_text)).wrapping_add(1)).cast::<i8>();

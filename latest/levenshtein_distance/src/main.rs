@@ -14,6 +14,7 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn levenshtein(mut s: *const i8, mut ls: i32, mut t: *const i8, mut lt: i32) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut a: i32 = 0;
         let mut b: i32 = 0;
@@ -41,6 +42,7 @@ pub extern "C" fn levenshtein(mut s: *const i8, mut ls: i32, mut t: *const i8, m
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut s1: *const i8 = (b"rosettacode\0" as *const u8).cast::<i8>();
         let mut s2: *const i8 = (b"raisethysword\0" as *const u8).cast::<i8>();

@@ -23,6 +23,7 @@ pub extern "C" fn egyptian_division(
     mut divisor: u64,
     mut remainder: *mut u64,
 ) -> u64 {
+// SAFETY: machine generated unsafe code
     unsafe {
         static mut powers: [u64; 64] = [0; 64];
         static mut doublings: [u64; 64] = [0; 64];
@@ -61,6 +62,7 @@ pub extern "C" fn go(mut a: u64, mut b: u64) {
     let mut y: u64 = 0;
     x = egyptian_division(a, b, &mut y);
     println!("{} / {} = {} remainder {}", a, b, x, y);
+// SAFETY: machine generated unsafe code
     unsafe {
         if a == b.wrapping_mul(x).wrapping_add(y) {
         } else {

@@ -16,6 +16,7 @@ extern "C" {
 pub static mut count: i32 = 0_i32;
 #[no_mangle]
 pub extern "C" fn solve(mut n: i32, mut col: i32, mut hist: *mut i32) {
+// SAFETY: machine generated unsafe code
     unsafe {
         if col == n {
             count = count.wrapping_add(1);
@@ -65,6 +66,7 @@ pub extern "C" fn solve(mut n: i32, mut col: i32, mut hist: *mut i32) {
 }
 
 fn main_0(mut n: i32, mut argv: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         if n <= 1_i32 || {
             n = atoi(*argv.offset(1_isize));

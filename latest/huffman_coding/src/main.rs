@@ -8,6 +8,7 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -45,6 +46,7 @@ pub struct huffheap {
 }
 pub type heap_t = huffheap;
 extern "C" fn _heap_create(mut s: i32, mut f: *mut i64) -> *mut heap_t {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut h: *mut heap_t = std::ptr::null_mut::<heap_t>();
         h = malloc(::core::mem::size_of::<heap_t>() as u64).cast::<huffheap>();
@@ -58,6 +60,7 @@ extern "C" fn _heap_create(mut s: i32, mut f: *mut i64) -> *mut heap_t {
 }
 
 extern "C" fn _heap_destroy(mut heap: *mut heap_t) {
+// SAFETY: machine generated unsafe code
     unsafe {
         free((*heap).h.cast::<libc::c_void>());
         free(heap.cast::<libc::c_void>());
@@ -65,6 +68,7 @@ extern "C" fn _heap_destroy(mut heap: *mut heap_t) {
 }
 
 extern "C" fn _heap_sort(mut heap: *mut heap_t) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 1;
         let mut j: i32 = 2;
@@ -96,6 +100,7 @@ extern "C" fn _heap_sort(mut heap: *mut heap_t) {
 }
 
 extern "C" fn _heap_add(mut heap: *mut heap_t, mut c: i32) {
+// SAFETY: machine generated unsafe code
     unsafe {
         if (*heap).n + 1_i32 > (*heap).s {
             (*heap).h = realloc(
@@ -112,6 +117,7 @@ extern "C" fn _heap_add(mut heap: *mut heap_t, mut c: i32) {
 }
 
 extern "C" fn _heap_remove(mut heap: *mut heap_t) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         if (*heap).n > 0_i32 {
             (*heap).n -= 1_i32;
@@ -124,6 +130,7 @@ extern "C" fn _heap_remove(mut heap: *mut heap_t) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn create_huffman_codes(mut freqs: *mut i64) -> *mut *mut huffcode_t {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut codes: *mut *mut huffcode_t = std::ptr::null_mut::<*mut huffcode_t>();
         let mut heap: *mut heap_t = std::ptr::null_mut::<heap_t>();
@@ -201,6 +208,7 @@ pub extern "C" fn create_huffman_codes(mut freqs: *mut i64) -> *mut *mut huffcod
 
 #[no_mangle]
 pub extern "C" fn free_huffman_codes(mut c: *mut *mut huffcode_t) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         i = 0_i32;
@@ -215,6 +223,7 @@ pub extern "C" fn free_huffman_codes(mut c: *mut *mut huffcode_t) {
 
 #[no_mangle]
 pub extern "C" fn inttobits(mut c: i32, mut n: i32, mut s: *mut i8) {
+// SAFETY: machine generated unsafe code
     unsafe {
         *s.offset(n as isize) = 0;
         while n > 0_i32 {
@@ -230,6 +239,7 @@ pub extern "C" fn inttobits(mut c: i32, mut n: i32, mut s: *mut i8) {
 pub static mut test: *const i8 =
     (b"this is an example for huffman encoding\0" as *const u8).cast::<i8>();
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut r: *mut *mut huffcode_t = std::ptr::null_mut::<*mut huffcode_t>();
         let mut i: i32 = 0;

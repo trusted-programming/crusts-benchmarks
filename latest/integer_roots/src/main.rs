@@ -34,6 +34,7 @@ pub extern "C" fn root(mut base: u64, mut n: u64) -> u64 {
     n3 = n1;
     c = 1;
     d = n3.wrapping_add(base).wrapping_div(n2);
+// SAFETY: machine generated unsafe code
     unsafe {
         e = n3
             .wrapping_mul(d)

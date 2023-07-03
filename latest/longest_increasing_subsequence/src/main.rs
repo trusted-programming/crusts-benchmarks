@@ -21,6 +21,7 @@ pub struct node {
 }
 #[no_mangle]
 pub extern "C" fn lis(mut v: *mut i32, mut len: i32) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut p: *mut node = std::ptr::null_mut::<node>();

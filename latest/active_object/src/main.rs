@@ -18,6 +18,7 @@ extern "C" {
     fn pthread_create(
         __newthread: *mut u64,
         __attr: *const pthread_attr_t,
+// SAFETY: machine generated unsafe code
         __start_routine: Option<unsafe extern "C" fn(*mut libc::c_void) -> *mut libc::c_void>,
         __arg: *mut libc::c_void,
     ) -> i32;
@@ -37,6 +38,7 @@ pub union pthread_attr_t {
 #[derive(Copy, Clone)]
 #[repr(C)]
 pub struct integ_t {
+// SAFETY: machine generated unsafe code
     pub func: Option<unsafe extern "C" fn(f64) -> f64>,
     pub start: timeval,
     pub v: f64,
@@ -53,7 +55,9 @@ pub extern "C" fn update(mut x: integ) {
     };
     let mut t: f64 = 0.;
     let mut v: f64 = 0.;
+// SAFETY: machine generated unsafe code
     unsafe {
+// SAFETY: machine generated unsafe code
         let mut f: Option<unsafe extern "C" fn(f64) -> f64> = None;
         f = (*x).func;
         gettimeofday(&mut tv, 0 as *mut libc::c_void);
@@ -71,6 +75,7 @@ pub extern "C" fn update(mut x: integ) {
 
 #[no_mangle]
 pub extern "C" fn tick(mut a: *mut libc::c_void) -> *mut libc::c_void {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut x: integ = a as integ;
         loop {
@@ -81,12 +86,15 @@ pub extern "C" fn tick(mut a: *mut libc::c_void) -> *mut libc::c_void {
 }
 
 #[no_mangle]
+// SAFETY: machine generated unsafe code
 pub extern "C" fn set_input(mut x: integ, mut func: Option<unsafe extern "C" fn(f64) -> f64>) {
     update(x);
+// SAFETY: machine generated unsafe code
     unsafe {
         (*x).func = func;
     }
     (*x).last_t = 0 as f64;
+// SAFETY: machine generated unsafe code
     unsafe {
         (*x).last_v = if func.is_some() {
             func.expect("non-null function pointer")(0 as f64)
@@ -97,7 +105,9 @@ pub extern "C" fn set_input(mut x: integ, mut func: Option<unsafe extern "C" fn(
 }
 
 #[no_mangle]
+// SAFETY: machine generated unsafe code
 pub extern "C" fn new_integ(mut func: Option<unsafe extern "C" fn(f64) -> f64>) -> integ {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut x: integ = malloc(::core::mem::size_of::<integ_t>() as u64) as integ;
         (*x).last_v = 0 as f64;
@@ -108,6 +118,7 @@ pub extern "C" fn new_integ(mut func: Option<unsafe extern "C" fn(f64) -> f64>) 
         pthread_create(
             &mut (*x).id,
             0 as *const pthread_attr_t,
+// SAFETY: machine generated unsafe code
             Some(tick as unsafe extern "C" fn(*mut libc::c_void) -> *mut libc::c_void),
             x as *mut libc::c_void,
         );
@@ -117,13 +128,16 @@ pub extern "C" fn new_integ(mut func: Option<unsafe extern "C" fn(f64) -> f64>) 
 
 #[no_mangle]
 pub extern "C" fn sine(mut t: f64) -> f64 {
+// SAFETY: machine generated unsafe code
     unsafe {
         return sin(4 as f64 * atan2(1 as f64, 1 as f64) * t);
     }
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
+// SAFETY: machine generated unsafe code
         let mut x: integ = new_integ(Some(sine as unsafe extern "C" fn(f64) -> f64));
         sleep(2);
         set_input(x, None);

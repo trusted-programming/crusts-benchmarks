@@ -27,9 +27,11 @@ extern "C" {
     fn qsort(__base: *mut libc::c_void, __nmemb: u64, __size: u64, __compar: __compar_fn_t);
 }
 pub type __compar_fn_t =
+// SAFETY: machine generated unsafe code
     Option<unsafe extern "C" fn(*const libc::c_void, *const libc::c_void) -> i32>;
 #[no_mangle]
 pub extern "C" fn compareInts(mut i1: *const libc::c_void, mut i2: *const libc::c_void) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut a: i32 = *(i1 as *mut i32);
         let mut b: i32 = *(i2 as *mut i32);
@@ -45,6 +47,7 @@ fn main_0() -> i32 {
     let mut vcount: i32 = 0;
     let mut values: [i32; 6] = [0; 6];
     let mut numbers: [i32; 4] = [0; 4];
+// SAFETY: machine generated unsafe code
     unsafe {
         srand(rust_time(None) as u32);
         loop {
@@ -63,6 +66,7 @@ fn main_0() -> i32 {
                     ::core::mem::size_of::<i32>() as u64,
                     Some(
                         compareInts
+// SAFETY: machine generated unsafe code
                             as unsafe extern "C" fn(
                                 *const libc::c_void,
                                 *const libc::c_void,

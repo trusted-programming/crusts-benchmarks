@@ -18,6 +18,7 @@ fn rust_getchar() -> u8 {
 }
 
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
@@ -120,6 +121,7 @@ pub static mut newt: termios = termios {
 };
 #[no_mangle]
 pub extern "C" fn do_draw() {
+// SAFETY: machine generated unsafe code
     unsafe {
         print!("\x1B[2J\x1B[HScore: {}", game.total_score);
         if game.score_last_move != 0 {
@@ -135,6 +137,7 @@ pub extern "C" fn do_draw() {
     }
     print!("\n");
     let mut y: i32 = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         while y < 4 {
             print!("|");
@@ -171,6 +174,7 @@ pub extern "C" fn do_draw() {
 
 #[no_mangle]
 pub extern "C" fn do_merge(mut d: i32) {
+// SAFETY: machine generated unsafe code
     unsafe {
         game.score_last_move = 0;
         match d {
@@ -276,6 +280,7 @@ pub extern "C" fn do_merge(mut d: i32) {
 
 #[no_mangle]
 pub extern "C" fn do_gravity(mut d: i32) {
+// SAFETY: machine generated unsafe code
     unsafe {
         match d {
             4 => {
@@ -390,6 +395,7 @@ pub extern "C" fn do_gravity(mut d: i32) {
 pub extern "C" fn do_check_end_condition() -> i32 {
     let mut ret: i32 = -1;
     let mut x: i32 = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         while x < 4 {
             let mut y: i32 = 0;
@@ -419,12 +425,14 @@ pub extern "C" fn do_check_end_condition() -> i32 {
 
 #[no_mangle]
 pub extern "C" fn do_tick(mut d: i32) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         game.have_moved = 0;
     }
     do_gravity(d);
     do_merge(d);
     do_gravity(d);
+// SAFETY: machine generated unsafe code
     unsafe {
         return game.have_moved;
     }
@@ -432,6 +440,7 @@ pub extern "C" fn do_tick(mut d: i32) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn do_newblock() {
+// SAFETY: machine generated unsafe code
     unsafe {
         if game.blocks_in_play >= 16 {
             return;
@@ -463,6 +472,7 @@ pub extern "C" fn do_newblock() {
 
 fn main_0() -> i32 {
     let mut current_block: u64;
+// SAFETY: machine generated unsafe code
     unsafe {
         tcgetattr(0, &mut oldt);
         newt = oldt;
@@ -478,6 +488,7 @@ fn main_0() -> i32 {
     do_newblock();
     do_newblock();
     do_draw();
+// SAFETY: machine generated unsafe code
     unsafe {
         's_31: loop {
             let mut found_valid_key: i32 = 0;
@@ -561,6 +572,7 @@ fn main_0() -> i32 {
         }
         _ => {}
     }
+// SAFETY: machine generated unsafe code
     unsafe {
         tcsetattr(0, 0, &mut oldt);
     }

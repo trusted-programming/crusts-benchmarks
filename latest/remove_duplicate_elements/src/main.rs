@@ -16,6 +16,7 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn elem(mut a: *mut i32, mut n: u64, mut e: i32) -> bool {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: u64 = 0;
         while i < n {
@@ -31,6 +32,7 @@ pub extern "C" fn elem(mut a: *mut i32, mut n: u64, mut e: i32) -> bool {
 
 #[no_mangle]
 pub extern "C" fn nub(mut a: *mut i32, mut n: u64) -> u64 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut m: u64 = 0;
         let mut i: u64 = 0;
@@ -49,6 +51,7 @@ pub extern "C" fn nub(mut a: *mut i32, mut n: u64) -> u64 {
 
 #[no_mangle]
 pub extern "C" fn nub_new(mut b: *mut *mut i32, mut a: *mut i32, mut n: u64) -> u64 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut c: *mut i32 =
             malloc(n.wrapping_mul(::core::mem::size_of::<i32>() as u64)).cast::<i32>();
@@ -70,6 +73,7 @@ pub extern "C" fn nub_new(mut b: *mut *mut i32, mut a: *mut i32, mut n: u64) -> 
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut a: [i32; 10] = [1, 2, 1, 4, 5, 2, 15, 1, 3, 4];
         let mut b: *mut i32 = std::ptr::null_mut::<i32>();

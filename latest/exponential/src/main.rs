@@ -12,6 +12,7 @@ extern "C" {
     fn malloc(_: u64) -> *mut libc::c_void;
     fn pow(_: f64, _: f64) -> f64;
 }
+// SAFETY: machine generated unsafe code
 pub type seq_func = Option<unsafe extern "C" fn(*mut libc::c_void) -> i32>;
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -37,8 +38,10 @@ pub struct filter_gen_t {
 }
 #[no_mangle]
 pub extern "C" fn seq_next(mut state: *mut libc::c_void) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let fresh0 = &mut (*state.cast::<gen_t>()).output;
+// SAFETY: machine generated unsafe code
         *fresh0 = (*state.cast::<std::option::Option<unsafe extern "C" fn(*mut libc::c_void) -> i32>>()).expect("non-null function pointer")(state);
         *fresh0
     }
@@ -46,6 +49,7 @@ pub extern "C" fn seq_next(mut state: *mut libc::c_void) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn power_next(mut s: *mut libc::c_void) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let fresh1 = &mut (*s.cast::<power_gen_t>()).pos;
         *fresh1 += 1_i32;
@@ -55,10 +59,12 @@ pub extern "C" fn power_next(mut s: *mut libc::c_void) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn power_seq(mut n: i32) -> *mut libc::c_void {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut s: *mut power_gen_t =
             malloc(::core::mem::size_of::<power_gen_t>() as u64).cast::<power_gen_t>();
         (*s).output = -1_i32;
+// SAFETY: machine generated unsafe code
         (*s).f = Some(power_next as unsafe extern "C" fn(*mut libc::c_void) -> i32);
         (*s).n = n;
         (*s).pos = -1_i32;
@@ -68,6 +74,7 @@ pub extern "C" fn power_seq(mut n: i32) -> *mut libc::c_void {
 
 #[no_mangle]
 pub extern "C" fn filter_next(mut s: *mut libc::c_void) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut in_0: *mut gen_t = (*s.cast::<filter_gen_t>()).in_0.cast::<gen_t>();
         let mut wo: *mut gen_t = (*s.cast::<filter_gen_t>()).without.cast::<gen_t>();
@@ -86,11 +93,13 @@ pub extern "C" fn filter_next(mut s: *mut libc::c_void) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn filter_seq(mut in_0: *mut gen_t, mut without: *mut gen_t) -> *mut libc::c_void {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut filt: *mut filter_gen_t =
             malloc(::core::mem::size_of::<filter_gen_t>() as u64).cast::<filter_gen_t>();
         (*filt).in_0 = in_0.cast::<libc::c_void>();
         (*filt).without = without.cast::<libc::c_void>();
+// SAFETY: machine generated unsafe code
         (*filt).f = Some(filter_next as unsafe extern "C" fn(*mut libc::c_void) -> i32);
         (*filt).output = -1_i32;
         filt.cast::<libc::c_void>()
@@ -98,6 +107,7 @@ pub extern "C" fn filter_seq(mut in_0: *mut gen_t, mut without: *mut gen_t) -> *
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut s: *mut libc::c_void =

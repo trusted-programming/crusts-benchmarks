@@ -14,6 +14,7 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn palindrome(mut s: *const i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut l: i32 = 0;
@@ -32,6 +33,7 @@ pub extern "C" fn palindrome(mut s: *const i8) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn palindrome_r(mut s: *const i8, mut b: i32, mut e: i32) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         if e - 1_i32 <= b {
             return 1_i32;
@@ -44,6 +46,7 @@ pub extern "C" fn palindrome_r(mut s: *const i8, mut b: i32, mut e: i32) -> i32 
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut t: *const i8 = (b"ingirumimusnocteetconsumimurigni\0" as *const u8).cast::<i8>();
         let mut template: *const i8 =

@@ -8,6 +8,7 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -31,6 +32,7 @@ pub struct date {
 }
 #[no_mangle]
 pub extern "C" fn extractDate(mut str: *mut i8) -> date {
+// SAFETY: machine generated unsafe code
     unsafe {
         {
             
@@ -50,6 +52,7 @@ pub extern "C" fn extractDate(mut str: *mut i8) -> date {
 
 #[no_mangle]
 pub extern "C" fn isValidDate(mut str: *mut i8) -> bool {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut newDate: date = date {
             year: 0,
@@ -105,6 +108,7 @@ pub extern "C" fn diffDays(mut date1: date, mut date2: date) -> i32 {
 }
 
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         if argc != 3_i32 {
             let str_to_print = format!(

@@ -32,6 +32,7 @@ pub static mut rank: [i8; 9] = [0; 9];
 pub static mut pos: [i32; 8] = [0; 8];
 #[no_mangle]
 pub extern "C" fn swap(mut i: i32, mut j: i32) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut temp: i32 = pos[i as usize];
         pos[i as usize] = pos[j as usize];
@@ -51,6 +52,7 @@ pub extern "C" fn generateFirstRank() {
     let mut nPos2: i32 = 0;
     let mut i: i32 = 0;
     i = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 8 {
             rank[i as usize] = 'e' as i8;
@@ -76,6 +78,7 @@ pub extern "C" fn generateFirstRank() {
     swap(rPos1, 7);
     swap(rPos2, 6);
     swap(kPos, 5);
+// SAFETY: machine generated unsafe code
     unsafe {
         loop {
             bPos1 = rand() % 5;
@@ -89,6 +92,7 @@ pub extern "C" fn generateFirstRank() {
     }
     swap(bPos1, 4);
     swap(bPos2, 3);
+// SAFETY: machine generated unsafe code
     unsafe {
         loop {
             qPos = rand() % 3;
@@ -101,6 +105,7 @@ pub extern "C" fn generateFirstRank() {
         rank[pos[nPos1 as usize] as usize] = 'N' as i8;
     }
     i = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 8 {
             if rank[i as usize] as i32 == 'e' as i32 {
@@ -117,11 +122,13 @@ pub extern "C" fn generateFirstRank() {
 #[no_mangle]
 pub extern "C" fn printRank() {
     let mut i: i32 = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         setlocale(6, b"\0" as *const u8 as *const i8);
     }
     print!("\n");
     i = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 8 {
             if rank[i as usize] as i32 == 'K' as i32 {
@@ -144,6 +151,7 @@ pub extern "C" fn printRank() {
 
 fn main_0() -> i32 {
     let mut i: i32 = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         srand(rust_time(None) as u32);
     }

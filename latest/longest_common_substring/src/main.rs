@@ -11,6 +11,7 @@
 extern "C" {}
 #[no_mangle]
 pub extern "C" fn lcs(sa: *const i8, sb: *const i8, beg: *mut *mut i8, end: *mut *mut i8) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut apos: u64 = 0;
         let mut bpos: u64 = 0;
@@ -48,6 +49,7 @@ pub extern "C" fn lcs(sa: *const i8, sb: *const i8, beg: *mut *mut i8, end: *mut
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut s1: *mut i8 = (b"thisisatest\0" as *const u8).cast::<i8>() as *mut i8;
         let mut s2: *mut i8 = (b"testing123testing\0" as *const u8).cast::<i8>() as *mut i8;

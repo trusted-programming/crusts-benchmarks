@@ -77,6 +77,7 @@ pub struct sHashEntry {
 pub type HashEntry = *mut sHashEntry;
 #[no_mangle]
 pub extern "C" fn sortedWord(mut word: *const i8, mut wbuf: *mut i8) -> *mut i8 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut p1: *mut i8 = std::ptr::null_mut::<i8>();
         let mut p2: *mut i8 = std::ptr::null_mut::<i8>();
@@ -133,6 +134,7 @@ static mut cxmap: [i16; 96] = [
 ];
 #[no_mangle]
 pub extern "C" fn Str_Hash(mut key: *const i8, mut ix_max: i32) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut cp: *const i8 = std::ptr::null::<i8>();
         let mut mash: i16 = 0;
@@ -158,6 +160,7 @@ pub static mut hashTable: [HashEntry; 8192] = [0 as *const sHashEntry as *mut sH
 pub static mut mostPerms: HashEntry = 0 as *const sHashEntry as HashEntry;
 #[no_mangle]
 pub extern "C" fn buildAnagrams(mut fin: *mut FILE) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut buffer: [i8; 40] = [0; 40];
         let mut bufr2: [i8; 40] = [0; 40];
@@ -215,6 +218,7 @@ pub extern "C" fn buildAnagrams(mut fin: *mut FILE) -> i32 {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut he: HashEntry = std::ptr::null_mut::<sHashEntry>();
         let mut we: DictWord = std::ptr::null_mut::<sDictWord>();

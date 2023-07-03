@@ -8,6 +8,7 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -51,6 +52,7 @@ pub extern "C" fn is_prime(mut n: u64) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn ord(mut res: *mut i8, mut n: i32) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut suffix: [i8; 3] = [0; 3];
         let mut m: i32 = n % 100;
@@ -110,6 +112,7 @@ pub extern "C" fn list_mags(mut from: i32, mut thru: i32, mut digs: i32, mut per
     let mut c: i32 = 0;
     let mut res1: [i8; 13] = [0; 13];
     let mut res2: [i8; 13] = [0; 13];
+// SAFETY: machine generated unsafe code
     unsafe {
         if from < 2_i32 {
             print!("\nFirst {} magnanimous numbers:\n", thru);

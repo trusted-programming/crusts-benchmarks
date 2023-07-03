@@ -39,6 +39,7 @@ pub static mut table: [[f64; 2]; 21] = [
 pub extern "C" fn price_fix(mut x: f64) -> f64 {
     let mut i: i32 = 0;
     i = 0_i32;
+// SAFETY: machine generated unsafe code
     unsafe {
         while table[i as usize][0_usize] > f64::from(0_i32) {
             if x < table[i as usize][0_usize] {

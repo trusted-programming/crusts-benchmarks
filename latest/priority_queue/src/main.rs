@@ -8,6 +8,7 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -38,6 +39,7 @@ pub struct heap_t {
 }
 #[no_mangle]
 pub extern "C" fn push(mut h: *mut heap_t, mut priority: i32, mut data: *mut i8) {
+// SAFETY: machine generated unsafe code
     unsafe {
         if (*h).len + 1_i32 >= (*h).size {
             (*h).size = if (*h).size != 0_i32 { (*h).size * 2_i32 } else { 4_i32 };
@@ -63,6 +65,7 @@ pub extern "C" fn push(mut h: *mut heap_t, mut priority: i32, mut data: *mut i8)
 
 #[no_mangle]
 pub extern "C" fn pop(mut h: *mut heap_t) -> *mut i8 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut j: i32 = 0;
@@ -98,6 +101,7 @@ pub extern "C" fn pop(mut h: *mut heap_t) -> *mut i8 {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut h: *mut heap_t = calloc(1, ::core::mem::size_of::<heap_t>() as u64).cast::<heap_t>();
         push(h, 3, (b"Clear drains\0" as *const u8).cast::<i8>() as *mut i8);

@@ -20,6 +20,7 @@ pub extern "C" fn bellIndex(mut row: i32, mut col: i32) -> u64 {
 
 #[no_mangle]
 pub extern "C" fn getBell(mut bellTri: *mut i32, mut row: i32, mut col: i32) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut index: u64 = bellIndex(row, col);
         *bellTri.offset(index as isize)
@@ -28,6 +29,7 @@ pub extern "C" fn getBell(mut bellTri: *mut i32, mut row: i32, mut col: i32) -> 
 
 #[no_mangle]
 pub extern "C" fn setBell(mut bellTri: *mut i32, mut row: i32, mut col: i32, mut value: i32) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut index: u64 = bellIndex(row, col);
         *bellTri.offset(index as isize) = value;
@@ -36,6 +38,7 @@ pub extern "C" fn setBell(mut bellTri: *mut i32, mut row: i32, mut col: i32, mut
 
 #[no_mangle]
 pub extern "C" fn bellTriangle(mut n: i32) -> *mut i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut length: u64 = (n * (n + 1i32) / 2) as u64;
         let mut tri: *mut i32 = calloc(length, ::core::mem::size_of::<i32>() as u64).cast::<i32>();
@@ -60,6 +63,7 @@ pub extern "C" fn bellTriangle(mut n: i32) -> *mut i32 {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let rows: i32 = 15;
         let mut bt: *mut i32 = bellTriangle(rows);

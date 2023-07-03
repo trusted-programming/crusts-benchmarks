@@ -8,6 +8,7 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -30,6 +31,7 @@ pub struct node {
 }
 #[no_mangle]
 pub extern "C" fn powerset(mut v: *mut *mut i8, mut n: i32, mut up: *mut node) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut me: node = node {
             s: std::ptr::null_mut::<i8>(),
@@ -52,6 +54,7 @@ pub extern "C" fn powerset(mut v: *mut *mut i8, mut n: i32, mut up: *mut node) {
 }
 
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         powerset(argv.offset(1_isize), argc - 1, std::ptr::null_mut::<node>());
         0_i32

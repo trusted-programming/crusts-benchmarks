@@ -9,6 +9,7 @@
 )]
 #![feature(label_break_value)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -35,6 +36,7 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn best_shuffle(mut txt: *const i8, mut result: *mut i8) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let len: u64 = strlen(txt);
         if len == 0 {
@@ -231,6 +233,7 @@ pub extern "C" fn best_shuffle(mut txt: *const i8, mut result: *mut i8) {
 
 #[no_mangle]
 pub extern "C" fn display(mut txt1: *const i8, mut txt2: *const i8) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let len: u64 = strlen(txt1);
         if len == strlen(txt2) {
@@ -291,6 +294,7 @@ fn main_0() -> i32 {
     let data_len: u64 = (::core::mem::size_of::<[*const i8; 9]>() as u64)
         .wrapping_div(::core::mem::size_of::<*const i8>() as u64);
     let mut i: u64 = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < data_len {
             let shuf_len: u64 = (strlen(data[i as usize])).wrapping_add(1);
@@ -312,6 +316,7 @@ fn main_0() -> i32 {
 }
 
 pub fn main() {
+// SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(main_0());
     }

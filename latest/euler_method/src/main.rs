@@ -11,11 +11,13 @@
 extern "C" {
     fn exp(_: f64) -> f64;
 }
+// SAFETY: machine generated unsafe code
 pub type deriv_f = Option<unsafe extern "C" fn(f64, f64) -> f64>;
 #[no_mangle]
 pub extern "C" fn ivp_euler(mut f: deriv_f, mut y: f64, mut step: i32, mut end_t: i32) {
     let mut t: i32 = 0;
     print!(" Step {:2}: ", step);
+// SAFETY: machine generated unsafe code
     unsafe {
         loop {
             if t % 10_i32 == 0_i32 {
@@ -42,6 +44,7 @@ pub extern "C" fn analytic() {
     }
     print!("\nAnalytic: ");
     t = f64::from(0_i32);
+// SAFETY: machine generated unsafe code
     unsafe {
         while t <= 100_f64 {
             print!(" {:7.3}", 80_f64.mul_add(exp(-0.07f64 * t), 20_f64));
@@ -59,18 +62,21 @@ pub extern "C" fn cooling(mut _t: f64, mut temp: f64) -> f64 {
 fn main_0() -> i32 {
     analytic();
     ivp_euler(
+// SAFETY: machine generated unsafe code
         Some(cooling as unsafe extern "C" fn(f64, f64) -> f64),
         100_f64,
         2,
         100,
     );
     ivp_euler(
+// SAFETY: machine generated unsafe code
         Some(cooling as unsafe extern "C" fn(f64, f64) -> f64),
         100_f64,
         5,
         100,
     );
     ivp_euler(
+// SAFETY: machine generated unsafe code
         Some(cooling as unsafe extern "C" fn(f64, f64) -> f64),
         100_f64,
         10,

@@ -8,6 +8,7 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -47,6 +48,7 @@ pub static mut elements: [*const i8; 5] = [
 ];
 #[no_mangle]
 pub extern "C" fn getElement(mut year: i32) -> *const i8 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut element: i32 = floor(f64::from((year - 4i32) % 10_i32 / 2i32)) as i32;
         elements[element as usize]
@@ -55,6 +57,7 @@ pub extern "C" fn getElement(mut year: i32) -> *const i8 {
 
 #[no_mangle]
 pub extern "C" fn getAnimal(mut year: i32) -> *const i8 {
+// SAFETY: machine generated unsafe code
     unsafe {
         animals[((year - 4i32) % 12i32) as usize]
     }
@@ -73,6 +76,7 @@ fn main_0() -> i32 {
     let mut years: [i32; 6] = [1935, 1938, 1968, 1972, 1976, 2017];
     let mut i: i32 = 0;
     i = 0_i32;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 6_i32 {
             let mut year: i32 = years[i as usize];

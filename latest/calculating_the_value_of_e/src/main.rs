@@ -13,6 +13,7 @@ extern "C" {
     fn exp(_: f64) -> f64;
 }
 fn main_0(mut _argc: i32, mut _argv: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut e: f64 = 0.;
         puts ((b"The double precision in C give about 15 significant digits.\nValues below are presented with 16 digits after the decimal point.\n\0" as * const u8).cast::<i8>(),);

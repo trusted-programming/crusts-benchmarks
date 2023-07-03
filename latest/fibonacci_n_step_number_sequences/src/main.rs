@@ -13,6 +13,7 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn anynacci(mut seedArray: *mut i32, mut howMany: i32) -> *mut i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut result: *mut i32 =
             malloc((howMany as u64).wrapping_mul(::core::mem::size_of::<i32>() as u64)).cast::<i32>();
@@ -48,6 +49,7 @@ pub extern "C" fn anynacci(mut seedArray: *mut i32, mut howMany: i32) -> *mut i3
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut fibo: [i32; 3] = [1, 1, 0];
         let mut tribo: [i32; 4] = [1, 1, 2, 0];

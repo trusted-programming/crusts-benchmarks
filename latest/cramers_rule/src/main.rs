@@ -22,6 +22,7 @@ pub struct SquareMatrix {
 }
 #[no_mangle]
 pub extern "C" fn init_square_matrix(mut n: i32, mut elems: *mut f64) -> SquareMatrix {
+// SAFETY: machine generated unsafe code
     unsafe {
         let vla = n as usize;
         let mut A: SquareMatrix = {
@@ -57,10 +58,12 @@ pub extern "C" fn copy_square_matrix(mut src: SquareMatrix) -> SquareMatrix {
         elems: std::ptr::null_mut::<*mut f64>(),
     };
     dest.n = src.n;
+// SAFETY: machine generated unsafe code
     unsafe {
         dest.elems = malloc((dest.n as u64).wrapping_mul(::core::mem::size_of::<*mut f64>() as u64)).cast::<*mut f64>();
     }
     let mut i: i32 = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < dest.n {
             let fresh1 = &mut (*(dest.elems).offset(i as isize));
@@ -83,6 +86,7 @@ pub extern "C" fn copy_square_matrix(mut src: SquareMatrix) -> SquareMatrix {
 pub extern "C" fn det(mut A: SquareMatrix) -> f64 {
     let mut det_0: f64 = 1_f64;
     let mut j: i32 = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         while j < A.n {
             let mut i_max: i32 = j;
@@ -131,6 +135,7 @@ pub extern "C" fn det(mut A: SquareMatrix) -> f64 {
         }
     }
     let mut i_1: i32 = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i_1 < A.n {
             det_0 *= *(*(A.elems).offset(i_1 as isize)).offset(i_1 as isize);
@@ -144,6 +149,7 @@ pub extern "C" fn det(mut A: SquareMatrix) -> f64 {
 #[no_mangle]
 pub extern "C" fn deinit_square_matrix(mut A: SquareMatrix) {
     let mut i: i32 = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < A.n {
             free((*(A.elems).offset(i as isize)).cast::<libc::c_void>());
@@ -161,6 +167,7 @@ pub extern "C" fn cramer_solve(
     mut b: *mut f64,
     mut var: i32,
 ) -> f64 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut tmp: SquareMatrix = copy_square_matrix(A);
         let mut i: i32 = 0;
@@ -176,6 +183,7 @@ pub extern "C" fn cramer_solve(
 }
 
 fn main_0(mut _argc: i32, mut _argv: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut elems: [[f64; 4]; 4] = [
             [2_f64, -1_f64, 5_f64, 1_f64],

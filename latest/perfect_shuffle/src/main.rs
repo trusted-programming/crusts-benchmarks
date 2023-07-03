@@ -57,6 +57,7 @@ pub type FILE = _IO_FILE;
 #[no_mangle]
 pub static mut kDecks: [i32; 7] = [8_i32, 24_i32, 52_i32, 100_i32, 1_020_i32, 1_024_i32, 10_000_i32];
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut nCards: i32 = 0;
@@ -96,6 +97,7 @@ fn main_0() -> i32 {
 
 #[no_mangle]
 pub extern "C" fn CreateDeck(mut deck: *mut *mut i32, mut nCards: i32) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut tmp: *mut i32 = std::ptr::null_mut::<i32>();
         if !deck.is_null() {
@@ -112,6 +114,7 @@ pub extern "C" fn CreateDeck(mut deck: *mut *mut i32, mut nCards: i32) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn InitDeck(mut deck: *mut i32, mut nCards: i32) {
+// SAFETY: machine generated unsafe code
     unsafe {
         if !deck.is_null() {
             let mut i: i32 = 0;
@@ -131,6 +134,7 @@ pub extern "C" fn DuplicateDeck(
     mut orig: *const i32,
     mut nCards: i32,
 ) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         if !orig.is_null() && CreateDeck(dest, nCards) != 0_i32 {
             memcpy(
@@ -147,6 +151,7 @@ pub extern "C" fn DuplicateDeck(
 
 #[no_mangle]
 pub extern "C" fn InitedDeck(mut deck: *mut i32, mut nCards: i32) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         i = 0_i32;
@@ -163,6 +168,7 @@ pub extern "C" fn InitedDeck(mut deck: *mut i32, mut nCards: i32) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn ShuffleDeck(mut deck: *mut i32, mut nCards: i32) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut copy: *mut i32 = std::ptr::null_mut::<i32>();
         if DuplicateDeck(&mut copy, deck, nCards) != 0_i32 {
@@ -187,6 +193,7 @@ pub extern "C" fn ShuffleDeck(mut deck: *mut i32, mut nCards: i32) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn FreeDeck(mut deck: *mut *mut i32) {
+// SAFETY: machine generated unsafe code
     unsafe {
         if !(*deck).is_null() {
             free((*deck).cast::<libc::c_void>());

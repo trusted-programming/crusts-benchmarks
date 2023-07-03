@@ -9,6 +9,7 @@
 )]
 #![feature(extern_types, label_break_value)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -83,6 +84,7 @@ pub struct Node {
 }
 #[no_mangle]
 pub extern "C" fn is_ordered_word(mut word: *const i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         if !word.is_null() {
         } else {
@@ -125,6 +127,7 @@ pub extern "C" fn is_ordered_word(mut word: *const i8) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn list_prepend(mut words_list: *mut Node, mut new_word: *const i8) -> *mut Node {
+// SAFETY: machine generated unsafe code
     unsafe {
         if !new_word.is_null() {
         } else {
@@ -162,6 +165,7 @@ pub extern "C" fn list_prepend(mut words_list: *mut Node, mut new_word: *const i
 
 #[no_mangle]
 pub extern "C" fn list_destroy(mut words_list: *mut Node) -> *mut Node {
+// SAFETY: machine generated unsafe code
     unsafe {
         while !words_list.is_null() {
             let mut temp: *mut Node = words_list;
@@ -174,6 +178,7 @@ pub extern "C" fn list_destroy(mut words_list: *mut Node) -> *mut Node {
 
 #[no_mangle]
 pub extern "C" fn list_print(mut words_list: *mut Node) {
+// SAFETY: machine generated unsafe code
     unsafe {
         while !words_list.is_null() {
             print!(
@@ -186,6 +191,7 @@ pub extern "C" fn list_print(mut words_list: *mut Node) {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut fp: *mut FILE = fopen(
             (b"unixdict.txt\0" as *const u8).cast::<i8>(),
@@ -217,6 +223,7 @@ fn main_0() -> i32 {
 }
 
 pub fn main() {
+// SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(main_0());
     }

@@ -22,6 +22,7 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn test(mut a: i32, mut b: i32) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut code: [i8; 9] = [0x8b, 0x44, 0x24, 0x4, 0x3, 0x44, 0x24, 0x8, 0xc3];
         let mut buf: *mut libc::c_void = std::ptr::null_mut::<libc::c_void>();
@@ -41,6 +42,7 @@ pub extern "C" fn test(mut a: i32, mut b: i32) -> i32 {
         );
         c = (::core::mem::transmute::<
             *mut libc::c_void,
+// SAFETY: machine generated unsafe code
             Option<unsafe extern "C" fn(i32, i32) -> i32>,
         >(buf))
         .expect("non-null function pointer")(a, b);

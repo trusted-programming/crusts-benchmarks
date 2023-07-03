@@ -12,6 +12,7 @@ extern "C" {
     fn qsort(__base: *mut libc::c_void, __nmemb: u64, __size: u64, __compar: __compar_fn_t);
 }
 pub type __compar_fn_t =
+// SAFETY: machine generated unsafe code
     Option<unsafe extern "C" fn(*const libc::c_void, *const libc::c_void) -> i32>;
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -22,6 +23,7 @@ pub struct floatList {
 pub type FloatList = *mut floatList;
 #[no_mangle]
 pub extern "C" fn floatcmp(mut a: *const libc::c_void, mut b: *const libc::c_void) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         if *a.cast::<f32>() < *b.cast::<f32>() {
             -1_i32
@@ -33,11 +35,13 @@ pub extern "C" fn floatcmp(mut a: *const libc::c_void, mut b: *const libc::c_voi
 
 #[no_mangle]
 pub extern "C" fn median(mut fl: FloatList) -> libc::c_float {
+// SAFETY: machine generated unsafe code
     unsafe {
         qsort(
             (*fl).list.cast::<libc::c_void>(),
             (*fl).size as u64,
             ::core::mem::size_of::<libc::c_float>() as u64,
+// SAFETY: machine generated unsafe code
             Some(floatcmp as unsafe extern "C" fn(*const libc::c_void, *const libc::c_void) -> i32),
         );
         (0.5f64

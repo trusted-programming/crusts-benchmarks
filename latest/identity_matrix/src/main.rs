@@ -15,6 +15,7 @@ extern "C" {
     fn calloc(_: u64, _: u64) -> *mut libc::c_void;
 }
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         if argc < 2_i32 {
             println!("usage: identitymatrix <number of rows>");
@@ -91,6 +92,7 @@ pub fn main() {
         );
     }
     args.push(::core::ptr::null_mut());
+// SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(
             main_0((args.len() - 1) as i32, args.as_mut_ptr()),

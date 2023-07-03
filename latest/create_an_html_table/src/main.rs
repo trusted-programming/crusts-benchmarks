@@ -15,6 +15,9 @@ fn main_0() -> i32 {
     let mut i: i32 = 0;
     print! ("<table style=\"text-align:center; border: 1px solid\"><th></th><th>X</th><th>Y</th><th>Z</th>");
     i = 0_i32;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 4_i32 {
             print!(

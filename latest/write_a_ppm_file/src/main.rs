@@ -54,6 +54,7 @@ pub struct _IO_FILE {
 pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let dimx: i32 = 800;
         let dimy: i32 = 800;

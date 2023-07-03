@@ -13,6 +13,7 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn perfect(mut n: i32) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut max: i32 = sqrt(f64::from(n)) as i32 + 1;
         let mut tot: i32 = 1;

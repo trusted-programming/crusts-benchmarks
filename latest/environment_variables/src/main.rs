@@ -13,6 +13,7 @@ extern "C" {
     fn puts(__s: *const i8) -> i32;
 }
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         puts(getenv((b"HOME\0" as *const u8).cast::<i8>()));
     }

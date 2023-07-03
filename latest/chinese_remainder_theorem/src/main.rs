@@ -36,6 +36,7 @@ pub extern "C" fn mul_inv(mut a: i32, mut b: i32) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn chinese_remainder(mut n: *mut i32, mut a: *mut i32, mut len: i32) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut p: i32 = 0;
         let mut i: i32 = 0;

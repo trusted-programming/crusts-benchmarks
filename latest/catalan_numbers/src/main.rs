@@ -63,6 +63,7 @@ pub extern "C" fn catalan3(mut n: i32) -> u64 {
 
 fn main_0() -> i32 {
     let mut i: i32 = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         puts((b"\tdirect\tsumming\tfrac\0" as *const u8).cast::<i8>());
     }

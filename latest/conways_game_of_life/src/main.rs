@@ -56,6 +56,7 @@ pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 #[no_mangle]
 pub extern "C" fn show(mut u: *mut libc::c_void, mut w: i32, mut h: i32) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let vla = w as usize;
         let mut univ: *mut i32 = u.cast::<i32>();
@@ -82,6 +83,7 @@ pub extern "C" fn show(mut u: *mut libc::c_void, mut w: i32, mut h: i32) {
 
 #[no_mangle]
 pub extern "C" fn evolve(mut u: *mut libc::c_void, mut w: i32, mut h: i32) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let vla = w as usize;
         let mut univ: *mut u32 = u.cast::<u32>();
@@ -150,6 +152,7 @@ pub extern "C" fn game(mut w: i32, mut h: i32) {
     let vla_0 = w as usize;
     let mut univ: Vec<u32> = ::std::vec::from_elem(0, vla * vla_0);
     let mut x: i32 = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         while x < w {
             let mut y: i32 = 0;
@@ -173,6 +176,7 @@ pub extern "C" fn game(mut w: i32, mut h: i32) {
 }
 
 fn main_0(mut c: i32, mut v: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut w: i32 = 0;
         let mut h: i32 = 0;

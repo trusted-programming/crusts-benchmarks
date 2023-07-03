@@ -8,6 +8,7 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -42,6 +43,7 @@ static mut verses: [*const i8; 8] = [
 ];
 fn main_0() -> i32 {
     let mut i: u64 = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i
             < (::core::mem::size_of::<[*const i8; 8]>() as u64)

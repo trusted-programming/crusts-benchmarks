@@ -14,9 +14,11 @@ extern "C" {
     fn strcmp(_: *const i8, _: *const i8) -> i32;
 }
 pub type __compar_fn_t =
+// SAFETY: machine generated unsafe code
     Option<unsafe extern "C" fn(*const libc::c_void, *const libc::c_void) -> i32>;
 #[no_mangle]
 pub extern "C" fn catcmp(mut a: *const libc::c_void, mut b: *const libc::c_void) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut ab: [i8; 32] = [0; 32];
         let mut ba: [i8; 32] = [0; 32];
@@ -38,12 +40,14 @@ pub extern "C" fn catcmp(mut a: *const libc::c_void, mut b: *const libc::c_void)
 
 #[no_mangle]
 pub extern "C" fn maxcat(mut a: *mut i32, mut len: i32) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         qsort(
             a.cast::<libc::c_void>(),
             len as u64,
             ::core::mem::size_of::<i32>() as u64,
+// SAFETY: machine generated unsafe code
             Some(catcmp as unsafe extern "C" fn(*const libc::c_void, *const libc::c_void) -> i32),
         );
         i = 0_i32;

@@ -14,6 +14,7 @@ extern "C" {
     fn qsort(__base: *mut libc::c_void, __nmemb: u64, __size: u64, __compar: __compar_fn_t);
 }
 pub type __compar_fn_t =
+// SAFETY: machine generated unsafe code
     Option<unsafe extern "C" fn(*const libc::c_void, *const libc::c_void) -> i32>;
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -31,6 +32,7 @@ pub struct tNode {
 pub type Node = tNode;
 #[no_mangle]
 pub extern "C" fn ccw(mut a: *const Point, mut b: *const Point, mut c: *const Point) -> bool {
+// SAFETY: machine generated unsafe code
     unsafe {
         return ((*b).x - (*a).x) * ((*c).y - (*a).y) > ((*b).y - (*a).y) * ((*c).x - (*a).x);
     }
@@ -38,6 +40,7 @@ pub extern "C" fn ccw(mut a: *const Point, mut b: *const Point, mut c: *const Po
 
 #[no_mangle]
 pub extern "C" fn comp(mut lhs: *const libc::c_void, mut rhs: *const libc::c_void) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut lp: Point = *(lhs as *mut Point);
         let mut rp: Point = *(rhs as *mut Point);
@@ -53,6 +56,7 @@ pub extern "C" fn comp(mut lhs: *const libc::c_void, mut rhs: *const libc::c_voi
 
 #[no_mangle]
 pub extern "C" fn freeNode(mut ptr: *mut Node) {
+// SAFETY: machine generated unsafe code
     unsafe {
         if ptr.is_null() {
             return;
@@ -65,6 +69,7 @@ pub extern "C" fn freeNode(mut ptr: *mut Node) {
 
 #[no_mangle]
 pub extern "C" fn pushBack(mut ptr: *mut Node, mut data: Point) -> *mut Node {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut tmp: *mut Node = ptr;
         if ptr.is_null() {
@@ -85,6 +90,7 @@ pub extern "C" fn pushBack(mut ptr: *mut Node, mut data: Point) -> *mut Node {
 
 #[no_mangle]
 pub extern "C" fn popBack(mut ptr: *mut Node) -> *mut Node {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut tmp: *mut Node = ptr;
         if ptr.is_null() {
@@ -105,6 +111,7 @@ pub extern "C" fn popBack(mut ptr: *mut Node) -> *mut Node {
 
 #[no_mangle]
 pub extern "C" fn print(mut ptr: *mut Node) {
+// SAFETY: machine generated unsafe code
     unsafe {
         print!("[");
     }
@@ -116,6 +123,7 @@ pub extern "C" fn print(mut ptr: *mut Node) {
         print!(", ({}, {})", (*ptr).data.x, (*ptr).data.y);
         ptr = (*ptr).next;
     }
+// SAFETY: machine generated unsafe code
     unsafe {
         print!("]");
     }
@@ -123,6 +131,7 @@ pub extern "C" fn print(mut ptr: *mut Node) {
 
 #[no_mangle]
 pub extern "C" fn convexHull(mut len: i32, mut p: *mut Point) -> *mut Node {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut h: *mut Node = 0 as *mut Node;
         let mut hptr: *mut Node = 0 as *mut Node;
@@ -132,6 +141,7 @@ pub extern "C" fn convexHull(mut len: i32, mut p: *mut Point) -> *mut Node {
             p as *mut libc::c_void,
             len as u64,
             ::core::mem::size_of::<Point>() as u64,
+// SAFETY: machine generated unsafe code
             Some(comp as unsafe extern "C" fn(*const libc::c_void, *const libc::c_void) -> i32),
         );
         i = 0;
@@ -188,6 +198,7 @@ pub extern "C" fn convexHull(mut len: i32, mut p: *mut Point) -> *mut Node {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut points: [Point; 20] = [
             {

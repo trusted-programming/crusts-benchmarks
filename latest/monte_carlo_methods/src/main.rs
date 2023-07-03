@@ -62,6 +62,7 @@ pub extern "C" fn pi(mut tolerance: f64) -> f64 {
     let mut sampled: u64 = 0;
     let mut hit: u64 = 0;
     let mut i: u64 = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         loop {
             i = 1000000;

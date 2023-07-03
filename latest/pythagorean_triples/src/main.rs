@@ -43,6 +43,7 @@ pub static mut U: [[u64; 9]; 3] = [
 ];
 #[no_mangle]
 pub extern "C" fn new_tri(mut in_0: *mut u64) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut t: [u64; 3] = [0; 3];
@@ -78,6 +79,7 @@ pub extern "C" fn new_tri(mut in_0: *mut u64) {
 
 fn main_0() -> i32 {
     let mut seed: [u64; 3] = [3, 4, 5];
+// SAFETY: machine generated unsafe code
     unsafe {
         max_peri = 10;
         while max_peri <= 100000000 {

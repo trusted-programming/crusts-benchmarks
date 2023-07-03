@@ -9,6 +9,7 @@
 )]
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
@@ -151,6 +152,7 @@ pub static mut digits: [expr_t; 4] = [expr_t {
 pub extern "C" fn gen_digits() {
     let mut i: i32 = 0;
     i = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 4 {
             digits[i as usize].val = 1 + rand() % 9;
@@ -177,12 +179,14 @@ pub static mut pool_ptr: i32 = 0;
 #[no_mangle]
 pub extern "C" fn reset() {
     let mut i: i32 = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         msg = 0 as *const i8;
         pos = 0;
         pool_ptr = pos;
     }
     i = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 8 {
             pool[i as usize].op = OP_NONE as i32;
@@ -193,6 +197,7 @@ pub extern "C" fn reset() {
         }
     }
     i = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 4 {
             digits[i as usize].used = 0;
@@ -204,6 +209,7 @@ pub extern "C" fn reset() {
 
 #[no_mangle]
 pub extern "C" fn bail(mut s: *const i8) {
+// SAFETY: machine generated unsafe code
     unsafe {
         msg = s;
         longjmp(ctx.as_mut_ptr(), 1);
@@ -212,6 +218,7 @@ pub extern "C" fn bail(mut s: *const i8) {
 
 #[no_mangle]
 pub extern "C" fn new_expr() -> expr {
+// SAFETY: machine generated unsafe code
     unsafe {
         if pool_ptr < 8 {
             let fresh0 = pool_ptr;
@@ -224,6 +231,7 @@ pub extern "C" fn new_expr() -> expr {
 
 #[no_mangle]
 pub extern "C" fn next_tok() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         while *(*__ctype_b_loc()).offset(str[pos as usize] as i32 as isize) as i32 & _ISspace as i32
             != 0
@@ -237,6 +245,7 @@ pub extern "C" fn next_tok() -> i32 {
 
 #[no_mangle]
 pub extern "C" fn take() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         if str[pos as usize] as i32 != '\0' as i32 {
             pos = pos.wrapping_add(1);
@@ -315,6 +324,7 @@ pub extern "C" fn get_digit() -> expr {
     let mut i: i32 = 0;
     let mut c: i32 = next_tok();
     let mut ret: expr = 0 as *mut expr_t;
+// SAFETY: machine generated unsafe code
     unsafe {
         if c >= '0' as i32 && c <= '9' as i32 {
             take();
@@ -364,6 +374,7 @@ pub extern "C" fn parse() -> expr {
         bail(b"Trailing garbage\0" as *const u8 as *const i8);
     }
     i = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 4 {
             if digits[i as usize].used == 0 {
@@ -428,6 +439,7 @@ pub extern "C" fn eval_tree(mut e: expr, mut res: frac) {
 #[no_mangle]
 pub extern "C" fn get_input() {
     let mut i: i32 = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         loop {
             reset();
@@ -474,10 +486,12 @@ pub extern "C" fn get_input() {
 
 fn main_0() -> i32 {
     let mut f: frac_t = frac_t { denom: 0, num: 0 };
+// SAFETY: machine generated unsafe code
     unsafe {
         srand(rust_time(None) as u32);
     }
     gen_digits();
+// SAFETY: machine generated unsafe code
     unsafe {
         loop {
             get_input();
@@ -510,6 +524,7 @@ fn main_0() -> i32 {
 }
 
 pub fn main() {
+// SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(main_0() as i32);
     }

@@ -13,6 +13,7 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn rms(mut v: *mut f64, mut n: i32) -> f64 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut sum: f64 = 0.0f64;

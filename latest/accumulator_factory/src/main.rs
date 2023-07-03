@@ -11,6 +11,7 @@ use c2rust_out::*;
 extern "C" {}
 #[no_mangle]
 pub extern "C" fn x(mut i: f64) -> f64 {
+// SAFETY: machine generated unsafe code
     unsafe {
         static mut _n: f64 = 1.0f64;
         _n = _n.wrapping_add(i);
@@ -20,6 +21,7 @@ pub extern "C" fn x(mut i: f64) -> f64 {
 
 #[no_mangle]
 pub extern "C" fn y(mut i: i32) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         static mut _n: i32 = 3;
         _n = _n.wrapping_add(i);
@@ -29,6 +31,7 @@ pub extern "C" fn y(mut i: i32) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn z(mut i: i32) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         static mut _n: i32 = 'a' as i32;
         _n = _n.wrapping_add(i);

@@ -64,6 +64,7 @@ pub struct squareMtxStruct {
     pub m: *mut *mut f64,
 }
 pub type SquareMtx = *mut squareMtxStruct;
+// SAFETY: machine generated unsafe code
 pub type FillFunc = Option<unsafe extern "C" fn(*mut f64, i32, i32, *mut libc::c_void) -> ()>;
 #[no_mangle]
 pub extern "C" fn NewSquareMtx(
@@ -71,6 +72,7 @@ pub extern "C" fn NewSquareMtx(
     mut fillFunc: FillFunc,
     mut ff_data: *mut libc::c_void,
 ) -> SquareMtx {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut sm: SquareMtx =
             malloc(::core::mem::size_of::<squareMtxStruct>() as u64).cast::<squareMtxStruct>();
@@ -110,6 +112,7 @@ pub extern "C" fn NewSquareMtx(
 
 #[no_mangle]
 pub extern "C" fn ffMatxSquare(mut cells: *mut f64, mut rw: i32, mut dim: i32, mut m0: SquareMtx) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut col: i32 = 0;
         let mut ix: i32 = 0;
@@ -139,6 +142,7 @@ pub extern "C" fn ffMatxMulply(
     mut dim: i32,
     mut mplcnds: *mut SquareMtx,
 ) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut mleft: SquareMtx = *mplcnds.offset(0_isize);
         let mut mrigt: SquareMtx = *mplcnds.offset(1_isize);
@@ -170,6 +174,7 @@ pub extern "C" fn MatxMul(mut mr: SquareMtx, mut left: SquareMtx, mut rigt: Squa
     mplcnds[0_usize] = left;
     mplcnds[1_usize] = rigt;
     rw = 0_i32;
+// SAFETY: machine generated unsafe code
     unsafe {
         while rw < (*left).dim {
             ffMatxMulply(
@@ -191,6 +196,7 @@ pub extern "C" fn ffIdentity(
     mut dim: i32,
     mut _v: *mut libc::c_void,
 ) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut col: i32 = 0;
         col = 0_i32;
@@ -205,6 +211,7 @@ pub extern "C" fn ffIdentity(
 
 #[no_mangle]
 pub extern "C" fn ffCopy(mut cells: *mut f64, mut rw: i32, mut dim: i32, mut m1: SquareMtx) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut col: i32 = 0;
         col = 0_i32;
@@ -218,6 +225,7 @@ pub extern "C" fn ffCopy(mut cells: *mut f64, mut rw: i32, mut dim: i32, mut m1:
 
 #[no_mangle]
 pub extern "C" fn FreeSquareMtx(mut m: SquareMtx) {
+// SAFETY: machine generated unsafe code
     unsafe {
         free((*m).m.cast::<libc::c_void>());
         free((*m).cells.cast::<libc::c_void>());
@@ -227,9 +235,11 @@ pub extern "C" fn FreeSquareMtx(mut m: SquareMtx) {
 
 #[no_mangle]
 pub extern "C" fn SquareMtxPow(mut m0: SquareMtx, mut exp: i32) -> SquareMtx {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut v0: SquareMtx = NewSquareMtx(
             (*m0).dim,
+// SAFETY: machine generated unsafe code
             Some(ffIdentity as unsafe extern "C" fn(*mut f64, i32, i32, *mut libc::c_void) -> ()),
             std::ptr::null_mut::<libc::c_void>(),
         );
@@ -237,9 +247,11 @@ pub extern "C" fn SquareMtxPow(mut m0: SquareMtx, mut exp: i32) -> SquareMtx {
         let mut base0: SquareMtx = NewSquareMtx(
             (*m0).dim,
             ::core::mem::transmute::<
+// SAFETY: machine generated unsafe code
                 Option<unsafe extern "C" fn(*mut f64, i32, i32, SquareMtx) -> ()>,
                 FillFunc,
             >(Some(
+// SAFETY: machine generated unsafe code
                 ffCopy as unsafe extern "C" fn(*mut f64, i32, i32, SquareMtx) -> (),
             )),
             m0.cast::<libc::c_void>(),
@@ -257,10 +269,12 @@ pub extern "C" fn SquareMtxPow(mut m0: SquareMtx, mut exp: i32) -> SquareMtx {
                     v1 = NewSquareMtx(
                         (*m0).dim,
                         ::core::mem::transmute::<
+// SAFETY: machine generated unsafe code
                             Option<unsafe extern "C" fn(*mut f64, i32, i32, *mut SquareMtx) -> ()>,
                             FillFunc,
                         >(Some(
                             ffMatxMulply
+// SAFETY: machine generated unsafe code
                                 as unsafe extern "C" fn(*mut f64, i32, i32, *mut SquareMtx) -> (),
                         )),
                         mplcnds.as_mut_ptr().cast::<libc::c_void>(),
@@ -276,9 +290,11 @@ pub extern "C" fn SquareMtxPow(mut m0: SquareMtx, mut exp: i32) -> SquareMtx {
                 base1 = NewSquareMtx(
                     (*m0).dim,
                     ::core::mem::transmute::<
+// SAFETY: machine generated unsafe code
                         Option<unsafe extern "C" fn(*mut f64, i32, i32, SquareMtx) -> ()>,
                         FillFunc,
                     >(Some(
+// SAFETY: machine generated unsafe code
                         ffMatxSquare as unsafe extern "C" fn(*mut f64, i32, i32, SquareMtx) -> (),
                     )),
                     base0.cast::<libc::c_void>(),
@@ -306,6 +322,7 @@ pub extern "C" fn SquareMtxPow(mut m0: SquareMtx, mut exp: i32) -> SquareMtx {
 pub static mut fout: *mut FILE = 0 as *const FILE as *mut FILE;
 #[no_mangle]
 pub extern "C" fn SquareMtxPrint(mut mtx: SquareMtx, mut mn: *const i8) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut rw: i32 = 0;
         let mut col: i32 = 0;
@@ -344,6 +361,7 @@ pub extern "C" fn fillInit(
     mut _dim: i32,
     mut _data: *mut libc::c_void,
 ) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut theta: f64 = 3.1415926536f64 / 6.0f64;
         let mut c1: f64 = cos(theta);
@@ -370,9 +388,11 @@ pub extern "C" fn fillInit(
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut m0: SquareMtx = NewSquareMtx(
             3,
+// SAFETY: machine generated unsafe code
             Some(fillInit as unsafe extern "C" fn(*mut f64, i32, i32, *mut libc::c_void) -> ()),
             std::ptr::null_mut::<libc::c_void>(),
         );

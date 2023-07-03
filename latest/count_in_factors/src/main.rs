@@ -13,6 +13,7 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn get_prime(mut idx: i32) -> u64 {
+// SAFETY: machine generated unsafe code
     unsafe {
         static mut n_primes: i64 = 0;
         static mut alloc: i64 = 0;

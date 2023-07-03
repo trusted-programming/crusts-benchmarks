@@ -13,6 +13,7 @@ extern "C" {
 }
 fn main_0() -> i32 {
     let mut i: i32 = 1;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 5_000_i32 {
             let mut sum: i32 = 0;

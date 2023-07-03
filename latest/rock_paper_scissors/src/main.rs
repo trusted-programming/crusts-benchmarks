@@ -8,6 +8,7 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -25,6 +26,7 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn rand_idx(mut p: *mut f64, mut n: i32) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut s: f64 = f64::from(rand()) / (2147483647_f64 + 1.0f64);
         let mut i: i32 = 0;
@@ -56,6 +58,7 @@ fn main_0() -> i32 {
         (b"You win.\0" as *const u8).cast::<i8>(),
     ];
     let mut p: [f64; 3] = [1.0f64 / 3_f64, 1.0f64 / 3_f64, 1.0f64 / 3_f64];
+// SAFETY: machine generated unsafe code
     unsafe {
         loop {
             my_action = rand_idx(p.as_mut_ptr(), 3);

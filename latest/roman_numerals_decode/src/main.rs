@@ -8,6 +8,7 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -26,6 +27,7 @@ pub static mut digits: [i32; 26] = [
 ];
 #[no_mangle]
 pub extern "C" fn decode(mut roman: *const i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut bigger: *const i8 = std::ptr::null::<i8>();
         let mut current: i32 = 0;
@@ -63,6 +65,7 @@ fn main_0() -> i32 {
     ];
     let mut i: i32 = 0;
     i = 0_i32;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 4_i32 {
             println!(

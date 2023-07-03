@@ -11,6 +11,7 @@
 extern "C" {}
 #[no_mangle]
 pub extern "C" fn bsearch(mut a: *mut i32, mut n: i32, mut x: i32) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut j: i32 = n - 1;
@@ -30,6 +31,7 @@ pub extern "C" fn bsearch(mut a: *mut i32, mut n: i32, mut x: i32) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn bsearch_r(mut a: *mut i32, mut x: i32, mut i: i32, mut j: i32) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         if j < i {
             return -1_i32;

@@ -8,6 +8,7 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -25,14 +26,17 @@ extern "C" {
 }
 #[no_mangle]
 pub static mut target: [i8; 29] =
+// SAFETY: machine generated unsafe code
     unsafe { *::core::mem::transmute::<&[u8; 29], &[i8; 29]>(b"METHINKS IT IS LIKE A WEASEL\0") };
 #[no_mangle]
 pub static mut tbl: [i8; 28] =
+// SAFETY: machine generated unsafe code
     unsafe { *::core::mem::transmute::<&[u8; 28], &[i8; 28]>(b"ABCDEFGHIJKLMNOPQRSTUVWXYZ \0") };
 #[no_mangle]
 pub extern "C" fn irand(mut n: i32) -> i32 {
     let mut r: i32 = 0;
     let mut rand_max: i32 = 2147483647 - 2147483647 % n;
+// SAFETY: machine generated unsafe code
     unsafe {
         loop {
             r = rand();
@@ -46,6 +50,7 @@ pub extern "C" fn irand(mut n: i32) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn unfitness(mut a: *const i8, mut b: *const i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut sum: i32 = 0;
@@ -61,6 +66,7 @@ pub extern "C" fn unfitness(mut a: *const i8, mut b: *const i8) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn mutate(mut a: *const i8, mut b: *mut i8) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         i = 0_i32;
@@ -86,6 +92,7 @@ fn main_0() -> i32 {
     let mut iters: i32 = 0;
     let mut specimen: [[i8; 29]; 30] = [[0; 29]; 30];
     i = 0_i32;
+// SAFETY: machine generated unsafe code
     unsafe {
         while target[i as usize] != 0 {
             specimen[0_usize][i as usize] =
@@ -96,6 +103,7 @@ fn main_0() -> i32 {
         }
     }
     specimen[0_usize][i as usize] = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         loop {
             i = 1_i32;

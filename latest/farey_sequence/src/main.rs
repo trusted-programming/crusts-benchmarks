@@ -53,6 +53,7 @@ pub static mut cache: *mut u64 = 0 as *const u64 as *mut u64;
 pub static mut ccap: u64 = 0;
 #[no_mangle]
 pub extern "C" fn farey_len(mut n: i32) -> u64 {
+// SAFETY: machine generated unsafe code
     unsafe {
         if n as u64 >= ccap {
             let mut old: u64 = ccap;
@@ -79,6 +80,7 @@ pub extern "C" fn farey_len(mut n: i32) -> u64 {
     let mut p: i32 = 0;
     let mut q: i32 = 0;
     p = 2_i32;
+// SAFETY: machine generated unsafe code
     unsafe {
         while p <= n {
             q = n / (n / p) + 1_i32;

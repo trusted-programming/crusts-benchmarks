@@ -42,9 +42,11 @@ pub static mut SEQ_base: ITERATOR = ITERATOR {
     p: 0 as *const ITERATOR as *mut ITERATOR,
 };
 #[no_mangle]
+// SAFETY: machine generated unsafe code
 pub static mut SEQ_var: *mut ITERATOR = unsafe { &SEQ_base as *const ITERATOR as *mut ITERATOR };
 #[no_mangle]
 pub extern "C" fn listNew(mut sz: i32, mut val: *mut libc::c_void) -> *mut List {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut l: *mut List =
             malloc((::core::mem::size_of::<List>() as u64).wrapping_add(sz as u64)).cast::<List>();
@@ -60,6 +62,7 @@ pub extern "C" fn listAppend(
     mut sz: i32,
     mut val: *mut libc::c_void,
 ) -> *mut List {
+// SAFETY: machine generated unsafe code
     unsafe {
         while !((*l).nx).is_null() {
             l = (*l).nx;
@@ -71,6 +74,7 @@ pub extern "C" fn listAppend(
 
 #[no_mangle]
 pub extern "C" fn intRangeList(mut f: i32, mut t: i32) -> *mut List {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut l: *mut List = listNew(
             ::core::mem::size_of::<i32>() as i32,
@@ -92,6 +96,7 @@ pub extern "C" fn intRangeList(mut f: i32, mut t: i32) -> *mut List {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut x: i32 = 0;
         let mut y: i32 = 0;
@@ -108,6 +113,7 @@ fn main_0() -> i32 {
         FE_var = &mut {
             
             ITERATOR {
+// SAFETY: machine generated unsafe code
                 l: (intRangeList as unsafe extern "C" fn(i32, i32) -> *mut List)(1, n),
                 old: std::ptr::null_mut::<List>(),
                 p: FE_var,
@@ -130,6 +136,7 @@ fn main_0() -> i32 {
             FE_var = &mut {
                 
                 ITERATOR {
+// SAFETY: machine generated unsafe code
                     l: (intRangeList as unsafe extern "C" fn(i32, i32) -> *mut List)(x, n),
                     old: std::ptr::null_mut::<List>(),
                     p: FE_var,
@@ -152,6 +159,7 @@ fn main_0() -> i32 {
                 FE_var = &mut {
                     
                     ITERATOR {
+// SAFETY: machine generated unsafe code
                         l: (intRangeList as unsafe extern "C" fn(i32, i32) -> *mut List)(y, n),
                         old: std::ptr::null_mut::<List>(),
                         p: FE_var,

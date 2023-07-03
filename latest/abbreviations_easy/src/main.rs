@@ -9,6 +9,7 @@
 )]
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -97,6 +98,7 @@ pub static mut command_table : * const i8 =
 (b"Add ALTer  BAckup Bottom  CAppend Change SCHANGE  CInsert CLAst COMPress COpy COUnt COVerlay CURsor DELete CDelete Down DUPlicate Xedit EXPand EXTract Find NFind NFINDUp NFUp CFind FINdup FUp FOrward GET Help HEXType Input POWerinput Join SPlit SPLTJOIN  LOAD  Locate CLocate  LOWercase UPPercase  LPrefix MACRO MErge MODify MOve MSG Next Overlay PARSE PREServe PURge PUT PUTD  Query  QUIT READ  RECover REFRESH RENum REPeat  Replace CReplace  RESet  RESTore  RGTLEFT RIght LEft  SAVE  SET SHift SI  SORT  SOS  STAck STATus  TOP TRAnsfer Type Up\0" as * const u8).cast::<i8>();
 #[no_mangle]
 pub extern "C" fn command_match(mut command: *const command_t, mut str: *const i8) -> bool {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut olen: u64 = strlen(str);
         olen >= (*command).min_len
@@ -107,6 +109,7 @@ pub extern "C" fn command_match(mut command: *const command_t, mut str: *const i
 
 #[no_mangle]
 pub extern "C" fn uppercase(mut str: *mut i8, mut n: u64) -> *mut i8 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: u64 = 0;
         while i < n {
@@ -120,6 +123,7 @@ pub extern "C" fn uppercase(mut str: *mut i8, mut n: u64) -> *mut i8 {
 
 #[no_mangle]
 pub extern "C" fn get_min_length(mut str: *const i8, mut n: u64) -> u64 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut len: u64 = 0;
         while len < n
@@ -136,6 +140,7 @@ pub extern "C" fn get_min_length(mut str: *const i8, mut n: u64) -> u64 {
 
 #[no_mangle]
 pub extern "C" fn fatal(mut message: *const i8) {
+// SAFETY: machine generated unsafe code
     unsafe {
         fprintf(stderr, (b"%s\n\0" as *const u8).cast::<i8>(), message);
         exit(1);
@@ -144,6 +149,7 @@ pub extern "C" fn fatal(mut message: *const i8) {
 
 #[no_mangle]
 pub extern "C" fn xmalloc(mut n: u64) -> *mut libc::c_void {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut ptr: *mut libc::c_void = malloc(n);
         if ptr.is_null() {
@@ -155,6 +161,7 @@ pub extern "C" fn xmalloc(mut n: u64) -> *mut libc::c_void {
 
 #[no_mangle]
 pub extern "C" fn xrealloc(mut p: *mut libc::c_void, mut n: u64) -> *mut libc::c_void {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut ptr: *mut libc::c_void = realloc(p, n);
         if ptr.is_null() {
@@ -166,6 +173,7 @@ pub extern "C" fn xrealloc(mut p: *mut libc::c_void, mut n: u64) -> *mut libc::c
 
 #[no_mangle]
 pub extern "C" fn split_into_words(mut str: *const i8, mut count: *mut u64) -> *mut *mut i8 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut size: u64 = 0;
         let mut capacity: u64 = 16;
@@ -223,6 +231,7 @@ pub extern "C" fn split_into_words(mut str: *const i8, mut count: *mut u64) -> *
 
 #[no_mangle]
 pub extern "C" fn make_command_list(mut table: *const i8) -> *mut command_t {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut cmd: *mut command_t = std::ptr::null_mut::<command_t>();
         let mut count: u64 = 0;
@@ -248,6 +257,7 @@ pub extern "C" fn make_command_list(mut table: *const i8) -> *mut command_t {
 
 #[no_mangle]
 pub extern "C" fn free_command_list(mut cmd: *mut command_t) {
+// SAFETY: machine generated unsafe code
     unsafe {
         while !cmd.is_null() {
             let mut next: *mut command_t = (*cmd).next;
@@ -263,6 +273,7 @@ pub extern "C" fn find_command(
     mut commands: *const command_t,
     mut word: *const i8,
 ) -> *const command_t {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut cmd: *const command_t = commands;
         while !cmd.is_null() {
@@ -277,6 +288,7 @@ pub extern "C" fn find_command(
 
 #[no_mangle]
 pub extern "C" fn test(mut commands: *const command_t, mut input: *const i8) {
+// SAFETY: machine generated unsafe code
     unsafe {
         println!(" input: {}", build_str_from_raw_ptr(input as *mut u8));
         print!("output:");
@@ -305,6 +317,7 @@ pub extern "C" fn test(mut commands: *const command_t, mut input: *const i8) {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut commands: *mut command_t = make_command_list(command_table);
         let mut input: *const i8 =
@@ -316,6 +329,7 @@ fn main_0() -> i32 {
 }
 
 pub fn main() {
+// SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(main_0());
     }

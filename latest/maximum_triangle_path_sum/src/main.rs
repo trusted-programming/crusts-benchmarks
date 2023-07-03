@@ -25,6 +25,7 @@ pub static mut tri: [i32; 171] = [
 fn main_0() -> i32 {
     let len: i32 = (::core::mem::size_of::<[i32; 171]>() as u64)
         .wrapping_div(::core::mem::size_of::<i32>() as u64) as i32;
+// SAFETY: machine generated unsafe code
     unsafe {
         let base: i32 = ((sqrt(f64::from(8_i32 * len + 1i32)) - 1_f64) / 2_f64) as i32;
         let mut step: i32 = base - 1;

@@ -13,6 +13,7 @@ extern "C" {
 }
 fn main_0() -> i32 {
     let mut bounds: [i32; 2] = [1, 100];
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut input: [i8; 2] = *::core::mem::transmute::<&[u8; 2], &mut [i8; 2]>(b"  ");
         let mut choice: i32 = (bounds[0_usize] + bounds[1_usize]) / 2;

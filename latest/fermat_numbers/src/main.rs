@@ -10,6 +10,7 @@
 
 extern "C" {}
 fn main_0(mut _argc: i32, mut _argv: *mut *const i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         println!("F(0) = 3 -> PRIME");
         let mut i: u32 = 1;

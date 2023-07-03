@@ -14,6 +14,7 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn rat_approx(mut f: f64, mut md: i64, mut num: *mut i64, mut denom: *mut i64) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut a: i64 = 0;
         let mut h: [i64; 3] = [0, 1, 0];
@@ -86,6 +87,7 @@ fn main_0() -> i32 {
         println!("{}/{}", n, d);
         i *= 16_i32;
     }
+// SAFETY: machine generated unsafe code
     unsafe {
         f = atan2(1_f64, 1_f64) * 4_f64;
     }

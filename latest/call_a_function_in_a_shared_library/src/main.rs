@@ -56,6 +56,7 @@ pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 #[no_mangle]
 pub extern "C" fn myopenimage(mut in_0: *const i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         static mut handle: i32 = 0_i32;
         fprintf(
@@ -70,12 +71,15 @@ pub extern "C" fn myopenimage(mut in_0: *const i8) -> i32 {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut imglib: *mut libc::c_void = std::ptr::null_mut::<libc::c_void>();
+// SAFETY: machine generated unsafe code
         let mut extopenimage: Option<unsafe extern "C" fn(*const i8) -> i32> = None;
         let mut imghandle: i32 = 0;
         imglib = dlopen((b"./fakeimglib.so\0" as *const u8).cast::<i8>(), 0x1);
         if !imglib.is_null() {
+// SAFETY: machine generated unsafe code
             let fresh1 = &mut (*(&mut extopenimage as *mut Option<unsafe extern "C" fn(*const i8) -> i32>).cast::<*mut libc::c_void>());
             *fresh1 = dlsym(imglib, (b"openimage\0" as *const u8).cast::<i8>());
             imghandle = extopenimage.expect("non-null function pointer")(

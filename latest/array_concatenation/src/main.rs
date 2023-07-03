@@ -21,6 +21,7 @@ pub extern "C" fn array_concat(
     mut bn: u64,
     mut s: u64,
 ) -> *mut libc::c_void {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut p: *mut i8 = malloc(s.wrapping_mul(an.wrapping_add(bn))).cast::<i8>();
         memcpy(p.cast::<libc::c_void>(), a_0, an.wrapping_mul(s));
@@ -38,6 +39,7 @@ pub static mut a: [i32; 5] = [1_i32, 2_i32, 3_i32, 4_i32, 5_i32];
 #[no_mangle]
 pub static mut b: [i32; 5] = [6_i32, 7_i32, 8_i32, 9_i32, 0_i32];
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: u32 = 0;
         let mut c: *mut i32 = array_concat(

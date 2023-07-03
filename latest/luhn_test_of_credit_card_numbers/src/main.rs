@@ -8,6 +8,7 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -24,6 +25,7 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn luhn(mut cc: *const i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let m: [i32; 10] = [0, 2, 4, 6, 8, 1, 3, 5, 7, 9];
         let mut i: i32 = 0;
@@ -54,6 +56,7 @@ fn main_0() -> i32 {
     ];
     let mut i: i32 = 0;
     i = 0_i32;
+// SAFETY: machine generated unsafe code
     unsafe {
         while !(cc[i as usize]).is_null() {
             if luhn(cc[i as usize]) != 0_i32 {

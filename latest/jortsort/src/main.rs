@@ -27,6 +27,7 @@ pub extern "C" fn number_of_digits(mut x: i32) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn convert_array(mut array: *mut i8, mut NumberOfElements: i32) -> *mut i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut convertedArray: *mut i32 =
             malloc((NumberOfElements as u64).wrapping_mul(::core::mem::size_of::<i32>() as u64)).cast::<i32>();
@@ -48,6 +49,7 @@ pub extern "C" fn convert_array(mut array: *mut i8, mut NumberOfElements: i32) -
 
 #[no_mangle]
 pub extern "C" fn isSorted(mut array: *mut i32, mut numberOfElements: i32) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut sorted: i32 = 1;
         let mut counter: i32 = 0;
@@ -66,6 +68,7 @@ pub extern "C" fn isSorted(mut array: *mut i32, mut numberOfElements: i32) -> i3
 }
 
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut convertedArray: *mut i32 = std::ptr::null_mut::<i32>();
         convertedArray = convert_array(*argv.offset(1_isize), argc - 1);

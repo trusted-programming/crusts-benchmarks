@@ -9,6 +9,7 @@
 )]
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -67,6 +68,7 @@ pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 #[no_mangle]
 pub extern "C" fn processFile(mut name: *mut i8) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut records: i32 = 0;
@@ -113,6 +115,7 @@ pub extern "C" fn processFile(mut name: *mut i8) {
 }
 
 fn main_0(mut argC: i32, mut argV: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut diff: f64 = 0.;
         if argC < 2_i32 {

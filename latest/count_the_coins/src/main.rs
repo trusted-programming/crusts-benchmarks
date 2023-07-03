@@ -68,6 +68,7 @@ pub extern "C" fn show(mut v: i128_0) {
 
 #[no_mangle]
 pub extern "C" fn count(mut sum: i32, mut coins: *mut i32) -> i128_0 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut n: i32 = 0;
         let mut i: i32 = 0;
@@ -145,6 +146,7 @@ pub extern "C" fn count(mut sum: i32, mut coins: *mut i32) -> i128_0 {
 
 #[no_mangle]
 pub extern "C" fn count2(mut sum: i32, mut coins: *mut i32) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         if *coins == 0_i32 || sum < 0_i32 {
             return 0_i32;
@@ -159,6 +161,7 @@ pub extern "C" fn count2(mut sum: i32, mut coins: *mut i32) -> i32 {
 fn main_0() -> i32 {
     let mut us_coins: [i32; 7] = [100, 50, 25, 10, 5, 1, 0];
     let mut eu_coins: [i32; 9] = [200, 100, 50, 20, 10, 5, 2, 1, 0];
+// SAFETY: machine generated unsafe code
     unsafe {
         show(count(100, us_coins.as_mut_ptr().offset(2_isize)));
     }

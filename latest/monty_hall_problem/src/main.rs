@@ -32,10 +32,12 @@ fn main_0() -> i32 {
     let mut choice: u32 = 0;
     let mut winsbyswitch: u32 = 0;
     let mut door: [u32; 3] = [0; 3];
+// SAFETY: machine generated unsafe code
     unsafe {
         srand(rust_time(None) as u32);
     }
     i = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 3000000 {
             door[0 as usize] = (if rand() % 2 == 0 { 1i32 } else { 0 }) as u32;

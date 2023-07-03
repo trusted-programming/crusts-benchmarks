@@ -18,6 +18,7 @@ pub struct test {
 }
 #[no_mangle]
 pub extern "C" fn swap(mut va: *mut libc::c_void, mut vb: *mut libc::c_void, mut s: u64) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut t: i8 = 0;
         let mut a: *mut i8 = va.cast::<i8>();
@@ -36,6 +37,7 @@ pub extern "C" fn swap(mut va: *mut libc::c_void, mut vb: *mut libc::c_void, mut
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut t: test = {
             

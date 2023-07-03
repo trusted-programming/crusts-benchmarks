@@ -9,6 +9,7 @@
 )]
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -79,6 +80,7 @@ pub struct vector {
 }
 #[no_mangle]
 pub extern "C" fn extractVector(mut str: *mut i8) -> vector {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut coeff: vector = vector {
             values: std::ptr::null_mut::<libc::c_float>(),
@@ -112,6 +114,7 @@ pub extern "C" fn extractVector(mut str: *mut i8) -> vector {
 
 #[no_mangle]
 pub extern "C" fn processSignalFile(mut fileName: *mut i8) -> vector {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut j: i32 = 0;
@@ -178,6 +181,7 @@ pub extern "C" fn processSignalFile(mut fileName: *mut i8) -> vector {
 
 #[no_mangle]
 pub extern "C" fn printVector(mut v: vector, mut outputFile: *mut i8) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         if outputFile.is_null() {
@@ -212,6 +216,7 @@ pub extern "C" fn printVector(mut v: vector, mut outputFile: *mut i8) {
 }
 
 fn main_0(mut argC: i32, mut argV: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str: *mut i8 = std::ptr::null_mut::<i8>();
         if !(2_i32..=3_i32).contains(&argC) {

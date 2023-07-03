@@ -8,6 +8,7 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -25,6 +26,7 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn mid3(mut n: i32) -> *mut i8 {
+// SAFETY: machine generated unsafe code
     unsafe {
         static mut buf: [i8; 32] = [0; 32];
         let mut l: i32 = 0;
@@ -44,6 +46,7 @@ pub extern "C" fn mid3(mut n: i32) -> *mut i8 {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut x: [i32; 18] = [
             123, 12345, 1234567, 987654321, 10001, -10001, -123, -100, 100, -12345, 1, 2, -1, -10,

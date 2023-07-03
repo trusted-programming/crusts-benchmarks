@@ -21,6 +21,7 @@ extern "C" {
         __offset: i64,
     ) -> *mut libc::c_void;
 }
+// SAFETY: machine generated unsafe code
 pub type f_int = Option<unsafe extern "C" fn() -> i32>;
 #[no_mangle]
 pub extern "C" fn _tmpl() -> i32 {
@@ -30,16 +31,22 @@ pub extern "C" fn _tmpl() -> i32 {
 
 #[no_mangle]
 pub extern "C" fn dupf(mut v: i32) -> f_int {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut len: u64 = (::core::mem::transmute::<
+// SAFETY: machine generated unsafe code
             Option<unsafe extern "C" fn(i32) -> f_int>,
             *mut libc::c_void,
+// SAFETY: machine generated unsafe code
         >(Some(dupf as unsafe extern "C" fn(i32) -> f_int)))
         .offset_from(::core::mem::transmute::<
+// SAFETY: machine generated unsafe code
             Option<unsafe extern "C" fn() -> i32>,
             *mut libc::c_void,
         >(Some(::core::mem::transmute::<
+// SAFETY: machine generated unsafe code
             unsafe extern "C" fn() -> i32,
+// SAFETY: machine generated unsafe code
             unsafe extern "C" fn() -> i32,
         >(_tmpl)))) as u64;
         let mut ret: f_int = ::core::mem::transmute::<*mut libc::c_void, f_int>(mmap(
@@ -57,9 +64,12 @@ pub extern "C" fn dupf(mut v: i32) -> f_int {
         }
         memcpy(
             ::core::mem::transmute::<f_int, *mut libc::c_void>(ret),
+// SAFETY: machine generated unsafe code
             ::core::mem::transmute::<Option<unsafe extern "C" fn() -> i32>, *const libc::c_void>(
                 Some(::core::mem::transmute::<
+// SAFETY: machine generated unsafe code
                     unsafe extern "C" fn() -> i32,
+// SAFETY: machine generated unsafe code
                     unsafe extern "C" fn() -> i32,
                 >(_tmpl)),
             ),
@@ -82,6 +92,7 @@ pub extern "C" fn dupf(mut v: i32) -> f_int {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut funcs: [f_int; 10] = [None; 10];
         let mut i: i32 = 0;
@@ -108,6 +119,7 @@ fn main_0() -> i32 {
 }
 
 pub fn main() {
+// SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(main_0());
     }

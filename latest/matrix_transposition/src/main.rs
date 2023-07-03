@@ -16,6 +16,7 @@ pub extern "C" fn transpose(
     mut src_h: i32,
     mut src_w: i32,
 ) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut j: i32 = 0;

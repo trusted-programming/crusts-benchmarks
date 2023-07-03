@@ -15,6 +15,7 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn meanAngle(mut angles: *mut f64, mut size: i32) -> f64 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut y_part: f64 = f64::from(0_i32);
         let mut x_part: f64 = f64::from(0_i32);

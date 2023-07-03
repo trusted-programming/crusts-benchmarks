@@ -19,6 +19,7 @@ pub static mut m: *mut *mut i32 = 0 as *const *mut i32 as *mut *mut i32;
 pub static mut s: *mut *mut i32 = 0 as *const *mut i32 as *mut *mut i32;
 #[no_mangle]
 pub extern "C" fn optimal_matrix_chain_order(mut dims: *mut i32, mut n: i32) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut len: i32 = 0;
         let mut i: i32 = 0;
@@ -76,6 +77,7 @@ pub extern "C" fn optimal_matrix_chain_order(mut dims: *mut i32, mut n: i32) {
 
 #[no_mangle]
 pub extern "C" fn print_optimal_chain_order(mut i: i32, mut j: i32) {
+// SAFETY: machine generated unsafe code
     unsafe {
         if i == j {
             print!("{}", i + 65_i32);
@@ -98,6 +100,7 @@ fn main_0() -> i32 {
     let mut dims_list: [*mut i32; 3] = [a1.as_mut_ptr(), a2.as_mut_ptr(), a3.as_mut_ptr()];
     let mut sizes: [i32; 3] = [4, 13, 12];
     i = 0_i32;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 3_i32 {
             print!("Dims  : [");

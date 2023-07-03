@@ -11,6 +11,7 @@
 extern "C" {}
 #[no_mangle]
 pub extern "C" fn halve(mut x: *mut i32) {
+// SAFETY: machine generated unsafe code
     unsafe {
         *x >>= 1_i32;
     }
@@ -18,6 +19,7 @@ pub extern "C" fn halve(mut x: *mut i32) {
 
 #[no_mangle]
 pub extern "C" fn doublit(mut x: *mut i32) {
+// SAFETY: machine generated unsafe code
     unsafe {
         *x <<= 1_i32;
     }

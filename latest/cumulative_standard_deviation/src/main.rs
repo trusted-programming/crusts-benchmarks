@@ -30,6 +30,7 @@ pub type StatObject = *mut stat_obj_struct;
 #[no_mangle]
 pub extern "C" fn NewStatObject(mut action: u32) -> StatObject {
     let mut so: StatObject = 0 as *mut stat_obj_struct;
+// SAFETY: machine generated unsafe code
     unsafe {
         so = malloc(::core::mem::size_of::<sStatObject>() as u64) as StatObject;
     }
@@ -61,6 +62,7 @@ pub extern "C" fn stat_obj_value(mut so: StatObject, mut action: u32) -> f64 {
     if action as u32 == VAR as u32 {
         return var;
     }
+// SAFETY: machine generated unsafe code
     unsafe {
         stddev = sqrt(var);
     }
@@ -87,6 +89,7 @@ fn main_0() -> i32 {
     let mut i: i32 = 0;
     let mut so: StatObject = NewStatObject(STDDEV);
     i = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         while (i as u64)
             < (::core::mem::size_of::<[f64; 8]>() as u64)

@@ -8,6 +8,7 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -40,6 +41,7 @@ pub extern "C" fn gray_decode(mut n: i32) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn fmtbool(mut n: i32, mut buf: *mut i8) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut b: *mut i8 = buf.offset(5_isize);
         *b = 0;
@@ -55,6 +57,7 @@ pub extern "C" fn fmtbool(mut n: i32, mut buf: *mut i8) {
 }
 
 fn main_0(mut _argc: i32, mut _argv: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut g: i32 = 0;

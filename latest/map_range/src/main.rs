@@ -18,6 +18,7 @@ pub extern "C" fn mapRange(mut a1: f64, mut a2: f64, mut b1: f64, mut b2: f64, m
 
 fn main_0() -> i32 {
     let mut i: i32 = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         puts((b"Mapping [0,10] to [-1,0] at intervals of 1:\0" as *const u8).cast::<i8>());
     }

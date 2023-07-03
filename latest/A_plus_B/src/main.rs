@@ -14,6 +14,7 @@ extern "C" {
 fn main_0() -> i32 {
     let mut a: i32 = 0;
     let mut b: i32 = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         scanf(
             (b"%d%d\0" as *const u8).cast::<i8>(),

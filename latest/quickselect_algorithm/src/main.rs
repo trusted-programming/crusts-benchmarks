@@ -13,6 +13,7 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn qselect(mut v: *mut i32, mut len: i32, mut k: i32) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut st: i32 = 0;
@@ -48,6 +49,7 @@ fn main_0() -> i32 {
     let mut y: [i32; 10] = [0; 10];
     let mut i: i32 = 0;
     i = 0_i32;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 10_i32 {
             memcpy(

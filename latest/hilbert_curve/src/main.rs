@@ -17,6 +17,7 @@ pub struct point {
 }
 #[no_mangle]
 pub extern "C" fn rot(mut n: i32, mut p: *mut point, mut rx: i32, mut ry: i32) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut t: i32 = 0;
         if ry == 0_i32 {
@@ -33,6 +34,7 @@ pub extern "C" fn rot(mut n: i32, mut p: *mut point, mut rx: i32, mut ry: i32) {
 
 #[no_mangle]
 pub extern "C" fn d2pt(mut n: i32, mut d: i32, mut p: *mut point) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut s: i32 = 1;
         let mut t: i32 = d;

@@ -12,6 +12,7 @@ extern "C" {
     fn qsort(__base: *mut libc::c_void, __nmemb: u64, __size: u64, __compar: __compar_fn_t);
 }
 pub type __compar_fn_t =
+// SAFETY: machine generated unsafe code
     Option<unsafe extern "C" fn(*const libc::c_void, *const libc::c_void) -> i32>;
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -22,6 +23,7 @@ pub struct range_tag {
 pub type range_t = range_tag;
 #[no_mangle]
 pub extern "C" fn normalize_range(mut range: *mut range_t) {
+// SAFETY: machine generated unsafe code
     unsafe {
         if (*range).high < (*range).low {
             let mut tmp: f64 = (*range).low;
@@ -33,6 +35,7 @@ pub extern "C" fn normalize_range(mut range: *mut range_t) {
 
 #[no_mangle]
 pub extern "C" fn range_compare(mut p1: *const libc::c_void, mut p2: *const libc::c_void) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut r1: *const range_t = p1 as *const range_t;
         let mut r2: *const range_t = p2 as *const range_t;
@@ -54,6 +57,7 @@ pub extern "C" fn range_compare(mut p1: *const libc::c_void, mut p2: *const libc
 
 #[no_mangle]
 pub extern "C" fn normalize_ranges(mut ranges: *mut range_t, mut count: u64) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: u64 = 0;
         while i < count {
@@ -67,6 +71,7 @@ pub extern "C" fn normalize_ranges(mut ranges: *mut range_t, mut count: u64) {
             ::core::mem::size_of::<range_t>() as u64,
             Some(
                 range_compare
+// SAFETY: machine generated unsafe code
                     as unsafe extern "C" fn(*const libc::c_void, *const libc::c_void) -> i32,
             ),
         );
@@ -75,6 +80,7 @@ pub extern "C" fn normalize_ranges(mut ranges: *mut range_t, mut count: u64) {
 
 #[no_mangle]
 pub extern "C" fn consolidate_ranges(mut ranges: *mut range_t, mut count: u64) -> u64 {
+// SAFETY: machine generated unsafe code
     unsafe {
         normalize_ranges(ranges, count);
         let mut out_index: u64 = 0;
@@ -108,6 +114,7 @@ pub extern "C" fn print_range(mut range: *const range_t) {
 
 #[no_mangle]
 pub extern "C" fn print_ranges(mut ranges: *const range_t, mut count: u64) {
+// SAFETY: machine generated unsafe code
     unsafe {
         if count == 0 {
             return;
@@ -125,6 +132,7 @@ pub extern "C" fn print_ranges(mut ranges: *const range_t, mut count: u64) {
 
 #[no_mangle]
 pub extern "C" fn test_consolidate_ranges(mut ranges: *mut range_t, mut count: u64) {
+// SAFETY: machine generated unsafe code
     unsafe {
         print_ranges(ranges, count);
         print!(" -> ");

@@ -10,7 +10,9 @@
 
 extern "C" {}
 #[no_mangle]
+// SAFETY: machine generated unsafe code
 pub extern "C" fn repeat(mut f: Option<unsafe extern "C" fn() -> ()>, mut n: u32) {
+// SAFETY: machine generated unsafe code
     unsafe {
         loop {
             let fresh0 = n;
@@ -29,13 +31,18 @@ pub extern "C" fn example() {
 }
 
 fn main_0(mut _argc: i32, mut _argv: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         repeat(
             ::core::mem::transmute::<
+// SAFETY: machine generated unsafe code
                 Option<unsafe extern "C" fn() -> ()>,
+// SAFETY: machine generated unsafe code
                 Option<unsafe extern "C" fn() -> ()>,
             >(Some(::core::mem::transmute::<
+// SAFETY: machine generated unsafe code
                 unsafe extern "C" fn() -> (),
+// SAFETY: machine generated unsafe code
                 unsafe extern "C" fn() -> (),
             >(example))),
             4,

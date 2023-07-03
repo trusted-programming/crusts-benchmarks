@@ -38,6 +38,7 @@ pub struct stat {
 }
 #[no_mangle]
 pub extern "C" fn check_reg(mut path: *const i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut sb: stat = stat {
             st_dev: 0,
@@ -71,6 +72,7 @@ pub extern "C" fn check_reg(mut path: *const i8) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn check_dir(mut path: *const i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut sb: stat = stat {
             st_dev: 0,

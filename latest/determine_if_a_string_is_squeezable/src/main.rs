@@ -8,6 +8,7 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -33,6 +34,7 @@ pub struct charList {
 }
 #[no_mangle]
 pub extern "C" fn strcmpi(mut str1: *mut i8, mut str2: *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut len1: i32 = strlen(str1 as *const i8) as i32;
         let mut len2: i32 = strlen(str2 as *const i8) as i32;
@@ -69,6 +71,7 @@ pub extern "C" fn strcmpi(mut str1: *mut i8, mut str2: *mut i8) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn strToCharList(mut str: *mut i8) -> *mut charList {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut len: i32 = strlen(str) as i32;
         let mut i: i32 = 0;
@@ -95,6 +98,7 @@ pub extern "C" fn strToCharList(mut str: *mut i8) -> *mut charList {
 
 #[no_mangle]
 pub extern "C" fn charListToString(mut list: *mut charList) -> *mut i8 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut iterator: *mut charList = list;
         let mut count: i32 = 0;
@@ -126,6 +130,7 @@ pub extern "C" fn processString(
     mut operation: i32,
     mut squeezeChar: i8,
 ) -> *mut i8 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut strList: *mut charList = strToCharList(str);
         let mut iterator: *mut charList = strList;
@@ -169,6 +174,7 @@ pub extern "C" fn printResults(
     mut operation: i32,
     mut squeezeChar: i8,
 ) {
+// SAFETY: machine generated unsafe code
     unsafe {
         if operation == 1_i32 {
             print!(
@@ -204,6 +210,7 @@ pub extern "C" fn printResults(
 }
 
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut operation: i32 = 0;
         let mut squeezeChar: i8 = 0;

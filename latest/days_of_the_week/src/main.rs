@@ -25,6 +25,7 @@ pub extern "C" fn wday(mut year: i32, mut month: i32, mut day: i32) -> i32 {
 fn main_0() -> i32 {
     let mut y: i32 = 0;
     y = 2_008_i32;
+// SAFETY: machine generated unsafe code
     unsafe {
         while y <= 2_121_i32 {
             if wday(y, 12, 25) == 0_i32 {

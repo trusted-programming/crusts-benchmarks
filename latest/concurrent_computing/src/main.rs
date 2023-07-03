@@ -13,6 +13,7 @@ extern "C" {
     fn pthread_create(
         __newthread: *mut u64,
         __attr: *const pthread_attr_t,
+// SAFETY: machine generated unsafe code
         __start_routine: Option<unsafe extern "C" fn(*mut libc::c_void) -> *mut libc::c_void>,
         __arg: *mut libc::c_void,
     ) -> i32;
@@ -93,6 +94,7 @@ pub const PTHREAD_MUTEX_ADAPTIVE_NP: u32 = 3;
 pub const PTHREAD_MUTEX_ERRORCHECK_NP: u32 = 2;
 pub const PTHREAD_MUTEX_RECURSIVE_NP: u32 = 1;
 pub const PTHREAD_MUTEX_TIMED_NP: u32 = 0;
+// SAFETY: machine generated unsafe code
 pub type threadfunc = Option<unsafe extern "C" fn(*mut libc::c_void) -> *mut libc::c_void>;
 #[no_mangle]
 pub static mut condm: pthread_mutex_t = pthread_mutex_t {
@@ -135,6 +137,7 @@ pub static mut cond: pthread_cond_t = pthread_cond_t {
 pub static mut bang: i32 = 0_i32;
 #[no_mangle]
 pub extern "C" fn t_enjoy(mut _p: *mut libc::c_void) -> *mut libc::c_void {
+// SAFETY: machine generated unsafe code
     unsafe {
         pthread_mutex_lock(&mut condm);
         while bang == 0_i32 {
@@ -148,6 +151,7 @@ pub extern "C" fn t_enjoy(mut _p: *mut libc::c_void) -> *mut libc::c_void {
 
 #[no_mangle]
 pub extern "C" fn t_rosetta(mut _p: *mut libc::c_void) -> *mut libc::c_void {
+// SAFETY: machine generated unsafe code
     unsafe {
         pthread_mutex_lock(&mut condm);
         while bang == 0_i32 {
@@ -161,6 +165,7 @@ pub extern "C" fn t_rosetta(mut _p: *mut libc::c_void) -> *mut libc::c_void {
 
 #[no_mangle]
 pub extern "C" fn t_code(mut _p: *mut libc::c_void) -> *mut libc::c_void {
+// SAFETY: machine generated unsafe code
     unsafe {
         pthread_mutex_lock(&mut condm);
         while bang == 0_i32 {
@@ -175,10 +180,14 @@ pub extern "C" fn t_code(mut _p: *mut libc::c_void) -> *mut libc::c_void {
 fn main_0() -> i32 {
     let mut i: i32 = 0;
     let mut a: [u64; 3] = [0; 3];
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut p: [threadfunc; 3] = [
+// SAFETY: machine generated unsafe code
             Some(t_enjoy as unsafe extern "C" fn(*mut libc::c_void) -> *mut libc::c_void),
+// SAFETY: machine generated unsafe code
             Some(t_rosetta as unsafe extern "C" fn(*mut libc::c_void) -> *mut libc::c_void),
+// SAFETY: machine generated unsafe code
             Some(t_code as unsafe extern "C" fn(*mut libc::c_void) -> *mut libc::c_void),
         ];
         i = 0_i32;
@@ -197,6 +206,7 @@ fn main_0() -> i32 {
         pthread_cond_broadcast(&mut cond);
     }
     i = 0_i32;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 3_i32 {
             pthread_join(a[i as usize], std::ptr::null_mut::<*mut libc::c_void>());

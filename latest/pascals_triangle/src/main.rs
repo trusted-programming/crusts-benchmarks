@@ -19,6 +19,7 @@ fn main_0() -> i32 {
     let mut catalan: i32 = 0;
     print!("1 ");
     n = 2_i32;
+// SAFETY: machine generated unsafe code
     unsafe {
         while n <= N {
             den = 1;

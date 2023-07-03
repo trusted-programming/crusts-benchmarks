@@ -19,6 +19,7 @@ extern "C" {
 }
 fn main_0() -> i32 {
     let mut a: i32 = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         if a == 42_i32 {
         } else {

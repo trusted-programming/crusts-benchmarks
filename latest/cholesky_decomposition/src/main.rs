@@ -16,6 +16,7 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn cholesky(mut A: *mut f64, mut n: i32) -> *mut f64 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut L: *mut f64 =
             calloc((n * n) as u64, ::core::mem::size_of::<f64>() as u64).cast::<f64>();
@@ -50,6 +51,7 @@ pub extern "C" fn cholesky(mut A: *mut f64, mut n: i32) -> *mut f64 {
 
 #[no_mangle]
 pub extern "C" fn show_matrix(mut A: *mut f64, mut n: i32) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         while i < n {
@@ -67,6 +69,7 @@ pub extern "C" fn show_matrix(mut A: *mut f64, mut n: i32) {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut n: i32 = 3;
         let mut m1: [f64; 9] = [
@@ -98,6 +101,7 @@ fn main_0() -> i32 {
 }
 
 pub fn main() {
+// SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(main_0());
     }

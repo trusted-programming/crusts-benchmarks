@@ -14,6 +14,7 @@ extern "C" {
     fn pthread_create(
         __newthread: *mut u64,
         __attr: *const pthread_attr_t,
+// SAFETY: machine generated unsafe code
         __start_routine: Option<unsafe extern "C" fn(*mut libc::c_void) -> *mut libc::c_void>,
         __arg: *mut libc::c_void,
     ) -> i32;
@@ -96,6 +97,7 @@ pub extern "C" fn transfer_value(mut from: i32, mut to: i32, mut howmuch: i32) {
         swapped = 1_i32 != 0_i32;
         howmuch = -howmuch;
     }
+// SAFETY: machine generated unsafe code
     unsafe {
         pthread_mutex_lock(&mut *bucket_mutex.as_mut_ptr().offset(from as isize));
         pthread_mutex_lock(&mut *bucket_mutex.as_mut_ptr().offset(to as isize));
@@ -117,6 +119,7 @@ pub extern "C" fn print_buckets() {
     let mut i: i32 = 0;
     let mut sum: i32 = 0;
     i = 0_i32;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 15_i32 {
             pthread_mutex_lock(&mut *bucket_mutex.as_mut_ptr().offset(i as isize));
@@ -125,6 +128,7 @@ pub extern "C" fn print_buckets() {
         }
     }
     i = 0_i32;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 15_i32 {
             print!("{:3} ", buckets[i as usize]);
@@ -135,6 +139,7 @@ pub extern "C" fn print_buckets() {
     }
     println!("= {}", sum);
     i = 0_i32;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 15_i32 {
             pthread_mutex_unlock(&mut *bucket_mutex.as_mut_ptr().offset(i as isize));
@@ -146,6 +151,7 @@ pub extern "C" fn print_buckets() {
 
 #[no_mangle]
 pub extern "C" fn equalizer_start(mut _t: *mut libc::c_void) -> *mut libc::c_void {
+// SAFETY: machine generated unsafe code
     unsafe {
         loop {
             let mut b1: i32 = rand() % 15;
@@ -162,6 +168,7 @@ pub extern "C" fn equalizer_start(mut _t: *mut libc::c_void) -> *mut libc::c_voi
 
 #[no_mangle]
 pub extern "C" fn randomizer_start(mut _t: *mut libc::c_void) -> *mut libc::c_void {
+// SAFETY: machine generated unsafe code
     unsafe {
         loop {
             let mut b1: i32 = rand() % 15;
@@ -176,6 +183,7 @@ fn main_0() -> i32 {
     let mut i: i32 = 0;
     let mut total: i32 = 0;
     i = 0_i32;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 15_i32 {
             pthread_mutex_init(
@@ -187,6 +195,7 @@ fn main_0() -> i32 {
         }
     }
     i = 0_i32;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 15_i32 {
             buckets[i as usize] = rand() % 100_i32;
@@ -197,21 +206,25 @@ fn main_0() -> i32 {
         }
     }
     println!("= {}", total);
+// SAFETY: machine generated unsafe code
     unsafe {
         pthread_create(
             &mut equalizer,
             std::ptr::null::<pthread_attr_t>(),
+// SAFETY: machine generated unsafe code
             Some(equalizer_start as unsafe extern "C" fn(*mut libc::c_void) -> *mut libc::c_void),
             std::ptr::null_mut::<libc::c_void>(),
         );
         pthread_create(
             &mut randomizer,
             std::ptr::null::<pthread_attr_t>(),
+// SAFETY: machine generated unsafe code
             Some(randomizer_start as unsafe extern "C" fn(*mut libc::c_void) -> *mut libc::c_void),
             std::ptr::null_mut::<libc::c_void>(),
         );
     }
     let mut i_0: i32 = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i_0 < 2_i32 {
             sleep(1);
@@ -221,6 +234,7 @@ fn main_0() -> i32 {
         }
     }
     i = 0_i32;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 15_i32 {
             pthread_mutex_destroy(bucket_mutex.as_mut_ptr().offset(i as isize));

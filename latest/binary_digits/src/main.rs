@@ -8,6 +8,7 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -25,6 +26,7 @@ extern "C" {
     fn free(_: *mut libc::c_void);
 }
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: u64 = 0;
         while i < 20 {
@@ -40,6 +42,7 @@ fn main_0() -> i32 {
 
 #[no_mangle]
 pub extern "C" fn bin(mut x: u32) -> *mut i8 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut bits: u64 = (if x == 0u32 {
             1_f64

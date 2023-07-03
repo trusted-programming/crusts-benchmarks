@@ -68,6 +68,7 @@ pub extern "C" fn intersect(
     mut tol: f64,
     mut sect: *mut vec,
 ) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut dx: vec = vsub(x1, x0);
         let mut dy: vec = vsub(y1, y0);
@@ -107,6 +108,7 @@ pub extern "C" fn dist(mut x: vec, mut y0: vec, mut y1: vec, mut tol: f64) -> f6
         return ::core::f64::INFINITY;
     }
     s = vsub(s, x);
+// SAFETY: machine generated unsafe code
     unsafe {
         return sqrt(vdot(s, s));
     }
@@ -114,6 +116,7 @@ pub extern "C" fn dist(mut x: vec, mut y0: vec, mut y1: vec, mut tol: f64) -> f6
 
 #[no_mangle]
 pub extern "C" fn inside(mut v: vec, mut p: polygon, mut tol: f64) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut k: i32 = 0;

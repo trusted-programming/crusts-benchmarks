@@ -16,6 +16,7 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn drand() -> f64 {
+// SAFETY: machine generated unsafe code
     unsafe {
         (f64::from(rand()) + 1.0f64) / (2147483647_f64 + 1.0f64)
     }
@@ -23,6 +24,7 @@ pub extern "C" fn drand() -> f64 {
 
 #[no_mangle]
 pub extern "C" fn random_normal() -> f64 {
+// SAFETY: machine generated unsafe code
     unsafe {
         sqrt(-2_f64 * log(drand()))
             * cos(2_f64 * 3.141_592_653_589_793_f64 * drand())

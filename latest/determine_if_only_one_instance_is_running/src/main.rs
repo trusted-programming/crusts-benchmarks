@@ -16,6 +16,7 @@ extern "C" {
     fn fcntl(__fd: i32, __cmd: i32, _: ...) -> i32;
     fn open(__file: *const i8, __oflag: i32, _: ...) -> i32;
     fn malloc(_: u64) -> *mut libc::c_void;
+// SAFETY: machine generated unsafe code
     fn atexit(__func: Option<unsafe extern "C" fn() -> ()>) -> i32;
     fn exit(_: i32) -> !;
     fn getenv(__name: *const i8) -> *mut i8;
@@ -76,6 +77,7 @@ pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 #[no_mangle]
 pub extern "C" fn fail(mut message: *const i8) {
+// SAFETY: machine generated unsafe code
     unsafe {
         perror(message);
         exit(1);
@@ -85,6 +87,7 @@ pub extern "C" fn fail(mut message: *const i8) {
 static mut ooi_path: *mut i8 = 0 as *const i8 as *mut i8;
 #[no_mangle]
 pub extern "C" fn ooi_unlink() {
+// SAFETY: machine generated unsafe code
     unsafe {
         unlink(ooi_path);
     }
@@ -92,6 +95,7 @@ pub extern "C" fn ooi_unlink() {
 
 #[no_mangle]
 pub extern "C" fn only_one_instance() {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut fl: flock = flock {
             l_type: 0,
@@ -139,6 +143,7 @@ pub extern "C" fn only_one_instance() {
             );
             exit(1);
         }
+// SAFETY: machine generated unsafe code
         atexit(Some(ooi_unlink as unsafe extern "C" fn() -> ()));
     }
 }
@@ -147,6 +152,7 @@ fn main_0() -> i32 {
     let mut i: i32 = 0;
     only_one_instance();
     i = 10_i32;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i > 0_i32 {
             if i % 5_i32 == 1_i32 {
@@ -165,6 +171,7 @@ fn main_0() -> i32 {
 }
 
 pub fn main() {
+// SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(main_0());
     }

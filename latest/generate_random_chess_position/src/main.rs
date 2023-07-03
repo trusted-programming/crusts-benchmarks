@@ -8,6 +8,7 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
@@ -47,6 +48,7 @@ pub extern "C" fn placeKings() {
     let mut r2: i32 = 0;
     let mut c1: i32 = 0;
     let mut c2: i32 = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         loop {
             r1 = rand() % 8;
@@ -64,6 +66,7 @@ pub extern "C" fn placeKings() {
 
 #[no_mangle]
 pub extern "C" fn placePieces(mut pieces: *const i8, mut isPawn: i32) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut n: i32 = 0;
         let mut r: i32 = 0;
@@ -95,6 +98,7 @@ pub extern "C" fn toFen() {
     let mut countEmpty: i32 = 0;
     let mut index: i32 = 0;
     r = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         while r < 8 {
             c = 0;
@@ -155,6 +159,7 @@ pub extern "C" fn createFen() -> *mut i8 {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         srand(rust_time(None) as u32);
     }

@@ -83,6 +83,7 @@ pub static mut clen: i64 = 0;
 pub static mut pix: *mut *mut rgb = 0 as *const *mut rgb as *mut *mut rgb;
 #[no_mangle]
 pub extern "C" fn sc_up() {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut tmp: i64 = dx - dy;
         dy += dx;
@@ -95,6 +96,7 @@ pub extern "C" fn sc_up() {
 
 #[no_mangle]
 pub extern "C" fn h_rgb(mut x_0: i64, mut y_0: i64) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut p: *mut rgb = &mut *(*pix.offset(y_0 as isize)).offset(x_0 as isize) as *mut rgb;
         let mut h: f64 = 6.0f64 * clen as f64 / scale as f64;
@@ -134,6 +136,7 @@ pub extern "C" fn h_rgb(mut x_0: i64, mut y_0: i64) {
 
 #[no_mangle]
 pub extern "C" fn iter_string(mut str: *const i8, mut d: i32) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut tmp: i64 = 0;
         while i32::from(*str) != '\0' as i32 {
@@ -175,6 +178,7 @@ pub extern "C" fn iter_string(mut str: *const i8, mut d: i32) {
 
 #[no_mangle]
 pub extern "C" fn dragon(mut leng: i64, mut depth: i32) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i64 = 0;
         let mut d: i64 = leng / 3 + 1;
@@ -242,6 +246,7 @@ pub extern "C" fn dragon(mut leng: i64, mut depth: i32) {
 }
 
 fn main_0(mut c: i32, mut v: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut size: i32 = 0;
         let mut depth: i32 = 0;

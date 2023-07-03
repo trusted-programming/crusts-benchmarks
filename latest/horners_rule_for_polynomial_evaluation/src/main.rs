@@ -11,6 +11,7 @@
 extern "C" {}
 #[no_mangle]
 pub extern "C" fn horner(mut coeffs: *mut f64, mut s: i32, mut x: f64) -> f64 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut res: f64 = 0.0f64;

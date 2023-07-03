@@ -8,6 +8,7 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -23,6 +24,7 @@ extern "C" {
     fn strlen(_: *const i8) -> u64;
 }
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut len: i32 = 0;
         println!("GMP says size is: {}", len);

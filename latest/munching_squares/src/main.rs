@@ -59,6 +59,7 @@ pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 #[no_mangle]
 pub extern "C" fn hue_to_rgb(mut hue: f64, mut sat: f64, mut p: *mut u8) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut x: f64 = 0.;
         let mut c: i32 = (255_f64 * sat) as i32;
@@ -101,6 +102,7 @@ pub extern "C" fn hue_to_rgb(mut hue: f64, mut sat: f64, mut p: *mut u8) {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let size: i32 = 512;
         let mut i: i32 = 0;

@@ -17,6 +17,7 @@ pub static mut a2: [i8; 3] = ['A' as i8, 'B' as i8, 'C' as i8];
 pub static mut a3: [i32; 3] = [1_i32, 2_i32, 3_i32];
 fn main_0() -> i32 {
     let mut i: i32 = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 3_i32 {
             println!(

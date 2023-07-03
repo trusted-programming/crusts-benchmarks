@@ -8,6 +8,7 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
@@ -52,6 +53,7 @@ pub struct tm {
     pub tm_zone: *const i8,
 }
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut buf: [i8; 50] = [0; 50];
         let mut seconds: i64 = rust_time(None);

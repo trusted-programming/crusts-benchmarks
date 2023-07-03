@@ -16,6 +16,7 @@ extern "C" {
     fn pthread_create(
         __newthread: *mut u64,
         __attr: *const pthread_attr_t,
+// SAFETY: machine generated unsafe code
         __start_routine: Option<unsafe extern "C" fn(*mut libc::c_void) -> *mut libc::c_void>,
         __arg: *mut libc::c_void,
     ) -> i32;
@@ -158,6 +159,7 @@ pub static mut topic: [*const i8; 5] = [
     (b"Bathroom\0" as *const u8).cast::<i8>(),
 ];
 #[no_mangle]
+// SAFETY: machine generated unsafe code
 pub unsafe extern "C" fn print(mut y: i32, mut x: i32, mut fmt: *const i8, mut args: ...) {
     static mut screen: pthread_mutex_t = pthread_mutex_t {
         __data: {
@@ -198,6 +200,7 @@ pub extern "C" fn eat(mut id: i32) {
     f[1_usize] = id;
     f[0_usize] = f[1_usize];
     f[(id & 1i32) as usize] = (id + 1_i32) % 5_i32;
+// SAFETY: machine generated unsafe code
     unsafe {
         print(id, 12, (b"\x1B[K\0" as *const u8).cast::<i8>());
         print(
@@ -207,6 +210,7 @@ pub extern "C" fn eat(mut id: i32) {
         );
     }
     i = 0_i32;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 2_i32 {
             pthread_mutex_lock(forks.as_mut_ptr().offset(f[i as usize] as isize));
@@ -225,6 +229,7 @@ pub extern "C" fn eat(mut id: i32) {
         }
     }
     i = 0_i32;
+// SAFETY: machine generated unsafe code
     unsafe {
         ration = 3_i32 + rand() % 8_i32;
         while i < ration {
@@ -235,6 +240,7 @@ pub extern "C" fn eat(mut id: i32) {
         }
     }
     i = 0_i32;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 2_i32 {
             pthread_mutex_unlock(forks.as_mut_ptr().offset(f[i as usize] as isize));
@@ -249,6 +255,7 @@ pub extern "C" fn think(mut id: i32) {
     let mut i: i32 = 0;
     let mut t: i32 = 0;
     let mut buf: [i8; 64] = [0; 64];
+// SAFETY: machine generated unsafe code
     unsafe {
         loop {
             print(id, 12, (b"\x1B[K\0" as *const u8).cast::<i8>());
@@ -282,6 +289,7 @@ pub extern "C" fn think(mut id: i32) {
 
 #[no_mangle]
 pub extern "C" fn philosophize(mut a: *mut libc::c_void) -> *mut libc::c_void {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut id: i32 = *a.cast::<i32>();
         print(
@@ -302,6 +310,7 @@ fn main_0() -> i32 {
     let mut id: [i32; 5] = [0; 5];
     let mut tid: [u64; 5] = [0; 5];
     i = 0_i32;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 5_i32 {
             id[i as usize] = i;
@@ -314,11 +323,13 @@ fn main_0() -> i32 {
         }
     }
     i = 0_i32;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 5_i32 {
             pthread_create(
                 tid.as_mut_ptr().offset(i as isize),
                 std::ptr::null::<pthread_attr_t>(),
+// SAFETY: machine generated unsafe code
                 Some(philosophize as unsafe extern "C" fn(*mut libc::c_void) -> *mut libc::c_void),
                 id.as_mut_ptr().offset(i as isize).cast::<libc::c_void>(),
             );

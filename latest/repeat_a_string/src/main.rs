@@ -17,6 +17,7 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn string_repeat(mut n: i32, mut s: *const i8) -> *mut i8 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut slen: u64 = strlen(s);
         let mut dest: *mut i8 = malloc((n as u64).wrapping_mul(slen).wrapping_add(1)).cast::<i8>();
@@ -36,6 +37,7 @@ pub extern "C" fn string_repeat(mut n: i32, mut s: *const i8) -> *mut i8 {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut result: *mut i8 = string_repeat(5, (b"ha\0" as *const u8).cast::<i8>());
         puts(result);

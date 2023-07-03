@@ -8,6 +8,7 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -22,6 +23,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 extern "C" {}
 #[no_mangle]
 pub extern "C" fn show_set(mut x: u32, mut name: *const i8) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         print!("{} is:", build_str_from_raw_ptr(name as *mut u8));

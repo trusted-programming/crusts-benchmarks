@@ -9,6 +9,7 @@
 )]
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -222,6 +223,7 @@ pub extern "C" fn space(mut n: i32) {
 #[no_mangle]
 pub extern "C" fn init_months() {
     let mut i: i32 = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         if year % 4_i32 == 0_i32 && year % 100_i32 != 0_i32 || year % 400_i32 == 0_i32 {
             months[1_usize].days = 29_i32;
@@ -231,6 +233,7 @@ pub extern "C" fn init_months() {
         months[0_usize].start_wday = (year * 365_i32 + year / 4_i32 - year / 100_i32 + year / 400_i32 + 1_i32) % 7_i32;
     }
     i = 1_i32;
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 12_i32 {
             months[i as usize].start_wday =
@@ -261,6 +264,7 @@ pub extern "C" fn init_months() {
 pub extern "C" fn print_row(mut row: i32) {
     let mut c: i32 = 0;
     let mut i: i32 = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut from: i32 = row * cols;
         let mut to: i32 = from + cols;
@@ -363,6 +367,7 @@ pub extern "C" fn print_row(mut row: i32) {
 pub extern "C" fn print_year() {
     let mut row: i32 = 0;
     let mut buf: [i8; 32] = [0; 32];
+// SAFETY: machine generated unsafe code
     unsafe {
         sprintf(buf.as_mut_ptr(), (b"%d\0" as *const u8).cast::<i8>(), year);
         space(
@@ -376,6 +381,7 @@ pub extern "C" fn print_year() {
         );
     }
     row = 0_i32;
+// SAFETY: machine generated unsafe code
     unsafe {
         while row * cols < 12_i32 {
             print_row(row);
@@ -386,6 +392,7 @@ pub extern "C" fn print_year() {
 }
 
 fn main_0(mut c: i32, mut v: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut current_block: u64;
         let mut i: i32 = 0;
@@ -452,6 +459,7 @@ pub fn main() {
         );
     }
     args.push(::core::ptr::null_mut());
+// SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(
             main_0((args.len() - 1) as i32, args.as_mut_ptr()),

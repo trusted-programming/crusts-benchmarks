@@ -9,6 +9,7 @@
 )]
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
@@ -80,6 +81,7 @@ pub struct _IO_FILE {
 }
 pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
+// SAFETY: machine generated unsafe code
 static mut DESCRIPTION: [i8; 398] = unsafe {
     * :: core :: mem :: transmute :: < & [u8; 398], & mut [i8; 398], > (
 b"21 Game                                                          \n                                                                 \n21 is a two player game, the game is played by choosing a number \n(1, 2, or 3) to be added to the running total. The game is won by\nthe player whose chosen number causes the running total to reach \nexactly 21. The running total starts at zero.                    \n\n\0"
@@ -88,6 +90,7 @@ b"21 Game                                                          \n           
 static mut total: i32 = 0;
 #[no_mangle]
 pub extern "C" fn update(mut player: *mut i8, mut move_0: i32) {
+// SAFETY: machine generated unsafe code
     unsafe {
         print!(
             "{:8}:  {} = {} + {}\n\n",
@@ -108,6 +111,7 @@ pub extern "C" fn update(mut player: *mut i8, mut move_0: i32) {
 
 #[no_mangle]
 pub extern "C" fn ai() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         static mut precomputed: [i32; 31] = [
             1, 1, 3, 2, 1, 1, 3, 2, 1, 1, 3, 2, 1, 1, 3, 2, 1, 1, 3, 2, 1, 1, 3, 2, 1, 1, 3, 2, 1,
@@ -125,6 +129,7 @@ pub extern "C" fn ai() -> i32 {
 pub extern "C" fn human() {
     let mut buffer: [i8; 256] = [0; 256];
     let mut move_0: i32 = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         loop {
             print!("enter your move to play (or enter 0 to exit game): ");
@@ -142,6 +147,7 @@ pub extern "C" fn human() {
         }
     }
     print!("{}", '\n' as i32);
+// SAFETY: machine generated unsafe code
     unsafe {
         if move_0 == 0 {
             exit(0);
@@ -151,6 +157,7 @@ pub extern "C" fn human() {
 }
 
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         srand(rust_time(None) as u32);
         puts(DESCRIPTION.as_mut_ptr());
@@ -182,6 +189,7 @@ pub fn main() {
         );
     }
     args.push(::core::ptr::null_mut());
+// SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(
             main_0((args.len() - 1) as i32, args.as_mut_ptr() as *mut *mut i8) as i32,

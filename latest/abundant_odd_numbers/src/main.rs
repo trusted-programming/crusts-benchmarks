@@ -16,6 +16,7 @@ pub extern "C" fn sum_proper_divisors(n: u32) -> u32 {
     let mut sum: u32 = 1;
     let mut i: u32 = 3;
     let mut j: u32 = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         while f64::from(i) < sqrt(f64::from(n)) + 1_f64 {
             if n.wrapping_rem(i) == 0 {
@@ -29,6 +30,7 @@ pub extern "C" fn sum_proper_divisors(n: u32) -> u32 {
 }
 
 fn main_0(mut _argc: i32, mut _argv: *mut *const i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut n: u32 = 0;
         let mut c: u32 = 0;

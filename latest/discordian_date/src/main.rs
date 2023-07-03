@@ -46,6 +46,7 @@ pub struct tm {
 }
 #[no_mangle]
 pub extern "C" fn ddate(mut y: i32, mut d: i32) -> *mut i8 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut dyear: i32 = 1166 + y;
         let mut result: *mut i8 =
@@ -111,6 +112,7 @@ pub extern "C" fn day_of_year(mut y: i32, mut m: i32, mut d: i32) -> i32 {
 }
 
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut now: i64 = 0;
         let mut now_time: *mut tm = 0 as *mut tm;

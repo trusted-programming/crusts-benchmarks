@@ -8,6 +8,7 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
@@ -54,6 +55,7 @@ pub struct tm {
 }
 #[no_mangle]
 pub extern "C" fn is_palindrome(mut str: *const i8) -> bool {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut n: u64 = strlen(str);
         let mut i: u64 = 0;
@@ -71,6 +73,7 @@ pub extern "C" fn is_palindrome(mut str: *const i8) -> bool {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut timestamp: i64 = rust_time(None);
         let seconds_per_day: i32 = 24 * 60 * 60;

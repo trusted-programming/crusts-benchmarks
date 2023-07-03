@@ -27,9 +27,11 @@ pub extern "C" fn grep(
     mut in_0: *mut i32,
     mut len: i32,
     mut outlen: *mut i32,
+// SAFETY: machine generated unsafe code
     mut sel: Option<unsafe extern "C" fn(i32) -> i32>,
     mut inplace: i32,
 ) -> *mut i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut j: i32 = 0;
@@ -63,6 +65,7 @@ pub extern "C" fn grep(
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut in_0: [i32; 10] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
         let mut i: i32 = 0;
@@ -71,6 +74,7 @@ fn main_0() -> i32 {
             in_0.as_mut_ptr(),
             10,
             &mut len,
+// SAFETY: machine generated unsafe code
             Some(even_sel as unsafe extern "C" fn(i32) -> i32),
             0,
         );
@@ -86,6 +90,7 @@ fn main_0() -> i32 {
             in_0.as_mut_ptr(),
             8,
             &mut len,
+// SAFETY: machine generated unsafe code
             Some(tri_sel as unsafe extern "C" fn(i32) -> i32),
             1,
         );

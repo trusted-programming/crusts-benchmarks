@@ -8,6 +8,7 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -25,6 +26,7 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn rprint(mut s: *mut i8, mut x: *mut i32, mut len: i32) -> u64 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut j: i32 = 0;
@@ -74,6 +76,7 @@ pub extern "C" fn rprint(mut s: *mut i8, mut x: *mut i32, mut len: i32) -> u64 {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut x: [i32; 33] = [
             0, 1, 2, 4, 6, 7, 8, 11, 12, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28,

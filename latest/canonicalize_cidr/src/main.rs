@@ -9,6 +9,7 @@
 )]
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -73,6 +74,7 @@ pub struct cidr_tag {
 pub type cidr_t = cidr_tag;
 #[no_mangle]
 pub extern "C" fn cidr_parse(mut str: *const i8, mut cidr: *mut cidr_t) -> bool {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut a: i32 = 0;
         let mut b: i32 = 0;
@@ -110,6 +112,7 @@ pub extern "C" fn cidr_parse(mut str: *const i8, mut cidr: *mut cidr_t) -> bool 
 
 #[no_mangle]
 pub extern "C" fn cidr_format(mut cidr: *const cidr_t, mut str: *mut i8, mut size: u64) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut address: u32 = (*cidr).address;
         let mut d: u32 = address & 255;
@@ -133,6 +136,7 @@ pub extern "C" fn cidr_format(mut cidr: *const cidr_t, mut str: *mut i8, mut siz
 }
 
 fn main_0(mut _argc: i32, mut _argv: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut tests: [*const i8; 6] = [
             (b"87.70.141.1/22\0" as *const u8).cast::<i8>(),

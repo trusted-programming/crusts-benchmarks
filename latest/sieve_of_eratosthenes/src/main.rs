@@ -16,6 +16,7 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn eratosthenes(mut n: i32, mut c: *mut i32) -> *mut i8 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut sieve_0: *mut i8 = std::ptr::null_mut::<i8>();
         let mut i: i32 = 0;
@@ -50,6 +51,7 @@ pub extern "C" fn eratosthenes(mut n: i32, mut c: *mut i32) -> *mut i8 {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut array: *mut i32 = std::ptr::null_mut::<i32>();
         let mut n: i32 = 10;
@@ -61,6 +63,7 @@ fn main_0() -> i32 {
 
 #[no_mangle]
 pub extern "C" fn sieve(mut a: *mut i32, mut n: i32) {
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut j: i32 = 0;

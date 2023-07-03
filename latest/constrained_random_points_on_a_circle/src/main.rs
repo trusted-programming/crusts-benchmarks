@@ -15,6 +15,7 @@ extern "C" {
 pub extern "C" fn randn(mut m: i32) -> i32 {
     let mut rand_max: i32 = 2147483647 - 2147483647 % m;
     let mut r: i32 = 0;
+// SAFETY: machine generated unsafe code
     unsafe {
         loop {
             r = rand();

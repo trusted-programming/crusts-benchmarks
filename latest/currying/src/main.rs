@@ -29,6 +29,7 @@ pub extern "C" fn factorial(mut n: i32) -> i64 {
 }
 
 #[no_mangle]
+// SAFETY: machine generated unsafe code
 pub unsafe extern "C" fn sumOfFactorials(mut num: i32, mut args: ...) -> i64 {
     let mut vaList: ::core::ffi::VaListImpl;
     let mut sum: i64 = 0;
@@ -45,6 +46,7 @@ pub unsafe extern "C" fn sumOfFactorials(mut num: i32, mut args: ...) -> i64 {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
     unsafe {
         print!(
             "\nSum of factorials of [1,5] : {}",
