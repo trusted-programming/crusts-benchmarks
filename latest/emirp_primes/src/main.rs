@@ -46,6 +46,8 @@ pub extern "C" fn is_emirp(mut n: u32) -> i32 {
 
 fn main_0(mut argc: i32, mut _argv: *mut *mut i8) -> i32 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut x: u32 = 0;
         let mut c: u32 = 0;

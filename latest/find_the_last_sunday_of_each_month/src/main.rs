@@ -13,6 +13,8 @@ extern "C" {
 }
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut days: [i32; 12] = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         let mut m: i32 = 0;

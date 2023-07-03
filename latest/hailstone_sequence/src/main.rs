@@ -15,6 +15,8 @@ extern "C" {
 #[no_mangle]
 pub extern "C" fn hailstone(mut n: i32, mut arry: *mut i32) -> i32 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut hs: i32 = 1;
         while n != 1_i32 {
@@ -37,6 +39,8 @@ pub extern "C" fn hailstone(mut n: i32, mut arry: *mut i32) -> i32 {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut j: i32 = 0;

@@ -9,6 +9,8 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
@@ -43,6 +45,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct node {
     pub payload: i32,
     pub height: i32,
@@ -50,11 +53,14 @@ pub struct node {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct trunk {
     pub prev: *mut trunk,
     pub str_0: *mut i8,
 }
 #[no_mangle]
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
 pub static mut dummy: node = unsafe {
     {
@@ -71,9 +77,13 @@ pub static mut dummy: node = unsafe {
 };
 #[no_mangle]
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 pub static mut nnil: *mut node = unsafe { &dummy as *const node as *mut node };
 #[no_mangle]
 pub extern "C" fn new_node(mut value: i32) -> *mut node {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut n: *mut node = calloc(1, ::core::mem::size_of::<node>() as u64) as *mut node;
@@ -97,6 +107,8 @@ pub extern "C" fn max(mut a: i32, mut b: i32) -> i32 {
 #[no_mangle]
 pub extern "C" fn set_height(mut n: *mut node) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         (*n).height = 1 + max(
             (*(*n).kid[0 as usize]).height,
@@ -108,6 +120,8 @@ pub extern "C" fn set_height(mut n: *mut node) {
 #[no_mangle]
 pub extern "C" fn ballance(mut n: *mut node) -> i32 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         return (*(*n).kid[0 as usize]).height - (*(*n).kid[1 as usize]).height;
     }
@@ -115,6 +129,8 @@ pub extern "C" fn ballance(mut n: *mut node) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn rotate(mut rootp: *mut *mut node, mut dir: i32) -> *mut node {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut old_r: *mut node = *rootp;
@@ -133,6 +149,8 @@ pub extern "C" fn rotate(mut rootp: *mut *mut node, mut dir: i32) -> *mut node {
 
 #[no_mangle]
 pub extern "C" fn adjust_balance(mut rootp: *mut *mut node) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut root: *mut node = *rootp;
@@ -156,6 +174,8 @@ pub extern "C" fn adjust_balance(mut rootp: *mut *mut node) {
 #[no_mangle]
 pub extern "C" fn query(mut root: *mut node, mut value: i32) -> *mut node {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         return if root == nnil {
             0 as *mut node
@@ -172,6 +192,8 @@ pub extern "C" fn query(mut root: *mut node, mut value: i32) -> *mut node {
 
 #[no_mangle]
 pub extern "C" fn insert(mut rootp: *mut *mut node, mut value: i32) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut root: *mut node = *rootp;
@@ -191,6 +213,8 @@ pub extern "C" fn insert(mut rootp: *mut *mut node, mut value: i32) {
 
 #[no_mangle]
 pub extern "C" fn delete(mut rootp: *mut *mut node, mut value: i32) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut root: *mut node = *rootp;
@@ -216,6 +240,8 @@ pub extern "C" fn delete(mut rootp: *mut *mut node, mut value: i32) {
 #[no_mangle]
 pub extern "C" fn show_trunks(mut p: *mut trunk) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         if p.is_null() {
             return;
@@ -227,6 +253,8 @@ pub extern "C" fn show_trunks(mut p: *mut trunk) {
 
 #[no_mangle]
 pub extern "C" fn show_tree(mut root: *mut node, mut prev: *mut trunk, mut is_left: i32) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if root == nnil {
@@ -266,6 +294,8 @@ pub extern "C" fn show_tree(mut root: *mut node, mut prev: *mut trunk, mut is_le
 #[no_mangle]
 pub extern "C" fn verify(mut p: *mut node) -> i32 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         if p == nnil {
             return 1;
@@ -283,6 +313,8 @@ pub extern "C" fn verify(mut p: *mut node) -> i32 {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut x: i32 = 0;

@@ -9,6 +9,8 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -26,6 +28,8 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn reverse_section(mut s: *mut i8, mut length: u64) -> *mut i8 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if length == 0 {
@@ -47,6 +51,8 @@ pub extern "C" fn reverse_section(mut s: *mut i8, mut length: u64) -> *mut i8 {
 
 #[no_mangle]
 pub extern "C" fn reverse_words_in_order(mut s: *mut i8, mut delim: i8) -> *mut i8 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if strlen(s) == 0 {
@@ -75,6 +81,8 @@ pub extern "C" fn reverse_words_in_order(mut s: *mut i8, mut delim: i8) -> *mut 
 #[no_mangle]
 pub extern "C" fn reverse_string(mut s: *mut i8) -> *mut i8 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         if strlen(s) != 0 {
             reverse_section(s, (strlen(s)).wrapping_sub(1))
@@ -87,6 +95,8 @@ pub extern "C" fn reverse_string(mut s: *mut i8) -> *mut i8 {
 #[no_mangle]
 pub extern "C" fn reverse_order_of_words(mut s: *mut i8, mut delim: i8) -> *mut i8 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         reverse_string(s);
         reverse_words_in_order(s, delim);
@@ -95,6 +105,8 @@ pub extern "C" fn reverse_order_of_words(mut s: *mut i8, mut delim: i8) -> *mut 
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut str: [i8; 29] =

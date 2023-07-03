@@ -9,6 +9,8 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -25,15 +27,20 @@ extern "C" {
 }
 pub type __compar_fn_t =
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     Option<unsafe extern "C" fn(*const libc::c_void, *const libc::c_void) -> i32>;
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct replace_info {
     pub n: i32,
     pub text: *mut i8,
 }
 #[no_mangle]
 pub extern "C" fn compare(mut a: *const libc::c_void, mut b: *const libc::c_void) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut x: *mut replace_info = a as *mut replace_info;
@@ -48,6 +55,8 @@ pub extern "C" fn generic_fizz_buzz(
     mut info: *mut replace_info,
     mut info_length: i32,
 ) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -103,11 +112,15 @@ fn main_0() -> i32 {
         },
     ];
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         qsort(
             info.as_mut_ptr().cast::<libc::c_void>(),
             3,
             ::core::mem::size_of::<replace_info>() as u64,
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
             Some(compare as unsafe extern "C" fn(*const libc::c_void, *const libc::c_void) -> i32),
         );

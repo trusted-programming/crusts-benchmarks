@@ -16,6 +16,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct list_t {
     pub is_list: i32,
     pub ival: i32,
@@ -24,6 +25,8 @@ pub struct list_t {
 pub type list = *mut list_t;
 #[no_mangle]
 pub extern "C" fn new_list() -> list {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut x: list = malloc(::core::mem::size_of::<list_t>() as u64) as list;
@@ -37,6 +40,8 @@ pub extern "C" fn new_list() -> list {
 #[no_mangle]
 pub extern "C" fn append(mut parent: list, mut child: list) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         (*parent).lst = realloc(
             (*parent).lst as *mut libc::c_void,
@@ -46,6 +51,8 @@ pub extern "C" fn append(mut parent: list, mut child: list) {
     let fresh0 = (*parent).ival;
     (*parent).ival = (*parent).ival + 1;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let ref mut fresh1 = *((*parent).lst).offset(fresh0 as isize);
         *fresh1 = child;
@@ -54,6 +61,8 @@ pub extern "C" fn append(mut parent: list, mut child: list) {
 
 #[no_mangle]
 pub extern "C" fn from_string(mut s: *mut i8, mut e: *mut *mut i8, mut parent: list) -> list {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut ret: list = 0 as list;
@@ -103,6 +112,8 @@ pub extern "C" fn show_list(mut l: list) {
     print!("[");
     i = 0;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < (*l).ival {
             show_list(*((*l).lst).offset(i as isize));
@@ -123,6 +134,8 @@ pub extern "C" fn flatten(mut from: list, mut to: list) -> list {
     if to.is_null() {
         to = new_list();
     }
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if (*from).is_list == 0 {
@@ -147,6 +160,8 @@ pub extern "C" fn delete_list(mut l: list) {
     if l.is_null() {
         return;
     }
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if (*l).is_list != 0 && (*l).ival != 0 {

@@ -9,6 +9,8 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -39,6 +41,8 @@ pub const _ISlower: u32 = 512;
 pub const _ISupper: u32 = 256;
 #[no_mangle]
 pub extern "C" fn rot(mut c: i32, mut str: *mut i8) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut l: i32 = strlen(str) as i32;
@@ -74,6 +78,8 @@ pub extern "C" fn rot(mut c: i32, mut str: *mut i8) {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut str: [i8; 35] = *::core::mem::transmute::<&[u8; 35], &mut [i8; 35]>(

@@ -15,6 +15,8 @@ fn main_0() -> i32 {
     print!("Nim Game\n\n");
     let mut Tokens: i32 = 12;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         while Tokens > 0_i32 {
             print!("How many tokens would you like to take?: ");

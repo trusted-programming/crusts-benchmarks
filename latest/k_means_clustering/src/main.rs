@@ -18,6 +18,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct point_t {
     pub x: f64,
     pub y: f64,
@@ -26,6 +27,8 @@ pub struct point_t {
 pub type point = *mut point_t;
 #[no_mangle]
 pub extern "C" fn randf(mut m: f64) -> f64 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         return m * rand() as f64 / (2147483647 as f64 - 1.0f64);
@@ -37,6 +40,8 @@ pub extern "C" fn gen_xy(mut count: i32, mut radius: f64) -> point {
     let mut ang: f64 = 0.;
     let mut r: f64 = 0.;
     let mut p: point = 0 as *mut point_t;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut pt: point =
@@ -71,6 +76,8 @@ pub extern "C" fn nearest(
     mut n_cluster: i32,
     mut d2: *mut f64,
 ) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -110,6 +117,8 @@ pub extern "C" fn nearest(
 
 #[no_mangle]
 pub extern "C" fn kpp(mut pts: point, mut len: i32, mut cent: point, mut n_cent: i32) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -171,6 +180,8 @@ pub extern "C" fn lloyd(mut pts: point, mut len: i32, mut n_cluster: i32) -> poi
     let mut j: i32 = 0;
     let mut min_i: i32 = 0;
     let mut changed: i32 = 0;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut cent: point =
@@ -248,6 +259,8 @@ pub extern "C" fn lloyd(mut pts: point, mut len: i32, mut n_cluster: i32) -> poi
 
 #[no_mangle]
 pub extern "C" fn print_eps(mut pts: point, mut len: i32, mut cent: point, mut n_cluster: i32) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;

@@ -10,9 +10,13 @@
 
 extern "C" {}
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 pub type intFn = Option<unsafe extern "C" fn(i32, i32) -> i32>;
 #[no_mangle]
 pub extern "C" fn reduce(mut fn_0: intFn, mut size: i32, mut elms: *mut i32) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -48,6 +52,8 @@ fn main_0() -> i32 {
         "{}",
         reduce(
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
             Some(add as unsafe extern "C" fn(i32, i32) -> i32),
             5,
             nums.as_mut_ptr(),
@@ -57,6 +63,8 @@ fn main_0() -> i32 {
         "{}",
         reduce(
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
             Some(sub as unsafe extern "C" fn(i32, i32) -> i32),
             5,
             nums.as_mut_ptr(),
@@ -65,6 +73,8 @@ fn main_0() -> i32 {
     println!(
         "{}",
         reduce(
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
             Some(mul as unsafe extern "C" fn(i32, i32) -> i32),
             5,

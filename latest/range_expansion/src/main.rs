@@ -9,6 +9,8 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -39,6 +41,8 @@ pub const _ISlower: u32 = 512;
 pub const _ISupper: u32 = 256;
 #[no_mangle]
 pub extern "C" fn get_list(mut s: *const i8, mut e: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut x: i32 = 0;
@@ -80,6 +84,8 @@ pub extern "C" fn get_list(mut s: *const i8, mut e: *mut *mut i8) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn get_rnge(mut s: *const i8, mut e: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut x: i32 = 0;
@@ -128,6 +134,8 @@ pub extern "C" fn add_range(mut x: i32, mut y: i32) -> i32 {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut end: *mut i8 = std::ptr::null_mut::<i8>();

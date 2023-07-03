@@ -14,6 +14,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct node {
     pub val: i32,
     pub len: i32,
@@ -21,6 +22,8 @@ pub struct node {
 }
 #[no_mangle]
 pub extern "C" fn lis(mut v: *mut i32, mut len: i32) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;

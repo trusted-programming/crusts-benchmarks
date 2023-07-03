@@ -9,6 +9,8 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -36,6 +38,8 @@ pub extern "C" fn cartesianProduct(
     mut numSets: i32,
     mut times: i32,
 ) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -65,6 +69,8 @@ pub extern "C" fn cartesianProduct(
 #[no_mangle]
 pub extern "C" fn printSets(mut sets: *mut *mut i32, mut setLengths: *mut i32, mut numSets: i32) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut j: i32 = 0;
@@ -86,6 +92,8 @@ pub extern "C" fn printSets(mut sets: *mut *mut i32, mut setLengths: *mut i32, m
 
 #[no_mangle]
 pub extern "C" fn processInputString(mut str: *mut i8) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut sets: *mut *mut i32 = std::ptr::null_mut::<*mut i32>();
@@ -199,6 +207,8 @@ pub extern "C" fn processInputString(mut str: *mut i8) {
 }
 
 fn main_0(mut argC: i32, mut argV: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if argC != 2_i32 {

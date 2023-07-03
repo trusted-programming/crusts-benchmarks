@@ -9,6 +9,8 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -26,6 +28,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct tm {
     pub tm_sec: i32,
     pub tm_min: i32,
@@ -41,6 +44,8 @@ pub struct tm {
 }
 fn main_0() -> i32 {
     let mut t: i64 = 0;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         print!(

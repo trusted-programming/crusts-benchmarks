@@ -13,6 +13,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct matrix_t {
     pub h: i32,
     pub w: i32,
@@ -21,6 +22,8 @@ pub struct matrix_t {
 pub type matrix = *mut matrix_t;
 #[no_mangle]
 pub extern "C" fn dot(mut a: *mut f64, mut b: *mut f64, mut len: i32, mut step: i32) -> f64 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut r: f64 = f64::from(0_i32);
@@ -42,6 +45,8 @@ pub extern "C" fn dot(mut a: *mut f64, mut b: *mut f64, mut len: i32, mut step: 
 #[no_mangle]
 pub extern "C" fn mat_new(mut h: i32, mut w: i32) -> matrix {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut r: matrix = malloc(
             (::core::mem::size_of::<matrix_t>() as u64).wrapping_add(
@@ -59,6 +64,8 @@ pub extern "C" fn mat_new(mut h: i32, mut w: i32) -> matrix {
 
 #[no_mangle]
 pub extern "C" fn mat_mul(mut a: matrix, mut b: matrix) -> matrix {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut r: matrix = std::ptr::null_mut::<matrix_t>();
@@ -92,6 +99,8 @@ pub extern "C" fn mat_mul(mut a: matrix, mut b: matrix) -> matrix {
 
 #[no_mangle]
 pub extern "C" fn mat_show(mut a: matrix) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;

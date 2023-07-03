@@ -19,6 +19,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct Transition {
     pub a: u8,
     pub b: u8,
@@ -31,6 +32,8 @@ pub extern "C" fn init() {
     let mut i: i32 = 0;
     let mut j: i32 = 0;
     i = 0_i32;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < 10_i32 {
@@ -56,6 +59,8 @@ pub extern "C" fn record(mut prev: i32, mut curr: i32) {
     let mut i: i32 = 0;
     i = 0_i32;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 100_i32 {
             let mut _z: i32 = 0;
@@ -78,6 +83,8 @@ pub extern "C" fn printTransitions(mut limit: i32, mut last_prime: i32) {
     let mut i: i32 = 0;
     println!("{} primes, last prime considered: {}", limit, last_prime);
     i = 0_i32;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < 100_i32 {
@@ -130,6 +137,8 @@ pub extern "C" fn isPrime(mut n: i32) -> bool {
     a1 = 96_i32;
     a2 = 216_i32;
     s = t * t;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while s <= n {

@@ -18,12 +18,16 @@ pub extern "C" fn coef(mut n: i32) {
     let mut i: i32 = 0;
     let mut j: i32 = 0;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         if !(0_i32..=63_i32).contains(&n) {
             abort();
         }
     }
     i = 0_i32;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         c[i as usize] = 1;
@@ -47,10 +51,14 @@ pub extern "C" fn is_prime(mut n: i32) -> i32 {
     let mut i: i32 = 0;
     coef(n);
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         c[0_usize] += 1;
     }
     i = n;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         c[i as usize] -= 1;
@@ -67,6 +75,8 @@ pub extern "C" fn is_prime(mut n: i32) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn show(mut n: i32) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         loop {

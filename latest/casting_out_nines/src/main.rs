@@ -19,6 +19,8 @@ fn main_0() -> i32 {
     let mut k: i32 = 0;
     k = 1_i32;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         while f64::from(k) < pow(f64::from(base), f64::from(N)) {
             c1 = c1.wrapping_add(1);

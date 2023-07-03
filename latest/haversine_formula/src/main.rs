@@ -24,6 +24,8 @@ pub extern "C" fn dist(mut th1: f64, mut ph1: f64, mut th2: f64, mut ph2: f64) -
     th1 *= 3.1415926536f64 / 180 as f64;
     th2 *= 3.1415926536f64 / 180 as f64;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         dz = sin(th1) - sin(th2);
         dx = cos(ph1) * cos(th1) - cos(th2);

@@ -13,6 +13,8 @@ extern "C" {
 }
 fn main_0() -> i32 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut object: *mut i8 = std::ptr::null_mut::<i8>();
         if object.is_null() {

@@ -9,6 +9,8 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -29,6 +31,8 @@ extern "C" {
 #[no_mangle]
 pub extern "C" fn swap(mut str: *mut i8, mut i: i32, mut j: i32) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut c: i8 = *str.offset(i as isize);
         *str.offset(i as isize) = *str.offset(j as isize);
@@ -38,6 +42,8 @@ pub extern "C" fn swap(mut str: *mut i8, mut i: i32, mut j: i32) {
 
 #[no_mangle]
 pub extern "C" fn reverse(mut str: *mut i8, mut i: i32, mut j: i32) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < j {
@@ -52,6 +58,8 @@ pub extern "C" fn reverse(mut str: *mut i8, mut i: i32, mut j: i32) {
 
 #[no_mangle]
 pub extern "C" fn next_permutation(mut str: *mut i8) -> bool {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut len: i32 = strlen(str) as i32;
@@ -84,6 +92,8 @@ pub extern "C" fn next_permutation(mut str: *mut i8) -> bool {
 pub extern "C" fn next_highest_int(mut n: u32) -> u32 {
     let mut str: [i8; 16] = [0; 16];
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         snprintf(
             str.as_mut_ptr(),
@@ -95,6 +105,8 @@ pub extern "C" fn next_highest_int(mut n: u32) -> u32 {
     if !next_permutation(str.as_mut_ptr()) {
         return 0;
     }
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         strtoul(str.as_mut_ptr(), std::ptr::null_mut::<*mut i8>(), 10) as u32
@@ -115,6 +127,8 @@ fn main_0() -> i32 {
         i = i.wrapping_add(1);
         i;
     }
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let big: [i8; 23] =

@@ -18,6 +18,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -53,18 +54,28 @@ pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct stream_t {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     pub get: Option<unsafe extern "C" fn(stream) -> i32>,
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     pub put: Option<unsafe extern "C" fn(stream, i32) -> i32>,
 }
 pub type stream = *mut stream_t;
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct string_stream {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     pub get: Option<unsafe extern "C" fn(stream) -> i32>,
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     pub put: Option<unsafe extern "C" fn(stream, i32) -> i32>,
     pub string: *mut i8,
@@ -72,15 +83,22 @@ pub struct string_stream {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct file_stream {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     pub get: Option<unsafe extern "C" fn(stream) -> i32>,
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     pub put: Option<unsafe extern "C" fn(stream, i32) -> i32>,
     pub fp: *mut FILE,
 }
 #[no_mangle]
 pub extern "C" fn sget(mut in_0: stream) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut c: i32 = 0;
@@ -98,6 +116,8 @@ pub extern "C" fn sget(mut in_0: stream) -> i32 {
 #[no_mangle]
 pub extern "C" fn sput(mut out: stream, mut c: i32) -> i32 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut s: *mut string_stream = out as *mut string_stream;
         let fresh0 = (*s).pos;
@@ -113,6 +133,8 @@ pub extern "C" fn sput(mut out: stream, mut c: i32) -> i32 {
 #[no_mangle]
 pub extern "C" fn file_put(mut out: stream, mut c: i32) -> i32 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut f: *mut file_stream = out as *mut file_stream;
         return fputc(c, (*f).fp);
@@ -121,6 +143,8 @@ pub extern "C" fn file_put(mut out: stream, mut c: i32) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn output(mut out: stream, mut buf: *mut u8, mut len: i32) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -142,9 +166,15 @@ pub extern "C" fn encode(mut in_0: stream, mut out: stream) {
     let mut end: i32 = 0;
     let mut c: i32 = 0;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
         let mut get: Option<unsafe extern "C" fn(stream) -> i32> = (*in_0).get;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
         let mut put: Option<unsafe extern "C" fn(stream, i32) -> i32> = (*out).put;
         while end == 0 {
@@ -226,9 +256,13 @@ pub extern "C" fn decode(mut in_0: stream, mut out: stream) {
 fn main_0() -> i32 {
     let mut buf: [i8; 256] = [0; 256];
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_in: string_stream = {
             let mut init = string_stream {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
                 get: Some(sget as unsafe extern "C" fn(stream) -> i32),
                 put: None,
@@ -241,7 +275,11 @@ fn main_0() -> i32 {
         let mut str_out: string_stream = {
             let mut init = string_stream {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
                 get: Some(sget as unsafe extern "C" fn(stream) -> i32),
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
                 put: Some(sput as unsafe extern "C" fn(stream, i32) -> i32),
                 string: buf.as_mut_ptr(),
@@ -252,6 +290,8 @@ fn main_0() -> i32 {
         let mut file: file_stream = {
             let mut init = file_stream {
                 get: None,
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
                 put: Some(file_put as unsafe extern "C" fn(stream, i32) -> i32),
                 fp: stdout,

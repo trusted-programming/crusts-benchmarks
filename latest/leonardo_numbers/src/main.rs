@@ -39,6 +39,8 @@ fn main_0() -> i32 {
     let mut step: i32 = 0;
     print!("Enter first two Leonardo numbers and increment step : ");
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         scanf(
             (b"%d%d%d\0" as *const u8).cast::<i8>(),

@@ -14,6 +14,8 @@ extern "C" {
 #[no_mangle]
 pub extern "C" fn swap_row(mut a: *mut f64, mut b: *mut f64, mut r1: i32, mut r2: i32, mut n: i32) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut tmp: f64 = 0.;
         let mut p1: *mut f64 = std::ptr::null_mut::<f64>();
@@ -40,6 +42,8 @@ pub extern "C" fn swap_row(mut a: *mut f64, mut b: *mut f64, mut r1: i32, mut r2
 
 #[no_mangle]
 pub extern "C" fn gauss_eliminate(mut a: *mut f64, mut b: *mut f64, mut x: *mut f64, mut n: i32) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut _i: i32 = 0;

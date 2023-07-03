@@ -11,11 +11,13 @@
 extern "C" {}
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct layer1 {
     pub a: i32,
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct layer2 {
     pub l1: layer1,
     pub b: libc::c_float,
@@ -23,6 +25,7 @@ pub struct layer2 {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct layer3 {
     pub l2: layer2,
     pub l1: layer1,

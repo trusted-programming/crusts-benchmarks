@@ -23,6 +23,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -71,6 +72,8 @@ pub extern "C" fn refresh(mut _x: i32, mut _y: i32) {
     k = 0_i32;
     i = k;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < h {
             j = 0_i32;
@@ -101,6 +104,8 @@ pub extern "C" fn walk() {
     let mut dy: i32 = 1;
     let mut i: i32 = 0;
     let mut k: i32 = 0;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut x: i32 = w / 2;
@@ -192,6 +197,8 @@ pub extern "C" fn walk() {
 }
 
 fn main_0(mut c: i32, mut v: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if c > 1_i32 {

@@ -13,12 +13,14 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct timespec {
     pub tv_sec: i64,
     pub tv_nsec: i64,
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct stat {
     pub st_dev: u64,
     pub st_ino: u64,
@@ -38,6 +40,8 @@ pub struct stat {
 }
 #[no_mangle]
 pub extern "C" fn check_reg(mut path: *const i8) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut sb: stat = stat {
@@ -72,6 +76,8 @@ pub extern "C" fn check_reg(mut path: *const i8) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn check_dir(mut path: *const i8) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut sb: stat = stat {

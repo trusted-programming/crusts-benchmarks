@@ -21,6 +21,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -57,6 +58,8 @@ pub type FILE = _IO_FILE;
 #[no_mangle]
 pub extern "C" fn show(mut u: *mut libc::c_void, mut w: i32, mut h: i32) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let vla = w as usize;
         let mut univ: *mut i32 = u.cast::<i32>();
@@ -83,6 +86,8 @@ pub extern "C" fn show(mut u: *mut libc::c_void, mut w: i32, mut h: i32) {
 
 #[no_mangle]
 pub extern "C" fn evolve(mut u: *mut libc::c_void, mut w: i32, mut h: i32) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let vla = w as usize;
@@ -153,6 +158,8 @@ pub extern "C" fn game(mut w: i32, mut h: i32) {
     let mut univ: Vec<u32> = ::std::vec::from_elem(0, vla * vla_0);
     let mut x: i32 = 0;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         while x < w {
             let mut y: i32 = 0;
@@ -176,6 +183,8 @@ pub extern "C" fn game(mut w: i32, mut h: i32) {
 }
 
 fn main_0(mut c: i32, mut v: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut w: i32 = 0;

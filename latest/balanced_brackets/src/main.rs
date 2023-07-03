@@ -9,6 +9,8 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -26,6 +28,8 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn isBal(mut s: *const i8, mut l: i32) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut c: i32 = 0;
@@ -55,6 +59,8 @@ pub extern "C" fn isBal(mut s: *const i8, mut l: i32) -> i32 {
 #[no_mangle]
 pub extern "C" fn shuffle(mut s: *mut i8, mut h: i32) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut x: i32 = 0;
         let mut t: i32 = 0;
@@ -76,6 +82,8 @@ pub extern "C" fn shuffle(mut s: *mut i8, mut h: i32) {
 #[no_mangle]
 pub extern "C" fn genSeq(mut s: *mut i8, mut n: i32) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         if n != 0_i32 {
             memset(s.cast::<libc::c_void>(), '[' as i32, n as u64);
@@ -92,6 +100,8 @@ pub extern "C" fn genSeq(mut s: *mut i8, mut n: i32) {
 
 #[no_mangle]
 pub extern "C" fn doSeq(mut n: i32) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut s: [i8; 64] = [0; 64];

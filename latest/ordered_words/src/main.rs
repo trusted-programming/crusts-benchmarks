@@ -10,6 +10,8 @@
 #![feature(extern_types, label_break_value)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -42,6 +44,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -78,12 +81,15 @@ pub type FILE = _IO_FILE;
 pub type TWord = [i8; 100];
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct Node {
     pub word: TWord,
     pub next: *mut Node,
 }
 #[no_mangle]
 pub extern "C" fn is_ordered_word(mut word: *const i8) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if !word.is_null() {
@@ -128,6 +134,8 @@ pub extern "C" fn is_ordered_word(mut word: *const i8) -> i32 {
 #[no_mangle]
 pub extern "C" fn list_prepend(mut words_list: *mut Node, mut new_word: *const i8) -> *mut Node {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         if !new_word.is_null() {
         } else {
@@ -166,6 +174,8 @@ pub extern "C" fn list_prepend(mut words_list: *mut Node, mut new_word: *const i
 #[no_mangle]
 pub extern "C" fn list_destroy(mut words_list: *mut Node) -> *mut Node {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         while !words_list.is_null() {
             let mut temp: *mut Node = words_list;
@@ -179,6 +189,8 @@ pub extern "C" fn list_destroy(mut words_list: *mut Node) -> *mut Node {
 #[no_mangle]
 pub extern "C" fn list_print(mut words_list: *mut Node) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         while !words_list.is_null() {
             print!(
@@ -191,6 +203,8 @@ pub extern "C" fn list_print(mut words_list: *mut Node) {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut fp: *mut FILE = fopen(
@@ -223,6 +237,8 @@ fn main_0() -> i32 {
 }
 
 pub fn main() {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(main_0());

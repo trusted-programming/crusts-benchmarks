@@ -12,6 +12,8 @@ extern "C" {}
 #[no_mangle]
 pub extern "C" fn droot(mut x: i64, mut base: i32, mut pers: *mut i32) -> i32 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut d: i32 = 0;
         if !pers.is_null() {

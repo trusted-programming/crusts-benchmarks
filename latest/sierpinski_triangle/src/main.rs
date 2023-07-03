@@ -26,6 +26,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -61,6 +62,7 @@ pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct rgb {
     pub r: f64,
     pub g: f64,
@@ -85,6 +87,8 @@ pub static mut pix: *mut *mut rgb = 0 as *const *mut rgb as *mut *mut rgb;
 #[no_mangle]
 pub extern "C" fn sc_up() {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         scale *= 2;
         x *= 2;
@@ -95,6 +99,8 @@ pub extern "C" fn sc_up() {
 
 #[no_mangle]
 pub extern "C" fn h_rgb(mut x_0: i64, mut y_0: i64) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut p: *mut rgb = &mut *(*pix.offset(y_0 as isize)).offset(x_0 as isize) as *mut rgb;
@@ -133,6 +139,8 @@ pub extern "C" fn h_rgb(mut x_0: i64, mut y_0: i64) {
 
 #[no_mangle]
 pub extern "C" fn iter_string(mut str: *const i8, mut d: i32) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut len: i64 = 0;
@@ -187,6 +195,8 @@ pub extern "C" fn iter_string(mut str: *const i8, mut d: i32) {
 
 #[no_mangle]
 pub extern "C" fn sierp(mut leng: i64, mut depth: i32) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i64 = 0;
@@ -255,6 +265,8 @@ pub extern "C" fn sierp(mut leng: i64, mut depth: i32) {
 }
 
 fn main_0(mut c: i32, mut v: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut size: i32 = 0;

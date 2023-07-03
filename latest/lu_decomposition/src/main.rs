@@ -19,6 +19,8 @@ pub type mat = *mut *mut f64;
 pub extern "C" fn mat_zero(mut x: mat, mut n: i32) {
     let mut i: i32 = 0;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < n {
             let mut j: i32 = 0;
@@ -35,6 +37,8 @@ pub extern "C" fn mat_zero(mut x: mat, mut n: i32) {
 
 #[no_mangle]
 pub extern "C" fn mat_new(mut n: i32) -> mat {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut x: mat =
@@ -60,6 +64,8 @@ pub extern "C" fn mat_new(mut n: i32) -> mat {
 #[no_mangle]
 pub extern "C" fn mat_copy(mut s: *mut libc::c_void, mut n: i32) -> mat {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut x: mat = mat_new(n);
         let mut i: i32 = 0;
@@ -83,6 +89,8 @@ pub extern "C" fn mat_copy(mut s: *mut libc::c_void, mut n: i32) -> mat {
 #[no_mangle]
 pub extern "C" fn mat_del(mut x: mat) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         free((*x.offset(0_isize)).cast::<libc::c_void>());
         free(x.cast::<libc::c_void>());
@@ -91,6 +99,8 @@ pub extern "C" fn mat_del(mut x: mat) {
 
 #[no_mangle]
 pub extern "C" fn mat_show(mut x: mat, mut fmt: *mut i8, mut n: i32) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if fmt.is_null() {
@@ -129,6 +139,8 @@ pub extern "C" fn mat_mul(mut a: mat, mut b: mat, mut n: i32) -> mat {
     c = c;
     let mut i: i32 = 0;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < n {
             let mut j: i32 = 0;
@@ -155,6 +167,8 @@ pub extern "C" fn mat_mul(mut a: mat, mut b: mat, mut n: i32) -> mat {
 pub extern "C" fn mat_pivot(mut a: mat, mut p: mat, mut n: i32) {
     let mut i: i32 = 0;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < n {
             let mut j: i32 = 0;
@@ -168,6 +182,8 @@ pub extern "C" fn mat_pivot(mut a: mat, mut p: mat, mut n: i32) {
         }
     }
     let mut i_0: i32 = 0;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i_0 < n {
@@ -207,6 +223,8 @@ pub extern "C" fn mat_LU(mut A: mat, mut L: mat, mut U: mat, mut P: mat, mut n: 
     let mut Aprime: mat = mat_mul(P, A, n);
     let mut i: i32 = 0;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < n {
             *(*L.offset(i as isize)).offset(i as isize) = 1_f64;
@@ -215,6 +233,8 @@ pub extern "C" fn mat_LU(mut A: mat, mut L: mat, mut U: mat, mut P: mat, mut n: 
         }
     }
     let mut i_0: i32 = 0;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i_0 < n {
@@ -279,6 +299,8 @@ fn main_0() -> i32 {
     P = mat_new(n);
     U = mat_new(n);
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         A = mat_copy(A3.as_mut_ptr().cast::<libc::c_void>(), n);
     }
@@ -300,6 +322,8 @@ fn main_0() -> i32 {
     L = mat_new(n);
     P = mat_new(n);
     U = mat_new(n);
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         A = mat_copy(A4.as_mut_ptr().cast::<libc::c_void>(), n);

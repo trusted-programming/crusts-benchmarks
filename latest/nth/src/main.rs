@@ -9,6 +9,8 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -25,6 +27,8 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn addSuffix(mut num: i32, mut buf: *mut i8, mut len: u64) -> *mut i8 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut suffixes: [*mut i8; 4] = [
@@ -64,6 +68,8 @@ fn main_0() -> i32 {
     println!("Set [0,25]:");
     i = 0_i32;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 26_i32 {
             let mut s: [i8; 5] = [0; 5];
@@ -79,6 +85,8 @@ fn main_0() -> i32 {
     println!("Set [250,265]:");
     i = 250_i32;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 266_i32 {
             let mut s_0: [i8; 6] = [0; 6];
@@ -93,6 +101,8 @@ fn main_0() -> i32 {
     print!("{}", '\n' as i32);
     println!("Set [1000,1025]:");
     i = 1_000_i32;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < 1_026_i32 {

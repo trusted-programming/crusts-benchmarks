@@ -9,6 +9,8 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -31,12 +33,14 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct timespec {
     pub tv_sec: i64,
     pub tv_nsec: i64,
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct stat {
     pub st_dev: u64,
     pub st_ino: u64,
@@ -56,6 +60,7 @@ pub struct stat {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct word {
     pub w: *const i8,
     pub next: *mut word,
@@ -73,6 +78,8 @@ pub static mut char_to_idx: [i32; 128] = [0_i32; 128];
 #[no_mangle]
 pub extern "C" fn deranged(mut s1: *const i8, mut s2: *const i8) -> i32 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         i = 0_i32;
@@ -89,6 +96,8 @@ pub extern "C" fn deranged(mut s1: *const i8, mut s2: *const i8) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn count_letters(mut s: *const i8, mut c: *mut u8) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -116,6 +125,8 @@ pub extern "C" fn count_letters(mut s: *const i8, mut c: *mut u8) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn insert(mut root: *mut node, mut s: *const i8, mut cnt: *mut u8) -> *const i8 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -149,6 +160,8 @@ pub extern "C" fn insert(mut root: *mut node, mut s: *const i8, mut cnt: *mut u8
 }
 
 fn main_0(mut c: i32, mut v: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;

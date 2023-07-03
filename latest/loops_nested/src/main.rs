@@ -30,10 +30,14 @@ fn main_0() -> i32 {
     let mut i: i32 = 0;
     let mut j: i32 = 0;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         srand(rust_time(None) as u32);
     }
     i = 0;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < 10 {

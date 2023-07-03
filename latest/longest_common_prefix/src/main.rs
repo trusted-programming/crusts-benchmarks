@@ -10,6 +10,8 @@
 #![feature(c_variadic)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -30,6 +32,7 @@ extern "C" {
 pub type __builtin_va_list = [__va_list_tag; 1];
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct __va_list_tag {
     pub gp_offset: u32,
     pub fp_offset: u32,
@@ -38,6 +41,8 @@ pub struct __va_list_tag {
 }
 pub type va_list = __builtin_va_list;
 #[no_mangle]
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
 pub unsafe extern "C" fn lcp(mut num: i32, mut args: ...) -> *mut i8 {
     let mut vaList: ::core::ffi::VaListImpl;
@@ -96,6 +101,8 @@ pub unsafe extern "C" fn lcp(mut num: i32, mut args: ...) -> *mut i8 {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         print!(

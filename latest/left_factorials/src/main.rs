@@ -25,6 +25,8 @@ pub extern "C" fn mpz_left_fac_ui(mut _rop: i32, mut op: u64) {
 #[no_mangle]
 pub extern "C" fn mpz_digitcount(mut _op: i32) -> u64 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut t: *mut i8 = std::ptr::null_mut::<i8>();
         let mut ret: u64 = strlen(t);

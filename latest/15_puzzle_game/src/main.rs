@@ -19,6 +19,8 @@ fn rust_getchar() -> u8 {
 
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
@@ -65,6 +67,8 @@ pub extern "C" fn Game_update(mut move_0: u32) -> i32 {
     let dx: [i32; 4] = [0, 0, -1, 1];
     let dy: [i32; 4] = [-1, 1, 0, 0];
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = holeRow + dy[move_0 as usize];
         let mut j: i32 = holeCollumn + dx[move_0 as usize];
@@ -86,6 +90,8 @@ pub extern "C" fn Game_setup() {
     let mut k: i32 = 0;
     i = 0;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 4 {
             j = 0;
@@ -103,6 +109,8 @@ pub extern "C" fn Game_setup() {
     }
     k = 0;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         while k < nShuffles {
             k += Game_update((rand() % 4i32) as u32);
@@ -116,6 +124,8 @@ pub extern "C" fn Game_isFinished() -> i32 {
     let mut j: i32 = 0;
     let mut k: i32 = 1;
     i = 0;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < 4 {
@@ -144,6 +154,8 @@ pub extern "C" fn View_showBoard() {
     let mut j: i32 = 0;
     print!("{}", '\n' as i32);
     i = 0;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < 4 {
@@ -175,6 +187,8 @@ pub extern "C" fn View_showBoard() {
 #[no_mangle]
 pub extern "C" fn View_displayMessage(mut text: *mut i8) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         print!("\n{}\n", build_str_from_raw_ptr(text as *mut u8));
     }
@@ -183,6 +197,8 @@ pub extern "C" fn View_displayMessage(mut text: *mut i8) {
 #[no_mangle]
 pub extern "C" fn Controller_getMove() -> u32 {
     let mut c: i32 = 0;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         loop {
@@ -210,6 +226,8 @@ pub extern "C" fn Controller_pause() {
 
 fn main_0() -> i32 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         srand(rust_time(None) as u32);
     }
@@ -230,6 +248,8 @@ fn main_0() -> i32 {
 }
 
 pub fn main() {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(main_0() as i32);

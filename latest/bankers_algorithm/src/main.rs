@@ -27,10 +27,14 @@ fn main_0() -> i32 {
     let mut safe: bool = 0 != 0;
     print!("\nEnter the number of resources: ");
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         scanf((b"%d\0" as *const u8).cast::<i8>(), &mut r as *mut i32);
     }
     print!("\nEnter the number of processes: ");
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         scanf((b"%d\0" as *const u8).cast::<i8>(), &mut p as *mut i32);
@@ -46,6 +50,8 @@ fn main_0() -> i32 {
     print!("\nEnter Claim Vector: ");
     i = 0_i32;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < r {
             scanf(
@@ -58,6 +64,8 @@ fn main_0() -> i32 {
     }
     print!("\nEnter Allocated Resource Table: ");
     i = 0_i32;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < p {
@@ -78,6 +86,8 @@ fn main_0() -> i32 {
     }
     print!("\nEnter Maximum Claim table: ");
     i = 0_i32;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < p {
@@ -198,6 +208,8 @@ fn main_0() -> i32 {
             i;
         }
         if !safe {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
             print!("\nThe processes are in unsafe state.");
             break;

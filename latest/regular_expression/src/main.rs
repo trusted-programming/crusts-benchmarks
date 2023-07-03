@@ -10,6 +10,8 @@
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -42,6 +44,7 @@ extern "C" {
 }
 #[derive(Copy, Clone, BitfieldStruct)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct re_pattern_buffer {
     pub __buffer: *mut re_dfa_t,
     pub __allocated: u64,
@@ -65,11 +68,14 @@ pub struct re_pattern_buffer {
 pub type regex_t = re_pattern_buffer;
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct regmatch_t {
     pub rm_so: i32,
     pub rm_eo: i32,
 }
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut preg : regex_t = regex_t {
@@ -137,6 +143,8 @@ fn main_0() -> i32 {
             memcpy(
                 (&mut *ns.offset(
                     ((*substmatch.as_mut_ptr().offset(0_isize)).rm_so as u64)
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
                         .wrapping_add((strlen as unsafe extern "C" fn(*const i8) -> u64)(ss))
                         as isize,

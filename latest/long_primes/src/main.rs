@@ -15,6 +15,8 @@ extern "C" {
 #[no_mangle]
 pub extern "C" fn sieve(mut limit: i32, mut primes: *mut i32, mut count: *mut i32) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut c: *mut i32 =
             calloc((limit + 1i32) as u64, ::core::mem::size_of::<i32>() as u64).cast::<i32>();
@@ -76,6 +78,8 @@ pub extern "C" fn findPeriod(mut n: i32) -> i32 {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;

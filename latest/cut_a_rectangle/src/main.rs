@@ -29,6 +29,8 @@ pub extern "C" fn walk(mut y: i32, mut x: i32) {
     let mut i: i32 = 0;
     let mut t: i32 = 0;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         if y == 0_i32 || y == h || x == 0_i32 || x == w {
             cnt = cnt.wrapping_add(2);
@@ -43,6 +45,8 @@ pub extern "C" fn walk(mut y: i32, mut x: i32) {
         *fresh1;
     }
     i = 0_i32;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < 4_i32 {
@@ -70,6 +74,8 @@ pub extern "C" fn solve(mut hh: i32, mut ww: i32, mut recur: i32) -> u64 {
     let mut cx: i32 = 0;
     let mut cy: i32 = 0;
     let mut x: i32 = 0;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         h = hh;
@@ -107,6 +113,8 @@ pub extern "C" fn solve(mut hh: i32, mut ww: i32, mut recur: i32) -> u64 {
         }
     }
     x = cx.wrapping_add(1);
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while x < w {

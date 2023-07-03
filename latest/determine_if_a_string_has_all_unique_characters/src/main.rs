@@ -9,6 +9,8 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -26,12 +28,14 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct positionList {
     pub position: i32,
     pub next: *mut positionList,
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct letterList {
     pub letter: i8,
     pub repititions: i32,
@@ -44,6 +48,8 @@ pub static mut letterSet: *mut letterList = 0 as *const letterList as *mut lette
 pub static mut duplicatesFound: bool = 0_i32 != 0_i32;
 #[no_mangle]
 pub extern "C" fn checkAndUpdateLetterList(mut c: i8, mut pos: i32) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut letterOccurs: bool = 0 != 0;
@@ -101,6 +107,8 @@ pub extern "C" fn checkAndUpdateLetterList(mut c: i8, mut pos: i32) {
 #[no_mangle]
 pub extern "C" fn printLetterList() {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut positionIterator: *mut positionList = std::ptr::null_mut::<positionList>();
         let mut letterIterator: *mut letterList = letterSet;
@@ -124,6 +132,8 @@ pub extern "C" fn printLetterList() {
 }
 
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;

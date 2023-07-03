@@ -16,6 +16,7 @@ extern "C" {
 pub type __builtin_va_list = [__va_list_tag; 1];
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct __va_list_tag {
     pub gp_offset: u32,
     pub fp_offset: u32,
@@ -25,6 +26,7 @@ pub struct __va_list_tag {
 pub type va_list = __builtin_va_list;
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct sma_obj {
     pub sma: f64,
     pub sum: f64,
@@ -47,6 +49,8 @@ pub const SMA_VALUES: u32 = 2;
 pub const SMA_FREE: u32 = 1;
 pub const SMA_NEW: u32 = 0;
 #[no_mangle]
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
 pub unsafe extern "C" fn sma(mut action: u32, mut args: ...) -> sma_result_t {
     let mut vl: ::core::ffi::VaListImpl;
@@ -111,6 +115,8 @@ pub static mut v: [f64; 10] = [
     1_f64,
 ];
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;

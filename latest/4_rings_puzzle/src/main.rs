@@ -36,6 +36,8 @@ pub static mut solutions: i32 = 0_i32;
 #[no_mangle]
 pub extern "C" fn bf() {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         f = lo;
         while f <= hi {
@@ -61,6 +63,8 @@ pub extern "C" fn bf() {
 #[no_mangle]
 pub extern "C" fn ge() {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         e = lo;
         while e <= hi {
@@ -78,6 +82,8 @@ pub extern "C" fn ge() {
 
 #[no_mangle]
 pub extern "C" fn acd() {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         c = lo;
@@ -102,6 +108,8 @@ pub extern "C" fn acd() {
 #[no_mangle]
 pub extern "C" fn foursquares(mut plo: i32, mut phi: i32, mut punique: i32, mut pshow: i32) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         lo = plo;
         hi = phi;
@@ -111,6 +119,8 @@ pub extern "C" fn foursquares(mut plo: i32, mut phi: i32, mut punique: i32, mut 
     }
     println!();
     acd();
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if unique != 0_i32 {

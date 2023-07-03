@@ -10,6 +10,8 @@
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -34,6 +36,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -69,6 +72,7 @@ pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct bit_io_t {
     pub fp: *mut FILE,
     pub accu: u32,
@@ -77,6 +81,8 @@ pub struct bit_io_t {
 pub type bit_filter = *mut bit_io_t;
 #[no_mangle]
 pub extern "C" fn b_attach(mut f: *mut FILE) -> bit_filter {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut b: bit_filter = malloc(::core::mem::size_of::<bit_io_t>() as u64).cast::<bit_io_t>();
@@ -89,6 +95,8 @@ pub extern "C" fn b_attach(mut f: *mut FILE) -> bit_filter {
 
 #[no_mangle]
 pub extern "C" fn b_write(mut buf: *mut u8, mut n_bits: u64, mut shift: u64, mut bf: bit_filter) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut accu: u32 = (*bf).accu;
@@ -128,6 +136,8 @@ pub extern "C" fn b_read(
     mut shift: u64,
     mut bf: bit_filter,
 ) -> u64 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut accu: u32 = (*bf).accu;
@@ -170,6 +180,8 @@ pub extern "C" fn b_read(
 #[no_mangle]
 pub extern "C" fn b_detach(mut bf: bit_filter) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         if (*bf).bits != 0_i32 {
             (*bf).accu <<= 8_i32 - (*bf).bits;
@@ -180,6 +192,8 @@ pub extern "C" fn b_detach(mut bf: bit_filter) {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut s: [u8; 12] = *::core::mem::transmute::<&[u8; 12], &mut [u8; 12]>(b"abcdefghijk\0");

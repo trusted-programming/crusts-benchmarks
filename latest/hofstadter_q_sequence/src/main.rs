@@ -13,6 +13,8 @@ extern "C" {
 }
 fn main_0() -> i32 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut flip: i32 = 0;

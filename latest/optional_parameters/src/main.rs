@@ -23,6 +23,7 @@ extern "C" {
 pub type __builtin_va_list = [__va_list_tag; 1];
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct __va_list_tag {
     pub gp_offset: u32,
     pub fp_offset: u32,
@@ -31,10 +32,13 @@ pub struct __va_list_tag {
 }
 pub type __compar_fn_t =
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     Option<unsafe extern "C" fn(*const libc::c_void, *const libc::c_void) -> i32>;
 pub type va_list = __builtin_va_list;
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -83,6 +87,7 @@ pub const _ISupper: u32 = 256;
 pub type String_0 = *const i8;
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct sTable {
     pub rows: *mut *mut String_0,
     pub n_rows: i32,
@@ -90,9 +95,12 @@ pub struct sTable {
 }
 pub type Table = *mut sTable;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 pub type CompareFctn = Option<unsafe extern "C" fn(String_0, String_0) -> i32>;
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct C2RustUnnamed_0 {
     pub compare: CompareFctn,
     pub column: i32,
@@ -106,6 +114,8 @@ pub static mut sortSpec: C2RustUnnamed_0 = C2RustUnnamed_0 {
 };
 #[no_mangle]
 pub extern "C" fn CmprRows(mut aa: *const libc::c_void, mut bb: *const libc::c_void) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut rA: *mut String_0 = *aa.cast::<*mut *const i8>();
@@ -127,10 +137,14 @@ pub extern "C" fn CmprRows(mut aa: *const libc::c_void, mut bb: *const libc::c_v
 
 #[no_mangle]
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 pub unsafe extern "C" fn sortTable(mut tbl: Table, mut argSpec: *const i8, mut args: ...) -> i32 {
     let mut vl: ::core::ffi::VaListImpl;
     let mut p: *const i8 = std::ptr::null::<i8>();
     let mut c: i32 = 0;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     sortSpec.compare = Some(strcmp as unsafe extern "C" fn(*const i8, *const i8) -> i32);
     sortSpec.column = 0_i32;
@@ -141,6 +155,8 @@ pub unsafe extern "C" fn sortTable(mut tbl: Table, mut argSpec: *const i8, mut a
         while *p != 0 {
             match i32::from(*p) {
                 111_i32 => {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
                     sortSpec.compare = ::core::mem::transmute(vl.arg::<*mut unsafe extern "C" fn(
                         String_0,
@@ -168,6 +184,8 @@ pub unsafe extern "C" fn sortTable(mut tbl: Table, mut argSpec: *const i8, mut a
         (*tbl).n_rows as u64,
         ::core::mem::size_of::<*mut String_0>() as u64,
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
         Some(CmprRows as unsafe extern "C" fn(*const libc::c_void, *const libc::c_void) -> i32),
     );
     0_i32
@@ -175,6 +193,8 @@ pub unsafe extern "C" fn sortTable(mut tbl: Table, mut argSpec: *const i8, mut a
 
 #[no_mangle]
 pub extern "C" fn printTable(mut tbl: Table, mut fout: *mut FILE, mut colFmts: *mut *const i8) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut row: i32 = 0;
@@ -207,6 +227,8 @@ pub extern "C" fn ord(mut v: i8) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn cmprStrgs(mut s1: String_0, mut s2: String_0) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut p1: *const i8 = s1;
@@ -340,10 +362,14 @@ fn main_0() -> i32 {
     table.n_rows = 8_i32;
     table.n_cols = 3_i32;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         sortTable(&mut table as *mut sTable, (b"\0" as *const u8).cast::<i8>());
     }
     println!("sort on col 0, ascending");
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         printTable(&mut table, stdout, colFmts.as_mut_ptr());
@@ -352,10 +378,14 @@ fn main_0() -> i32 {
             (b"ro\0" as *const u8).cast::<i8>(),
             1,
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
             Some(cmprStrgs as unsafe extern "C" fn(String_0, String_0) -> i32),
         );
     }
     println!("sort on col 0, reverse.special");
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         printTable(&mut table, stdout, colFmts.as_mut_ptr());
@@ -367,6 +397,8 @@ fn main_0() -> i32 {
     }
     println!("sort on col 1, ascending");
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         printTable(&mut table, stdout, colFmts.as_mut_ptr());
         sortTable(
@@ -377,6 +409,8 @@ fn main_0() -> i32 {
         );
     }
     println!("sort on col 2, reverse");
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         printTable(&mut table, stdout, colFmts.as_mut_ptr());

@@ -9,6 +9,8 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -39,6 +41,8 @@ pub const _ISlower: u32 = 512;
 pub const _ISupper: u32 = 256;
 #[no_mangle]
 pub extern "C" fn oddMagicSquare(mut n: i32) -> *mut *mut i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if n < 3_i32 || n % 2_i32 == 0_i32 {
@@ -94,6 +98,8 @@ pub extern "C" fn oddMagicSquare(mut n: i32) -> *mut *mut i32 {
 
 #[no_mangle]
 pub extern "C" fn singlyEvenMagicSquare(mut n: i32) -> *mut *mut i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if n < 6_i32 || (n - 2_i32) % 4_i32 != 0_i32 {
@@ -166,6 +172,8 @@ pub extern "C" fn numDigits(mut n: i32) -> i32 {
 #[no_mangle]
 pub extern "C" fn printMagicSquare(mut square: *mut *mut i32, mut rows: i32) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut j: i32 = 0;
@@ -192,6 +200,8 @@ pub extern "C" fn printMagicSquare(mut square: *mut *mut i32, mut rows: i32) {
 }
 
 fn main_0(mut argC: i32, mut argV: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut n: i32 = 0;

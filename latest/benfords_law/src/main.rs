@@ -23,6 +23,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -59,6 +60,8 @@ pub type FILE = _IO_FILE;
 #[no_mangle]
 pub extern "C" fn benford_distribution() -> *mut libc::c_float {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         static mut prob: [libc::c_float; 9] = [0.; 9];
         let mut i: i32 = 1;
@@ -73,6 +76,8 @@ pub extern "C" fn benford_distribution() -> *mut libc::c_float {
 
 #[no_mangle]
 pub extern "C" fn get_actual_distribution(mut fn_0: *mut i8) -> *mut libc::c_float {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut input: *mut FILE = fopen(fn_0, (b"r\0" as *const u8).cast::<i8>());
@@ -116,6 +121,8 @@ pub extern "C" fn get_actual_distribution(mut fn_0: *mut i8) -> *mut libc::c_flo
 
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         if argc != 2_i32 {
             println!("Usage: benford <file>");
@@ -149,6 +156,8 @@ pub fn main() {
         );
     }
     args.push(::core::ptr::null_mut());
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(

@@ -40,6 +40,8 @@ pub extern "C" fn fairshare(mut base: i32, mut count: i32) {
 #[no_mangle]
 pub extern "C" fn turnCount(mut base: i32, mut count: i32) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut cnt: *mut i32 =
             calloc(base as u64, ::core::mem::size_of::<i32>() as u64).cast::<i32>();

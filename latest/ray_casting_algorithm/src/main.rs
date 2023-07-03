@@ -14,12 +14,14 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct vec {
     pub x: f64,
     pub y: f64,
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct polygon_t {
     pub n: i32,
     pub v: *mut vec,
@@ -69,6 +71,8 @@ pub extern "C" fn intersect(
     mut sect: *mut vec,
 ) -> i32 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut dx: vec = vsub(x1, x0);
         let mut dy: vec = vsub(y1, y0);
@@ -109,6 +113,8 @@ pub extern "C" fn dist(mut x: vec, mut y0: vec, mut y1: vec, mut tol: f64) -> f6
     }
     s = vsub(s, x);
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         return sqrt(vdot(s, s));
     }
@@ -116,6 +122,8 @@ pub extern "C" fn dist(mut x: vec, mut y0: vec, mut y1: vec, mut tol: f64) -> f6
 
 #[no_mangle]
 pub extern "C" fn inside(mut v: vec, mut p: polygon, mut tol: f64) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;

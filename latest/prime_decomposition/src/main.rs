@@ -28,6 +28,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -101,6 +102,8 @@ pub static mut rem_num: [u8; 8] = [1, 7, 11, 13, 17, 19, 23, 29];
 #[no_mangle]
 pub extern "C" fn init_primes() {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut fp: *mut FILE = std::ptr::null_mut::<FILE>();
         let mut s: u32 = 0;
@@ -156,6 +159,8 @@ pub extern "C" fn init_primes() {
 pub extern "C" fn is_prime(mut x: u64) -> i32 {
     let mut p: u32 = 0;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         if x > 5 {
             if x < !0 {
@@ -183,6 +188,8 @@ pub extern "C" fn sieve(mut p: u32) {
     let mut q: i32 = 0;
     i = 0_i32;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < 8_i32 {
             q = u32::from(rem_num[i as usize]).wrapping_mul(p) as i32;
@@ -208,6 +215,8 @@ pub extern "C" fn sieve(mut p: u32) {
     }
     i = 1_i32;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         while (q as u32) < (!0u32).wrapping_div(30).wrapping_add(1) {
             let fresh0 = &mut (*pbits.offset(q as isize));
@@ -223,6 +232,8 @@ pub extern "C" fn next_prime(mut p: u32) -> u32 {
     let mut addr: i64 = 0;
     let mut bits: u8 = 0;
     let mut rem: u8 = 0;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if p > 5 {
@@ -265,6 +276,8 @@ pub extern "C" fn next_prime(mut p: u32) -> u32 {
 #[no_mangle]
 pub extern "C" fn decompose(mut n: u64, mut f: *mut u64) -> i32 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut p: u32 = 0;
         let mut i: i32 = 0;
@@ -302,6 +315,8 @@ fn main_0() -> i32 {
     init_primes();
     p = 1;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         while p < 64 {
             po = (1u64 << p).wrapping_sub(1);
@@ -329,6 +344,8 @@ fn main_0() -> i32 {
 }
 
 pub fn main() {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(main_0());

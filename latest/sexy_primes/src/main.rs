@@ -9,6 +9,8 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -28,6 +30,8 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn sieve(mut c: *mut u8, mut limit: i32) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -58,6 +62,8 @@ pub extern "C" fn sieve(mut c: *mut u8, mut limit: i32) {
 #[no_mangle]
 pub extern "C" fn printHelper(mut cat: *const i8, mut len: i32, mut lim: i32, mut n: i32) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut sp: *const i8 = if strcmp(cat, (b"unsexy primes\0" as *const u8).cast::<i8>()) != 0 {
             (b"sexy prime \0" as *const u8).cast::<i8>()
@@ -87,6 +93,8 @@ pub extern "C" fn printHelper(mut cat: *const i8, mut len: i32, mut lim: i32, mu
 #[no_mangle]
 pub extern "C" fn printArray(mut a: *mut i32, mut len: i32) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         print!("[");
@@ -101,6 +109,8 @@ pub extern "C" fn printArray(mut a: *mut i32, mut len: i32) {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;

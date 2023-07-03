@@ -13,6 +13,7 @@ extern "C" {}
 pub type __builtin_va_list = [__va_list_tag; 1];
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct __va_list_tag {
     pub gp_offset: u32,
     pub fp_offset: u32,
@@ -30,6 +31,8 @@ pub extern "C" fn factorial(mut n: i32) -> i64 {
 
 #[no_mangle]
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 pub unsafe extern "C" fn sumOfFactorials(mut num: i32, mut args: ...) -> i64 {
     let mut vaList: ::core::ffi::VaListImpl;
     let mut sum: i64 = 0;
@@ -46,6 +49,8 @@ pub unsafe extern "C" fn sumOfFactorials(mut num: i32, mut args: ...) -> i64 {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         print!(

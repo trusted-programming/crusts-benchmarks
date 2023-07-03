@@ -11,6 +11,7 @@
 extern "C" {}
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct Range {
     pub start: i32,
     pub end: i32,
@@ -18,6 +19,8 @@ pub struct Range {
 }
 #[no_mangle]
 pub extern "C" fn maxSubseq(mut sequence: *const i32, len: i32) -> Range {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut maxSum: i32 = 0;
@@ -59,6 +62,8 @@ pub extern "C" fn maxSubseq(mut sequence: *const i32, len: i32) -> Range {
 }
 
 fn main_0(mut _argc: i32, mut _argv: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut a: [i32; 11] = [-1, -2, 3, 5, 6, -2, -1, 4, -4, 2, -1];

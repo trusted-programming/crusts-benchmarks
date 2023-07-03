@@ -28,6 +28,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -70,6 +71,8 @@ pub static mut medium: [i8; 30] = [0; 30];
 #[no_mangle]
 pub static mut word: [i8; 30] = [0; 30];
 #[no_mangle]
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
 pub static mut dd: [*mut i8; 2] = unsafe { [dih.as_ptr() as *mut _, dah.as_ptr() as *mut _] };
 #[no_mangle]
@@ -135,6 +138,8 @@ pub static mut itu: [*const i8; 54] = [
 #[no_mangle]
 pub extern "C" fn append(mut s: *mut i8, mut morse: *const i8) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         while *morse != 0 {
             strcat(s, dd[i32::from('3' as i32 == i32::from(*morse)) as usize]);
@@ -147,6 +152,8 @@ pub extern "C" fn append(mut s: *mut i8, mut morse: *const i8) {
 
 #[no_mangle]
 pub extern "C" fn translate(mut i: *const i8, mut o: *mut i8) -> *mut i8 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut pc: *const i8 = std::ptr::null::<i8>();
@@ -167,6 +174,8 @@ pub extern "C" fn translate(mut i: *const i8, mut o: *mut i8) -> *mut i8 {
 }
 
 fn main_0(mut ac: i32, mut av: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut sin: [i8; 73] = [0; 73];

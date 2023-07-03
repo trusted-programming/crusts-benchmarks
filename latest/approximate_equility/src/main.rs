@@ -15,6 +15,8 @@ extern "C" {
 #[no_mangle]
 pub extern "C" fn approxEquals(mut value: f64, mut other: f64, mut epsilon: f64) -> bool {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         fabs(value - other) < epsilon
     }
@@ -32,6 +34,8 @@ fn main_0() -> i32 {
     test(10000000000000.001f64 / 10000.0f64, 1_000_000_000.000_000_1_f64);
     test(0.001f64, 0.0010000001f64);
     test(0.000000000000000000000101f64, 0.0f64);
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         test(sqrt(2.0f64) * sqrt(2.0f64), 2.0f64);

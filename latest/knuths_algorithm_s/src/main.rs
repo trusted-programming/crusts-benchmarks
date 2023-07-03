@@ -31,6 +31,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct s_env {
     pub n: u32,
     pub i: u32,
@@ -39,6 +40,8 @@ pub struct s_env {
 }
 #[no_mangle]
 pub extern "C" fn s_of_n_init(mut s_env: *mut s_env, mut size: u64, mut n: u32) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         (*s_env).i = 0;
@@ -51,6 +54,8 @@ pub extern "C" fn s_of_n_init(mut s_env: *mut s_env, mut size: u64, mut n: u32) 
 #[no_mangle]
 pub extern "C" fn sample_set_i(mut s_env: *mut s_env, mut i: u32, mut item: *mut libc::c_void) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         memcpy(
             ((*s_env).sample).offset((i as u64).wrapping_mul((*s_env).size) as isize),
@@ -62,6 +67,8 @@ pub extern "C" fn sample_set_i(mut s_env: *mut s_env, mut i: u32, mut item: *mut
 
 #[no_mangle]
 pub extern "C" fn s_of_n(mut s_env: *mut s_env, mut item: *mut libc::c_void) -> *mut libc::c_void {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         (*s_env).i = ((*s_env).i).wrapping_add(1);
@@ -77,6 +84,8 @@ pub extern "C" fn s_of_n(mut s_env: *mut s_env, mut item: *mut libc::c_void) -> 
 
 #[no_mangle]
 pub extern "C" fn test(mut n: u32, mut items_set: *mut i32, mut num_items: u32) -> *mut i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -101,6 +110,8 @@ pub extern "C" fn test(mut n: u32, mut items_set: *mut i32, mut num_items: u32) 
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: u32 = 0;

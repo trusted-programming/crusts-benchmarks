@@ -18,6 +18,8 @@ pub extern "C" fn f(mut n: i32, mut x: i32, mut y: i32) -> i32 {
 
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut j: i32 = 0;

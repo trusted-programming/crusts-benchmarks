@@ -9,6 +9,8 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -30,6 +32,8 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn incr(mut s: *mut i8) -> *mut i8 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -90,6 +94,8 @@ pub extern "C" fn incr(mut s: *mut i8) -> *mut i8 {
 
 #[no_mangle]
 pub extern "C" fn string_test(mut s: *const i8) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut ret: *mut i8 = malloc(strlen(s)).cast::<i8>();

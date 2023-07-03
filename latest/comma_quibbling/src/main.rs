@@ -9,6 +9,8 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -31,6 +33,8 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn quib(mut strs: *mut *const i8, mut size: u64) -> *mut i8 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut len: u64 = 3u64.wrapping_add(
@@ -81,6 +85,8 @@ pub extern "C" fn quib(mut strs: *mut *const i8, mut size: u64) -> *mut i8 {
 
 fn main_0() -> i32 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut test: [*const i8; 4] = [
             (b"ABC\0" as *const u8).cast::<i8>(),
@@ -102,6 +108,8 @@ fn main_0() -> i32 {
 }
 
 pub fn main() {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(main_0());

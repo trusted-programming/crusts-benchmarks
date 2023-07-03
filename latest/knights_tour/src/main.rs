@@ -31,6 +31,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -70,6 +71,8 @@ pub static mut dx: [i32; 8] = [-2_i32, -2_i32, -1_i32, 1_i32, 2_i32, 2_i32, 1_i3
 pub static mut dy: [i32; 8] = [-1_i32, 1_i32, 2_i32, 2_i32, 1_i32, -1_i32, -2_i32, -2_i32];
 #[no_mangle]
 pub extern "C" fn init_board(mut w: i32, mut h: i32, mut a: *mut *mut u8, mut b: *mut *mut u8) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -131,6 +134,8 @@ pub extern "C" fn walk_board(
     mut b: *mut *mut u8,
 ) -> i32 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut nx: i32 = 0;
@@ -184,6 +189,8 @@ pub extern "C" fn walk_board(
 #[no_mangle]
 pub extern "C" fn solve(mut w: i32, mut h: i32) -> i32 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut x: i32 = 0;
         let mut y: i32 = 0;
@@ -216,6 +223,8 @@ pub extern "C" fn solve(mut w: i32, mut h: i32) -> i32 {
 }
 
 fn main_0(mut c: i32, mut v: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut w: i32 = 0;

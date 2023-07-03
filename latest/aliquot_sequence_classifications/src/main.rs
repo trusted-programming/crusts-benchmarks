@@ -10,6 +10,8 @@
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -33,6 +35,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -83,6 +86,8 @@ pub extern "C" fn bruteForceProperDivisorSum(mut n: u64) -> u64 {
 
 #[no_mangle]
 pub extern "C" fn printSeries(mut arr: *mut u64, mut size: i32, mut type_0: *mut i8) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -157,6 +162,8 @@ pub extern "C" fn aliquotClassifier(mut n: u64) {
 #[no_mangle]
 pub extern "C" fn processFile(mut fileName: *mut i8) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut fp: *mut FILE = fopen(fileName, (b"r\0" as *const u8).cast::<i8>());
         let mut str: [i8; 21] = [0; 21];
@@ -172,6 +179,8 @@ pub extern "C" fn processFile(mut fileName: *mut i8) {
 }
 
 fn main_0(mut argC: i32, mut argV: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if argC != 2_i32 {

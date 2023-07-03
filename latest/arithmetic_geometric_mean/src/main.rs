@@ -20,6 +20,8 @@ pub extern "C" fn agm(mut a: f64, mut g: f64) -> f64 {
     let mut a1: f64 = 0.;
     let mut g1: f64 = 0.;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         if a * g < 0.0f64 {
             println!("arithmetic-geometric mean undefined when x*y<0");
@@ -40,6 +42,8 @@ fn main_0() -> i32 {
     let mut y: f64 = 0.;
     print!("Enter two numbers: ");
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         scanf(
             (b"%lf%lf\0" as *const u8).cast::<i8>(),
@@ -52,6 +56,8 @@ fn main_0() -> i32 {
 }
 
 pub fn main() {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(main_0());

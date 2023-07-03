@@ -24,6 +24,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -59,6 +60,7 @@ pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct PrimeArray {
     pub ptr: *mut i64,
     pub size: u64,
@@ -74,6 +76,8 @@ pub extern "C" fn allocate() -> PrimeArray {
     primes.size = 0;
     primes.capacity = 10;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         primes.ptr = malloc((primes.capacity).wrapping_mul(::core::mem::size_of::<i64>() as u64)).cast::<i64>();
     }
@@ -83,6 +87,8 @@ pub extern "C" fn allocate() -> PrimeArray {
 #[no_mangle]
 pub extern "C" fn deallocate(mut primes: *mut PrimeArray) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         free((*primes).ptr.cast::<libc::c_void>());
         (*primes).ptr = std::ptr::null_mut::<i64>();
@@ -91,6 +97,8 @@ pub extern "C" fn deallocate(mut primes: *mut PrimeArray) {
 
 #[no_mangle]
 pub extern "C" fn push_back(mut primes: *mut PrimeArray, mut p: i64) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if (*primes).size >= (*primes).capacity {
@@ -134,6 +142,8 @@ fn main_0() -> i32 {
     push_back(&mut primes, 5);
     println!("The first {} cuban primes:", cutOff);
     i = 1;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < 9223372036854775807 {
@@ -207,6 +217,8 @@ fn main_0() -> i32 {
 }
 
 pub fn main() {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(main_0());

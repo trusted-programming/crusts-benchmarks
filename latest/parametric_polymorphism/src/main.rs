@@ -14,6 +14,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct node_double_t {
     pub left: node_double,
     pub right: node_double,
@@ -22,6 +23,7 @@ pub struct node_double_t {
 pub type node_double = *mut node_double_t;
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct node_int_t {
     pub left: node_int,
     pub right: node_int,
@@ -30,6 +32,8 @@ pub struct node_int_t {
 pub type node_int = *mut node_int_t;
 #[no_mangle]
 pub extern "C" fn node_double_new(mut v: f64) -> node_double {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut node: node_double =
@@ -65,6 +69,8 @@ pub extern "C" fn node_double_insert(mut root: node_double, mut v: f64) -> node_
 #[no_mangle]
 pub extern "C" fn node_int_new(mut v: i32) -> node_int {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut node: node_int = malloc(::core::mem::size_of::<node_int_t>() as u64) as node_int;
         (*node).value = v;
@@ -97,6 +103,8 @@ pub extern "C" fn node_int_insert(mut root: node_int, mut v: i32) -> node_int {
 
 fn main_0() -> i32 {
     let mut i: i32 = 0;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut root_d: node_double = node_double_new(rand() as f64 / 2147483647 as f64);

@@ -23,6 +23,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -59,11 +60,17 @@ pub type FILE = _IO_FILE;
 static mut rot13_table: [i8; 256] = [0; 256];
 extern "C" fn init_rot13_table() {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
         static mut upper: [u8; 27] = unsafe {
             *::core::mem::transmute::<&[u8; 27], &[u8; 27]>(b"ABCDEFGHIJKLMNOPQRSTUVWXYZ\0")
         };
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
         static mut lower: [u8; 27] = unsafe {
             *::core::mem::transmute::<&[u8; 27], &[u8; 27]>(b"abcdefghijklmnopqrstuvwxyz\0")
@@ -93,6 +100,8 @@ extern "C" fn init_rot13_table() {
 
 extern "C" fn rot13_file(mut fp: *mut FILE) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut ch: i32 = 0;
         loop {
@@ -106,6 +115,8 @@ extern "C" fn rot13_file(mut fp: *mut FILE) {
 }
 
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         init_rot13_table();

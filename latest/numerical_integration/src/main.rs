@@ -9,6 +9,8 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
@@ -25,7 +27,11 @@ extern "C" {
 }
 pub type pfunc =
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     Option<unsafe extern "C" fn(f64, f64, f64, Option<unsafe extern "C" fn() -> f64>) -> f64>;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
 pub type rfunc = Option<unsafe extern "C" fn(f64) -> f64>;
 #[no_mangle]
@@ -34,12 +40,16 @@ pub extern "C" fn int_leftrect(
     mut to: f64,
     mut n: f64,
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     mut func: Option<unsafe extern "C" fn() -> f64>,
 ) -> f64 {
     let mut h: f64 = (to - from) / n;
     let mut sum: f64 = 0.0f64;
     let mut x: f64 = 0.;
     x = from;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while x <= to - h {
@@ -58,12 +68,16 @@ pub extern "C" fn int_rightrect(
     mut to: f64,
     mut n: f64,
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     mut func: Option<unsafe extern "C" fn() -> f64>,
 ) -> f64 {
     let mut h: f64 = (to - from) / n;
     let mut sum: f64 = 0.0f64;
     let mut x: f64 = 0.;
     x = from;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while x <= to - h {
@@ -82,12 +96,16 @@ pub extern "C" fn int_midrect(
     mut to: f64,
     mut n: f64,
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     mut func: Option<unsafe extern "C" fn() -> f64>,
 ) -> f64 {
     let mut h: f64 = (to - from) / n;
     let mut sum: f64 = 0.0f64;
     let mut x: f64 = 0.;
     x = from;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while x <= to - h {
@@ -106,9 +124,13 @@ pub extern "C" fn int_trapezium(
     mut to: f64,
     mut n: f64,
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     mut func: Option<unsafe extern "C" fn() -> f64>,
 ) -> f64 {
     let mut h: f64 = (to - from) / n;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut sum: f64 = ::core::mem::transmute::<_, fn(_) -> f64>(
@@ -137,6 +159,8 @@ pub extern "C" fn int_simpson(
     mut to: f64,
     mut n: f64,
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     mut func: Option<unsafe extern "C" fn() -> f64>,
 ) -> f64 {
     let mut h: f64 = (to - from) / n;
@@ -145,6 +169,8 @@ pub extern "C" fn int_simpson(
     let mut i: i32 = 0;
     let mut x: f64 = 0.;
     i = 0;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while (i as f64) < n {
@@ -156,6 +182,8 @@ pub extern "C" fn int_simpson(
         }
     }
     i = 1;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while (i as f64) < n {
@@ -195,6 +223,8 @@ pub extern "C" fn f2(mut x: f64) -> f64 {
 #[no_mangle]
 pub extern "C" fn f2a(mut x: f64) -> f64 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         return log(x);
     }
@@ -215,15 +245,21 @@ fn main_0() -> i32 {
     let mut j: i32 = 0;
     let mut ic: f64 = 0.;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut f: [pfunc; 5] = [
             Some(
                 int_leftrect
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
                     as unsafe extern "C" fn(
                         f64,
                         f64,
                         f64,
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
                         Option<unsafe extern "C" fn() -> f64>,
                     ) -> f64,
@@ -231,10 +267,14 @@ fn main_0() -> i32 {
             Some(
                 int_rightrect
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
                     as unsafe extern "C" fn(
                         f64,
                         f64,
                         f64,
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
                         Option<unsafe extern "C" fn() -> f64>,
                     ) -> f64,
@@ -242,10 +282,14 @@ fn main_0() -> i32 {
             Some(
                 int_midrect
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
                     as unsafe extern "C" fn(
                         f64,
                         f64,
                         f64,
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
                         Option<unsafe extern "C" fn() -> f64>,
                     ) -> f64,
@@ -253,10 +297,14 @@ fn main_0() -> i32 {
             Some(
                 int_trapezium
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
                     as unsafe extern "C" fn(
                         f64,
                         f64,
                         f64,
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
                         Option<unsafe extern "C" fn() -> f64>,
                     ) -> f64,
@@ -264,10 +312,14 @@ fn main_0() -> i32 {
             Some(
                 int_simpson
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
                     as unsafe extern "C" fn(
                         f64,
                         f64,
                         f64,
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
                         Option<unsafe extern "C" fn() -> f64>,
                     ) -> f64,
@@ -282,21 +334,37 @@ fn main_0() -> i32 {
         ];
         let mut rf: [rfunc; 4] = [
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
             Some(f1 as unsafe extern "C" fn(f64) -> f64),
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
             Some(f2 as unsafe extern "C" fn(f64) -> f64),
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
             Some(f3 as unsafe extern "C" fn(f64) -> f64),
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
             Some(f3 as unsafe extern "C" fn(f64) -> f64),
         ];
         let mut If: [rfunc; 4] = [
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
             Some(f1a as unsafe extern "C" fn(f64) -> f64),
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
             Some(f2a as unsafe extern "C" fn(f64) -> f64),
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
             Some(f3a as unsafe extern "C" fn(f64) -> f64),
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
             Some(f3a as unsafe extern "C" fn(f64) -> f64),
         ];
@@ -318,6 +386,8 @@ fn main_0() -> i32 {
                     ivals[(2 * j) as usize],
                     ivals[(2 * j + 1i32) as usize],
                     approx[j as usize],
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
                     ::core::mem::transmute::<rfunc, Option<unsafe extern "C" fn() -> f64>>(
                         rf[j as usize],

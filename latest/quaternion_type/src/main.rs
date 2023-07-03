@@ -21,6 +21,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -56,12 +57,15 @@ pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct quaternion {
     pub q: [f64; 4],
 }
 pub type quaternion_t = quaternion;
 #[no_mangle]
 pub extern "C" fn quaternion_new() -> *mut quaternion_t {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         return malloc(::core::mem::size_of::<quaternion_t>() as u64) as *mut quaternion_t;
@@ -75,6 +79,8 @@ pub extern "C" fn quaternion_new_set(
     mut q3: f64,
     mut q4: f64,
 ) -> *mut quaternion_t {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut q: *mut quaternion_t =
@@ -92,6 +98,8 @@ pub extern "C" fn quaternion_new_set(
 #[no_mangle]
 pub extern "C" fn quaternion_copy(mut r: *mut quaternion_t, mut q: *mut quaternion_t) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: u64 = 0;
         if r.is_null() || q.is_null() {
@@ -108,6 +116,8 @@ pub extern "C" fn quaternion_copy(mut r: *mut quaternion_t, mut q: *mut quaterni
 
 #[no_mangle]
 pub extern "C" fn quaternion_norm(mut q: *mut quaternion_t) -> f64 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: u64 = 0;
@@ -132,6 +142,8 @@ pub extern "C" fn quaternion_norm(mut q: *mut quaternion_t) -> f64 {
 #[no_mangle]
 pub extern "C" fn quaternion_neg(mut r: *mut quaternion_t, mut q: *mut quaternion_t) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: u64 = 0;
         if q.is_null() || r.is_null() {
@@ -148,6 +160,8 @@ pub extern "C" fn quaternion_neg(mut r: *mut quaternion_t, mut q: *mut quaternio
 
 #[no_mangle]
 pub extern "C" fn quaternion_conj(mut r: *mut quaternion_t, mut q: *mut quaternion_t) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: u64 = 0;
@@ -167,6 +181,8 @@ pub extern "C" fn quaternion_conj(mut r: *mut quaternion_t, mut q: *mut quaterni
 #[no_mangle]
 pub extern "C" fn quaternion_add_d(mut r: *mut quaternion_t, mut q: *mut quaternion_t, mut d: f64) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         if q.is_null() || r.is_null() {
             return;
@@ -182,6 +198,8 @@ pub extern "C" fn quaternion_add(
     mut a: *mut quaternion_t,
     mut b: *mut quaternion_t,
 ) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: u64 = 0;
@@ -200,6 +218,8 @@ pub extern "C" fn quaternion_add(
 #[no_mangle]
 pub extern "C" fn quaternion_mul_d(mut r: *mut quaternion_t, mut q: *mut quaternion_t, mut d: f64) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: u64 = 0;
         if r.is_null() || q.is_null() {
@@ -216,6 +236,8 @@ pub extern "C" fn quaternion_mul_d(mut r: *mut quaternion_t, mut q: *mut quatern
 
 #[no_mangle]
 pub extern "C" fn quaternion_equal(mut a: *mut quaternion_t, mut b: *mut quaternion_t) -> bool {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: u64 = 0;
@@ -237,6 +259,8 @@ pub extern "C" fn quaternion_mul(
     mut a: *mut quaternion_t,
     mut b: *mut quaternion_t,
 ) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: u64 = 0;
@@ -266,6 +290,8 @@ pub extern "C" fn quaternion_mul(
 #[no_mangle]
 pub extern "C" fn quaternion_print(mut q: *mut quaternion_t) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         if q.is_null() {
             return;
@@ -281,6 +307,8 @@ pub extern "C" fn quaternion_print(mut q: *mut quaternion_t) {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: u64 = 0;

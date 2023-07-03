@@ -13,6 +13,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct frac {
     pub num: i64,
     pub den: i64,
@@ -31,6 +32,8 @@ pub extern "C" fn gcd(mut m: i64, mut n: i64) -> i64 {
 #[no_mangle]
 pub extern "C" fn frac_new(mut num: i64, mut den: i64) -> frac {
     let mut a: frac = frac { num: 0, den: 0 };
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if den == 0 {

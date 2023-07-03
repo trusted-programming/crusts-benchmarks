@@ -17,6 +17,8 @@ extern "C" {
 #[no_mangle]
 pub extern "C" fn makehist(mut S: *mut i8, mut hist: *mut i32, mut len: i32) -> i32 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut wherechar: [i32; 256] = [0; 256];
         let mut i: i32 = 0;
@@ -48,6 +50,8 @@ pub extern "C" fn makehist(mut S: *mut i8, mut hist: *mut i32, mut len: i32) -> 
 #[no_mangle]
 pub extern "C" fn entropy(mut hist: *mut i32, mut histlen: i32, mut len: i32) -> f64 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut H: f64 = 0.;
@@ -64,6 +68,8 @@ pub extern "C" fn entropy(mut hist: *mut i32, mut histlen: i32, mut len: i32) ->
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut S: [i8; 100] = [0; 100];

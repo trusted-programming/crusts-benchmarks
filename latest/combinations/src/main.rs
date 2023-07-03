@@ -17,6 +17,8 @@ pub extern "C" fn comb(mut pool: i32, mut need: i32, mut chosen: u64, mut at: i3
         return;
     }
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         if need == 0_i32 {
             at = 0_i32;

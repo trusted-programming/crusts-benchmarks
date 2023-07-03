@@ -9,6 +9,8 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -42,6 +44,8 @@ pub extern "C" fn calculate_entropy(mut ones: i32, mut zeros: i32) -> f64 {
     let mut result: f64 = f64::from(0_i32);
     let mut total: i32 = ones + zeros;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         result -= f64::from(ones) / f64::from(total) * log2(f64::from(ones) / f64::from(total));
         result -= f64::from(zeros) / f64::from(total) * log2(f64::from(zeros) / f64::from(total));
@@ -54,6 +58,8 @@ pub extern "C" fn calculate_entropy(mut ones: i32, mut zeros: i32) -> f64 {
 
 #[no_mangle]
 pub extern "C" fn print_entropy(mut word: *mut i8) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut ones: i32 = 0;
@@ -84,6 +90,8 @@ pub extern "C" fn print_entropy(mut word: *mut i8) {
 #[no_mangle]
 pub extern "C" fn print_word(mut n: i32, mut word: *mut i8) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         print!("{:2}", n);
         print!(" {:10}", strlen(word));
@@ -98,6 +106,8 @@ pub extern "C" fn print_word(mut n: i32, mut word: *mut i8) {
 }
 
 fn main_0(mut _argc: i32, mut _argv: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         print_headings();

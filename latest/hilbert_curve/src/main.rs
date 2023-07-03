@@ -11,12 +11,15 @@
 extern "C" {}
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct point {
     pub x: i32,
     pub y: i32,
 }
 #[no_mangle]
 pub extern "C" fn rot(mut n: i32, mut p: *mut point, mut rx: i32, mut ry: i32) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut t: i32 = 0;
@@ -34,6 +37,8 @@ pub extern "C" fn rot(mut n: i32, mut p: *mut point, mut rx: i32, mut ry: i32) {
 
 #[no_mangle]
 pub extern "C" fn d2pt(mut n: i32, mut d: i32, mut p: *mut point) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut s: i32 = 1;

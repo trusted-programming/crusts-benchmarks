@@ -15,6 +15,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct sHme {
     pub key: *const i8,
     pub value: i32,
@@ -23,21 +24,32 @@ pub struct sHme {
 pub type MapEntry = *mut sHme;
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct he {
     pub first: MapEntry,
     pub last: MapEntry,
 }
 pub type HashElement = he;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 pub type KeyCopyF = Option<unsafe extern "C" fn(*mut *const i8, *const i8) -> ()>;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
 pub type ValCopyF = Option<unsafe extern "C" fn(*mut i32, i32) -> ()>;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 pub type KeyHashF = Option<unsafe extern "C" fn(*const i8, i32) -> u32>;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
 pub type KeyCmprF = Option<unsafe extern "C" fn(*const i8, *const i8) -> i32>;
 #[no_mangle]
 pub extern "C" fn strhashkey(mut key: *const i8, mut max: i32) -> u32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut h: u32 = 0;
@@ -69,6 +81,8 @@ pub extern "C" fn HashAddH(
     mut hashKey: KeyHashF,
     mut keySame: KeyCmprF,
 ) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut hix: u32 = hashKey.expect("non-null function pointer")(key, 4096);
@@ -116,6 +130,8 @@ pub extern "C" fn HashGetH(
     mut keySame: KeyCmprF,
 ) -> i32 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut hix: u32 = hashKey.expect("non-null function pointer")(key, 4096);
         let mut m_ent: MapEntry = std::ptr::null_mut::<sHme>();
@@ -136,6 +152,8 @@ pub extern "C" fn HashGetH(
 #[no_mangle]
 pub extern "C" fn copyStr(mut dest: *mut *const i8, mut src: *const i8) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         *dest = strdup(src);
     }
@@ -143,6 +161,8 @@ pub extern "C" fn copyStr(mut dest: *mut *const i8, mut src: *const i8) {
 
 #[no_mangle]
 pub extern "C" fn copyInt(mut dest: *mut i32, mut src: i32) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         *dest = src;
@@ -152,6 +172,8 @@ pub extern "C" fn copyInt(mut dest: *mut i32, mut src: i32) {
 #[no_mangle]
 pub extern "C" fn strCompare(mut key1: *const i8, mut key2: *const i8) -> i32 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         i32::from(strcmp(key1, key2) == 0_i32)
     }
@@ -160,16 +182,26 @@ pub extern "C" fn strCompare(mut key1: *const i8, mut key2: *const i8) -> i32 {
 #[no_mangle]
 pub extern "C" fn HashAdd(mut key: *const i8, mut value: i32) {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         HashAddH(
             key,
             value,
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
             Some(copyStr as unsafe extern "C" fn(*mut *const i8, *const i8) -> ()),
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
             Some(copyInt as unsafe extern "C" fn(*mut i32, i32) -> ()),
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
             Some(strhashkey as unsafe extern "C" fn(*const i8, i32) -> u32),
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
             Some(strCompare as unsafe extern "C" fn(*const i8, *const i8) -> i32),
         );
@@ -179,12 +211,18 @@ pub extern "C" fn HashAdd(mut key: *const i8, mut value: i32) {
 #[no_mangle]
 pub extern "C" fn HashGet(mut val: *mut i32, mut key: *const i8) -> i32 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         HashGetH(
             val,
             key,
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
             Some(strhashkey as unsafe extern "C" fn(*const i8, i32) -> u32),
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
             Some(strCompare as unsafe extern "C" fn(*const i8, *const i8) -> i32),
         )
@@ -192,6 +230,8 @@ pub extern "C" fn HashGet(mut val: *mut i32, mut key: *const i8) -> i32 {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         static mut keyList: [*const i8; 6] = [

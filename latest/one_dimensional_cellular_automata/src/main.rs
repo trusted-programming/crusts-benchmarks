@@ -15,9 +15,13 @@ extern "C" {
 #[no_mangle]
 pub static mut trans: [i8; 9] =
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe { *::core::mem::transmute::<&[u8; 9], &mut [i8; 9]>(b"___#_##_\0") };
 #[no_mangle]
 pub extern "C" fn evolve(mut cell: *mut i8, mut backup: *mut i8, mut len: i32) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -39,6 +43,8 @@ pub extern "C" fn evolve(mut cell: *mut i8, mut backup: *mut i8, mut len: i32) -
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut c: [i8; 22] =

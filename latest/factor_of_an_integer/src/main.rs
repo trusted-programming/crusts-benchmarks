@@ -15,12 +15,15 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct Factors {
     pub list: *mut i32,
     pub count: i16,
 }
 #[no_mangle]
 pub extern "C" fn xferFactors(mut fctrs: *mut Factors, mut flist: *mut i32, mut flix: i32) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut ix: i32 = 0;
@@ -50,6 +53,8 @@ pub extern "C" fn xferFactors(mut fctrs: *mut Factors, mut flist: *mut i32, mut 
 
 #[no_mangle]
 pub extern "C" fn factor(mut num: i32, mut fctrs: *mut Factors) -> *mut Factors {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut flist: [i32; 301] = [0; 301];
@@ -89,6 +94,8 @@ pub extern "C" fn factor(mut num: i32, mut fctrs: *mut Factors) -> *mut Factors 
 }
 
 fn main_0(mut _argc: i32, mut _argv: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut nums2factor: [i32; 4] = [2059, 223092870, 3135, 45];

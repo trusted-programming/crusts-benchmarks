@@ -9,6 +9,8 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
@@ -42,6 +44,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct drawer {
     pub cardNum: i32,
     pub hasBeenOpened: bool,
@@ -54,6 +57,8 @@ pub extern "C" fn initialize(mut prisoners: i32) {
     let mut j: i32 = 0;
     let mut card: i32 = 0;
     let mut unique: bool = false;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         drawerSet =
@@ -104,6 +109,8 @@ pub extern "C" fn closeAllDrawers(mut prisoners: i32) {
     let mut i: i32 = 0;
     i = 1;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         while i < prisoners + 1 {
             (*drawerSet.offset(i as isize)).hasBeenOpened = 0 != 0;
@@ -119,6 +126,8 @@ pub extern "C" fn libertyOrDeathAtRandom(mut prisoners: i32, mut chances: i32) -
     let mut j: i32 = 0;
     let mut chosenDrawer: i32 = 0;
     i = 1;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < prisoners + 1 {
@@ -157,6 +166,8 @@ pub extern "C" fn libertyOrDeathPlanned(mut prisoners: i32, mut chances: i32) ->
     let mut j: i32 = 0;
     let mut chosenDrawer: i32 = 0;
     i = 1;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < prisoners + 1 {
@@ -197,6 +208,8 @@ pub extern "C" fn libertyOrDeathPlanned(mut prisoners: i32, mut chances: i32) ->
 }
 
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut prisoners: i32 = 0;

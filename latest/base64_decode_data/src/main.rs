@@ -9,6 +9,8 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -24,6 +26,8 @@ extern "C" {
     fn strlen(_: *const i8) -> u64;
 }
 #[no_mangle]
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
 pub static mut BASE64: [u8; 65] = unsafe {
     *::core::mem::transmute::<&[u8; 65], &[u8; 65]>(
@@ -52,6 +56,8 @@ pub extern "C" fn findIndex(val: u8) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn decode(mut source: *const u8, mut sink: *mut u8) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let length: u64 = strlen(source.cast::<i8>());
@@ -104,6 +110,8 @@ pub extern "C" fn decode(mut source: *const u8, mut sink: *mut u8) -> i32 {
 }
 
 fn main_0() -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut data : [u8; 117] = * :: core :: mem :: transmute :: < & [u8; 117], & mut [u8; 117], > (b"VG8gZXJyIGlzIGh1bWFuLCBidXQgdG8gcmVhbGx5IGZvdWwgdGhpbmdzIHVwIHlvdSBuZWVkIGEgY29tcHV0ZXIuCiAgICAtLVBhdWwgUi5FaHJsaWNo\0",);

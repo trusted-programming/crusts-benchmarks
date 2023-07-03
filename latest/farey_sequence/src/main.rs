@@ -14,6 +14,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct frac {
     pub d: i32,
     pub n: i32,
@@ -54,6 +55,8 @@ pub static mut ccap: u64 = 0;
 #[no_mangle]
 pub extern "C" fn farey_len(mut n: i32) -> u64 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         if n as u64 >= ccap {
             let mut old: u64 = ccap;
@@ -80,6 +83,8 @@ pub extern "C" fn farey_len(mut n: i32) -> u64 {
     let mut p: i32 = 0;
     let mut q: i32 = 0;
     p = 2_i32;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while p <= n {

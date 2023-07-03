@@ -22,6 +22,8 @@ pub extern "C" fn qpush(mut h: u64) {
     let mut i: i32 = 0;
     let mut j: i32 = 0;
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         if alloc <= n {
             alloc = if alloc != 0 {
@@ -55,6 +57,8 @@ pub extern "C" fn qpop() -> u64 {
     let mut j: i32 = 0;
     let mut r: u64 = 0;
     let mut t: u64 = 0;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         r = *q.offset(1_isize);

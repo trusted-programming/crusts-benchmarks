@@ -20,6 +20,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -62,6 +63,8 @@ pub extern "C" fn pi(mut tolerance: f64) -> f64 {
     let mut sampled: u64 = 0;
     let mut hit: u64 = 0;
     let mut i: u64 = 0;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         loop {

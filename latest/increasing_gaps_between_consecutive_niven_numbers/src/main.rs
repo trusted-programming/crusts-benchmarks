@@ -32,6 +32,8 @@ pub extern "C" fn divisible(mut n: u64, mut d: u64) -> bool {
 
 fn main_0() -> i32 {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         setlocale(6, (b"\0" as *const u8).cast::<i8>());
     }

@@ -21,6 +21,7 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
+#[derive(Debug)]
 pub struct point_tag {
     pub x: f64,
     pub y: f64,
@@ -30,6 +31,8 @@ pub type point_t = point_tag;
 pub extern "C" fn perpendicular_distance(mut p: point_t, mut p1: point_t, mut p2: point_t) -> f64 {
     let mut dx: f64 = p2.x - p1.x;
     let mut dy: f64 = p2.y - p1.y;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut d: f64 = sqrt(dx.mul_add(dx, dy * dy));
@@ -45,6 +48,8 @@ pub extern "C" fn douglas_peucker(
     mut dest: *mut point_t,
     mut destlen: u64,
 ) -> u64 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if n >= 2 {
@@ -125,6 +130,8 @@ pub extern "C" fn douglas_peucker(
 
 #[no_mangle]
 pub extern "C" fn print_points(mut points: *const point_t, mut n: u64) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: u64 = 0;

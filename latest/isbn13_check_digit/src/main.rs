@@ -9,6 +9,8 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
@@ -23,6 +25,8 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 extern "C" {}
 #[no_mangle]
 pub extern "C" fn check_isbn13(mut isbn: *const i8) -> i32 {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut ch: i32 = i32::from(*isbn);
@@ -63,6 +67,8 @@ fn main_0() -> i32 {
         (b"978-1788399083\0" as *const u8).cast::<i8>(),
     ];
     i = 0_i32;
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < 4_i32 {

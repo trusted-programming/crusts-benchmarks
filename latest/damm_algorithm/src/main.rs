@@ -14,6 +14,8 @@ extern "C" {
 #[no_mangle]
 pub extern "C" fn damm(mut input: *mut u8, mut length: u64) -> bool {
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     unsafe {
         static mut table: [[u8; 10]; 10] = [
             [0, 3, 1, 7, 5, 9, 8, 6, 4, 2],
@@ -40,6 +42,8 @@ pub extern "C" fn damm(mut input: *mut u8, mut length: u64) -> bool {
 
 fn main_0() -> i32 {
     let mut input: [u8; 4] = [5, 7, 2, 4];
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         puts(if i32::from(damm(input.as_mut_ptr(), 4)) != 0_i32 {

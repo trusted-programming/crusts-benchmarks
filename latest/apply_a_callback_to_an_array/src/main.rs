@@ -18,8 +18,12 @@ pub extern "C" fn map(
     mut array: *mut i32,
     mut len: i32,
 // SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
     mut callback: Option<unsafe extern "C" fn(i32, i32) -> ()>,
 ) {
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -37,6 +41,8 @@ fn main_0() -> i32 {
     map(
         array.as_mut_ptr(),
         4,
+// SAFETY: machine generated unsafe code
+// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
         Some(callbackFunction as unsafe extern "C" fn(i32, i32) -> ()),
     );
