@@ -34,6 +34,7 @@
 ## Projects
 
 **Success folders**:
+```
 100_doors
 4_rings_puzzle
 99_bottles_of_beer
@@ -305,8 +306,10 @@ sierpinski_triangle
 sieve_of_eratosthenes
 simple_moving_average
 write_a_ppm_file
+```
 
 **Failed folders**:
+```
 100_prisoners
 15_puzzle_game
 2048
@@ -353,3 +356,4 @@ ray_casting_algorithm
 rpg_attributes_generator
 run_length_encoding
 value_capture
+```
