@@ -9,6 +9,7 @@
 **KLOC**: 25.597
 
 **Warning types**:
+```
     980 error: arithmetic operation that can potentially result in unexpected side-effects
      55 error: used `expect()` on a `Result` value
      29 error: used `expect()` on an `Option` value
@@ -19,7 +20,7 @@
       5 error: unsafe function's docs miss `# Safety` section
       3 error: used `unwrap()` on an `Option` value
       1 error: approximate value of `f64::consts::E` found
-
+```
 ## Percentage of no compile errors projects
 
 **Total runs**: 317
