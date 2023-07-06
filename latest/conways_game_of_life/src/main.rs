@@ -58,8 +58,6 @@ pub type FILE = _IO_FILE;
 #[no_mangle]
 pub extern "C" fn show(mut u: *mut libc::c_void, mut w: i32, mut h: i32) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let vla = w as usize;
         let mut univ: *mut i32 = u.cast::<i32>();
@@ -73,11 +71,11 @@ pub extern "C" fn show(mut u: *mut libc::c_void, mut w: i32, mut h: i32) {
                 } else {
                     print!("  ")
                 };
-                x = x.wrapping_add(1);
+                x += 1_i32;
                 x;
             }
             print!("\x1B[E");
-            y = y.wrapping_add(1);
+            y += 1_i32;
             y;
         }
         fflush(stdout);
@@ -86,8 +84,6 @@ pub extern "C" fn show(mut u: *mut libc::c_void, mut w: i32, mut h: i32) {
 
 #[no_mangle]
 pub extern "C" fn evolve(mut u: *mut libc::c_void, mut w: i32, mut h: i32) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let vla = w as usize;
@@ -109,27 +105,27 @@ pub extern "C" fn evolve(mut u: *mut libc::c_void, mut w: i32, mut h: i32) {
                             .offset(((x1 + w) % w) as isize)
                             != 0
                         {
-                            n = n.wrapping_add(1);
+                            n += 1_i32;
                             n;
                         }
-                        x1 = x1.wrapping_add(1);
+                        x1 += 1_i32;
                         x1;
                     }
-                    y1 = y1.wrapping_add(1);
+                    y1 += 1_i32;
                     y1;
                 }
                 if *univ.offset(y as isize * vla as isize).offset(x as isize) != 0 {
-                    n = n.wrapping_sub(1);
+                    n -= 1_i32;
                     n;
                 };
                 *new.as_mut_ptr()
                     .offset(y as isize * vla_1 as isize)
                     .offset(x as isize) = u32::from(n == 3_i32
                     || n == 2_i32 && *univ.offset(y as isize * vla as isize).offset(x as isize) != 0);
-                x = x.wrapping_add(1);
+                x += 1_i32;
                 x;
             }
-            y = y.wrapping_add(1);
+            y += 1_i32;
             y;
         }
         let mut y_0: i32 = 0;
@@ -142,10 +138,10 @@ pub extern "C" fn evolve(mut u: *mut libc::c_void, mut w: i32, mut h: i32) {
                     .as_mut_ptr()
                     .offset(y_0 as isize * vla_1 as isize)
                     .offset(x_0 as isize);
-                x_0 = x_0.wrapping_add(1);
+                x_0 += 1_i32;
                 x_0;
             }
-            y_0 = y_0.wrapping_add(1);
+            y_0 += 1_i32;
             y_0;
         }
     }
@@ -158,8 +154,6 @@ pub extern "C" fn game(mut w: i32, mut h: i32) {
     let mut univ: Vec<u32> = ::std::vec::from_elem(0, vla * vla_0);
     let mut x: i32 = 0;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while x < w {
             let mut y: i32 = 0;
@@ -168,10 +162,10 @@ pub extern "C" fn game(mut w: i32, mut h: i32) {
                     .as_mut_ptr()
                     .offset(y as isize * vla_0 as isize)
                     .offset(x as isize) = (if rand() < 2_147_483_647_i32 / 10i32 { 1_i32 } else { 0_i32 }) as u32;
-                y = y.wrapping_add(1);
+                y += 1_i32;
                 y;
             }
-            x = x.wrapping_add(1);
+            x += 1_i32;
             x;
         }
         loop {
@@ -183,8 +177,6 @@ pub extern "C" fn game(mut w: i32, mut h: i32) {
 }
 
 fn main_0(mut c: i32, mut v: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut w: i32 = 0;

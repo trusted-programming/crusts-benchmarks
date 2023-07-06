@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -25,8 +23,6 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 extern "C" {}
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         if argc < 2_i32 {
             println!("Enter an argument. Example 1234 or dcba:");
@@ -35,7 +31,7 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
         let mut x: i32 = 0;
         x = 0_i32;
         while i32::from(*(*argv.offset(1_isize)).offset(x as isize)) != '\0' as i32 {
-            x = x.wrapping_add(1);
+            x += 1_i32;
             x;
         }
         let mut f: i32 = 0;
@@ -43,7 +39,7 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
         let mut m: i32 = 0;
         f = 0_i32;
         while f < x {
-            v = x.wrapping_sub(1);
+            v = x - 1_i32;
             while v > f {
                 if i32::from(*(*argv.offset(1_isize)).offset((v - 1i32) as isize))
                     > i32::from(*(*argv.offset(1_isize)).offset(v as isize))
@@ -53,10 +49,10 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
                         *(*argv.offset(1_isize)).offset(v as isize);
                     *(*argv.offset(1_isize)).offset(v as isize) = m as i8;
                 }
-                v = v.wrapping_sub(1);
+                v -= 1_i32;
                 v;
             }
-            f = f.wrapping_add(1);
+            f += 1_i32;
             f;
         }
         let vla = x as usize;
@@ -65,7 +61,7 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
         let mut fact: i32 = k + 1;
         while k != x {
             *a.as_mut_ptr().offset(k as isize) = *(*argv.offset(1_isize)).offset(k as isize);
-            k = k.wrapping_add(1);
+            k += 1_i32;
             k;
             fact *= k;
         }
@@ -76,36 +72,36 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
         let mut c: i8 = 0;
         while y != fact {
             println!("{}", build_str_from_raw_ptr(a.as_mut_ptr().cast::<u8>()));
-            i = x.wrapping_sub(2);
+            i = x - 2_i32;
             while i32::from(*a.as_mut_ptr().offset(i as isize))
                 > i32::from(*a.as_mut_ptr().offset((i + 1i32) as isize))
             {
-                i = i.wrapping_sub(1);
+                i -= 1_i32;
                 i;
             }
-            j = x.wrapping_sub(1);
+            j = x - 1_i32;
             while i32::from(*a.as_mut_ptr().offset(j as isize))
                 < i32::from(*a.as_mut_ptr().offset(i as isize))
             {
-                j = j.wrapping_sub(1);
+                j -= 1_i32;
                 j;
             }
             c = *a.as_mut_ptr().offset(j as isize);
             *a.as_mut_ptr().offset(j as isize) = *a.as_mut_ptr().offset(i as isize);
             *a.as_mut_ptr().offset(i as isize) = c;
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
-            j = x.wrapping_sub(1);
+            j = x - 1_i32;
             while j > i {
                 c = *a.as_mut_ptr().offset(i as isize);
                 *a.as_mut_ptr().offset(i as isize) = *a.as_mut_ptr().offset(j as isize);
                 *a.as_mut_ptr().offset(j as isize) = c;
-                i = i.wrapping_add(1);
+                i += 1_i32;
                 i;
-                j = j.wrapping_sub(1);
+                j -= 1_i32;
                 j;
             }
-            y = y.wrapping_add(1);
+            y += 1_i32;
             y;
         }
         0_i32

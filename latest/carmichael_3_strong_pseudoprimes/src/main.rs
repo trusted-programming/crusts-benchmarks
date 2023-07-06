@@ -50,10 +50,10 @@ pub extern "C" fn carmichael3(mut p1: i32) {
                     }
                 }
             }
-            d = d.wrapping_add(1);
+            d += 1_i32;
             d;
         }
-        h3 = h3.wrapping_add(1);
+        h3 += 1_i32;
         h3;
     }
 }
@@ -63,7 +63,7 @@ fn main_0() -> i32 {
     p1 = 2_i32;
     while p1 < 62_i32 {
         carmichael3(p1);
-        p1 = p1.wrapping_add(1);
+        p1 += 1_i32;
         p1;
     }
     0_i32

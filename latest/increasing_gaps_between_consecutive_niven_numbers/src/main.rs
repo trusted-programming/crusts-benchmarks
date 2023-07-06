@@ -32,8 +32,6 @@ pub extern "C" fn divisible(mut n: u64, mut d: u64) -> bool {
 
 fn main_0() -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         setlocale(6, (b"\0" as *const u8).cast::<i8>());
     }
@@ -50,14 +48,14 @@ fn main_0() -> i32 {
             if niven > previous.wrapping_add(gap) {
                 gap = niven.wrapping_sub(previous);
                 let fresh0 = gap_index;
-                gap_index = gap_index.wrapping_add(1);
+                gap_index += 1_i32;
                 println!(
                     "{:9} {:4} {:14} {:15}",
                     fresh0, gap, niven_index, previous
                 );
             }
             previous = niven;
-            niven_index = niven_index.wrapping_add(1);
+            niven_index += 1_i32;
             niven_index;
         }
         niven = niven.wrapping_add(1);

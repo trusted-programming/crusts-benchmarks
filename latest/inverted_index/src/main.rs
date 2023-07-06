@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -35,8 +33,6 @@ pub struct trie_t {
 pub type trie = *mut trie_t;
 #[no_mangle]
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 pub static mut chr_legal: [i8; 41] = unsafe {
     *::core::mem::transmute::<&[u8; 41], &mut [i8; 41]>(
         b"abcdefghijklmnopqrstuvwxyz0123456789_-./\0",
@@ -49,8 +45,6 @@ pub static mut idx_chr: [i8; 256] = [0; 256];
 #[no_mangle]
 pub extern "C" fn trie_new() -> trie {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         calloc(::core::mem::size_of::<trie_t>() as u64, 1).cast::<trie_t>()
     }
@@ -58,8 +52,6 @@ pub extern "C" fn trie_new() -> trie {
 
 #[no_mangle]
 pub extern "C" fn trie_trav(mut root: trie, mut str: *const i8, mut no_create: i32) -> trie {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut c: i32 = 0;
@@ -98,12 +90,8 @@ pub extern "C" fn trie_all(
     mut path: *mut i8,
     mut depth: i32,
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     mut callback: Option<unsafe extern "C" fn(*mut i8) -> i32>,
 ) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -119,7 +107,7 @@ pub extern "C" fn trie_all(
                     return 0_i32;
                 }
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         1_i32
@@ -128,8 +116,6 @@ pub extern "C" fn trie_all(
 
 #[no_mangle]
 pub extern "C" fn add_index(mut root: trie, mut word: *const i8, mut fname: *const i8) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut x: trie = trie_trav(root, word, 0);
@@ -144,8 +130,6 @@ pub extern "C" fn add_index(mut root: trie, mut word: *const i8, mut fname: *con
 
 #[no_mangle]
 pub extern "C" fn print_path(mut path: *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         print!(" {}", build_str_from_raw_ptr(path.cast::<u8>()));
@@ -190,19 +174,15 @@ pub extern "C" fn init_tables() -> trie {
     let mut root: trie = trie_new();
     i = 0_i32;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while (i as u64) < ::core::mem::size_of::<[i8; 41]>() as u64 {
             chr_idx[i32::from(chr_legal[i as usize]) as usize] = i + 1_i32;
             idx_chr[(i + 1i32) as usize] = chr_legal[i as usize];
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }
     i = 0_i32;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < 3_i32 {
@@ -212,10 +192,10 @@ pub extern "C" fn init_tables() -> trie {
                     break;
                 }
                 add_index(root, text[i as usize][j as usize], files[i as usize]);
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }
@@ -224,8 +204,6 @@ pub extern "C" fn init_tables() -> trie {
 
 #[no_mangle]
 pub extern "C" fn search_index(mut root: trie, mut word: *const i8) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut path: [i8; 1024] = [0; 1024];
@@ -241,8 +219,6 @@ pub extern "C" fn search_index(mut root: trie, mut word: *const i8) {
                 (*found).next[0_usize],
                 path.as_mut_ptr(),
                 0,
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
                 Some(print_path as unsafe extern "C" fn(*mut i8) -> i32),
             );

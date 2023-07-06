@@ -12,15 +12,13 @@ extern "C" {}
 #[no_mangle]
 pub extern "C" fn horner(mut coeffs: *mut f64, mut s: i32, mut x: f64) -> f64 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut res: f64 = 0.0f64;
-        i = s.wrapping_sub(1);
+        i = s - 1_i32;
         while i >= 0_i32 {
             res = res.mul_add(x, *coeffs.offset(i as isize));
-            i = i.wrapping_sub(1);
+            i -= 1_i32;
             i;
         }
         res

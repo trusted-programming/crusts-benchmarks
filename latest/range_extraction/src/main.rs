@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -29,8 +27,6 @@ extern "C" {
 #[no_mangle]
 pub extern "C" fn rprint(mut s: *mut i8, mut x: *mut i32, mut len: i32) -> u64 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut j: i32 = 0;
@@ -39,7 +35,7 @@ pub extern "C" fn rprint(mut s: *mut i8, mut x: *mut i32, mut len: i32) -> u64 {
         i = j;
         while i < len {
             while j < len - 1_i32 && *x.offset((j + 1i32) as isize) == *x.offset(j as isize) + 1_i32 {
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
             if (i + 1_i32) < j {
@@ -58,7 +54,7 @@ pub extern "C" fn rprint(mut s: *mut i8, mut x: *mut i32, mut len: i32) -> u64 {
             } else {
                 while i <= j {
                     let fresh0 = i;
-                    i = i.wrapping_add(1);
+                    i += 1_i32;
                     a = a.offset(snprintf(
                         if !s.is_null() { a } else { s },
                         (if !s.is_null() { 100 } else { 0 }) as u64,
@@ -72,7 +68,7 @@ pub extern "C" fn rprint(mut s: *mut i8, mut x: *mut i32, mut len: i32) -> u64 {
                     ) as isize);
                 }
             }
-            j = j.wrapping_add(1);
+            j += 1_i32;
             i = j;
         }
         a.offset_from(s) as u64
@@ -80,8 +76,6 @@ pub extern "C" fn rprint(mut s: *mut i8, mut x: *mut i32, mut len: i32) -> u64 {
 }
 
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut x: [i32; 33] = [

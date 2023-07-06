@@ -26,14 +26,12 @@ fn main_0() -> i32 {
     let mut y: i32 = 0;
     y = 2_008_i32;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while y <= 2_121_i32 {
             if wday(y, 12, 25) == 0_i32 {
                 printf((b"%04d-12-25\n\0" as *const u8).cast::<i8>(), y);
             }
-            y = y.wrapping_add(1);
+            y += 1_i32;
             y;
         }
     }

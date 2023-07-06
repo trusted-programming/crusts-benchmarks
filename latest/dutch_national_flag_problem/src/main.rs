@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -42,13 +40,9 @@ extern "C" {
 }
 pub type __compar_fn_t =
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     Option<unsafe extern "C" fn(*const libc::c_void, *const libc::c_void) -> i32>;
 #[no_mangle]
 pub extern "C" fn compar(mut a: *const libc::c_void, mut b: *const libc::c_void) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut c1: i8 = *(a as *const i8);
@@ -59,8 +53,6 @@ pub extern "C" fn compar(mut a: *const libc::c_void, mut b: *const libc::c_void)
 
 #[no_mangle]
 pub extern "C" fn issorted(mut balls: *mut i8) -> bool {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -74,7 +66,7 @@ pub extern "C" fn issorted(mut balls: *mut i8) -> bool {
             if *balls.offset(i as isize) as i32 > state {
                 state = *balls.offset(i as isize) as i32;
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
         return 1 != 0;
@@ -83,8 +75,6 @@ pub extern "C" fn issorted(mut balls: *mut i8) -> bool {
 
 #[no_mangle]
 pub extern "C" fn printout(mut balls: *mut i8) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -98,7 +88,7 @@ pub extern "C" fn printout(mut balls: *mut i8) {
             } else {
                 'b' as i32
             }) as i8;
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
         print!("{}\n", build_str_from_raw_ptr(str.as_mut_ptr() as *mut u8));
@@ -109,20 +99,16 @@ fn main_0() -> i32 {
     let mut balls: [i8; 5] = [0; 5];
     let mut i: i32 = 0;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         srand(rust_time(None) as u32);
         rand();
     }
     i = 0;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < 5 {
             balls[i as usize] = (rand() as f64 / 2147483647 as f64 * 3 as f64) as i8;
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
         while issorted(balls.as_mut_ptr()) {
@@ -131,7 +117,7 @@ fn main_0() -> i32 {
             i = 0;
             while i < 5 {
                 balls[i as usize] = (rand() as f64 / 2147483647 as f64 * 3 as f64) as i8;
-                i = i.wrapping_add(1);
+                i += 1;
                 i;
             }
         }
@@ -139,15 +125,11 @@ fn main_0() -> i32 {
     print!("Non-sorted: ");
     printout(balls.as_mut_ptr());
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         qsort(
             balls.as_mut_ptr() as *mut libc::c_void,
             5,
             ::core::mem::size_of::<i8>() as u64,
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
             Some(compar as unsafe extern "C" fn(*const libc::c_void, *const libc::c_void) -> i32),
         );

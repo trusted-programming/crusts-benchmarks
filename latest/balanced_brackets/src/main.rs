@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -29,24 +27,22 @@ extern "C" {
 #[no_mangle]
 pub extern "C" fn isBal(mut s: *const i8, mut l: i32) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut c: i32 = 0;
         loop {
             let fresh0 = l;
-            l = l.wrapping_sub(1);
+            l -= 1_i32;
             if fresh0 == 0_i32 {
                 break;
             }
             if i32::from(*s.offset(l as isize)) == ']' as i32 {
-                c = c.wrapping_add(1);
+                c += 1_i32;
                 c;
             } else {
                 if i32::from(*s.offset(l as isize)) != '[' as i32 {
                     continue;
                 }
-                c = c.wrapping_sub(1);
+                c -= 1_i32;
                 if c < 0_i32 {
                     break;
                 }
@@ -59,15 +55,13 @@ pub extern "C" fn isBal(mut s: *const i8, mut l: i32) -> i32 {
 #[no_mangle]
 pub extern "C" fn shuffle(mut s: *mut i8, mut h: i32) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut x: i32 = 0;
         let mut t: i32 = 0;
         let mut i: i32 = h;
         loop {
             let fresh1 = i;
-            i = i.wrapping_sub(1);
+            i -= 1_i32;
             if fresh1 == 0_i32 {
                 break;
             }
@@ -81,8 +75,6 @@ pub extern "C" fn shuffle(mut s: *mut i8, mut h: i32) {
 
 #[no_mangle]
 pub extern "C" fn genSeq(mut s: *mut i8, mut n: i32) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if n != 0_i32 {
@@ -100,8 +92,6 @@ pub extern "C" fn genSeq(mut s: *mut i8, mut n: i32) {
 
 #[no_mangle]
 pub extern "C" fn doSeq(mut n: i32) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut s: [i8; 64] = [0; 64];
@@ -122,7 +112,7 @@ fn main_0() -> i32 {
     let mut n: i32 = 0;
     while n < 9_i32 {
         let fresh2 = n;
-        n = n.wrapping_add(1);
+        n += 1_i32;
         doSeq(fresh2);
     }
     0_i32

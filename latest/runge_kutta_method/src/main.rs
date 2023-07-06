@@ -16,15 +16,11 @@ extern "C" {
 #[no_mangle]
 pub extern "C" fn rk4(
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     mut f: Option<unsafe extern "C" fn(f64, f64) -> f64>,
     mut dx: f64,
     mut x: f64,
     mut y: f64,
 ) -> f64 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut k1: f64 = dx * f.expect("non-null function pointer")(x, y);
@@ -40,16 +36,12 @@ pub extern "C" fn rk4(
 #[no_mangle]
 pub extern "C" fn rate(mut x: f64, mut y: f64) -> f64 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         x * sqrt(y)
     }
 }
 
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut y: *mut f64 = std::ptr::null_mut::<f64>();
@@ -66,14 +58,12 @@ fn main_0() -> i32 {
         while i < n {
             *y.offset(i as isize) = rk4(
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
                 Some(rate as unsafe extern "C" fn(f64, f64) -> f64),
                 dx,
                 dx.mul_add(f64::from(i - 1i32), x0),
                 *y.offset((i - 1i32) as isize),
             );
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         print!("x	y	rel. err.\n------------\n");
@@ -87,7 +77,7 @@ fn main_0() -> i32 {
                 *y.offset(i as isize),
                 *y.offset(i as isize) / y2 - 1_f64
             );
-            i = i.wrapping_add(10);
+            i += 10_i32;
         }
         0_i32
     }

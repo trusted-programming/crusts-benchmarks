@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -25,8 +23,6 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 extern "C" {}
 #[no_mangle]
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 pub static mut DIGITS: [i8; 63] = unsafe {
     *::core::mem::transmute::<&[u8; 63], &[i8; 63]>(
         b"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\0",
@@ -36,8 +32,6 @@ pub static mut DIGITS: [i8; 63] = unsafe {
 pub static mut DIGITS_LEN: i32 = 64_i32;
 #[no_mangle]
 pub extern "C" fn encodeNegativeBase(mut n: i64, mut base: i64, mut out: *mut i8) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut ptr: *mut i8 = out;
@@ -53,7 +47,7 @@ pub extern "C" fn encodeNegativeBase(mut n: i64, mut base: i64, mut out: *mut i8
             let mut rem: i64 = n % base;
             n /= base;
             if rem < 0 {
-                n = n.wrapping_add(1);
+                n += 1;
                 n;
                 rem -= base;
             }
@@ -76,8 +70,6 @@ pub extern "C" fn encodeNegativeBase(mut n: i64, mut base: i64, mut out: *mut i8
 
 #[no_mangle]
 pub extern "C" fn decodeNegativeBase(mut ns: *const i8, mut base: i64) -> i64 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut value: i64 = 0;
@@ -109,7 +101,7 @@ pub extern "C" fn decodeNegativeBase(mut ns: *const i8, mut base: i64) -> i64 {
                     bb *= base;
                     break;
                 } else {
-                    i = i.wrapping_add(1);
+                    i += 1_i32;
                     i;
                 }
             }
@@ -126,8 +118,6 @@ pub extern "C" fn driver(mut n: i64, mut b: i64) {
     let mut value: i64 = 0;
     encodeNegativeBase(n, b, buf.as_mut_ptr());
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         println!(
             "{:12} encoded in base {:3} = {:12}",
@@ -137,8 +127,6 @@ pub extern "C" fn driver(mut n: i64, mut b: i64) {
         );
     }
     value = decodeNegativeBase(buf.as_mut_ptr(), b);
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         println!(

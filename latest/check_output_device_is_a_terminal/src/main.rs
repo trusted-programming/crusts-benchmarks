@@ -56,8 +56,6 @@ pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 fn main_0() -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         puts(if isatty(fileno(stdout)) != 0_i32 {
             (b"stdout is tty\0" as *const u8).cast::<i8>()

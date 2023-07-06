@@ -33,8 +33,6 @@ pub extern "C" fn gcd(mut m: i64, mut n: i64) -> i64 {
 pub extern "C" fn frac_new(mut num: i64, mut den: i64) -> frac {
     let mut a: frac = frac { num: 0, den: 0 };
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         if den == 0 {
             println!("divide by zero: {}/{}", num, den);
@@ -111,13 +109,13 @@ fn main_0() -> i32 {
                 kf = frac_new(1, i64::from(n / k));
                 sum = frac_add(sum, kf);
             }
-            k = k.wrapping_add(1);
+            k += 1_i32;
             k;
         }
         if frac_cmp(sum, frac_new(1, 1)) == 0_i32 {
             println!("{}", n);
         }
-        n = n.wrapping_add(1);
+        n += 1_i32;
         n;
     }
     0_i32

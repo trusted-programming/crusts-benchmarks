@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -32,8 +30,6 @@ extern "C" {
 pub static mut coin_err: *const i8 = 0 as *const i8;
 #[no_mangle]
 pub extern "C" fn unbase58(mut s: *const i8, mut out: *mut u8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         static mut tmpl: *const i8 = (b"123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz\0" as *const u8).cast::<i8>();
@@ -53,19 +49,19 @@ pub extern "C" fn unbase58(mut s: *const i8, mut out: *mut u8) -> i32 {
             j = 25_i32;
             loop {
                 let fresh0 = j;
-                j = j.wrapping_sub(1);
+                j -= 1_i32;
                 if fresh0 == 0_i32 {
                     break;
                 }
                 c += 58_i32 * i32::from(*out.offset(j as isize));
                 *out.offset(j as isize) = (c % 256i32) as u8;
-                c = c.wrapping_div(256);
+                c /= 256_i32;
             }
             if c != 0_i32 {
                 coin_err = (b"address too long\0" as *const u8).cast::<i8>();
                 return 0_i32;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         1_i32
@@ -74,8 +70,6 @@ pub extern "C" fn unbase58(mut s: *const i8, mut out: *mut u8) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn valid(mut s: *const i8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut dec: [u8; 32] = [0; 32];
@@ -114,8 +108,6 @@ fn main_0() -> i32 {
     let mut i: i32 = 0;
     i = 0_i32;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while !(s[i as usize]).is_null() {
             let mut status: i32 = valid(s[i as usize]);
@@ -131,7 +123,7 @@ fn main_0() -> i32 {
                     build_str_from_raw_ptr(coin_err as *mut u8)
                 )
             };
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }

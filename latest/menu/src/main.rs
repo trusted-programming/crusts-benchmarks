@@ -10,12 +10,10 @@
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -69,8 +67,6 @@ pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 fn main_0() -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut items: [*const i8; 5] = [
             (b"fee fie\0" as *const u8).cast::<i8>(),
@@ -91,8 +87,6 @@ fn main_0() -> i32 {
 #[no_mangle]
 pub extern "C" fn menu_select(mut items: *const *const i8, mut prompt: *const i8) -> *const i8 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut buf: [i8; 8192] = [0; 8192];
         let mut i: i32 = 0;
@@ -109,7 +103,7 @@ pub extern "C" fn menu_select(mut items: *const *const i8, mut prompt: *const i8
                     i + 1_i32,
                     build_str_from_raw_ptr(*items.offset(i as isize) as *mut u8)
                 );
-                i = i.wrapping_add(1);
+                i += 1_i32;
                 i;
             }
             choice_max = i;

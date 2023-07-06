@@ -17,8 +17,6 @@ pub extern "C" fn transpose(
     mut src_w: i32,
 ) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut j: i32 = 0;
@@ -32,10 +30,10 @@ pub extern "C" fn transpose(
             while j < src_w {
                 *d.offset(j as isize * vla as isize).offset(i as isize) =
                     *s.offset(i as isize * vla_0 as isize).offset(j as isize);
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }
@@ -65,10 +63,10 @@ fn main_0() -> i32 {
             } else {
                 print!("{}{}", b[i as usize][j as usize], ' ' as i32)
             };
-            j = j.wrapping_add(1);
+            j += 1_i32;
             j;
         }
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     0_i32

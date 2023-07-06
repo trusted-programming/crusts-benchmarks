@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -26,8 +24,6 @@ extern "C" {
     fn printf(_: *const i8, _: ...) -> i32;
     fn malloc(_: u64) -> *mut libc::c_void;
 }
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
 pub type Responder = Option<unsafe extern "C" fn(i32) -> *const i8>;
 #[derive(Copy, Clone)]
@@ -48,8 +44,6 @@ pub struct sDelegator {
 pub type Delegator = *mut sDelegator;
 #[no_mangle]
 pub extern "C" fn NewDelegate(mut rspndr: Responder) -> Delegate {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut dl: Delegate = malloc(::core::mem::size_of::<sDelegate>() as u64) as Delegate;
@@ -76,16 +70,12 @@ pub extern "C" fn defaultResponse(mut p1: i32) -> *const i8 {
 static mut defaultDel: sDelegate = {
     let mut init = sDelegate {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
         operation: Some(defaultResponse as unsafe extern "C" fn(i32) -> *const i8),
     };
     init
 };
 #[no_mangle]
 pub extern "C" fn NewDelegator(mut p: i32, mut phrase: *mut i8) -> Delegator {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut d: Delegator = malloc(::core::mem::size_of::<sDelegator>() as u64) as Delegator;
@@ -102,8 +92,6 @@ pub extern "C" fn Delegator_Operation(
     mut p1: i32,
     mut delroy: Delegate,
 ) -> *const i8 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut rtn: *const i8 = 0 as *const i8;
@@ -126,8 +114,6 @@ pub extern "C" fn Delegator_Operation(
 #[no_mangle]
 pub extern "C" fn thing1(mut p1: i32) -> *const i8 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         printf(
             b"We're in thing1 with value %d\n\0" as *const u8 as *const i8,
@@ -139,12 +125,8 @@ pub extern "C" fn thing1(mut p1: i32) -> *const i8 {
 
 fn main_0() -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut del1: Delegate =
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
             NewDelegate(Some(thing1 as unsafe extern "C" fn(i32) -> *const i8));
         let mut del2: Delegate = NewDelegate(None);

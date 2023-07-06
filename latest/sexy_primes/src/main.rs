@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -30,8 +28,6 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn sieve(mut c: *mut u8, mut limit: i32) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -50,7 +46,7 @@ pub extern "C" fn sieve(mut c: *mut u8, mut limit: i32) {
                 i += 2_i32 * p;
             }
             loop {
-                p = p.wrapping_add(2);
+                p += 2_i32;
                 if *c.offset(p as isize) == 0 {
                     break;
                 }
@@ -61,8 +57,6 @@ pub extern "C" fn sieve(mut c: *mut u8, mut limit: i32) {
 
 #[no_mangle]
 pub extern "C" fn printHelper(mut cat: *const i8, mut len: i32, mut lim: i32, mut n: i32) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut sp: *const i8 = if strcmp(cat, (b"unsexy primes\0" as *const u8).cast::<i8>()) != 0 {
@@ -93,15 +87,13 @@ pub extern "C" fn printHelper(mut cat: *const i8, mut len: i32, mut lim: i32, mu
 #[no_mangle]
 pub extern "C" fn printArray(mut a: *mut i32, mut len: i32) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         print!("[");
         i = 0_i32;
         while i < len {
             print!("{} ", *a.offset(i as isize));
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         print!("\x08]");
@@ -109,8 +101,6 @@ pub extern "C" fn printArray(mut a: *mut i32, mut len: i32) {
 }
 
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -149,28 +139,28 @@ fn main_0() -> i32 {
                 && i32::from(*sv.offset((i - 6i32) as isize)) != 0_i32
                 && i32::from(*sv.offset((i + 6i32) as isize)) != 0_i32
             {
-                unsexy = unsexy.wrapping_add(1);
+                unsexy += 1_i32;
                 unsexy;
             } else if i < lim - 6_i32
                 && *sv.offset(i as isize) == 0
                 && *sv.offset((i + 6i32) as isize) == 0
             {
-                pairs = pairs.wrapping_add(1);
+                pairs += 1_i32;
                 pairs;
                 if i < lim - 12_i32 && *sv.offset((i + 12i32) as isize) == 0 {
-                    trips = trips.wrapping_add(1);
+                    trips += 1_i32;
                     trips;
                     if i < lim - 18_i32 && *sv.offset((i + 18i32) as isize) == 0 {
-                        quads = quads.wrapping_add(1);
+                        quads += 1_i32;
                         quads;
                         if i < lim - 24_i32 && *sv.offset((i + 24i32) as isize) == 0 {
-                            quins = quins.wrapping_add(1);
+                            quins += 1_i32;
                             quins;
                         }
                     }
                 }
             }
-            i = i.wrapping_add(2);
+            i += 2_i32;
         }
         if pairs < lpr {
             lpr = pairs;
@@ -195,7 +185,7 @@ fn main_0() -> i32 {
                 && i32::from(*sv.offset((i - 6i32) as isize)) != 0_i32
                 && i32::from(*sv.offset((i + 6i32) as isize)) != 0_i32
             {
-                un = un.wrapping_add(1);
+                un += 1_i32;
                 un;
                 if un > unsexy - lun {
                     last_un[(un + lun - 1_i32 - unsexy) as usize] = i;
@@ -204,7 +194,7 @@ fn main_0() -> i32 {
                 && *sv.offset(i as isize) == 0
                 && *sv.offset((i + 6i32) as isize) == 0
             {
-                pr = pr.wrapping_add(1);
+                pr += 1_i32;
                 pr;
                 if pr > pairs - lpr {
                     ix = pr + lpr - 1_i32 - pairs;
@@ -212,7 +202,7 @@ fn main_0() -> i32 {
                     last_pr[ix as usize][1_usize] = i + 6_i32;
                 }
                 if i < lim - 12_i32 && *sv.offset((i + 12i32) as isize) == 0 {
-                    tr = tr.wrapping_add(1);
+                    tr += 1_i32;
                     tr;
                     if tr > trips - ltr {
                         ix = tr + ltr - 1_i32 - trips;
@@ -221,7 +211,7 @@ fn main_0() -> i32 {
                         last_tr[ix as usize][2_usize] = i + 12_i32;
                     }
                     if i < lim - 18_i32 && *sv.offset((i + 18i32) as isize) == 0 {
-                        qd = qd.wrapping_add(1);
+                        qd += 1_i32;
                         qd;
                         if qd > quads - lqd {
                             ix = qd + lqd - 1_i32 - quads;
@@ -231,7 +221,7 @@ fn main_0() -> i32 {
                             last_qd[ix as usize][3_usize] = i + 18_i32;
                         }
                         if i < lim - 24_i32 && *sv.offset((i + 24i32) as isize) == 0 {
-                            qn = qn.wrapping_add(1);
+                            qn += 1_i32;
                             qn;
                             if qn > quins - lqn {
                                 ix = qn + lqn - 1_i32 - quins;
@@ -245,7 +235,7 @@ fn main_0() -> i32 {
                     }
                 }
             }
-            i = i.wrapping_add(2);
+            i += 2_i32;
         }
         printHelper((b"pairs\0" as *const u8).cast::<i8>(), pairs, lim, lpr);
         print!("  [");
@@ -253,7 +243,7 @@ fn main_0() -> i32 {
         while i < lpr {
             printArray((last_pr[i as usize]).as_mut_ptr(), 2);
             print!("\x08] ");
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         print!("\x08]\n\n");
@@ -263,7 +253,7 @@ fn main_0() -> i32 {
         while i < ltr {
             printArray((last_tr[i as usize]).as_mut_ptr(), 3);
             print!("\x08] ");
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         print!("\x08]\n\n");
@@ -273,7 +263,7 @@ fn main_0() -> i32 {
         while i < lqd {
             printArray((last_qd[i as usize]).as_mut_ptr(), 4);
             print!("\x08] ");
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         print!("\x08]\n\n");
@@ -283,7 +273,7 @@ fn main_0() -> i32 {
         while i < lqn {
             printArray((last_qn[i as usize]).as_mut_ptr(), 5);
             print!("\x08] ");
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         print!("\x08]\n\n");

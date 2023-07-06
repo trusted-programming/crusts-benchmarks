@@ -33,8 +33,6 @@ pub extern "C" fn init() {
     let mut j: i32 = 0;
     i = 0_i32;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < 10_i32 {
             j = 0_i32;
@@ -43,10 +41,10 @@ pub extern "C" fn init() {
                 transitions[idx as usize].a = i as u8;
                 transitions[idx as usize].b = j as u8;
                 transitions[idx as usize].c = 0;
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }
@@ -59,8 +57,6 @@ pub extern "C" fn record(mut prev: i32, mut curr: i32) {
     let mut i: i32 = 0;
     i = 0_i32;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < 100_i32 {
             let mut _z: i32 = 0;
@@ -72,7 +68,7 @@ pub extern "C" fn record(mut prev: i32, mut curr: i32) {
                     break;
                 }
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }
@@ -83,8 +79,6 @@ pub extern "C" fn printTransitions(mut limit: i32, mut last_prime: i32) {
     let mut i: i32 = 0;
     println!("{} primes, last prime considered: {}", limit, last_prime);
     i = 0_i32;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < 100_i32 {
@@ -97,7 +91,7 @@ pub extern "C" fn printTransitions(mut limit: i32, mut last_prime: i32) {
                     100.0f64 * f64::from(transitions[i as usize].c) / f64::from(limit)
                 );
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }
@@ -138,16 +132,14 @@ pub extern "C" fn isPrime(mut n: i32) -> bool {
     a2 = 216_i32;
     s = t * t;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while s <= n {
             if n % t == 0_i32 {
                 return 0_i32 != 0_i32;
             }
-            s = s.wrapping_add(a1);
-            t = t.wrapping_add(2);
-            a1 = a1.wrapping_add(24);
+            s += a1;
+            t += 2_i32;
+            a1 += 24_i32;
             if t * t == s {
             } else {
                 __assert_fail(
@@ -172,9 +164,9 @@ pub extern "C" fn isPrime(mut n: i32) -> bool {
                 if n % t == 0_i32 {
                     return 0_i32 != 0_i32;
                 }
-                s = s.wrapping_add(a2);
-                t = t.wrapping_add(4);
-                a2 = a2.wrapping_add(48);
+                s += a2;
+                t += 4_i32;
+                a2 += 48_i32;
                 if t * t == s {
                 } else {
                     __assert_fail(
@@ -213,18 +205,18 @@ fn main_0() -> i32 {
         if isPrime(n) {
             record(last_prime, n);
             last_prime = n;
-            count = count.wrapping_add(1);
+            count += 1_i32;
             count;
         }
-        n = n.wrapping_add(2);
+        n += 2_i32;
         if count < 1_000_000_i32 {
             if isPrime(n) {
                 record(last_prime, n);
                 last_prime = n;
-                count = count.wrapping_add(1);
+                count += 1_i32;
                 count;
             }
-            n = n.wrapping_add(4);
+            n += 4_i32;
         }
     }
     printTransitions(1000000, last_prime);

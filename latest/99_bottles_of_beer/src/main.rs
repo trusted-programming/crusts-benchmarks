@@ -14,7 +14,7 @@ fn main_0() -> i32 {
     n = 99_i32;
     while n > 2_i32 {
         print! ("{} bottles of beer on the wall, {} bottles of beer.\nTake one down and pass it around, {} bottles of beer on the wall.\n\n", n, n, n - 1_i32);
-        n = n.wrapping_sub(1);
+        n -= 1_i32;
         n;
     }
     print! (

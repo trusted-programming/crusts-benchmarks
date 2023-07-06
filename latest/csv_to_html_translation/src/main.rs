@@ -16,8 +16,6 @@ pub static mut input : * const i8 =
 (b"Character,Speech\nThe multitude,The messiah! Show us the messiah!\nBrians mother,<angry>Now you listen here! He's not the messiah; he's a very naughty boy! Now go away!</angry>\nThe multitude,Who are you?\nBrians mother,I'm his mother; that's who!\nThe multitude,Behold his mother! Behold his mother!\0" as * const u8).cast::<i8>();
 fn main_0() -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut s: *const i8 = std::ptr::null::<i8>();
         print!("<table>\n<tr><td>");

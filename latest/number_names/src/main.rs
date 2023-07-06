@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -79,8 +77,6 @@ pub extern "C" fn say_hundred(
     mut has_lead: i32,
 ) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut c: [i32; 3] = [0; 3];
         let mut i: i32 = 0;
@@ -91,7 +87,7 @@ pub extern "C" fn say_hundred(
             } else {
                 c[(i + 3i32) as usize] = 0_i32;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         if c[0_usize] + c[1_usize] + c[2_usize] == 0_i32 {
@@ -151,13 +147,11 @@ pub extern "C" fn say_maxillion(
     mut has_lead: i32,
 ) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut n: i32 = len / 3;
         let mut r: i32 = len % 3;
         if r == 0_i32 {
-            n = n.wrapping_sub(1);
+            n -= 1_i32;
             n;
             r = 3_i32;
         }
@@ -176,7 +170,7 @@ pub extern "C" fn say_maxillion(
             e = e.offset(3_isize);
             r = 3_i32;
             let fresh0 = n;
-            n = n.wrapping_sub(1);
+            n -= 1_i32;
             if fresh0 == 0_i32 {
                 break;
             }
@@ -187,8 +181,6 @@ pub extern "C" fn say_maxillion(
 
 #[no_mangle]
 pub extern "C" fn say_number(mut s: *const i8) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut n: i32 = 0;
@@ -245,7 +237,7 @@ pub extern "C" fn say_number(mut s: *const i8) {
                             print!("(not a number)");
                             return;
                         }
-                        i = i.wrapping_add(1);
+                        i += 1_i32;
                         i;
                     }
                     if got_sign == -1_i32 {
@@ -255,7 +247,7 @@ pub extern "C" fn say_number(mut s: *const i8) {
                     r = len % maxillion;
                     if r == 0_i32 {
                         r = maxillion;
-                        n = n.wrapping_sub(1);
+                        n -= 1_i32;
                         n;
                     }
                     end = s.offset(len as isize).offset(-((n * maxillion) as isize));
@@ -271,14 +263,14 @@ pub extern "C" fn say_number(mut s: *const i8) {
                                         llions[(maxillion / 3i32) as usize] as *mut u8
                                     )
                                 );
-                                i = i.wrapping_add(1);
+                                i += 1_i32;
                                 i;
                             }
                             if n != 0_i32 {
                                 print!(", ");
                             }
                         }
-                        n = n.wrapping_sub(1);
+                        n -= 1_i32;
                         n;
                         r = maxillion;
                         s = end;
@@ -315,8 +307,6 @@ pub fn main() {
 
 extern "C" fn run_static_initializers() {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         maxillion = (::core::mem::size_of::<[*const i8; 5]>() as u64)
             .wrapping_div(::core::mem::size_of::<*const i8>() as u64)
@@ -329,7 +319,5 @@ extern "C" fn run_static_initializers() {
 #[cfg_attr(target_os = "linux", link_section = ".init_array")]
 #[cfg_attr(target_os = "windows", link_section = ".CRT$XIB")]
 #[cfg_attr(target_os = "macos", link_section = "__DATA,__mod_init_func")]
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
 static INIT_ARRAY: [unsafe extern "C" fn(); 1] = [run_static_initializers];

@@ -54,7 +54,7 @@ fn main_0() -> i32 {
         if self_desc(i as u64) != 0_i32 {
             println!("{}", i);
         }
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     0_i32

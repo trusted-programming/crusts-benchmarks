@@ -19,17 +19,15 @@ pub type mat = *mut *mut f64;
 pub extern "C" fn mat_zero(mut x: mat, mut n: i32) {
     let mut i: i32 = 0;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < n {
             let mut j: i32 = 0;
             while j < n {
                 *(*x.offset(i as isize)).offset(j as isize) = f64::from(0_i32);
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }
@@ -37,8 +35,6 @@ pub extern "C" fn mat_zero(mut x: mat, mut n: i32) {
 
 #[no_mangle]
 pub extern "C" fn mat_new(mut n: i32) -> mat {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut x: mat =
@@ -53,7 +49,7 @@ pub extern "C" fn mat_new(mut n: i32) -> mat {
         while i < n {
             let fresh1 = &mut (*x.offset(i as isize));
             *fresh1 = (*x.offset(0_isize)).offset((n * i) as isize);
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         mat_zero(x, n);
@@ -63,8 +59,6 @@ pub extern "C" fn mat_new(mut n: i32) -> mat {
 
 #[no_mangle]
 pub extern "C" fn mat_copy(mut s: *mut libc::c_void, mut n: i32) -> mat {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut x: mat = mat_new(n);
@@ -76,10 +70,10 @@ pub extern "C" fn mat_copy(mut s: *mut libc::c_void, mut n: i32) -> mat {
                 *(*x.offset(i as isize)).offset(j as isize) = *s.cast::<f64>()
                     .offset(i as isize * vla as isize)
                     .offset(j as isize);
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         x
@@ -89,8 +83,6 @@ pub extern "C" fn mat_copy(mut s: *mut libc::c_void, mut n: i32) -> mat {
 #[no_mangle]
 pub extern "C" fn mat_del(mut x: mat) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         free((*x.offset(0_isize)).cast::<libc::c_void>());
         free(x.cast::<libc::c_void>());
@@ -99,8 +91,6 @@ pub extern "C" fn mat_del(mut x: mat) {
 
 #[no_mangle]
 pub extern "C" fn mat_show(mut x: mat, mut fmt: *mut i8, mut n: i32) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if fmt.is_null() {
@@ -123,10 +113,10 @@ pub extern "C" fn mat_show(mut x: mat, mut fmt: *mut i8, mut n: i32) {
                 } else {
                     println!()
                 };
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }
@@ -139,8 +129,6 @@ pub extern "C" fn mat_mul(mut a: mat, mut b: mat, mut n: i32) -> mat {
     c = c;
     let mut i: i32 = 0;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < n {
             let mut j: i32 = 0;
@@ -150,13 +138,13 @@ pub extern "C" fn mat_mul(mut a: mat, mut b: mat, mut n: i32) -> mat {
                     *(*c.offset(i as isize)).offset(j as isize) += *(*a.offset(i as isize))
                         .offset(k as isize)
                         * *(*b.offset(k as isize)).offset(j as isize);
-                    k = k.wrapping_add(1);
+                    k += 1_i32;
                     k;
                 }
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }
@@ -167,23 +155,19 @@ pub extern "C" fn mat_mul(mut a: mat, mut b: mat, mut n: i32) -> mat {
 pub extern "C" fn mat_pivot(mut a: mat, mut p: mat, mut n: i32) {
     let mut i: i32 = 0;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < n {
             let mut j: i32 = 0;
             while j < n {
                 *(*p.offset(i as isize)).offset(j as isize) = f64::from(i32::from(i == j));
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }
     let mut i_0: i32 = 0;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i_0 < n {
@@ -195,7 +179,7 @@ pub extern "C" fn mat_pivot(mut a: mat, mut p: mat, mut n: i32) {
                 {
                     max_j = j_0;
                 }
-                j_0 = j_0.wrapping_add(1);
+                j_0 += 1_i32;
                 j_0;
             }
             if max_j != i_0 {
@@ -205,11 +189,11 @@ pub extern "C" fn mat_pivot(mut a: mat, mut p: mat, mut n: i32) {
                     *(*p.offset(i_0 as isize)).offset(k as isize) =
                         *(*p.offset(max_j as isize)).offset(k as isize);
                     *(*p.offset(max_j as isize)).offset(k as isize) = tmp;
-                    k = k.wrapping_add(1);
+                    k += 1_i32;
                     k;
                 }
             }
-            i_0 = i_0.wrapping_add(1);
+            i_0 += 1_i32;
             i_0;
         }
     }
@@ -223,18 +207,14 @@ pub extern "C" fn mat_LU(mut A: mat, mut L: mat, mut U: mat, mut P: mat, mut n: 
     let mut Aprime: mat = mat_mul(P, A, n);
     let mut i: i32 = 0;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < n {
             *(*L.offset(i as isize)).offset(i as isize) = 1_f64;
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }
     let mut i_0: i32 = 0;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i_0 < n {
@@ -247,7 +227,7 @@ pub extern "C" fn mat_LU(mut A: mat, mut L: mat, mut U: mat, mut P: mat, mut n: 
                     while k < j {
                         s += *(*L.offset(j as isize)).offset(k as isize)
                             * *(*U.offset(k as isize)).offset(i_0 as isize);
-                        k = k.wrapping_add(1);
+                        k += 1_i32;
                         k;
                     }
                     *(*U.offset(j as isize)).offset(i_0 as isize) =
@@ -259,17 +239,17 @@ pub extern "C" fn mat_LU(mut A: mat, mut L: mat, mut U: mat, mut P: mat, mut n: 
                     while k_0 < i_0 {
                         s += *(*L.offset(j as isize)).offset(k_0 as isize)
                             * *(*U.offset(k_0 as isize)).offset(i_0 as isize);
-                        k_0 = k_0.wrapping_add(1);
+                        k_0 += 1_i32;
                         k_0;
                     }
                     *(*L.offset(j as isize)).offset(i_0 as isize) =
                         (*(*Aprime.offset(j as isize)).offset(i_0 as isize) - s)
                             / *(*U.offset(i_0 as isize)).offset(i_0 as isize);
                 }
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
-            i_0 = i_0.wrapping_add(1);
+            i_0 += 1_i32;
             i_0;
         }
     }
@@ -299,8 +279,6 @@ fn main_0() -> i32 {
     P = mat_new(n);
     U = mat_new(n);
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         A = mat_copy(A3.as_mut_ptr().cast::<libc::c_void>(), n);
     }
@@ -322,8 +300,6 @@ fn main_0() -> i32 {
     L = mat_new(n);
     P = mat_new(n);
     U = mat_new(n);
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         A = mat_copy(A4.as_mut_ptr().cast::<libc::c_void>(), n);

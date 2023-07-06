@@ -28,13 +28,9 @@ pub extern "C" fn grep(
     mut len: i32,
     mut outlen: *mut i32,
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     mut sel: Option<unsafe extern "C" fn(i32) -> i32>,
     mut inplace: i32,
 ) -> *mut i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -51,10 +47,10 @@ pub extern "C" fn grep(
         while i < len {
             if sel.expect("non-null function pointer")(*in_0.offset(i as isize)) != 0_i32 {
                 let fresh0 = j;
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 *out.offset(fresh0 as isize) = *in_0.offset(i as isize);
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         if inplace == 0_i32 && j < len {
@@ -70,8 +66,6 @@ pub extern "C" fn grep(
 
 fn main_0() -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut in_0: [i32; 10] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
         let mut i: i32 = 0;
@@ -81,8 +75,6 @@ fn main_0() -> i32 {
             10,
             &mut len,
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
             Some(even_sel as unsafe extern "C" fn(i32) -> i32),
             0,
         );
@@ -90,7 +82,7 @@ fn main_0() -> i32 {
         i = 0_i32;
         while i < len {
             print!(" {}", *even.offset(i as isize));
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         println!();
@@ -99,8 +91,6 @@ fn main_0() -> i32 {
             8,
             &mut len,
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
             Some(tri_sel as unsafe extern "C" fn(i32) -> i32),
             1,
         );
@@ -108,7 +98,7 @@ fn main_0() -> i32 {
         i = 0_i32;
         while i < len {
             print!(" {}", in_0[i as usize]);
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         println!();

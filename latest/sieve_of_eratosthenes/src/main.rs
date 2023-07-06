@@ -17,8 +17,6 @@ extern "C" {
 #[no_mangle]
 pub extern "C" fn eratosthenes(mut n: i32, mut c: *mut i32) -> *mut i8 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut sieve_0: *mut i8 = std::ptr::null_mut::<i8>();
         let mut i: i32 = 0;
@@ -42,10 +40,10 @@ pub extern "C" fn eratosthenes(mut n: i32, mut c: *mut i32) -> *mut i8 {
                         *c -= 1_i32;
                         *c;
                     }
-                    j = j.wrapping_add(i);
+                    j += i;
                 }
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         sieve_0
@@ -53,8 +51,6 @@ pub extern "C" fn eratosthenes(mut n: i32, mut c: *mut i32) -> *mut i8 {
 }
 
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut array: *mut i32 = std::ptr::null_mut::<i32>();
@@ -68,15 +64,13 @@ fn main_0() -> i32 {
 #[no_mangle]
 pub extern "C" fn sieve(mut a: *mut i32, mut n: i32) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut j: i32 = 0;
         i = 2_i32;
         while i <= n {
             *a.offset(i as isize) = 1_i32;
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         i = 2_i32;
@@ -99,11 +93,11 @@ pub extern "C" fn sieve(mut a: *mut i32, mut n: i32) {
                         j,
                         *a.offset((i * j) as isize),
                     );
-                    j = j.wrapping_add(1);
+                    j += 1_i32;
                     j;
                 }
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         print!("\nPrimes numbers from 1 to {} are : ", n);
@@ -112,7 +106,7 @@ pub extern "C" fn sieve(mut a: *mut i32, mut n: i32) {
             if *a.offset(i as isize) == 1_i32 {
                 print!("{}, ", i);
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         print!("\n\n");

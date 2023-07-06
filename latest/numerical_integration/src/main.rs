@@ -9,29 +9,23 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
-        while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size = str_size.wrapping_add(1);
+        while *raw_ptr.add(str_size) != 0 {
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
     }
 }
 
-use c2rust_out::*;
+
 extern "C" {
     fn log(_: f64) -> f64;
 }
 pub type pfunc =
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     Option<unsafe extern "C" fn(f64, f64, f64, Option<unsafe extern "C" fn() -> f64>) -> f64>;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
 pub type rfunc = Option<unsafe extern "C" fn(f64) -> f64>;
 #[no_mangle]
@@ -40,8 +34,6 @@ pub extern "C" fn int_leftrect(
     mut to: f64,
     mut n: f64,
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     mut func: Option<unsafe extern "C" fn() -> f64>,
 ) -> f64 {
     let mut h: f64 = (to - from) / n;
@@ -49,17 +41,15 @@ pub extern "C" fn int_leftrect(
     let mut x: f64 = 0.;
     x = from;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while x <= to - h {
             sum += ::core::mem::transmute::<_, fn(_) -> f64>(
                 func.expect("non-null function pointer"),
             )(x);
-            x = x.wrapping_add(h);
+            x += h;
         }
     }
-    return h * sum;
+    h * sum
 }
 
 #[no_mangle]
@@ -68,8 +58,6 @@ pub extern "C" fn int_rightrect(
     mut to: f64,
     mut n: f64,
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     mut func: Option<unsafe extern "C" fn() -> f64>,
 ) -> f64 {
     let mut h: f64 = (to - from) / n;
@@ -77,17 +65,15 @@ pub extern "C" fn int_rightrect(
     let mut x: f64 = 0.;
     x = from;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while x <= to - h {
             sum += ::core::mem::transmute::<_, fn(_) -> f64>(
                 func.expect("non-null function pointer"),
             )(x + h);
-            x = x.wrapping_add(h);
+            x += h;
         }
     }
-    return h * sum;
+    h * sum
 }
 
 #[no_mangle]
@@ -96,8 +82,6 @@ pub extern "C" fn int_midrect(
     mut to: f64,
     mut n: f64,
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     mut func: Option<unsafe extern "C" fn() -> f64>,
 ) -> f64 {
     let mut h: f64 = (to - from) / n;
@@ -105,17 +89,15 @@ pub extern "C" fn int_midrect(
     let mut x: f64 = 0.;
     x = from;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while x <= to - h {
             sum += ::core::mem::transmute::<_, fn(_) -> f64>(
                 func.expect("non-null function pointer"),
             )(x + h / 2.0f64);
-            x = x.wrapping_add(h);
+            x += h;
         }
     }
-    return h * sum;
+    h * sum
 }
 
 #[no_mangle]
@@ -124,13 +106,9 @@ pub extern "C" fn int_trapezium(
     mut to: f64,
     mut n: f64,
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     mut func: Option<unsafe extern "C" fn() -> f64>,
 ) -> f64 {
     let mut h: f64 = (to - from) / n;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut sum: f64 = ::core::mem::transmute::<_, fn(_) -> f64>(
@@ -140,16 +118,16 @@ pub extern "C" fn int_trapezium(
                 to,
             );
         let mut i: i32 = 0;
-        i = 1;
-        while (i as f64) < n {
+        i = 1_i32;
+        while f64::from(i) < n {
             sum += 2.0f64
                 * ::core::mem::transmute::<_, fn(_) -> f64>(
                     func.expect("non-null function pointer"),
-                )(from + i as f64 * h);
-            i = i.wrapping_add(1);
+                )(f64::from(i).mul_add(h, from));
+            i += 1_i32;
             i;
         }
-        return h * sum / 2.0f64;
+        h * sum / 2.0f64
     }
 }
 
@@ -159,85 +137,74 @@ pub extern "C" fn int_simpson(
     mut to: f64,
     mut n: f64,
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     mut func: Option<unsafe extern "C" fn() -> f64>,
 ) -> f64 {
     let mut h: f64 = (to - from) / n;
     let mut sum1: f64 = 0.0f64;
     let mut sum2: f64 = 0.0f64;
     let mut i: i32 = 0;
-    let mut x: f64 = 0.;
-    i = 0;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
+    let mut _x: f64 = 0.;
+    i = 0_i32;
 // SAFETY: machine generated unsafe code
     unsafe {
-        while (i as f64) < n {
+        while f64::from(i) < n {
             sum1 += ::core::mem::transmute::<_, fn(_) -> f64>(
                 func.expect("non-null function pointer"),
-            )(from + h * i as f64 + h / 2.0f64);
-            i = i.wrapping_add(1);
+            )(h.mul_add(f64::from(i), from) + h / 2.0f64);
+            i += 1_i32;
             i;
         }
     }
-    i = 1;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
+    i = 1_i32;
 // SAFETY: machine generated unsafe code
     unsafe {
-        while (i as f64) < n {
+        while f64::from(i) < n {
             sum2 += ::core::mem::transmute::<_, fn(_) -> f64>(
                 func.expect("non-null function pointer"),
-            )(from + h * i as f64);
-            i = i.wrapping_add(1);
+            )(h.mul_add(f64::from(i), from));
+            i += 1_i32;
             i;
         }
-        return h / 6.0f64
-            * (::core::mem::transmute::<_, fn(_) -> f64>(
+        h / 6.0f64
+            * 2.0f64.mul_add(sum2, 4.0f64.mul_add(sum1, ::core::mem::transmute::<_, fn(_) -> f64>(
                 func.expect("non-null function pointer"),
-            )(from)
-                + ::core::mem::transmute::<_, fn(_) -> f64>(
+            )(from) + ::core::mem::transmute::<_, fn(_) -> f64>(
                     func.expect("non-null function pointer"),
-                )(to)
-                + 4.0f64 * sum1
-                + 2.0f64 * sum2);
+                )(to)))
     }
 }
 
 #[no_mangle]
 pub extern "C" fn f3(mut x: f64) -> f64 {
-    return x;
+    x
 }
 
 #[no_mangle]
 pub extern "C" fn f3a(mut x: f64) -> f64 {
-    return x * x / 2.0f64;
+    x * x / 2.0f64
 }
 
 #[no_mangle]
 pub extern "C" fn f2(mut x: f64) -> f64 {
-    return 1.0f64 / x;
+    1.0f64 / x
 }
 
 #[no_mangle]
 pub extern "C" fn f2a(mut x: f64) -> f64 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
-        return log(x);
+        log(x)
     }
 }
 
 #[no_mangle]
 pub extern "C" fn f1(mut x: f64) -> f64 {
-    return x * x * x;
+    x * x * x
 }
 
 #[no_mangle]
 pub extern "C" fn f1a(mut x: f64) -> f64 {
-    return x * x * x * x / 4.0f64;
+    x * x * x * x / 4.0f64
 }
 
 fn main_0() -> i32 {
@@ -245,21 +212,15 @@ fn main_0() -> i32 {
     let mut j: i32 = 0;
     let mut ic: f64 = 0.;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut f: [pfunc; 5] = [
             Some(
                 int_leftrect
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
                     as unsafe extern "C" fn(
                         f64,
                         f64,
                         f64,
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
                         Option<unsafe extern "C" fn() -> f64>,
                     ) -> f64,
@@ -267,14 +228,10 @@ fn main_0() -> i32 {
             Some(
                 int_rightrect
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
                     as unsafe extern "C" fn(
                         f64,
                         f64,
                         f64,
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
                         Option<unsafe extern "C" fn() -> f64>,
                     ) -> f64,
@@ -282,14 +239,10 @@ fn main_0() -> i32 {
             Some(
                 int_midrect
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
                     as unsafe extern "C" fn(
                         f64,
                         f64,
                         f64,
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
                         Option<unsafe extern "C" fn() -> f64>,
                     ) -> f64,
@@ -297,14 +250,10 @@ fn main_0() -> i32 {
             Some(
                 int_trapezium
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
                     as unsafe extern "C" fn(
                         f64,
                         f64,
                         f64,
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
                         Option<unsafe extern "C" fn() -> f64>,
                     ) -> f64,
@@ -312,59 +261,39 @@ fn main_0() -> i32 {
             Some(
                 int_simpson
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
                     as unsafe extern "C" fn(
                         f64,
                         f64,
                         f64,
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
                         Option<unsafe extern "C" fn() -> f64>,
                     ) -> f64,
             ),
         ];
         let mut names: [*const i8; 5] = [
-            b"leftrect\0" as *const u8 as *const i8,
-            b"rightrect\0" as *const u8 as *const i8,
-            b"midrect\0" as *const u8 as *const i8,
-            b"trapezium\0" as *const u8 as *const i8,
-            b"simpson\0" as *const u8 as *const i8,
+            (b"leftrect\0" as *const u8).cast::<i8>(),
+            (b"rightrect\0" as *const u8).cast::<i8>(),
+            (b"midrect\0" as *const u8).cast::<i8>(),
+            (b"trapezium\0" as *const u8).cast::<i8>(),
+            (b"simpson\0" as *const u8).cast::<i8>(),
         ];
         let mut rf: [rfunc; 4] = [
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
             Some(f1 as unsafe extern "C" fn(f64) -> f64),
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
             Some(f2 as unsafe extern "C" fn(f64) -> f64),
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
             Some(f3 as unsafe extern "C" fn(f64) -> f64),
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
             Some(f3 as unsafe extern "C" fn(f64) -> f64),
         ];
         let mut If: [rfunc; 4] = [
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
             Some(f1a as unsafe extern "C" fn(f64) -> f64),
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
             Some(f2a as unsafe extern "C" fn(f64) -> f64),
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
             Some(f3a as unsafe extern "C" fn(f64) -> f64),
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
             Some(f3a as unsafe extern "C" fn(f64) -> f64),
         ];
@@ -372,54 +301,43 @@ fn main_0() -> i32 {
             0.0f64, 1.0f64, 1.0f64, 100.0f64, 0.0f64, 5000.0f64, 0.0f64, 6000.0f64,
         ];
         let mut approx: [f64; 4] = [100.0f64, 1000.0f64, 5000000.0f64, 6000000.0f64];
-        j = 0;
+        j = 0_i32;
         while (j as u64)
             < (::core::mem::size_of::<[rfunc; 4]>() as u64)
                 .wrapping_div(::core::mem::size_of::<rfunc>() as u64)
         {
-            i = 0;
-            while i < 5 {
-                ic = (Some(
-                    (*f.as_mut_ptr().offset(i as isize)).expect("non-null function pointer"),
-                ))
-                .expect("non-null function pointer")(
+            i = 0_i32;
+            while i < 5_i32 {
+                ic = (*f.as_mut_ptr().offset(i as isize)).expect("non-null function pointer")(
                     ivals[(2 * j) as usize],
                     ivals[(2 * j + 1i32) as usize],
                     approx[j as usize],
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
                     ::core::mem::transmute::<rfunc, Option<unsafe extern "C" fn() -> f64>>(
                         rf[j as usize],
                     ),
                 );
-                print!(
-                    "{:10} [ 0,1] num: {:+}, an: {}\n",
+                println!(
+                    "{:10} [ 0,1] num: {:+}, an: {}",
                     build_str_from_raw_ptr(names[i as usize] as *mut u8),
                     ic,
-                    (Some(
-                        (*If.as_mut_ptr().offset(j as isize)).expect("non-null function pointer")
-                    ))
-                    .expect("non-null function pointer")(
+                    (*If.as_mut_ptr().offset(j as isize)).expect("non-null function pointer")(
                         ivals[(2 * j + 1i32) as usize]
-                    ) - (Some(
-                        (*If.as_mut_ptr().offset(j as isize)).expect("non-null function pointer"),
-                    ))
-                    .expect("non-null function pointer")(
+                    ) - (*If.as_mut_ptr().offset(j as isize)).expect("non-null function pointer")(
                         ivals[(2 * j) as usize]
                     )
                 );
-                i = i.wrapping_add(1);
+                i += 1_i32;
                 i;
             }
-            print!("\n");
-            j = j.wrapping_add(1);
+            println!();
+            j += 1_i32;
             j;
         }
     }
-    return 0;
+    0_i32
 }
 
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    ::std::process::exit(main_0());
 }

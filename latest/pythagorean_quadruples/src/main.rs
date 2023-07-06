@@ -15,8 +15,6 @@ extern "C" {
 }
 fn main_0(mut _argc: i32, mut _argv: *mut *mut i8) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut a: i32 = 0;
         let mut b: i32 = 0;
@@ -42,28 +40,28 @@ fn main_0(mut _argc: i32, mut _argv: *mut *mut i8) -> i32 {
             b = a;
             while b <= 2_200_i32 {
                 *ab.offset((a2 + b * b) as isize) = 1_i32;
-                b = b.wrapping_add(1);
+                b += 1_i32;
                 b;
             }
-            a = a.wrapping_add(1);
+            a += 1_i32;
             a;
         }
         c = 1_i32;
         while c <= 2_200_i32 {
             s1 = s;
-            s = s.wrapping_add(2);
+            s += 2_i32;
             s2 = s;
-            d = c.wrapping_add(1);
+            d = c + 1_i32;
             while d <= 2_200_i32 {
                 if *ab.offset(s1 as isize) != 0_i32 {
                     r[d as usize] = 1_i32;
                 }
-                s1 = s1.wrapping_add(s2);
-                s2 = s2.wrapping_add(2);
-                d = d.wrapping_add(1);
+                s1 += s2;
+                s2 += 2_i32;
+                d += 1_i32;
                 d;
             }
-            c = c.wrapping_add(1);
+            c += 1_i32;
             c;
         }
         d = 1_i32;
@@ -71,7 +69,7 @@ fn main_0(mut _argc: i32, mut _argv: *mut *mut i8) -> i32 {
             if r[d as usize] == 0_i32 {
                 print!("{} ", d);
             }
-            d = d.wrapping_add(1);
+            d += 1_i32;
             d;
         }
         println!();

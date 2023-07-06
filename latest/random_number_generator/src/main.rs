@@ -21,7 +21,7 @@ pub extern "C" fn evolve(mut state: u64, mut rule: i32) {
         q = 8_i32;
         loop {
             let fresh0 = q;
-            q = q.wrapping_sub(1);
+            q -= 1_i32;
             if fresh0 == 0_i32 {
                 break;
             }
@@ -42,12 +42,12 @@ pub extern "C" fn evolve(mut state: u64, mut rule: i32) {
                 {
                     state |= 1 << i;
                 }
-                i = i.wrapping_add(1);
+                i += 1_i32;
                 i;
             }
         }
         print!(" {}", b);
-        p = p.wrapping_add(1);
+        p += 1_i32;
         p;
     }
     print!("{}", '\n' as i32);

@@ -40,14 +40,12 @@ pub extern "C" fn price_fix(mut x: f64) -> f64 {
     let mut i: i32 = 0;
     i = 0_i32;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while table[i as usize][0_usize] > f64::from(0_i32) {
             if x < table[i as usize][0_usize] {
                 return table[i as usize][1_usize];
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         abort();
@@ -63,7 +61,7 @@ fn main_0() -> i32 {
             f64::from(i) / 100.0f64,
             price_fix(f64::from(i) / 100.0f64)
         );
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     0_i32

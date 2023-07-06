@@ -27,14 +27,10 @@ fn main_0() -> i32 {
     let mut safe: bool = 0 != 0;
     print!("\nEnter the number of resources: ");
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         scanf((b"%d\0" as *const u8).cast::<i8>(), &mut r as *mut i32);
     }
     print!("\nEnter the number of processes: ");
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         scanf((b"%d\0" as *const u8).cast::<i8>(), &mut p as *mut i32);
@@ -42,15 +38,13 @@ fn main_0() -> i32 {
     i = 0_i32;
     while i < p {
         running[i as usize] = 1_i32;
-        count = count.wrapping_add(1);
+        count += 1_i32;
         count;
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     print!("\nEnter Claim Vector: ");
     i = 0_i32;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < r {
@@ -58,14 +52,12 @@ fn main_0() -> i32 {
                 (b"%d\0" as *const u8).cast::<i8>(),
                 &mut *max_res.as_mut_ptr().offset(i as isize) as *mut i32,
             );
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }
     print!("\nEnter Allocated Resource Table: ");
     i = 0_i32;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < p {
@@ -77,17 +69,15 @@ fn main_0() -> i32 {
                         .as_mut_ptr()
                         .offset(j as isize) as *mut i32,
                 );
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }
     print!("\nEnter Maximum Claim table: ");
     i = 0_i32;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < p {
@@ -99,10 +89,10 @@ fn main_0() -> i32 {
                         .as_mut_ptr()
                         .offset(j as isize) as *mut i32,
                 );
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }
@@ -110,7 +100,7 @@ fn main_0() -> i32 {
     i = 0_i32;
     while i < r {
         print!("{} ", max_res[i as usize]);
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     print!("\nThe Allocated Resource Table:\n");
@@ -119,11 +109,11 @@ fn main_0() -> i32 {
         j = 0_i32;
         while j < r {
             print!("	{}", curr[i as usize][j as usize]);
-            j = j.wrapping_add(1);
+            j += 1_i32;
             j;
         }
         println!();
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     print!("\nThe Maximum Claim Table:\n");
@@ -132,11 +122,11 @@ fn main_0() -> i32 {
         j = 0_i32;
         while j < r {
             print!("	{}", max_claim[i as usize][j as usize]);
-            j = j.wrapping_add(1);
+            j += 1_i32;
             j;
         }
         println!();
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     i = 0_i32;
@@ -144,30 +134,30 @@ fn main_0() -> i32 {
         j = 0_i32;
         while j < r {
             alloc[j as usize] += curr[i as usize][j as usize];
-            j = j.wrapping_add(1);
+            j += 1_i32;
             j;
         }
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     print!("\nAllocated resources: ");
     i = 0_i32;
     while i < r {
         print!("{} ", alloc[i as usize]);
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     i = 0_i32;
     while i < r {
         avl[i as usize] = max_res[i as usize] - alloc[i as usize];
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     print!("\nAvailable resources: ");
     i = 0_i32;
     while i < r {
         print!("{} ", avl[i as usize]);
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     println!();
@@ -185,31 +175,29 @@ fn main_0() -> i32 {
                         exec = 0_i32;
                         break;
                     } else {
-                        j = j.wrapping_add(1);
+                        j += 1_i32;
                         j;
                     }
                 }
                 if exec != 0_i32 {
                     print!("\nProcess{} is executing.\n", i + 1_i32);
                     running[i as usize] = 0_i32;
-                    count = count.wrapping_sub(1);
+                    count -= 1_i32;
                     count;
                     safe = 1_i32 != 0_i32;
                     j = 0_i32;
                     while j < r {
                         avl[j as usize] += curr[i as usize][j as usize];
-                        j = j.wrapping_add(1);
+                        j += 1_i32;
                         j;
                     }
                     break;
                 }
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         if !safe {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
             print!("\nThe processes are in unsafe state.");
             break;
@@ -221,7 +209,7 @@ fn main_0() -> i32 {
             i = 0_i32;
             while i < r {
                 print!("{} ", avl[i as usize]);
-                i = i.wrapping_add(1);
+                i += 1_i32;
                 i;
             }
         }

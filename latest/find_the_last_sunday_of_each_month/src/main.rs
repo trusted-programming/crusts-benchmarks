@@ -13,8 +13,6 @@ extern "C" {
 }
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut days: [i32; 12] = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         let mut m: i32 = 0;
@@ -32,7 +30,7 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
         while m < 12_i32 {
             w = (w + days[m as usize]) % 7_i32;
             println!("{}-{:02}-{}", y, m + 1_i32, days[m as usize] - w);
-            m = m.wrapping_add(1);
+            m += 1_i32;
             m;
         }
         0_i32

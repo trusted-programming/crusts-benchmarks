@@ -10,12 +10,10 @@
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -79,8 +77,6 @@ pub type cidr_t = cidr_tag;
 #[no_mangle]
 pub extern "C" fn cidr_parse(mut str: *const i8, mut cidr: *mut cidr_t) -> bool {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut a: i32 = 0;
         let mut b: i32 = 0;
@@ -119,8 +115,6 @@ pub extern "C" fn cidr_parse(mut str: *const i8, mut cidr: *mut cidr_t) -> bool 
 #[no_mangle]
 pub extern "C" fn cidr_format(mut cidr: *const cidr_t, mut str: *mut i8, mut size: u64) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut address: u32 = (*cidr).address;
         let mut d: u32 = address & 255;
@@ -144,8 +138,6 @@ pub extern "C" fn cidr_format(mut cidr: *const cidr_t, mut str: *mut i8, mut siz
 }
 
 fn main_0(mut _argc: i32, mut _argv: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut tests: [*const i8; 6] = [
@@ -184,7 +176,7 @@ fn main_0(mut _argc: i32, mut _argv: *mut *mut i8) -> i32 {
                     tests[i as usize],
                 );
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         0_i32

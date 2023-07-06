@@ -10,12 +10,10 @@
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -101,22 +99,20 @@ pub struct CSV {
 #[no_mangle]
 pub extern "C" fn trim(mut str: *mut *mut i8) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut trimmed: i32 = 0;
         let mut n: i32 = 0;
         let mut len: i32 = 0;
         len = strlen(*str) as i32;
-        n = len.wrapping_sub(1);
+        n = len - 1_i32;
         while n >= 0_i32
             && i32::from(*(*__ctype_b_loc()).offset(i32::from(*(*str).offset(n as isize)) as isize))
                 & _ISspace as i32
                 != 0_i32
         {
             *(*str).offset(n as isize) = '\0' as i8;
-            trimmed = trimmed.wrapping_add(1);
-            n = n.wrapping_sub(1);
+            trimmed += 1_i32;
+            n -= 1_i32;
             n;
         }
         n = 0_i32;
@@ -127,8 +123,8 @@ pub extern "C" fn trim(mut str: *mut *mut i8) -> i32 {
         {
             *(*str).offset(0_isize) = '\0' as i8;
             *str = (*str).offset(1_isize);
-            trimmed = trimmed.wrapping_add(1);
-            n = n.wrapping_add(1);
+            trimmed += 1_i32;
+            n += 1_i32;
             n;
         }
         trimmed
@@ -137,8 +133,6 @@ pub extern "C" fn trim(mut str: *mut *mut i8) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn csv_destroy(mut csv: *mut CSV) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if csv.is_null() {
@@ -157,8 +151,6 @@ pub extern "C" fn csv_destroy(mut csv: *mut CSV) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn csv_create(mut cols: u32, mut rows: u32) -> *mut CSV {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut csv: *mut CSV = std::ptr::null_mut::<CSV>();
@@ -190,8 +182,6 @@ pub extern "C" fn csv_create(mut cols: u32, mut rows: u32) -> *mut CSV {
 #[no_mangle]
 pub extern "C" fn csv_get(mut csv: *mut CSV, mut col: u32, mut row: u32) -> *mut i8 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut idx: u32 = 0;
         idx = col.wrapping_add(row.wrapping_mul((*csv).cols));
@@ -207,8 +197,6 @@ pub extern "C" fn csv_set(
     mut value: *mut i8,
 ) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut idx: u32 = 0;
         idx = col.wrapping_add(row.wrapping_mul((*csv).cols));
@@ -220,8 +208,6 @@ pub extern "C" fn csv_set(
 
 #[no_mangle]
 pub extern "C" fn csv_display(mut csv: *mut CSV) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut row: i32 = 0;
@@ -239,11 +225,11 @@ pub extern "C" fn csv_display(mut csv: *mut CSV) {
             while (col as u32) < (*csv).cols {
                 content = csv_get(csv, col as u32, row as u32);
                 print!("{}	|", build_str_from_raw_ptr(content.cast::<u8>()));
-                col = col.wrapping_add(1);
+                col += 1_i32;
                 col;
             }
             println!("]");
-            row = row.wrapping_add(1);
+            row += 1_i32;
             row;
         }
         println!();
@@ -252,8 +238,6 @@ pub extern "C" fn csv_display(mut csv: *mut CSV) {
 
 #[no_mangle]
 pub extern "C" fn csv_resize(mut old_csv: *mut CSV, mut new_cols: u32, mut new_rows: u32) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut cur_col: u32 = 0;
@@ -318,8 +302,6 @@ pub extern "C" fn csv_resize(mut old_csv: *mut CSV, mut new_cols: u32, mut new_r
 #[no_mangle]
 pub extern "C" fn csv_open(mut csv: *mut CSV, mut filename: *mut i8) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut fp: *mut FILE = std::ptr::null_mut::<FILE>();
         let mut m_rows: u32 = 0;
@@ -380,8 +362,6 @@ pub extern "C" fn csv_open(mut csv: *mut CSV, mut filename: *mut i8) -> i32 {
 #[no_mangle]
 pub extern "C" fn csv_save(mut csv: *mut CSV, mut filename: *mut i8) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut fp: *mut FILE = std::ptr::null_mut::<FILE>();
         let mut row: i32 = 0;
@@ -403,11 +383,11 @@ pub extern "C" fn csv_save(mut csv: *mut CSV, mut filename: *mut i8) -> i32 {
                         (*csv).delim as *const i8
                     },
                 );
-                col = col.wrapping_add(1);
+                col += 1_i32;
                 col;
             }
             fprintf(fp, (b"\n\0" as *const u8).cast::<i8>());
-            row = row.wrapping_add(1);
+            row += 1_i32;
             row;
         }
         fclose(fp);
@@ -416,8 +396,6 @@ pub extern "C" fn csv_save(mut csv: *mut CSV, mut filename: *mut i8) -> i32 {
 }
 
 fn main_0(mut _argc: i32, mut _argv: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut csv: *mut CSV = std::ptr::null_mut::<CSV>();

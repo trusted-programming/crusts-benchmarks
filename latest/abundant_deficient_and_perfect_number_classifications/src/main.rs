@@ -23,12 +23,12 @@ fn main_0() -> i32 {
         while j < try_max {
             if i % j == 0_i32 {
                 try_max = i / j;
-                sum = sum.wrapping_add(j);
+                sum += j;
                 if j != try_max {
-                    sum = sum.wrapping_add(try_max);
+                    sum += try_max;
                 }
             }
-            j = j.wrapping_add(1);
+            j += 1_i32;
             j;
         }
         if sum < i {
@@ -41,7 +41,7 @@ fn main_0() -> i32 {
             count_list[1_usize] += 1_i32;
             count_list[1_usize];
         }
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     print!("\nThere are {} deficient,", count_list[0_usize]);

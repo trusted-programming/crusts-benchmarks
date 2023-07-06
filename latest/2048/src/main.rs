@@ -19,12 +19,10 @@ fn rust_getchar() -> u8 {
 
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -94,7 +92,6 @@ pub static mut colors: [*const i8; 12] = [
     b"94\0" as *const u8 as *const i8,
 ];
 #[no_mangle]
-#[derive(Debug)]
 pub static mut game: gamestate_struct__ = gamestate_struct__ {
     grid: [[0; 4]; 4],
     have_moved: 0,
@@ -127,8 +124,6 @@ pub static mut newt: termios = termios {
 #[no_mangle]
 pub extern "C" fn do_draw() {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         print!("\x1B[2J\x1B[HScore: {}", game.total_score);
         if game.score_last_move != 0 {
@@ -139,13 +134,11 @@ pub extern "C" fn do_draw() {
     let mut i: i32 = 0;
     while i < 25 {
         print!("-");
-        i = i.wrapping_add(1);
+        i += 1;
         i;
     }
     print!("\n");
     let mut y: i32 = 0;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while y < 4 {
@@ -164,18 +157,18 @@ pub extern "C" fn do_draw() {
                 } else {
                     print!("{1:0$} |", 4, "\0");
                 }
-                x = x.wrapping_add(1);
+                x += 1;
                 x;
             }
             print!("\n");
-            y = y.wrapping_add(1);
+            y += 1;
             y;
         }
     }
     let mut i_0: i32 = 0;
     while i_0 < 25 {
         print!("-");
-        i_0 = i_0.wrapping_add(1);
+        i_0 += 1;
         i_0;
     }
     print!("\n");
@@ -183,8 +176,6 @@ pub extern "C" fn do_draw() {
 
 #[no_mangle]
 pub extern "C" fn do_merge(mut d: i32) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         game.score_last_move = 0;
@@ -207,9 +198,9 @@ pub extern "C" fn do_merge(mut d: i32) {
                                 values[game.grid[x as usize][y as usize] as usize];
                             game.total_score += values[game.grid[x as usize][y as usize] as usize];
                         }
-                        y = y.wrapping_add(1);
+                        y += 1;
                     }
-                    x = x.wrapping_add(1);
+                    x += 1;
                 }
             }
             3 => {
@@ -231,7 +222,7 @@ pub extern "C" fn do_merge(mut d: i32) {
                             game.total_score +=
                                 values[game.grid[x_0 as usize][y_0 as usize] as usize];
                         }
-                        y_0 = y_0.wrapping_add(1);
+                        y_0 += 1;
                     }
                     x_0 += -1;
                 }
@@ -255,7 +246,7 @@ pub extern "C" fn do_merge(mut d: i32) {
                             game.total_score +=
                                 values[game.grid[x_1 as usize][y_1 as usize] as usize];
                         }
-                        x_1 = x_1.wrapping_add(1);
+                        x_1 += 1;
                     }
                     y_1 += -1;
                 }
@@ -279,9 +270,9 @@ pub extern "C" fn do_merge(mut d: i32) {
                             game.total_score +=
                                 values[game.grid[x_2 as usize][y_2 as usize] as usize];
                         }
-                        x_2 = x_2.wrapping_add(1);
+                        x_2 += 1;
                     }
-                    y_2 = y_2.wrapping_add(1);
+                    y_2 += 1;
                 }
             }
             _ => {}
@@ -291,8 +282,6 @@ pub extern "C" fn do_merge(mut d: i32) {
 
 #[no_mangle]
 pub extern "C" fn do_gravity(mut d: i32) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         match d {
@@ -313,9 +302,9 @@ pub extern "C" fn do_gravity(mut d: i32) {
                                 game.grid[(x + 1i32) as usize][(y + 0i32) as usize] = break_cond;
                                 game.have_moved = 1;
                             }
-                            y = y.wrapping_add(1);
+                            y += 1;
                         }
-                        x = x.wrapping_add(1);
+                        x += 1;
                     }
                     do_draw();
                     usleep(40000);
@@ -339,7 +328,7 @@ pub extern "C" fn do_gravity(mut d: i32) {
                                     break_cond_0;
                                 game.have_moved = 1;
                             }
-                            y_0 = y_0.wrapping_add(1);
+                            y_0 += 1;
                         }
                         x_0 += -1;
                     }
@@ -365,7 +354,7 @@ pub extern "C" fn do_gravity(mut d: i32) {
                                     break_cond_1;
                                 game.have_moved = 1;
                             }
-                            x_1 = x_1.wrapping_add(1);
+                            x_1 += 1;
                         }
                         y_1 += -1;
                     }
@@ -391,9 +380,9 @@ pub extern "C" fn do_gravity(mut d: i32) {
                                     break_cond_2;
                                 game.have_moved = 1;
                             }
-                            x_2 = x_2.wrapping_add(1);
+                            x_2 += 1;
                         }
-                        y_2 = y_2.wrapping_add(1);
+                        y_2 += 1;
                     }
                     do_draw();
                     usleep(40000);
@@ -408,8 +397,6 @@ pub extern "C" fn do_gravity(mut d: i32) {
 pub extern "C" fn do_check_end_condition() -> i32 {
     let mut ret: i32 = -1;
     let mut x: i32 = 0;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while x < 4 {
@@ -428,10 +415,10 @@ pub extern "C" fn do_check_end_condition() -> i32 {
                 {
                     ret = 0;
                 }
-                y = y.wrapping_add(1);
+                y += 1;
                 y;
             }
-            x = x.wrapping_add(1);
+            x += 1;
             x;
         }
     }
@@ -441,16 +428,12 @@ pub extern "C" fn do_check_end_condition() -> i32 {
 #[no_mangle]
 pub extern "C" fn do_tick(mut d: i32) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         game.have_moved = 0;
     }
     do_gravity(d);
     do_merge(d);
     do_gravity(d);
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         return game.have_moved;
@@ -459,8 +442,6 @@ pub extern "C" fn do_tick(mut d: i32) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn do_newblock() {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if game.blocks_in_play >= 16 {
@@ -478,14 +459,14 @@ pub extern "C" fn do_newblock() {
                         game.blocks_in_play += 1;
                         return;
                     } else {
-                        pn = pn.wrapping_add(1);
+                        pn += 1;
                         pn;
                     }
                 }
-                y = y.wrapping_add(1);
+                y += 1;
                 y;
             }
-            x = x.wrapping_add(1);
+            x += 1;
             x;
         }
     }
@@ -494,8 +475,6 @@ pub extern "C" fn do_newblock() {
 fn main_0() -> i32 {
     let mut current_block: u64;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         tcgetattr(0, &mut oldt);
         newt = oldt;
@@ -503,18 +482,14 @@ fn main_0() -> i32 {
         tcsetattr(0, 0, &mut newt);
         srand(rust_time(None) as u32);
         memset(
-#[derive(Debug)]
             &mut game as *mut gamestate_struct__ as *mut libc::c_void,
             0,
-#[derive(Debug)]
             ::core::mem::size_of::<gamestate_struct__>() as u64,
         );
     }
     do_newblock();
     do_newblock();
     do_draw();
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         's_31: loop {
@@ -599,8 +574,6 @@ fn main_0() -> i32 {
         }
         _ => {}
     }
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         tcsetattr(0, 0, &mut oldt);

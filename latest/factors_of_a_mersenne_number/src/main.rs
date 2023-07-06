@@ -22,11 +22,11 @@ pub extern "C" fn isPrime(mut n: i32) -> i32 {
         if n % d == 0_i32 {
             return 0_i32;
         }
-        d = d.wrapping_add(2);
+        d += 2_i32;
         if n % d == 0_i32 {
             return 0_i32;
         }
-        d = d.wrapping_add(4);
+        d += 4_i32;
     }
     1_i32
 }
@@ -54,7 +54,7 @@ fn main_0() -> i32 {
                 i *= 2_i32;
             }
             if i > d {
-                i = i.wrapping_sub(d);
+                i -= d;
             }
             p <<= 1_i32;
         }

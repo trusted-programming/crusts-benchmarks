@@ -25,7 +25,7 @@ pub extern "C" fn numLen(mut n: i32) -> i32 {
     let mut sum: i32 = 1;
     while n > 9_i32 {
         n /= 10_i32;
-        sum = sum.wrapping_add(1);
+        sum += 1_i32;
         sum;
     }
     sum
@@ -49,7 +49,7 @@ pub extern "C" fn printLargeFuscs(mut limit: i32) {
             maxLen = len;
             print!("\n{:5}{:12}", i, f);
         }
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
 }
@@ -60,7 +60,7 @@ fn main_0() -> i32 {
     i = 0_i32;
     while i < 61_i32 {
         print!("\n{:5}{:12}", i, fusc(i));
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     0_i32

@@ -23,8 +23,6 @@ pub struct node {
 #[no_mangle]
 pub extern "C" fn lis(mut v: *mut i32, mut len: i32) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut p: *mut node = std::ptr::null_mut::<node>();
@@ -33,13 +31,13 @@ pub extern "C" fn lis(mut v: *mut i32, mut len: i32) {
         i = 0_i32;
         while i < len {
             (*n.offset(i as isize)).val = *v.offset(i as isize);
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         i = len;
         loop {
             let fresh0 = i;
-            i = i.wrapping_sub(1);
+            i -= 1_i32;
             if fresh0 == 0_i32 {
                 break;
             }
@@ -64,7 +62,7 @@ pub extern "C" fn lis(mut v: *mut i32, mut len: i32) {
             if (*n.offset(i as isize)).len > (*p).len {
                 p = n.offset(i as isize);
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         loop {

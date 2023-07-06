@@ -19,38 +19,38 @@ fn main_0() -> i32 {
         sixes = 0_i32;
         while (sixes * 6_i32) < i {
             if sixes * 6_i32 == i {
-                i = i.wrapping_add(1);
+                i += 1_i32;
                 i;
                 continue 's_3;
             } else {
                 nines = 0_i32;
                 while (nines * 9_i32) < i {
                     if sixes * 6_i32 + nines * 9_i32 == i {
-                        i = i.wrapping_add(1);
+                        i += 1_i32;
                         i;
                         continue 's_3;
                     } else {
                         twenties = 0_i32;
                         while (twenties * 20_i32) < i {
                             if sixes * 6_i32 + nines * 9_i32 + twenties * 20_i32 == i {
-                                i = i.wrapping_add(1);
+                                i += 1_i32;
                                 i;
                                 continue 's_3;
                             } else {
-                                twenties = twenties.wrapping_add(1);
+                                twenties += 1_i32;
                                 twenties;
                             }
                         }
-                        nines = nines.wrapping_add(1);
+                        nines += 1_i32;
                         nines;
                     }
                 }
-                sixes = sixes.wrapping_add(1);
+                sixes += 1_i32;
                 sixes;
             }
         }
         max = i;
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     println!("Maximum non-McNuggets number is {}", max);

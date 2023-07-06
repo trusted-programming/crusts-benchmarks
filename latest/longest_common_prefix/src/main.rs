@@ -10,12 +10,10 @@
 #![feature(c_variadic)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -42,8 +40,6 @@ pub struct __va_list_tag {
 pub type va_list = __builtin_va_list;
 #[no_mangle]
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 pub unsafe extern "C" fn lcp(mut num: i32, mut args: ...) -> *mut i8 {
     let mut vaList: ::core::ffi::VaListImpl;
     let mut vaList2: ::core::ffi::VaListImpl;
@@ -67,7 +63,7 @@ pub unsafe extern "C" fn lcp(mut num: i32, mut args: ...) -> *mut i8 {
         } else if len < min {
             min = len;
         }
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     if min == 0_i32 {
@@ -88,10 +84,10 @@ pub unsafe extern "C" fn lcp(mut num: i32, mut args: ...) -> *mut i8 {
                     return dest;
                 }
             }
-            j = j.wrapping_add(1);
+            j += 1_i32;
             j;
         }
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     dest =
@@ -101,8 +97,6 @@ pub unsafe extern "C" fn lcp(mut num: i32, mut args: ...) -> *mut i8 {
 }
 
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         print!(

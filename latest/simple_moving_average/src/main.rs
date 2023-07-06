@@ -50,8 +50,6 @@ pub const SMA_FREE: u32 = 1;
 pub const SMA_NEW: u32 = 0;
 #[no_mangle]
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 pub unsafe extern "C" fn sma(mut action: u32, mut args: ...) -> sma_result_t {
     let mut vl: ::core::ffi::VaListImpl;
     let mut r: sma_result_t = sma_result {
@@ -116,8 +114,6 @@ pub static mut v: [f64; 10] = [
 ];
 fn main_0() -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut h3: *mut sma_obj_t = (sma(SMA_NEW, 3)).handle;
@@ -133,7 +129,7 @@ fn main_0() -> i32 {
                 (sma(SMA_ADD, h3, v[i as usize])).sma,
                 (sma(SMA_ADD, h5, v[i as usize])).sma
             );
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         sma(SMA_FREE, h3);

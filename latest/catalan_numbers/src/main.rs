@@ -44,7 +44,7 @@ pub extern "C" fn catalan2(mut n: i32) -> u64 {
     i = 0_i32;
     while i < n {
         r = (r).wrapping_add((catalan2(i)).wrapping_mul(catalan2(n - 1 - i)));
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     r
@@ -64,15 +64,13 @@ pub extern "C" fn catalan3(mut n: i32) -> u64 {
 fn main_0() -> i32 {
     let mut i: i32 = 0;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         puts((b"\tdirect\tsumming\tfrac\0" as *const u8).cast::<i8>());
     }
     i = 0_i32;
     while i < 16_i32 {
         println!("{}	{}	{}	{}", i, catalan1(i), catalan2(i), catalan3(i));
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     0_i32

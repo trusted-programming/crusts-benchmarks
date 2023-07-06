@@ -14,8 +14,6 @@ extern "C" {
 #[no_mangle]
 pub extern "C" fn perfect(mut n: i32) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut max: i32 = sqrt(f64::from(n)) as i32 + 1;
         let mut tot: i32 = 1;
@@ -23,13 +21,13 @@ pub extern "C" fn perfect(mut n: i32) -> i32 {
         i = 2_i32;
         while i < max {
             if n % i == 0_i32 {
-                tot = tot.wrapping_add(i);
+                tot += i;
                 let mut q: i32 = n / i;
                 if q > i {
-                    tot = tot.wrapping_add(q);
+                    tot += q;
                 }
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         i32::from(tot == n)
@@ -43,7 +41,7 @@ fn main_0() -> i32 {
         if perfect(n) != 0_i32 {
             println!("{}", n);
         }
-        n = n.wrapping_add(1);
+        n += 1_i32;
         n;
     }
     0_i32

@@ -20,8 +20,6 @@ extern "C" {
     fn log(_: f64) -> f64;
 }
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 pub type Class2Func = Option<unsafe extern "C" fn(f64) -> f64>;
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -39,8 +37,6 @@ pub extern "C" fn functionA(mut v: f64) -> f64 {
 #[no_mangle]
 pub extern "C" fn functionB(mut v: f64) -> f64 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         return exp(log(v) / 3 as f64);
     }
@@ -48,8 +44,6 @@ pub extern "C" fn functionB(mut v: f64) -> f64 {
 
 #[no_mangle]
 pub extern "C" fn Function1(mut f2: Class2Func, mut val: f64) -> f64 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         return f2.expect("non-null function pointer")(val);
@@ -60,12 +54,8 @@ pub extern "C" fn Function1(mut f2: Class2Func, mut val: f64) -> f64 {
 pub extern "C" fn WhichFunc(mut idx: i32) -> Class2Func {
     return if idx < 4 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
         Some(functionA as unsafe extern "C" fn(f64) -> f64)
     } else {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
         Some(functionB as unsafe extern "C" fn(f64) -> f64)
     };
@@ -74,45 +64,27 @@ pub extern "C" fn WhichFunc(mut idx: i32) -> Class2Func {
 #[no_mangle]
 pub static mut funcListA: [Class2Func; 4] = [
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     Some(functionA as unsafe extern "C" fn(f64) -> f64),
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     Some(sin as unsafe extern "C" fn(f64) -> f64),
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     Some(cos as unsafe extern "C" fn(f64) -> f64),
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     Some(tan as unsafe extern "C" fn(f64) -> f64),
 ];
 #[no_mangle]
 pub static mut funcListB: [Class2Func; 4] = [
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     Some(functionB as unsafe extern "C" fn(f64) -> f64),
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     Some(asin as unsafe extern "C" fn(f64) -> f64),
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     Some(acos as unsafe extern "C" fn(f64) -> f64),
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     Some(atan as unsafe extern "C" fn(f64) -> f64),
 ];
 #[no_mangle]
 pub extern "C" fn InvokeComposed(mut f1: Class2Func, mut f2: Class2Func, mut val: f64) -> f64 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         return f1.expect("non-null function pointer")(f2.expect("non-null function pointer")(val));
@@ -121,8 +93,6 @@ pub extern "C" fn InvokeComposed(mut f1: Class2Func, mut f2: Class2Func, mut val
 
 #[no_mangle]
 pub extern "C" fn Compose(mut f1: Class2Func, mut f2: Class2Func) -> Composition {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut comp: Composition =
@@ -143,8 +113,6 @@ pub extern "C" fn CallComposed(mut comp: Composition, mut val: f64) -> f64 {
 
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut ix: i32 = 0;
         let mut c: Composition = 0 as *mut sComposition;
@@ -156,7 +124,7 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
         while ix < 4 {
             c = Compose(funcListA[ix as usize], funcListB[ix as usize]);
             print!("Compostion {}(0.9) = {}\n", ix, CallComposed(c, 0.9f64));
-            ix = ix.wrapping_add(1);
+            ix += 1;
             ix;
         }
         return 0;

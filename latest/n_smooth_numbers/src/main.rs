@@ -59,8 +59,6 @@ pub type FILE = _IO_FILE;
 #[no_mangle]
 pub extern "C" fn xmalloc(mut n: u64) -> *mut libc::c_void {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut ptr: *mut libc::c_void = malloc(n);
         if ptr.is_null() {
@@ -73,8 +71,6 @@ pub extern "C" fn xmalloc(mut n: u64) -> *mut libc::c_void {
 
 #[no_mangle]
 pub extern "C" fn xrealloc(mut p: *mut libc::c_void, mut n: u64) -> *mut libc::c_void {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut ptr: *mut libc::c_void = realloc(p, n);
@@ -106,8 +102,6 @@ pub extern "C" fn is_prime(mut n: u32) -> bool {
 
 #[no_mangle]
 pub extern "C" fn find_primes(mut from: u32, mut to: u32, mut primes: *mut *mut u32) -> u32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut count: u32 = 0;
@@ -188,8 +182,6 @@ fn main_0() -> i32 {
 }
 
 pub fn main() {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(main_0());

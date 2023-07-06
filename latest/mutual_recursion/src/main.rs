@@ -24,14 +24,14 @@ fn main_0() -> i32 {
     i = 0_i32;
     while i < 20_i32 {
         print!("{:2} ", F(i));
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     println!();
     i = 0_i32;
     while i < 20_i32 {
         print!("{:2} ", M(i));
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     println!();

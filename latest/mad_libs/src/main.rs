@@ -10,12 +10,10 @@
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -90,8 +88,6 @@ pub struct dstr {
 #[no_mangle]
 pub extern "C" fn dstr_space(mut s: *mut dstr, mut grow_amount: u64) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         i32::from(((*s).length).wrapping_add(grow_amount) < (*s).alloc)
     }
@@ -99,8 +95,6 @@ pub extern "C" fn dstr_space(mut s: *mut dstr, mut grow_amount: u64) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn dstr_grow(mut s: *mut dstr) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         (*s).alloc = (*s).alloc.wrapping_mul(2);
@@ -116,8 +110,6 @@ pub extern "C" fn dstr_grow(mut s: *mut dstr) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn dstr_init(to_allocate: u64) -> *mut dstr {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut s: *mut dstr = malloc(::core::mem::size_of::<dstr>() as u64).cast::<dstr>();
@@ -142,8 +134,6 @@ pub extern "C" fn dstr_init(to_allocate: u64) -> *mut dstr {
 #[no_mangle]
 pub extern "C" fn dstr_delete(mut s: *mut dstr) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         if !((*s).data).is_null() {
             free((*s).data.cast::<libc::c_void>());
@@ -156,8 +146,6 @@ pub extern "C" fn dstr_delete(mut s: *mut dstr) {
 
 #[no_mangle]
 pub extern "C" fn readinput(mut fd: *mut FILE) -> *mut dstr {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut current_block: u64;
@@ -208,8 +196,6 @@ pub extern "C" fn dstr_replace_all(
     mut insert: *const i8,
 ) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let replace_l: u64 = strlen(replace);
         let insert_l: u64 = strlen(insert);
@@ -249,8 +235,6 @@ pub extern "C" fn dstr_replace_all(
 
 #[no_mangle]
 pub extern "C" fn madlibs(mut story: *mut dstr) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         static mut buffer_size: u64 = 128;
@@ -298,8 +282,6 @@ pub extern "C" fn madlibs(mut story: *mut dstr) {
 
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         if argc < 2_i32 {
             return 0_i32;
@@ -339,8 +321,6 @@ pub fn main() {
         );
     }
     args.push(::core::ptr::null_mut());
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(

@@ -14,8 +14,6 @@ extern "C" {
 #[no_mangle]
 pub extern "C" fn get_prime(mut idx: i32) -> u64 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         static mut n_primes: i64 = 0;
         static mut alloc: i64 = 0;
@@ -25,7 +23,7 @@ pub extern "C" fn get_prime(mut idx: i32) -> u64 {
         let mut i: i32 = 0;
         if i64::from(idx) >= n_primes {
             if n_primes >= alloc {
-                alloc = alloc.wrapping_add(16);
+                alloc += 16;
                 primes = realloc(
                     primes.cast::<libc::c_void>(),
                     (::core::mem::size_of::<u64>() as u64).wrapping_mul(alloc as u64),
@@ -44,14 +42,14 @@ pub extern "C" fn get_prime(mut idx: i32) -> u64 {
                     p = *primes.offset(i as isize);
                     if p.wrapping_mul(p) > last {
                         let fresh0 = n_primes;
-                        n_primes = n_primes.wrapping_add(1);
+                        n_primes += 1;
                         *primes.offset(fresh0 as isize) = last;
                         break;
                     } else {
                         if last.wrapping_rem(p) == 0 {
                             break;
                         }
-                        i = i.wrapping_add(1);
+                        i += 1_i32;
                         i;
                     }
                 }
@@ -86,7 +84,7 @@ fn main_0() -> i32 {
             if n <= p.wrapping_mul(p) {
                 break;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         if first != 0_i32 {

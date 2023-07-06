@@ -60,14 +60,12 @@ pub type FILE = _IO_FILE;
 #[no_mangle]
 pub extern "C" fn benford_distribution() -> *mut libc::c_float {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         static mut prob: [libc::c_float; 9] = [0.; 9];
         let mut i: i32 = 1;
         while i < 10_i32 {
             prob[(i - 1i32) as usize] = log10f((1_f64 + 1.0f64 / f64::from(i)) as libc::c_float);
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         prob.as_mut_ptr()
@@ -76,8 +74,6 @@ pub extern "C" fn benford_distribution() -> *mut libc::c_float {
 
 #[no_mangle]
 pub extern "C" fn get_actual_distribution(mut fn_0: *mut i8) -> *mut libc::c_float {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut input: *mut FILE = fopen(fn_0, (b"r\0" as *const u8).cast::<i8>());
@@ -98,7 +94,7 @@ pub extern "C" fn get_actual_distribution(mut fn_0: *mut i8) -> *mut libc::c_flo
             }
             tally[(i32::from(c) - '1' as i32) as usize] += 1_i32;
             tally[(i32::from(c) - '1' as i32) as usize];
-            total = total.wrapping_add(1);
+            total += 1_i32;
             total;
             loop {
                 c = getc(input) as i8;
@@ -112,7 +108,7 @@ pub extern "C" fn get_actual_distribution(mut fn_0: *mut i8) -> *mut libc::c_flo
         let mut i: i32 = 0;
         while i < 9_i32 {
             freq[i as usize] = tally[i as usize] as libc::c_float / total as libc::c_float;
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         freq.as_mut_ptr()
@@ -120,8 +116,6 @@ pub extern "C" fn get_actual_distribution(mut fn_0: *mut i8) -> *mut libc::c_flo
 }
 
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if argc != 2_i32 {
@@ -139,7 +133,7 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
                 f64::from(*actual.offset(i as isize)),
                 f64::from(*expected.offset(i as isize))
             );
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         0_i32
@@ -156,8 +150,6 @@ pub fn main() {
         );
     }
     args.push(::core::ptr::null_mut());
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(

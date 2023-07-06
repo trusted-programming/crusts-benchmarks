@@ -13,8 +13,6 @@ extern "C" {
 }
 fn main_0() -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut flip: i32 = 0;
@@ -27,7 +25,7 @@ fn main_0() -> i32 {
         while i <= 100_000_i32 {
             *q.offset(i as isize) = *q.offset((i - *q.offset((i - 1i32) as isize)) as isize)
                 + *q.offset((i - *q.offset((i - 2i32) as isize)) as isize);
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         i = 1_i32;
@@ -37,7 +35,7 @@ fn main_0() -> i32 {
             } else {
                 print!("{}{}", *q.offset(i as isize), ' ' as i32)
             };
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         println!("{}", *q.offset(1000_isize));
@@ -45,7 +43,7 @@ fn main_0() -> i32 {
         i = 1_i32;
         while i < 100_000_i32 {
             flip += i32::from(*q.offset(i as isize) > *q.offset((i + 1i32) as isize));
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         println!("flips: {}", flip);

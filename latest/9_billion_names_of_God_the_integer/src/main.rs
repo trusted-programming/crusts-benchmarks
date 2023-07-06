@@ -18,11 +18,11 @@ pub extern "C" fn calc(mut n: i32) {
         if d < 0_i32 {
             break;
         }
-        d = d.wrapping_sub(k);
+        d -= k;
         if d < 0_i32 {
             break;
         }
-        k = k.wrapping_add(1);
+        k += 1_i32;
         k;
     }
 }
@@ -34,10 +34,10 @@ fn main_0() -> i32 {
     while idx[at as usize] != 0_i32 {
         calc(i);
         if i == idx[at as usize] {
-            at = at.wrapping_add(1);
+            at += 1_i32;
             at;
         }
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     0_i32

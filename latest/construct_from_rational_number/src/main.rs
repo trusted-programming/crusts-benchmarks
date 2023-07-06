@@ -132,8 +132,6 @@ pub static mut pi: [fraction; 8] = [
 #[no_mangle]
 pub extern "C" fn r2cf(mut numerator: *mut i32, mut denominator: *mut i32) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut quotient: i32 = 0;
         let mut temp: i32 = 0;
@@ -151,8 +149,6 @@ fn main_0() -> i32 {
     let mut i: i32 = 0;
     print!("Running the examples :");
     i = 0_i32;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while (i as u64)
@@ -172,14 +168,12 @@ fn main_0() -> i32 {
                     )
                 );
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         printf((b"\n\nRunning for %c2 :\0" as *const u8).cast::<i8>(), 251);
     }
     i = 0_i32;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while (i as u64)
@@ -199,14 +193,12 @@ fn main_0() -> i32 {
                     )
                 );
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }
     print!("\n\nRunning for {} :", 227_i32);
     i = 0_i32;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while (i as u64)
@@ -226,7 +218,7 @@ fn main_0() -> i32 {
                     )
                 );
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }

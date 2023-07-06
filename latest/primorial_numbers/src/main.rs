@@ -18,8 +18,6 @@ extern "C" {
 #[no_mangle]
 pub extern "C" fn es_check(mut sieve: *mut u32, mut n: u64) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         if n != 2 && n & 1 == 0 || n < 2 {
             0_i32
@@ -31,8 +29,6 @@ pub extern "C" fn es_check(mut sieve: *mut u32, mut n: u64) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn es_sieve(nth: u64, mut es_size: *mut u64) -> *mut u32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         *es_size = ((nth as f64).mul_add(log(nth as f64), nth as f64 * (log(log(nth as f64)) - f64::from(0.9385f32)))
@@ -60,8 +56,6 @@ pub extern "C" fn es_sieve(nth: u64, mut es_size: *mut u64) -> *mut u32 {
 #[no_mangle]
 pub extern "C" fn mpz_number_of_digits(_op: i32) -> u64 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut opstr: *mut i8 = std::ptr::null_mut::<i8>();
         let oplen: u64 = strlen(opstr);
@@ -71,8 +65,6 @@ pub extern "C" fn mpz_number_of_digits(_op: i32) -> u64 {
 }
 
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut sieve_size: u64 = 0;

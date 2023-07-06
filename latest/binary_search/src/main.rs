@@ -12,8 +12,6 @@ extern "C" {}
 #[no_mangle]
 pub extern "C" fn bsearch(mut a: *mut i32, mut n: i32, mut x: i32) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut j: i32 = n - 1;
@@ -22,9 +20,9 @@ pub extern "C" fn bsearch(mut a: *mut i32, mut n: i32, mut x: i32) -> i32 {
             if *a.offset(k as isize) == x {
                 return k;
             } else if *a.offset(k as isize) < x {
-                i = k.wrapping_add(1);
+                i = k + 1_i32;
             } else {
-                j = k.wrapping_sub(1);
+                j = k - 1_i32;
             }
         }
         -1_i32
@@ -33,8 +31,6 @@ pub extern "C" fn bsearch(mut a: *mut i32, mut n: i32, mut x: i32) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn bsearch_r(mut a: *mut i32, mut x: i32, mut i: i32, mut j: i32) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if j < i {

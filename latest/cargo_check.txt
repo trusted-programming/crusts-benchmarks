@@ -1,6 +1,0 @@
-Current directory: 100_doors/
-Current directory: 100_prisoners/
-Current directory: 15_puzzle_game/
-Current directory: 2048/
-Current directory: 21_game/
-Current directory: 24_game/

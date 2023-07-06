@@ -30,24 +30,20 @@ fn main_0() -> i32 {
     let mut i: i32 = 0;
     let mut j: i32 = 0;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         srand(rust_time(None) as u32);
     }
     i = 0;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < 10 {
             j = 0;
             while j < 10 {
                 a[i as usize][j as usize] = rand() % 20 + 1;
-                j = j.wrapping_add(1);
+                j += 1;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }
@@ -59,11 +55,11 @@ fn main_0() -> i32 {
             if a[i as usize][j as usize] == 20 {
                 break 's_32;
             }
-            j = j.wrapping_add(1);
+            j += 1;
             j;
         }
         print!("\n");
-        i = i.wrapping_add(1);
+        i += 1;
         i;
     }
     print!("\n");

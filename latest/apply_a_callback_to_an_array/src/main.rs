@@ -18,19 +18,15 @@ pub extern "C" fn map(
     mut array: *mut i32,
     mut len: i32,
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     mut callback: Option<unsafe extern "C" fn(i32, i32) -> ()>,
 ) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         i = 0_i32;
         while i < len {
             callback.expect("non-null function pointer")(i, *array.offset(i as isize));
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }
@@ -41,8 +37,6 @@ fn main_0() -> i32 {
     map(
         array.as_mut_ptr(),
         4,
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
         Some(callbackFunction as unsafe extern "C" fn(i32, i32) -> ()),
     );

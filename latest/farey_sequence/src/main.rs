@@ -55,8 +55,6 @@ pub static mut ccap: u64 = 0;
 #[no_mangle]
 pub extern "C" fn farey_len(mut n: i32) -> u64 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         if n as u64 >= ccap {
             let mut old: u64 = ccap;
@@ -84,8 +82,6 @@ pub extern "C" fn farey_len(mut n: i32) -> u64 {
     let mut q: i32 = 0;
     p = 2_i32;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while p <= n {
             q = n / (n / p) + 1_i32;
@@ -103,13 +99,13 @@ fn main_0() -> i32 {
     while n <= 11_i32 {
         print!("{}: ", n);
         farey(n);
-        n = n.wrapping_add(1);
+        n += 1_i32;
         n;
     }
     n = 100_i32;
     while n <= 1_000_i32 {
         println!("{}: {} items", n, farey_len(n));
-        n = n.wrapping_add(100);
+        n += 100_i32;
     }
     n = 10_000_000_i32;
     print!("\n{}: {} items\n", n, farey_len(n));

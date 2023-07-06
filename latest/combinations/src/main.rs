@@ -17,8 +17,6 @@ pub extern "C" fn comb(mut pool: i32, mut need: i32, mut chosen: u64, mut at: i3
         return;
     }
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         if need == 0_i32 {
             at = 0_i32;
@@ -26,7 +24,7 @@ pub extern "C" fn comb(mut pool: i32, mut need: i32, mut chosen: u64, mut at: i3
                 if chosen & one << at != 0 {
                     print!("{} ", at);
                 }
-                at = at.wrapping_add(1);
+                at += 1_i32;
                 at;
             }
             println!();

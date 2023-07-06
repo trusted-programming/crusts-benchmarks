@@ -18,8 +18,6 @@ fn main_0() -> i32 {
     let mut c: f64 = 0.;
     let mut s: f64 = 0.;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut PI2: f64 = atan2(1_f64, 1_f64) * 8_f64;
         let mut n: i32 = 0;
@@ -60,10 +58,10 @@ fn main_0() -> i32 {
                 } else {
                     print!(",  ")
                 };
-                i = i.wrapping_add(1);
+                i += 1_i32;
                 i;
             }
-            n = n.wrapping_add(1);
+            n += 1_i32;
             n;
         }
     }

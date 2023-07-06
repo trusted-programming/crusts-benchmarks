@@ -102,8 +102,6 @@ pub extern "C" fn is_circular_prime(mut p: u32) -> bool {
 
 pub fn main() {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(main_0() as i32);
     }

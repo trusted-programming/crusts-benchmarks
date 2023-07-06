@@ -22,8 +22,6 @@ pub struct point {
 #[no_mangle]
 pub extern "C" fn distance(mut p1: point, mut p2: point) -> f64 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         sqrt((p1.x - p2.x).mul_add(p1.x - p2.x, (p1.y - p2.y) * (p1.y - p2.y)))
     }
@@ -33,8 +31,6 @@ pub extern "C" fn distance(mut p1: point, mut p2: point) -> f64 {
 pub extern "C" fn findCircles(mut p1: point, mut p2: point, mut radius: f64) {
     let mut separation: f64 = distance(p1, p2);
     let mut mirrorDistance: f64 = 0.;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if separation == 0.0f64 {
@@ -145,7 +141,7 @@ fn main_0() -> i32 {
             cases[(2_i32 * i + 1i32) as usize],
             radii[i as usize],
         );
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     0_i32

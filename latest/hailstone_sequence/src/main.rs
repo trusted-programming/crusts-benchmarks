@@ -15,12 +15,10 @@ extern "C" {
 #[no_mangle]
 pub extern "C" fn hailstone(mut n: i32, mut arry: *mut i32) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut hs: i32 = 1;
         while n != 1_i32 {
-            hs = hs.wrapping_add(1);
+            hs += 1_i32;
             hs;
             if !arry.is_null() {
                 let fresh0 = arry;
@@ -40,8 +38,6 @@ pub extern "C" fn hailstone(mut n: i32, mut arry: *mut i32) -> i32 {
 
 fn main_0() -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut j: i32 = 0;
         let mut hmax: i32 = 0;
@@ -55,7 +51,7 @@ fn main_0() -> i32 {
                 hmax = n;
                 jatmax = j;
             }
-            j = j.wrapping_add(1);
+            j += 1_i32;
             j;
         }
         n = hailstone(27, std::ptr::null_mut::<i32>());

@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -217,8 +215,6 @@ pub static mut items: [item_t; 22] = [
 #[no_mangle]
 pub extern "C" fn knapsack(mut items_0: *mut item_t, mut n: i32, mut w: i32) -> *mut i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut j: i32 = 0;
@@ -250,10 +246,10 @@ pub extern "C" fn knapsack(mut items_0: *mut item_t, mut n: i32, mut w: i32) -> 
                         + (*items_0.offset((i - 1i32) as isize)).value;
                     *(*m.offset(i as isize)).offset(j as isize) = if a > b { a } else { b };
                 }
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         s = calloc(n as u64, ::core::mem::size_of::<i32>() as u64).cast::<i32>();
@@ -266,7 +262,7 @@ pub extern "C" fn knapsack(mut items_0: *mut item_t, mut n: i32, mut w: i32) -> 
                 *s.offset((i - 1i32) as isize) = 1_i32;
                 j -= (*items_0.offset((i - 1i32) as isize)).weight;
             }
-            i = i.wrapping_sub(1);
+            i -= 1_i32;
             i;
         }
         free(mm.cast::<libc::c_void>());
@@ -276,8 +272,6 @@ pub extern "C" fn knapsack(mut items_0: *mut item_t, mut n: i32, mut w: i32) -> 
 }
 
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -300,7 +294,7 @@ fn main_0() -> i32 {
                 tw += items[i as usize].weight;
                 tv += items[i as usize].value;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         println!("{:-22} {:5} {:5}", "totals:\0", tw, tv);

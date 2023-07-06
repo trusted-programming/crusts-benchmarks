@@ -27,8 +27,6 @@ pub type queue = *mut queue_t;
 #[no_mangle]
 pub extern "C" fn q_new() -> queue {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut q: queue = malloc(::core::mem::size_of::<queue_t>() as u64) as queue;
         (*q).alloc = 4;
@@ -52,8 +50,6 @@ pub extern "C" fn enqueue(mut q: queue, mut n: i32) {
     }
     let fresh0 = (*q).tail;
     (*q).tail = ((*q).tail).wrapping_add(1);
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         *((*q).buf).offset(fresh0 as isize) = n;
@@ -85,8 +81,6 @@ pub extern "C" fn enqueue(mut q: queue, mut n: i32) {
 #[no_mangle]
 pub extern "C" fn dequeue(mut q: queue, mut n: *mut i32) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         if (*q).head == (*q).tail {
             return 0;
@@ -114,8 +108,6 @@ fn main_0() -> i32 {
     let mut q: queue = q_new();
     i = 0;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < 100000000 {
             n = rand();
@@ -124,7 +116,7 @@ fn main_0() -> i32 {
             } else {
                 dequeue(q, &mut n) == 0;
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }

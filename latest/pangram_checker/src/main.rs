@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -27,8 +25,6 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn is_pangram(mut s: *const i8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut alpha: *const i8 =
@@ -68,8 +64,6 @@ fn main_0() -> i32 {
     ];
     i = 0_i32;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < 2_i32 {
             if is_pangram(tests[i as usize]) != 0_i32 {
@@ -83,7 +77,7 @@ fn main_0() -> i32 {
                     build_str_from_raw_ptr(tests[i as usize] as *mut u8)
                 )
             };
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }

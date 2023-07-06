@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -37,8 +35,6 @@ pub struct charList {
 }
 #[no_mangle]
 pub extern "C" fn strcmpi(mut str1: *mut i8, mut str2: *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut len1: i32 = strlen(str1) as i32;
@@ -66,7 +62,7 @@ pub extern "C" fn strcmpi(mut str1: *mut i8, mut str2: *mut i8) -> i32 {
                 } else if i32::from(*str1.offset(i as isize)) != i32::from(*str2.offset(i as isize)) {
                     return 1_i32;
                 }
-                i = i.wrapping_add(1);
+                i += 1_i32;
                 i;
             }
         }
@@ -76,8 +72,6 @@ pub extern "C" fn strcmpi(mut str1: *mut i8, mut str2: *mut i8) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn strToCharList(mut str: *mut i8) -> *mut charList {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut len: i32 = strlen(str) as i32;
@@ -96,7 +90,7 @@ pub extern "C" fn strToCharList(mut str: *mut i8) -> *mut charList {
             (*nextChar).next = std::ptr::null_mut::<charList>();
             (*iterator).next = nextChar;
             iterator = nextChar;
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         list
@@ -106,15 +100,13 @@ pub extern "C" fn strToCharList(mut str: *mut i8) -> *mut charList {
 #[no_mangle]
 pub extern "C" fn charListToString(mut list: *mut charList) -> *mut i8 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut iterator: *mut charList = list;
         let mut count: i32 = 0;
         let mut i: i32 = 0;
         let mut str: *mut i8 = std::ptr::null_mut::<i8>();
         while !iterator.is_null() {
-            count = count.wrapping_add(1);
+            count += 1_i32;
             count;
             iterator = (*iterator).next;
         }
@@ -124,7 +116,7 @@ pub extern "C" fn charListToString(mut list: *mut charList) -> *mut i8 {
         while i < count {
             *str.offset(i as isize) = (*iterator).c;
             iterator = (*iterator).next;
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         free(list.cast::<libc::c_void>());
@@ -139,8 +131,6 @@ pub extern "C" fn processString(
     mut operation: i32,
     mut squeezeChar: i8,
 ) -> *mut i8 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut strList: *mut charList = strToCharList(str);
@@ -186,8 +176,6 @@ pub extern "C" fn printResults(
     mut squeezeChar: i8,
 ) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         if operation == 1_i32 {
             print!(
@@ -223,8 +211,6 @@ pub extern "C" fn printResults(
 }
 
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut operation: i32 = 0;

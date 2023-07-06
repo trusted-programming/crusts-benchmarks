@@ -20,8 +20,6 @@ fn main_0() -> i32 {
     print!("1 ");
     n = 2_i32;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while n <= N {
             den = 1;
@@ -31,11 +29,11 @@ fn main_0() -> i32 {
                 num = num.wrapping_mul((n + k) as u64);
                 den = den.wrapping_mul(k as u64);
                 catalan = num.wrapping_div(den) as i32;
-                k = k.wrapping_add(1);
+                k += 1_i32;
                 k;
             }
             print!("{} ", catalan);
-            n = n.wrapping_add(1);
+            n += 1_i32;
             n;
         }
     }

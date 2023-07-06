@@ -48,8 +48,6 @@ pub struct tm {
 #[no_mangle]
 pub extern "C" fn ddate(mut y: i32, mut d: i32) -> *mut i8 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut dyear: i32 = 1166 + y;
         let mut result: *mut i8 =
@@ -63,7 +61,7 @@ pub extern "C" fn ddate(mut y: i32, mut d: i32) -> *mut i8 {
                 );
                 return result;
             } else if d >= 60 {
-                d = d.wrapping_sub(1);
+                d -= 1;
                 d;
             }
         }
@@ -105,18 +103,16 @@ pub extern "C" fn day_of_year(mut y: i32, mut m: i32, mut d: i32) -> i32 {
     while m > 1 {
         d += month_lengths[(m - 2i32) as usize];
         if m == 3 && (y % 400 == 0 || y % 4 == 0 && y % 100 != 0) {
-            d = d.wrapping_add(1);
+            d += 1;
             d;
         }
-        m = m.wrapping_sub(1);
+        m -= 1;
         m;
     }
     return d;
 }
 
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut now: i64 = 0;

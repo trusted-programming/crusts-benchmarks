@@ -20,10 +20,10 @@ pub extern "C" fn t(mut n: i32) {
     len = c;
     while c < i {
         c *= 10_i32;
-        len = len.wrapping_add(1);
+        len += 1_i32;
         len;
     }
-    c = c.wrapping_sub(i);
+    c -= i;
     let mut num: i32 = 0;
     i = 1_i32;
     num = i;
@@ -31,7 +31,7 @@ pub extern "C" fn t(mut n: i32) {
         j = 1_i32;
         while j <= i {
             let fresh0 = num;
-            num = num.wrapping_add(1);
+            num += 1_i32;
             if i - j != 0_i32 {
                 print!(
                     "{1:0$}{2:}",
@@ -47,10 +47,10 @@ pub extern "C" fn t(mut n: i32) {
                     '\n' as i32
                 )
             };
-            j = j.wrapping_add(1);
+            j += 1_i32;
             j;
         }
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
 }

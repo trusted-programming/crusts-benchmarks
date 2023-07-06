@@ -16,11 +16,11 @@ pub extern "C" fn semiprime(mut n: i32) -> i32 {
     p = 2_i32;
     while f < 2_i32 && p * p <= n {
         while 0_i32 == n % p {
-            n = n.wrapping_div(p);
-            f = f.wrapping_add(1);
+            n /= p;
+            f += 1_i32;
             f;
         }
-        p = p.wrapping_add(1);
+        p += 1_i32;
         p;
     }
     i32::from(f + i32::from(n > 1i32) == 2_i32)
@@ -33,7 +33,7 @@ fn main_0() -> i32 {
         if semiprime(i) != 0_i32 {
             print!(" {}", i);
         }
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     print!("{}", '\n' as i32);

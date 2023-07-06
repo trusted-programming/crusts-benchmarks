@@ -18,8 +18,6 @@ pub extern "C" fn f(mut n: i32, mut x: i32, mut y: i32) -> i32 {
 
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut j: i32 = 0;
@@ -36,11 +34,11 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
             j = 0_i32;
             while j < n {
                 print!("% 4d");
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
             print!("{}", '\n' as i32);
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         print!("\n Magic Constant: {}.\n", (n * n + 1_i32) / 2_i32 * n);

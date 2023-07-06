@@ -28,7 +28,7 @@ pub extern "C" fn leonardo(mut a: i32, mut b: i32, mut step: i32, mut num: i32) 
             a = b;
             b = temp + b + step;
         }
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
 }
@@ -38,8 +38,6 @@ fn main_0() -> i32 {
     let mut b: i32 = 0;
     let mut step: i32 = 0;
     print!("Enter first two Leonardo numbers and increment step : ");
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         scanf(

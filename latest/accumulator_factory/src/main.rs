@@ -7,53 +7,47 @@
     unused_assignments,
     unused_mut
 )]
-use c2rust_out::*;
+
 extern "C" {}
 #[no_mangle]
 pub extern "C" fn x(mut i: f64) -> f64 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         static mut _n: f64 = 1.0f64;
-        _n = _n.wrapping_add(i);
-        return _n;
+        _n += i;
+        _n
     }
 }
 
 #[no_mangle]
 pub extern "C" fn y(mut i: i32) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
-        static mut _n: i32 = 3;
-        _n = _n.wrapping_add(i);
-        return _n;
+        static mut _n: i32 = 3_i32;
+        _n += i;
+        _n
     }
 }
 
 #[no_mangle]
 pub extern "C" fn z(mut i: i32) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         static mut _n: i32 = 'a' as i32;
-        _n = _n.wrapping_add(i);
-        return _n;
+        _n += i;
+        _n
     }
 }
 
 fn main_0() -> i32 {
-    print!("{}\n", x(5 as f64));
-    print!("{}\n", x(2.3f64));
-    print!("{}\n", y(5.0f64 as i32));
-    print!("{}\n", y(3.3f64 as i32));
-    print!("{}\n", z(5));
-    return 0;
+    println!("{}", x(5_f64));
+    println!("{}", x(2.3f64));
+    println!("{}", y(5.0f64 as i32));
+    println!("{}", y(3.3f64 as i32));
+    println!("{}", z(5));
+    0_i32
 }
 
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    ::std::process::exit(main_0());
 }

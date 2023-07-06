@@ -29,8 +29,6 @@ pub extern "C" fn min(x: u32, y: u32) -> u32 {
 #[no_mangle]
 pub extern "C" fn throw_die(n_sides: u32, n_dice: u32, s: u32, mut counts: *mut u32) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         if n_dice == 0 {
             let fresh0 = &mut (*counts.offset(s as isize));
@@ -59,8 +57,6 @@ pub extern "C" fn beating_probability(
     let mut C1: Vec<u32> = ::std::vec::from_elem(0, vla);
     let mut i: u32 = 0;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < len1 {
             *C1.as_mut_ptr().offset(i as isize) = 0;
@@ -74,8 +70,6 @@ pub extern "C" fn beating_probability(
     let mut C2: Vec<u32> = ::std::vec::from_elem(0, vla_0);
     let mut j: u32 = 0;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while j < len2 {
             *C2.as_mut_ptr().offset(j as isize) = 0;
@@ -87,8 +81,6 @@ pub extern "C" fn beating_probability(
     let p12: f64 = (ipow(n_sides1, n_dice1)).wrapping_mul(ipow(n_sides2, n_dice2)) as f64;
     let mut tot: f64 = f64::from(0_i32);
     let mut i_0: u32 = 0;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i_0 < len1 {

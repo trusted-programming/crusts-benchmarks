@@ -1,359 +1,42 @@
-# Crusts benchmarks
+## Warnings
 
-## KLOC
+**Warnings**: 2074
 
-**Warnings**: 1113
+**Lines**: 43450
 
-**Lines**: 43480
-
-**KLOC**: 25.597
+**KLOC**: 47.733
 
 **Warning types**:
-```
-    980 error: arithmetic operation that can potentially result in unexpected side-effects
-     55 error: used `expect()` on a `Result` value
-     29 error: used `expect()` on an `Option` value
-     17 error: docs for function which may panic missing `# Panics` section
+
+   1912 error: arithmetic operation that can potentially result in unexpected side-effects
+     56 error: used `expect()` on a `Result` value
+     44 error: used `expect()` on an `Option` value
+     23 error: docs for function which may panic missing `# Panics` section
+     10 error: approximate value of `f64::consts::PI` found
       8 error: unsafe block missing a safety comment
       8 error: type does not implement `std::fmt::Debug`; consider adding `#[derive(Debug)]` or a manual implementation
-      7 error: approximate value of `f64::consts::PI` found
       5 error: unsafe function's docs miss `# Safety` section
       3 error: used `unwrap()` on an `Option` value
+      2 error: literal out of range for `i8`
+      1 error: this arithmetic operation will overflow
+      1 error: literal out of range for `i32`
       1 error: approximate value of `f64::consts::E` found
-```
-## Percentage of no compile errors projects
+
+## Runs statics
 
 **Total runs**: 317
 
-**Successful runs**: 271
+**Successful runs**: 278
 
-**Failed runs**: 46
+**Failed runs**: 39
 
-**Successful runs percentage**: 85.00%
-
-## Projects
+**Successful runs percentage**: 87.00%
 
 **Success folders**:
 ```
-100_doors
-4_rings_puzzle
-99_bottles_of_beer
-9_billion_names_of_God_the_integer
-ABC_problem
-AKS_test_for_primes
-A_plus_B
-abbreviations_automatic
-abbreviations_easy
-abbreviations_simple
-abelian_sandpile_model
-abundant_deficient_and_perfect_number_classifications
-abundant_odd_numbers
-ackermann_function
-aliquot_sequence_classifications
-almost_prime
-amicable_pairs
-anagrams
-angle_difference_between_two_bearings
-apply_a_callback_to_an_array
-apply_a_digital_filter
-approximate_equility
-arbitrary_precision_integers
-arithmetic_geometric_mean
-arithmetic_mean
-array_concatenation
-array_length
-assertions
-atomic_updates
-attractive_numbers
-average_mode
-babbage_problem
-balanced_brackets
-bankers_algorithm
-base64_decode_data
-bell_numbers
-benfords_law
-best_shuffle
-binary_digits
-binary_search
-bioinformatics_base_count
-bitcoin_address_validation
-bitwise_io
-box_the_compass
-caesar_cipher
-calculating_the_value_of_e
-calendar
-call_a_function_in_a_shared_library
-call_an_object_method
-canonicalize_cidr
-carmichael_3_strong_pseudoprimes
-cartesian_product_of_two_or_more_lists
-casting_out_nines
-catalan_numbers
-catamorphism
-chaocipher
-character_codes
-check_input_device_is_a_terminal
-check_output_device_is_a_terminal
-check_that_file_exists
-chinese_remainder_theorem
-chinese_zodiac
-cholesky_decomposition
-circles_of_given_radius_through_two_points
-combinations
-comma_quibbling
-command_line_arguments
-compile_time_calculation
-constrained_random_points_on_a_circle
-construct_from_rational_number
-continued_fraction
-convert_decimal_number_to_rational
-convert_seconds_to_compound_duration
-conways_game_of_life
-copy_a_string
-count_in_factors
-count_the_coins
-cramers_rule
-crc32
-create_a_two_dimentional_array_at_runtime
-create_an_html_table
-csv_data_manipulation
-csv_to_html_translation
-cuban_primes
-currying
-cusip
-cut_a_rectangle
-damm_algorithm
-days_between_dates
-days_of_the_week
-deepcopy
-department_number
-deranged_anagrams
-determine_if_a_string_has_all_same_characters
-determine_if_a_string_has_all_unique_characters
-determine_if_a_string_is_collapsible
-determine_if_a_string_is_squeezable
-determine_if_only_one_instance_is_running
-dice_game_probabilities
-digital_root
-dining_philosophers
-dot_product
-dragon_curve
-draw_a_sphere
-egyptian_division
-emirp_primes
-empty_directory
-entropy
-environment_variables
-ethiopian_multiplication
-euler_method
-evaluate_binomial_coefficients
-evolutionary_algorithm
-exponential
-extreme_floating_point_values
-factor_of_an_integer
-factors_of_a_mersenne_number
-fairshare_between_two_and_more
-farey_sequence
-fasta_format
-fermat_numbers
-fibonacci_n_step_number_sequences
-fibonacci_word
-filter
-find_the_intersection_of_two_lines
-find_the_last_sunday_of_each_month
-five_weekends
-flood_fill
-floyds_triangle
-formatted_numeric_output
-function_composition
-fusc_sequence
-gaussian_elimination
-general_fizzbuzz
-generic_swap
-gray_code
-greatest_subsequential_sum
-guess_the_number_with_feedback
-hailstone_sequence
-hamming_numbers
-hash_from_two_arrays
-hilbert_curve
-hofstadter_q_sequence
-horners_rule_for_polynomial_evaluation
-huffman_coding
-identity_matrix
-increasing_gaps_between_consecutive_niven_numbers
-increment_a_numerical_string
-infinity
-input_loop
-integer
-integer_comparison
-integer_roots
-inverted_index
-isbn13_check_digit
-iterated_digits_squaring
-jortsort
-josephus_problem
-kernighans_large_earthquake_problem
-knapsack_problem_0_1
-knapsack_problem_continuous
-knights_tour
-langtons_ant
-largest_int_from_concatenated_ints
-last_letter_first_letter
-leap_year
-least_common_multiple
-left_factorials
-leonardo_numbers
-levenshtein_distance
-levenshtein_distance_alignment
-list_comprehensions
-long_primes
-longest_common_prefix
-longest_common_substring
-longest_increasing_subsequence
-loop_over_multiple_arrays_simultaneously
-lu_decomposition
-luhn_test_of_credit_card_numbers
-mad_libs
-magic_squares_of_doubly_even_order
-magic_squares_of_odd_order
-magic_squares_of_singly_even_order
-magnanimous_numbers
-mandelbrot_set
-map_range
-matrix_chain_multiplication
-matrix_exponentiation_operator
-matrix_multiplication
-matrix_transposition
-maximum_triangle_path_sum
-mcnuggets_problem
-mean_angle
-median
-memory_allocation
-menu
-middle_three_digits
-modular_exponentiation
-modular_inverse
-monte_carlo_methods
-morse_code
-move_to_front_algorithm
-multiplication_tables
-munchausen_numbers
-munching_squares
-mutual_recursion
-n_plus_one_half
-n_queens_problem
-n_smooth_numbers
-negative_base_numbers
-next_highest_int_from_digits
-nim_game
-nimber_arithmetic
-nth
-null_object
-number_names
-old_lady_swallowed_a_fly
-one_dimensional_cellular_automata
-one_of_n_lines_in_a_file
-optional_parameters
-ordered_words
-palindrome_detection
-pangram_checker
-parse_an_ip_address
-partition_an_integer_x_into_n_primes
-pascals_triangle
-perfect_numbers
-perfect_shuffle
-permutations
-phrase_reversals
-population_count
-power_set
-price_fraction
-prime_conspiracy
-prime_decomposition
-primorial_numbers
-priority_queue
-proper_divisors
-pythagorean_quadruples
-pythagorean_triples
-quickselect_algorithm
-ramer_douglas_line_simplification
-random_number
-random_number_generator
-range_expansion
-range_extraction
-rational
-regular_expression
-remove_duplicate_elements
-repeat
-repeat_a_string
-rock_paper_scissors
-roman_numerals_decode
-roman_numerals_encode
-root_mean_square
-roots_of_unity
-rot_13
-runge_kutta_method
-self_describing_numbers
-semiprime
-sequence_of_non_squares
-set
-sexy_primes
-short_circuit_evaluation
-show_ascii_table
-show_the_epoch
-sierpinski_arrowhead_curve
-sierpinski_triangle
-sieve_of_eratosthenes
-simple_moving_average
-write_a_ppm_file
-```
 
+```
 **Failed folders**:
 ```
-100_prisoners
-15_puzzle_game
-2048
-21_game
-24_game
-accumulator_factory
-active_object
-average_loop_length
-avl_tree
-bernoulli_numbers
-brace_expansion
-calculate_pi
-circular_primes
-concurrent_computing
-convex_hull
-cumulative_standard_deviation
-date_format
-deal_cards_for_freecell
-delegates
-discordian_date
-dutch_national_flag_problem
-first_class_functions
-flatten_a_list
-generate_chess960_starting_position
-generate_random_chess_position
-haversine_formula
-host_introspection
-jacobi_symbol
-k_means_clustering
-knuths_algorithm_s
-loops_nested
-lucas_lehmer_test
-machine_code
-magic_8_ball
-monty_hall_problem
-numerical_integration
-palindrome_dates
-parametric_polymorphism
-pythagorean_mean
-quaternion_type
-queue_definition
-range_consolidation
-ray_casting_algorithm
-rpg_attributes_generator
-run_length_encoding
-value_capture
+
 ```

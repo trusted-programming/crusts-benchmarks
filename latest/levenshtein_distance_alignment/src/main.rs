@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -42,8 +40,6 @@ pub type edit_t = edit_s;
 #[no_mangle]
 pub extern "C" fn leven(mut a: *mut i8, mut b: *mut i8) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut j: i32 = 0;
@@ -60,7 +56,7 @@ pub extern "C" fn leven(mut a: *mut i8, mut b: *mut i8) {
         while i <= la {
             let fresh1 = &mut (*tbl.offset(i as isize));
             *fresh1 = (*tbl.offset((i - 1i32) as isize)).offset((1 + lb) as isize);
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         i = la;
@@ -105,10 +101,10 @@ pub extern "C" fn leven(mut a: *mut i8, mut b: *mut i8) {
                         }
                     }
                 }
-                j = j.wrapping_sub(1);
+                j -= 1_i32;
                 j;
             }
-            i = i.wrapping_sub(1);
+            i -= 1_i32;
             i;
         }
         let mut p: edit = *tbl.offset(0_isize);

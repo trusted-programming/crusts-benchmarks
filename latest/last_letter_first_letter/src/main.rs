@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -54,8 +52,6 @@ pub static mut longest_path_len: u64 = 0;
 #[no_mangle]
 pub extern "C" fn search(mut curr_len: u64) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         if curr_len == longest_path_refs_len {
             n_solutions = n_solutions.wrapping_add(1);
@@ -88,8 +84,6 @@ pub extern "C" fn search(mut curr_len: u64) {
 
 #[no_mangle]
 pub extern "C" fn find_longest_chain(mut items: *mut *const i8, mut items_len: u64) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         refs_len = items_len;
@@ -212,16 +206,12 @@ fn main_0() -> i32 {
         .wrapping_div(::core::mem::size_of::<*const i8>() as u64);
     find_longest_chain(pokemon.as_mut_ptr(), pokemon_len);
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         println!("Maximum path length: {}", longest_path_len);
         println!("Paths of that length: {}", n_solutions);
     }
     println!("Example path of that length:");
     let mut i: u64 = 0;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < longest_path_len {
@@ -244,8 +234,6 @@ fn main_0() -> i32 {
 }
 
 pub fn main() {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(main_0());

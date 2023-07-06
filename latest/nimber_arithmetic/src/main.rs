@@ -61,8 +61,6 @@ pub extern "C" fn print_table(
     mut n: u32,
     mut op: i8,
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     mut func: Option<unsafe extern "C" fn(u32, u32) -> u32>,
 ) {
     print!(" {} |", i32::from(op));
@@ -81,8 +79,6 @@ pub extern "C" fn print_table(
     }
     println!();
     let mut b: u32 = 0;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while b <= n {
@@ -105,16 +101,12 @@ fn main_0() -> i32 {
         15,
         '+' as i8,
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
         Some(nimsum as unsafe extern "C" fn(u32, u32) -> u32),
     );
     println!();
     print_table(
         15,
         '*' as i8,
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
         Some(nimprod as unsafe extern "C" fn(u32, u32) -> u32),
     );

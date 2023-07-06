@@ -7,14 +7,12 @@
     unused_assignments,
     unused_mut
 )]
-use c2rust_out::*;
+
 extern "C" {
     fn atof(__nptr: *const i8) -> f64;
     fn pow(_: f64, _: f64) -> f64;
 }
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -23,21 +21,21 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
         let mut sum: f64 = 0.0f64;
         let mut prod: f64 = 1.0f64;
         let mut resum: f64 = 0.0f64;
-        i = 1;
+        i = 1_i32;
         while i < argc {
             f = atof(*argv.offset(i as isize));
-            count = count.wrapping_add(1);
+            count += 1_i32;
             count;
-            sum = sum.wrapping_add(f);
+            sum += f;
             prod *= f;
             resum += 1.0f64 / f;
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
-        print!("Arithmetic mean = {}\n", sum / count as f64);
-        print!("Geometric mean = {}\n", pow(prod, 1.0f64 / count as f64));
-        print!("Harmonic mean = {}\n", count as f64 / resum);
-        return 0;
+        println!("Arithmetic mean = {}", sum / f64::from(count));
+        println!("Geometric mean = {}", pow(prod, 1.0f64 / f64::from(count)));
+        println!("Harmonic mean = {}", f64::from(count) / resum);
+        0_i32
     }
 }
 
@@ -51,5 +49,5 @@ pub fn main() {
         );
     }
     args.push(::core::ptr::null_mut());
-    ::std::process::exit(main_0((args.len() - 1) as i32, args.as_mut_ptr() as *mut *mut i8) as i32);
+    ::std::process::exit(main_0((args.len() - 1) as i32, args.as_mut_ptr()));
 }

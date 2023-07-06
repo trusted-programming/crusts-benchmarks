@@ -15,8 +15,6 @@ extern "C" {
 #[no_mangle]
 pub extern "C" fn rat_approx(mut f: f64, mut md: i64, mut num: *mut i64, mut denom: *mut i64) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut a: i64 = 0;
         let mut h: [i64; 3] = [0, 1, 0];
@@ -63,7 +61,7 @@ pub extern "C" fn rat_approx(mut f: f64, mut md: i64, mut num: *mut i64, mut den
             k[2_usize] = x * k[1_usize] + k[0_usize];
             k[0_usize] = k[1_usize];
             k[1_usize] = k[2_usize];
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         *denom = k[1_usize];
@@ -89,8 +87,6 @@ fn main_0() -> i32 {
         println!("{}/{}", n, d);
         i *= 16_i32;
     }
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         f = atan2(1_f64, 1_f64) * 4_f64;

@@ -14,8 +14,6 @@ extern "C" {
 fn main_0() -> i32 {
     let mut i: i32 = 1;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < 5_000_i32 {
             let mut sum: i32 = 0;
@@ -23,12 +21,12 @@ fn main_0() -> i32 {
             while number > 0_i32 {
                 let mut digit: i32 = number % 10;
                 sum = (f64::from(sum) + pow(f64::from(digit), f64::from(digit))) as i32;
-                number = number.wrapping_div(10);
+                number /= 10_i32;
             }
             if sum == i {
                 println!("{}", i);
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }

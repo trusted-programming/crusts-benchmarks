@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -58,8 +56,6 @@ pub extern "C" fn initialize(mut prisoners: i32) {
     let mut card: i32 = 0;
     let mut unique: bool = false;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         drawerSet =
             (malloc((prisoners as u64).wrapping_mul(::core::mem::size_of::<drawer>() as u64))
@@ -83,7 +79,7 @@ pub extern "C" fn initialize(mut prisoners: i32) {
                         card = rand() % prisoners + 1;
                         break;
                     } else {
-                        j = j.wrapping_add(1);
+                        j += 1;
                         j;
                     }
                 }
@@ -98,7 +94,7 @@ pub extern "C" fn initialize(mut prisoners: i32) {
                 };
                 init
             };
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }
@@ -109,12 +105,10 @@ pub extern "C" fn closeAllDrawers(mut prisoners: i32) {
     let mut i: i32 = 0;
     i = 1;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < prisoners + 1 {
             (*drawerSet.offset(i as isize)).hasBeenOpened = 0 != 0;
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }
@@ -126,8 +120,6 @@ pub extern "C" fn libertyOrDeathAtRandom(mut prisoners: i32, mut chances: i32) -
     let mut j: i32 = 0;
     let mut chosenDrawer: i32 = 0;
     i = 1;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < prisoners + 1 {
@@ -145,7 +137,7 @@ pub extern "C" fn libertyOrDeathAtRandom(mut prisoners: i32, mut chances: i32) -
                     break;
                 } else {
                     (*drawerSet.offset(chosenDrawer as isize)).hasBeenOpened = 1 != 0;
-                    j = j.wrapping_add(1);
+                    j += 1;
                     j;
                 }
             }
@@ -153,7 +145,7 @@ pub extern "C" fn libertyOrDeathAtRandom(mut prisoners: i32, mut chances: i32) -
             if foundCard as i32 == 0 {
                 return 1 != 0;
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }
@@ -166,8 +158,6 @@ pub extern "C" fn libertyOrDeathPlanned(mut prisoners: i32, mut chances: i32) ->
     let mut j: i32 = 0;
     let mut chosenDrawer: i32 = 0;
     i = 1;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < prisoners + 1 {
@@ -192,7 +182,7 @@ pub extern "C" fn libertyOrDeathPlanned(mut prisoners: i32, mut chances: i32) ->
                     } else {
                         chosenDrawer = (*drawerSet.offset(chosenDrawer as isize)).cardNum;
                     }
-                    j = j.wrapping_add(1);
+                    j += 1;
                     j;
                 }
             }
@@ -200,7 +190,7 @@ pub extern "C" fn libertyOrDeathPlanned(mut prisoners: i32, mut chances: i32) ->
             if foundCard as i32 == 0 {
                 return 1 != 0;
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }
@@ -208,8 +198,6 @@ pub extern "C" fn libertyOrDeathPlanned(mut prisoners: i32, mut chances: i32) ->
 }
 
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut prisoners: i32 = 0;

@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -31,8 +29,6 @@ extern "C" {
 pub struct functionPair {
     pub x: i32,
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     pub funcPtr: Option<unsafe extern "C" fn(i32) -> i32>,
 }
 #[no_mangle]
@@ -45,8 +41,6 @@ pub extern "C" fn factorial(mut num: i32) -> i32 {
 }
 
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut response: functionPair = functionPair {
@@ -65,8 +59,6 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
                 
                 functionPair {
                     x: atoi(*argv.offset(1_isize)),
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
                     funcPtr: Some(factorial as unsafe extern "C" fn(i32) -> i32),
                 }

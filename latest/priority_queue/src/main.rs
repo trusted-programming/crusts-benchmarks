@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -44,8 +42,6 @@ pub struct heap_t {
 #[no_mangle]
 pub extern "C" fn push(mut h: *mut heap_t, mut priority: i32, mut data: *mut i8) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         if (*h).len + 1_i32 >= (*h).size {
             (*h).size = if (*h).size != 0_i32 { (*h).size * 2_i32 } else { 4_i32 };
@@ -72,8 +68,6 @@ pub extern "C" fn push(mut h: *mut heap_t, mut priority: i32, mut data: *mut i8)
 #[no_mangle]
 pub extern "C" fn pop(mut h: *mut heap_t) -> *mut i8 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut j: i32 = 0;
@@ -99,7 +93,7 @@ pub extern "C" fn pop(mut h: *mut heap_t) -> *mut i8 {
                 && (*((*h).nodes).offset((j + 1i32) as isize)).priority
                     < (*((*h).nodes).offset(k as isize)).priority
             {
-                k = j.wrapping_add(1);
+                k = j + 1_i32;
             };
             *((*h).nodes).offset(i as isize) = *((*h).nodes).offset(k as isize);
             i = k;
@@ -109,8 +103,6 @@ pub extern "C" fn pop(mut h: *mut heap_t) -> *mut i8 {
 }
 
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut h: *mut heap_t = calloc(1, ::core::mem::size_of::<heap_t>() as u64).cast::<heap_t>();
@@ -127,7 +119,7 @@ fn main_0() -> i32 {
         i = 0_i32;
         while i < 5_i32 {
             println!("{}", build_str_from_raw_ptr(pop(h).cast::<u8>()));
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         0_i32

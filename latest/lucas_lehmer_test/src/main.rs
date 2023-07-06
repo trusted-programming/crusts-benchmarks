@@ -55,8 +55,6 @@ pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: u64 = 0;
         let mut n: u64 = 43112609;

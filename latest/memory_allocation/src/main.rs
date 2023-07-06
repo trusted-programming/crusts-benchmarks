@@ -16,8 +16,6 @@ extern "C" {
 }
 fn main_0() -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut ints: *mut i32 =
             malloc((::core::mem::size_of::<i32>() as u64).wrapping_mul(100)).cast::<i32>();

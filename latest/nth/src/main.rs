@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -27,8 +25,6 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn addSuffix(mut num: i32, mut buf: *mut i8, mut len: u64) -> *mut i8 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut suffixes: [*mut i8; 4] = [
@@ -68,8 +64,6 @@ fn main_0() -> i32 {
     println!("Set [0,25]:");
     i = 0_i32;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < 26_i32 {
             let mut s: [i8; 5] = [0; 5];
@@ -77,15 +71,13 @@ fn main_0() -> i32 {
                 "{} ",
                 build_str_from_raw_ptr(addSuffix(i, s.as_mut_ptr(), 5).cast::<u8>())
             );
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }
     print!("{}", '\n' as i32);
     println!("Set [250,265]:");
     i = 250_i32;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < 266_i32 {
@@ -94,15 +86,13 @@ fn main_0() -> i32 {
                 "{} ",
                 build_str_from_raw_ptr(addSuffix(i, s_0.as_mut_ptr(), 6).cast::<u8>())
             );
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }
     print!("{}", '\n' as i32);
     println!("Set [1000,1025]:");
     i = 1_000_i32;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < 1_026_i32 {
@@ -111,7 +101,7 @@ fn main_0() -> i32 {
                 "{} ",
                 build_str_from_raw_ptr(addSuffix(i, s_1.as_mut_ptr(), 7).cast::<u8>())
             );
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }

@@ -29,15 +29,13 @@ pub extern "C" fn mul_inv(mut a: i32, mut b: i32) -> i32 {
         x1 = t;
     }
     if x1 < 0_i32 {
-        x1 = x1.wrapping_add(b0);
+        x1 += b0;
     }
     x1
 }
 
 #[no_mangle]
 pub extern "C" fn chinese_remainder(mut n: *mut i32, mut a: *mut i32, mut len: i32) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut p: i32 = 0;
@@ -47,14 +45,14 @@ pub extern "C" fn chinese_remainder(mut n: *mut i32, mut a: *mut i32, mut len: i
         i = 0_i32;
         while i < len {
             prod *= *n.offset(i as isize);
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         i = 0_i32;
         while i < len {
             p = prod / *n.offset(i as isize);
             sum += *a.offset(i as isize) * mul_inv(p, *n.offset(i as isize)) * p;
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         sum % prod

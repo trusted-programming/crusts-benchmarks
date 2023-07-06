@@ -57,8 +57,6 @@ pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 fn main_0() -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut iX: i32 = 0;
         let mut iY: i32 = 0;
@@ -113,7 +111,7 @@ fn main_0() -> i32 {
                     Zx = Zx2 - Zy2 + Cx;
                     Zx2 = Zx * Zx;
                     Zy2 = Zy * Zy;
-                    Iteration = Iteration.wrapping_add(1);
+                    Iteration += 1_i32;
                     Iteration;
                 }
                 if Iteration == IterationMax {
@@ -126,10 +124,10 @@ fn main_0() -> i32 {
                     color[2_usize] = 255;
                 }
                 fwrite(color.as_mut_ptr() as *const libc::c_void, 1, 3, fp);
-                iX = iX.wrapping_add(1);
+                iX += 1_i32;
                 iX;
             }
-            iY = iY.wrapping_add(1);
+            iY += 1_i32;
             iY;
         }
         fclose(fp);

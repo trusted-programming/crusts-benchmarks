@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -42,8 +40,6 @@ pub const _ISupper: u32 = 256;
 #[no_mangle]
 pub extern "C" fn oddMagicSquare(mut n: i32) -> *mut *mut i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         if n < 3_i32 || n % 2_i32 == 0_i32 {
             return std::ptr::null_mut::<*mut i32>();
@@ -60,35 +56,35 @@ pub extern "C" fn oddMagicSquare(mut n: i32) -> *mut *mut i32 {
             let fresh0 = &mut (*result.offset(i as isize));
             *fresh0 =
                 malloc((n as u64).wrapping_mul(::core::mem::size_of::<i32>() as u64)).cast::<i32>();
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         loop {
-            value = value.wrapping_add(1);
+            value += 1_i32;
             if value > squareSize {
                 break;
             };
             *(*result.offset(r as isize)).offset(c as isize) = value;
             if r == 0_i32 {
                 if c == n - 1_i32 {
-                    r = r.wrapping_add(1);
+                    r += 1_i32;
                     r;
                 } else {
-                    r = n.wrapping_sub(1);
-                    c = c.wrapping_add(1);
+                    r = n - 1_i32;
+                    c += 1_i32;
                     c;
                 }
             } else if c == n - 1_i32 {
-                r = r.wrapping_sub(1);
+                r -= 1_i32;
                 r;
                 c = 0_i32;
             } else if *(*result.offset((r - 1i32) as isize)).offset((c + 1i32) as isize) == 0_i32 {
-                r = r.wrapping_sub(1);
+                r -= 1_i32;
                 r;
-                c = c.wrapping_add(1);
+                c += 1_i32;
                 c;
             } else {
-                r = r.wrapping_add(1);
+                r += 1_i32;
                 r;
             }
         }
@@ -98,8 +94,6 @@ pub extern "C" fn oddMagicSquare(mut n: i32) -> *mut *mut i32 {
 
 #[no_mangle]
 pub extern "C" fn singlyEvenMagicSquare(mut n: i32) -> *mut *mut i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if n < 6_i32 || (n - 2_i32) % 4_i32 != 0_i32 {
@@ -118,7 +112,7 @@ pub extern "C" fn singlyEvenMagicSquare(mut n: i32) -> *mut *mut i32 {
             let fresh1 = &mut (*result.offset(i as isize));
             *fresh1 =
                 malloc((n as u64).wrapping_mul(::core::mem::size_of::<i32>() as u64)).cast::<i32>();
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         let mut r: i32 = 0;
@@ -130,10 +124,10 @@ pub extern "C" fn singlyEvenMagicSquare(mut n: i32) -> *mut *mut i32 {
                     *(*subGrid.offset((r % halfN) as isize)).offset((c % halfN) as isize);
                 *(*result.offset(r as isize)).offset(c as isize) +=
                     gridFactors[grid as usize] * subGridSize;
-                c = c.wrapping_add(1);
+                c += 1_i32;
                 c;
             }
-            r = r.wrapping_add(1);
+            r += 1_i32;
             r;
         }
         let mut nColsLeft: i32 = halfN / 2;
@@ -148,10 +142,10 @@ pub extern "C" fn singlyEvenMagicSquare(mut n: i32) -> *mut *mut i32 {
                         *(*result.offset((r_0 + halfN) as isize)).offset(c_0 as isize);
                     *(*result.offset((r_0 + halfN) as isize)).offset(c_0 as isize) = tmp;
                 }
-                c_0 = c_0.wrapping_add(1);
+                c_0 += 1_i32;
                 c_0;
             }
-            r_0 = r_0.wrapping_add(1);
+            r_0 += 1_i32;
             r_0;
         }
         result
@@ -162,8 +156,8 @@ pub extern "C" fn singlyEvenMagicSquare(mut n: i32) -> *mut *mut i32 {
 pub extern "C" fn numDigits(mut n: i32) -> i32 {
     let mut count: i32 = 1;
     while n >= 10_i32 {
-        n = n.wrapping_div(10);
-        count = count.wrapping_add(1);
+        n /= 10_i32;
+        count += 1_i32;
         count;
     }
     count
@@ -171,8 +165,6 @@ pub extern "C" fn numDigits(mut n: i32) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn printMagicSquare(mut square: *mut *mut i32, mut rows: i32) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -188,11 +180,11 @@ pub extern "C" fn printMagicSquare(mut square: *mut *mut i32, mut rows: i32) {
                     "\0",
                     *(*square.offset(i as isize)).offset(j as isize)
                 );
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
             println!();
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         print!("\nMagic constant: {} ", (rows * rows + 1_i32) * rows / 2_i32);
@@ -200,8 +192,6 @@ pub extern "C" fn printMagicSquare(mut square: *mut *mut i32, mut rows: i32) {
 }
 
 fn main_0(mut argC: i32, mut argV: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut n: i32 = 0;

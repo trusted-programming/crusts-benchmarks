@@ -25,11 +25,11 @@ pub extern "C" fn is_prime(mut n: i32) -> i32 {
         if n % d == 0_i32 {
             return 0_i32;
         }
-        d = d.wrapping_add(2);
+        d += 2_i32;
         if n % d == 0_i32 {
             return 0_i32;
         }
-        d = d.wrapping_add(4);
+        d += 4_i32;
     }
     1_i32
 }
@@ -46,9 +46,9 @@ pub extern "C" fn count_prime_factors(mut n: i32) -> i32 {
     }
     loop {
         if n % f == 0_i32 {
-            count = count.wrapping_add(1);
+            count += 1_i32;
             count;
-            n = n.wrapping_div(f);
+            n /= f;
             if n == 1_i32 {
                 return count;
             }
@@ -56,7 +56,7 @@ pub extern "C" fn count_prime_factors(mut n: i32) -> i32 {
                 f = n;
             }
         } else if f >= 3_i32 {
-            f = f.wrapping_add(2);
+            f += 2_i32;
         } else {
             f = 3_i32;
         }
@@ -73,12 +73,12 @@ fn main_0() -> i32 {
         n = count_prime_factors(i);
         if is_prime(n) != 0_i32 {
             print!("{:4}", i);
-            count = count.wrapping_add(1);
+            count += 1_i32;
             if count % 20_i32 == 0_i32 {
                 println!();
             }
         }
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     println!();

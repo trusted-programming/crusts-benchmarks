@@ -10,12 +10,10 @@
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -85,8 +83,6 @@ pub struct vector {
 #[no_mangle]
 pub extern "C" fn extractVector(mut str: *mut i8) -> vector {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut coeff: vector = vector {
             values: std::ptr::null_mut::<libc::c_float>(),
@@ -97,9 +93,9 @@ pub extern "C" fn extractVector(mut str: *mut i8) -> vector {
         let mut token: *mut i8 = std::ptr::null_mut::<i8>();
         while i32::from(*str.offset(i as isize)) != 0_i32 {
             let fresh0 = i;
-            i = i.wrapping_add(1);
+            i += 1_i32;
             if i32::from(*str.offset(fresh0 as isize)) == ' ' as i32 {
-                count = count.wrapping_add(1);
+                count += 1_i32;
                 count;
             }
         }
@@ -110,7 +106,7 @@ pub extern "C" fn extractVector(mut str: *mut i8) -> vector {
         i = 0_i32;
         while !token.is_null() {
             let fresh1 = i;
-            i = i.wrapping_add(1);
+            i += 1_i32;
             *(coeff.values).offset(fresh1 as isize) = atof(token) as libc::c_float;
             token = strtok(std::ptr::null_mut::<i8>(), (b" \0" as *const u8).cast::<i8>());
         }
@@ -120,8 +116,6 @@ pub extern "C" fn extractVector(mut str: *mut i8) -> vector {
 
 #[no_mangle]
 pub extern "C" fn processSignalFile(mut fileName: *mut i8) -> vector {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -166,7 +160,7 @@ pub extern "C" fn processSignalFile(mut fileName: *mut i8) -> vector {
                     sum += *(coeff2.values).offset(j as isize)
                         * *(signal.values).offset((i - j) as isize);
                 }
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
             j = 0_i32;
@@ -175,12 +169,12 @@ pub extern "C" fn processSignalFile(mut fileName: *mut i8) -> vector {
                     sum -= *(coeff1.values).offset(j as isize)
                         * *(filteredSignal.values).offset((i - j) as isize);
                 }
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
             sum /= *(coeff1.values).offset(0_isize);
             *(filteredSignal.values).offset(i as isize) = sum;
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         filteredSignal
@@ -190,8 +184,6 @@ pub extern "C" fn processSignalFile(mut fileName: *mut i8) -> vector {
 #[no_mangle]
 pub extern "C" fn printVector(mut v: vector, mut outputFile: *mut i8) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         if outputFile.is_null() {
@@ -199,7 +191,7 @@ pub extern "C" fn printVector(mut v: vector, mut outputFile: *mut i8) {
             i = 0_i32;
             while i < v.size {
                 print!("{:.12}, ", f64::from(*(v.values).offset(i as isize)));
-                i = i.wrapping_add(1);
+                i += 1_i32;
                 i;
             }
             print!("\x08\x08]");
@@ -212,7 +204,7 @@ pub extern "C" fn printVector(mut v: vector, mut outputFile: *mut i8) {
                     (b"%.12f, \0" as *const u8).cast::<i8>(),
                     f64::from(*(v.values).offset(i as isize)),
                 );
-                i = i.wrapping_add(1);
+                i += 1_i32;
                 i;
             }
             fprintf(
@@ -226,8 +218,6 @@ pub extern "C" fn printVector(mut v: vector, mut outputFile: *mut i8) {
 }
 
 fn main_0(mut argC: i32, mut argV: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut str: *mut i8 = std::ptr::null_mut::<i8>();

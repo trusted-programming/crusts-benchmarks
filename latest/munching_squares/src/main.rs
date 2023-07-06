@@ -61,8 +61,6 @@ pub type FILE = _IO_FILE;
 #[no_mangle]
 pub extern "C" fn hue_to_rgb(mut hue: f64, mut sat: f64, mut p: *mut u8) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut x: f64 = 0.;
         let mut c: i32 = (255_f64 * sat) as i32;
@@ -106,8 +104,6 @@ pub extern "C" fn hue_to_rgb(mut hue: f64, mut sat: f64, mut p: *mut u8) {
 
 fn main_0() -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let size: i32 = 512;
         let mut i: i32 = 0;
@@ -123,7 +119,7 @@ fn main_0() -> i32 {
                 f64::from(i) * 1.0f64 / f64::from(size),
                 colors.offset((3 * i) as isize),
             );
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         i = 0_i32;
@@ -136,11 +132,11 @@ fn main_0() -> i32 {
                     colors.offset(((i ^ j) * 3i32) as isize) as *const libc::c_void,
                     3,
                 );
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
                 p = p.offset(3_isize);
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         fp = fopen(

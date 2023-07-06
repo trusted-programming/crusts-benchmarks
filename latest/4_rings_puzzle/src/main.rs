@@ -36,8 +36,6 @@ pub static mut solutions: i32 = 0_i32;
 #[no_mangle]
 pub extern "C" fn bf() {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         f = lo;
         while f <= hi {
@@ -47,14 +45,14 @@ pub extern "C" fn bf() {
                     && b <= hi
                     && (unique == 0_i32 || b != a && b != c && b != d && b != g && b != e && b != f)
                 {
-                    solutions = solutions.wrapping_add(1);
+                    solutions += 1_i32;
                     solutions;
                     if show != 0_i32 {
                         println!("{} {} {} {} {} {} {}", a, b, c, d, e, f, g);
                     }
                 }
             }
-            f = f.wrapping_add(1);
+            f += 1_i32;
             f;
         }
     }
@@ -62,8 +60,6 @@ pub extern "C" fn bf() {
 
 #[no_mangle]
 pub extern "C" fn ge() {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         e = lo;
@@ -74,7 +70,7 @@ pub extern "C" fn ge() {
                     bf();
                 }
             }
-            e = e.wrapping_add(1);
+            e += 1_i32;
             e;
         }
     }
@@ -82,8 +78,6 @@ pub extern "C" fn ge() {
 
 #[no_mangle]
 pub extern "C" fn acd() {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         c = lo;
@@ -96,10 +90,10 @@ pub extern "C" fn acd() {
                         ge();
                     }
                 }
-                d = d.wrapping_add(1);
+                d += 1_i32;
                 d;
             }
-            c = c.wrapping_add(1);
+            c += 1_i32;
             c;
         }
     }
@@ -107,8 +101,6 @@ pub extern "C" fn acd() {
 
 #[no_mangle]
 pub extern "C" fn foursquares(mut plo: i32, mut phi: i32, mut punique: i32, mut pshow: i32) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         lo = plo;
@@ -119,8 +111,6 @@ pub extern "C" fn foursquares(mut plo: i32, mut phi: i32, mut punique: i32, mut 
     }
     println!();
     acd();
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if unique != 0_i32 {

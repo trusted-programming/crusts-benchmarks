@@ -87,8 +87,6 @@ pub static mut pix: *mut *mut rgb = 0 as *const *mut rgb as *mut *mut rgb;
 #[no_mangle]
 pub extern "C" fn sc_up() {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         scale *= 2;
         x *= 2;
@@ -99,8 +97,6 @@ pub extern "C" fn sc_up() {
 
 #[no_mangle]
 pub extern "C" fn h_rgb(mut x_0: i64, mut y_0: i64) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut p: *mut rgb = &mut *(*pix.offset(y_0 as isize)).offset(x_0 as isize) as *mut rgb;
@@ -140,8 +136,6 @@ pub extern "C" fn h_rgb(mut x_0: i64, mut y_0: i64) {
 #[no_mangle]
 pub extern "C" fn iter_string(mut str: *const i8, mut d: i32) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut len: i64 = 0;
         while i32::from(*str) != '\0' as i32 {
@@ -152,39 +146,39 @@ pub extern "C" fn iter_string(mut str: *const i8, mut d: i32) {
                     if d != 0_i32 {
                         iter_string((b"XHXVX\0" as *const u8).cast::<i8>(), d - 1);
                     } else {
-                        clen = clen.wrapping_add(1);
+                        clen += 1;
                         clen;
                         h_rgb(x / scale, y / scale);
-                        x = x.wrapping_add(dx);
-                        y = y.wrapping_sub(dy);
+                        x += dx;
+                        y -= dy;
                     }
                 }
                 86_i32 => {
                     len = (1u64 << d) as i64;
                     loop {
                         let fresh1 = len;
-                        len = len.wrapping_sub(1);
+                        len -= 1;
                         if fresh1 == 0 {
                             break;
                         }
-                        clen = clen.wrapping_add(1);
+                        clen += 1;
                         clen;
                         h_rgb(x / scale, y / scale);
-                        y = y.wrapping_add(dy);
+                        y += dy;
                     }
                 }
                 72_i32 => {
                     len = (1u64 << d) as i64;
                     loop {
                         let fresh2 = len;
-                        len = len.wrapping_sub(1);
+                        len -= 1;
                         if fresh2 == 0 {
                             break;
                         }
-                        clen = clen.wrapping_add(1);
+                        clen += 1;
                         clen;
                         h_rgb(x / scale, y / scale);
-                        x = x.wrapping_sub(dx);
+                        x -= dx;
                     }
                 }
                 _ => {}
@@ -195,8 +189,6 @@ pub extern "C" fn iter_string(mut str: *const i8, mut d: i32) {
 
 #[no_mangle]
 pub extern "C" fn sierp(mut leng: i64, mut depth: i32) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i64 = 0;
@@ -212,7 +204,7 @@ pub extern "C" fn sierp(mut leng: i64, mut depth: i32) {
         while i < h {
             let fresh3 = &mut (*pix.offset(i as isize));
             *fresh3 = buf.offset((w * i) as isize);
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
         memset(
@@ -232,7 +224,7 @@ pub extern "C" fn sierp(mut leng: i64, mut depth: i32) {
         i = 0;
         while i < i64::from(depth) {
             sc_up();
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
         iter_string((b"VXH\0" as *const u8).cast::<i8>(), depth);
@@ -244,13 +236,13 @@ pub extern "C" fn sierp(mut leng: i64, mut depth: i32) {
             if *dbuf.offset(i as isize) > maxv {
                 maxv = *dbuf.offset(i as isize);
             }
-            i = i.wrapping_sub(1);
+            i -= 1;
             i;
         }
         i = 3 * h * w - 1;
         while i >= 0 {
             *fpix.offset(i as isize) = (255_f64 * *dbuf.offset(i as isize) / maxv) as u8;
-            i = i.wrapping_sub(1);
+            i -= 1;
             i;
         }
         print!("P6\n{} {}\n255\n", w, h);
@@ -265,8 +257,6 @@ pub extern "C" fn sierp(mut leng: i64, mut depth: i32) {
 }
 
 fn main_0(mut c: i32, mut v: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut size: i32 = 0;

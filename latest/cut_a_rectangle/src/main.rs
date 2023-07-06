@@ -29,8 +29,6 @@ pub extern "C" fn walk(mut y: i32, mut x: i32) {
     let mut i: i32 = 0;
     let mut t: i32 = 0;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         if y == 0_i32 || y == h || x == 0_i32 || x == w {
             cnt = cnt.wrapping_add(2);
@@ -46,8 +44,6 @@ pub extern "C" fn walk(mut y: i32, mut x: i32) {
     }
     i = 0_i32;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < 4_i32 {
             if *grid.offset((t + next[i as usize]) as isize) == 0 {
@@ -56,7 +52,7 @@ pub extern "C" fn walk(mut y: i32, mut x: i32) {
                     x + dir[i as usize][1_usize],
                 );
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         let fresh2 = &mut (*grid.offset(t as isize));
@@ -74,8 +70,6 @@ pub extern "C" fn solve(mut hh: i32, mut ww: i32, mut recur: i32) -> u64 {
     let mut cx: i32 = 0;
     let mut cy: i32 = 0;
     let mut x: i32 = 0;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         h = hh;
@@ -102,7 +96,7 @@ pub extern "C" fn solve(mut hh: i32, mut ww: i32, mut recur: i32) -> u64 {
         len = (h + 1_i32) * (w + 1_i32);
         grid = realloc(grid.cast::<libc::c_void>(), len as u64).cast::<u8>();
         let fresh4 = len;
-        len = len.wrapping_sub(1);
+        len -= 1_i32;
         memset(grid.cast::<libc::c_void>(), 0, fresh4 as u64);
         next[0_usize] = -1_i32;
         next[1_usize] = -w - 1_i32;
@@ -112,9 +106,7 @@ pub extern "C" fn solve(mut hh: i32, mut ww: i32, mut recur: i32) -> u64 {
             cnt = 0;
         }
     }
-    x = cx.wrapping_add(1);
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
+    x = cx + 1_i32;
 // SAFETY: machine generated unsafe code
     unsafe {
         while x < w {
@@ -122,7 +114,7 @@ pub extern "C" fn solve(mut hh: i32, mut ww: i32, mut recur: i32) -> u64 {
             *grid.offset(t as isize) = 1;
             *grid.offset((len - t) as isize) = 1;
             walk(cy - 1, x);
-            x = x.wrapping_add(1);
+            x += 1_i32;
             x;
         }
         cnt = cnt.wrapping_add(1);
@@ -146,10 +138,10 @@ fn main_0() -> i32 {
             if x & 1_i32 == 0_i32 || y & 1_i32 == 0_i32 {
                 println!("{} x {}: {}", y, x, solve(y, x, 1));
             }
-            x = x.wrapping_add(1);
+            x += 1_i32;
             x;
         }
-        y = y.wrapping_add(1);
+        y += 1_i32;
         y;
     }
     0_i32

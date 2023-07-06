@@ -18,7 +18,7 @@ pub extern "C" fn turn(mut base: i32, mut n: i32) -> i32 {
     while n != 0_i32 {
         let mut rem: i32 = n % base;
         n /= base;
-        sum = sum.wrapping_add(rem);
+        sum += rem;
     }
     sum % base
 }
@@ -31,7 +31,7 @@ pub extern "C" fn fairshare(mut base: i32, mut count: i32) {
     while i < count {
         let mut t: i32 = turn(base, i);
         print!(" {:2}", t);
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     println!();
@@ -39,8 +39,6 @@ pub extern "C" fn fairshare(mut base: i32, mut count: i32) {
 
 #[no_mangle]
 pub extern "C" fn turnCount(mut base: i32, mut count: i32) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut cnt: *mut i32 =
@@ -59,7 +57,7 @@ pub extern "C" fn turnCount(mut base: i32, mut count: i32) {
             let fresh0 = &mut (*cnt.offset(t as isize));
             *fresh0 += 1_i32;
             *fresh0;
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         minTurn = 2_147_483_647_i32;
@@ -68,7 +66,7 @@ pub extern "C" fn turnCount(mut base: i32, mut count: i32) {
         i = 0_i32;
         while i < base {
             if *cnt.offset(i as isize) > 0_i32 {
-                portion = portion.wrapping_add(1);
+                portion += 1_i32;
                 portion;
             }
             if *cnt.offset(i as isize) < minTurn {
@@ -77,7 +75,7 @@ pub extern "C" fn turnCount(mut base: i32, mut count: i32) {
             if *cnt.offset(i as isize) > maxTurn {
                 maxTurn = *cnt.offset(i as isize);
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         print!("  With {} people: ", base);

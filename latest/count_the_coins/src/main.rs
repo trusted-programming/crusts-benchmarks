@@ -36,7 +36,7 @@ pub extern "C" fn show(mut v: i128_0) {
         i = len;
         loop {
             let fresh0 = i;
-            i = i.wrapping_sub(1);
+            i -= 1_i32;
             if fresh0 == 0_i32 {
                 break;
             }
@@ -45,11 +45,11 @@ pub extern "C" fn show(mut v: i128_0) {
             c = (c).wrapping_rem(10);
         }
         let fresh1 = j;
-        j = j.wrapping_add(1);
+        j += 1_i32;
         buf[fresh1 as usize] = c.wrapping_add('0' as u64) as i8;
         len = 4_i32;
         while x[(len - 1i32) as usize] == 0 {
-            len = len.wrapping_sub(1);
+            len -= 1_i32;
             len;
         }
         if len == 0_i32 {
@@ -58,7 +58,7 @@ pub extern "C" fn show(mut v: i128_0) {
     }
     loop {
         let fresh2 = j;
-        j = j.wrapping_sub(1);
+        j -= 1_i32;
         if fresh2 == 0_i32 {
             break;
         }
@@ -70,15 +70,13 @@ pub extern "C" fn show(mut v: i128_0) {
 #[no_mangle]
 pub extern "C" fn count(mut sum: i32, mut coins: *mut i32) -> i128_0 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut n: i32 = 0;
         let mut i: i32 = 0;
         let mut k: i32 = 0;
         n = 0_i32;
         while *coins.offset(n as isize) != 0_i32 {
-            n = n.wrapping_add(1);
+            n += 1_i32;
             n;
         }
         let mut v: *mut *mut i128_0 =
@@ -93,7 +91,7 @@ pub extern "C" fn count(mut sum: i32, mut coins: *mut i32) -> i128_0 {
                 ::core::mem::size_of::<i128_0>() as u64,
                 *coins.offset(i as isize) as u64,
             ).cast::<i128_0>();
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         *(*v.offset(0_isize)).offset((*coins.offset(0_isize) - 1i32) as isize) = {
@@ -110,7 +108,7 @@ pub extern "C" fn count(mut sum: i32, mut coins: *mut i32) -> i128_0 {
                 if fresh5 == 0_i32 {
                     *idx.offset(i as isize) = *coins.offset(i as isize) - 1_i32;
                 }
-                i = i.wrapping_add(1);
+                i += 1_i32;
                 i;
             }
             let mut c: i128_0 = *(*v.offset(0_isize)).offset(*idx.offset(0_isize) as isize);
@@ -127,10 +125,10 @@ pub extern "C" fn count(mut sum: i32, mut coins: *mut i32) -> i128_0 {
                     (*p).x[1_usize];
                 }
                 c = *p;
-                i = i.wrapping_add(1);
+                i += 1_i32;
                 i;
             }
-            k = k.wrapping_add(1);
+            k += 1_i32;
             k;
         }
         let mut r: i128_0 =
@@ -138,7 +136,7 @@ pub extern "C" fn count(mut sum: i32, mut coins: *mut i32) -> i128_0 {
         i = 0_i32;
         while i < n {
             free((*v.offset(i as isize)).cast::<libc::c_void>());
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         free(v.cast::<libc::c_void>());
@@ -149,8 +147,6 @@ pub extern "C" fn count(mut sum: i32, mut coins: *mut i32) -> i128_0 {
 
 #[no_mangle]
 pub extern "C" fn count2(mut sum: i32, mut coins: *mut i32) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if *coins == 0_i32 || sum < 0_i32 {
@@ -166,8 +162,6 @@ pub extern "C" fn count2(mut sum: i32, mut coins: *mut i32) -> i32 {
 fn main_0() -> i32 {
     let mut us_coins: [i32; 7] = [100, 50, 25, 10, 5, 1, 0];
     let mut eu_coins: [i32; 9] = [200, 100, 50, 20, 10, 5, 2, 1, 0];
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         show(count(100, us_coins.as_mut_ptr().offset(2_isize)));

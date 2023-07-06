@@ -86,8 +86,6 @@ pub static mut pix: *mut *mut rgb = 0 as *const *mut rgb as *mut *mut rgb;
 #[no_mangle]
 pub extern "C" fn sc_up() {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut tmp: i64 = dx - dy;
         dy += dx;
@@ -100,8 +98,6 @@ pub extern "C" fn sc_up() {
 
 #[no_mangle]
 pub extern "C" fn h_rgb(mut x_0: i64, mut y_0: i64) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut p: *mut rgb = &mut *(*pix.offset(y_0 as isize)).offset(x_0 as isize) as *mut rgb;
@@ -143,8 +139,6 @@ pub extern "C" fn h_rgb(mut x_0: i64, mut y_0: i64) {
 #[no_mangle]
 pub extern "C" fn iter_string(mut str: *const i8, mut d: i32) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut tmp: i64 = 0;
         while i32::from(*str) != '\0' as i32 {
@@ -172,11 +166,11 @@ pub extern "C" fn iter_string(mut str: *const i8, mut d: i32) {
                     dx = tmp;
                 }
                 70_i32 => {
-                    clen = clen.wrapping_add(1);
+                    clen += 1;
                     clen;
                     h_rgb(x / scale, y / scale);
-                    x = x.wrapping_add(dx);
-                    y = y.wrapping_add(dy);
+                    x += dx;
+                    y += dy;
                 }
                 _ => {}
             }
@@ -186,8 +180,6 @@ pub extern "C" fn iter_string(mut str: *const i8, mut d: i32) {
 
 #[no_mangle]
 pub extern "C" fn dragon(mut leng: i64, mut depth: i32) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i64 = 0;
@@ -204,7 +196,7 @@ pub extern "C" fn dragon(mut leng: i64, mut depth: i32) {
         while i < h {
             let fresh1 = &mut (*pix.offset(i as isize));
             *fresh1 = buf.offset((w * i) as isize);
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
         memset(
@@ -223,7 +215,7 @@ pub extern "C" fn dragon(mut leng: i64, mut depth: i32) {
         i = 0;
         while i < i64::from(depth) {
             sc_up();
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
         iter_string((b"FX\0" as *const u8).cast::<i8>(), depth);
@@ -235,13 +227,13 @@ pub extern "C" fn dragon(mut leng: i64, mut depth: i32) {
             if *dbuf.offset(i as isize) > maxv {
                 maxv = *dbuf.offset(i as isize);
             }
-            i = i.wrapping_sub(1);
+            i -= 1;
             i;
         }
         i = 3 * h * w - 1;
         while i >= 0 {
             *fpix.offset(i as isize) = (255_f64 * *dbuf.offset(i as isize) / maxv) as u8;
-            i = i.wrapping_sub(1);
+            i -= 1;
             i;
         }
         print!("P6\n{} {}\n255\n", w, h);
@@ -256,8 +248,6 @@ pub extern "C" fn dragon(mut leng: i64, mut depth: i32) {
 }
 
 fn main_0(mut c: i32, mut v: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut size: i32 = 0;

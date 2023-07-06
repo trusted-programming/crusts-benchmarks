@@ -15,8 +15,6 @@ extern "C" {
 #[no_mangle]
 pub extern "C" fn sieve(mut limit: i32, mut primes: *mut i32, mut count: *mut i32) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut c: *mut i32 =
             calloc((limit + 1i32) as u64, ::core::mem::size_of::<i32>() as u64).cast::<i32>();
@@ -32,7 +30,7 @@ pub extern "C" fn sieve(mut limit: i32, mut primes: *mut i32, mut count: *mut i3
                 i += 2_i32 * p;
             }
             loop {
-                p = p.wrapping_add(2);
+                p += 2_i32;
                 if *c.offset(p as isize) == 0_i32 {
                     break;
                 }
@@ -43,10 +41,10 @@ pub extern "C" fn sieve(mut limit: i32, mut primes: *mut i32, mut count: *mut i3
         while i <= limit {
             if *c.offset(i as isize) == 0_i32 {
                 let fresh0 = n;
-                n = n.wrapping_add(1);
+                n += 1_i32;
                 *primes.offset(fresh0 as isize) = i;
             }
-            i = i.wrapping_add(2);
+            i += 2_i32;
         }
         *count = n;
         free(c.cast::<libc::c_void>());
@@ -62,13 +60,13 @@ pub extern "C" fn findPeriod(mut n: i32) -> i32 {
     i = 1_i32;
     while i <= n + 1_i32 {
         r = 10_i32 * r % n;
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     rr = r;
     loop {
         r = 10_i32 * r % n;
-        period = period.wrapping_add(1);
+        period += 1_i32;
         period;
         if r == rr {
             break;
@@ -78,8 +76,6 @@ pub extern "C" fn findPeriod(mut n: i32) -> i32 {
 }
 
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -104,22 +100,22 @@ fn main_0() -> i32 {
             prime = *primes.offset(i as isize);
             if findPeriod(prime) == prime - 1_i32 {
                 let fresh1 = longCount;
-                longCount = longCount.wrapping_add(1);
+                longCount += 1_i32;
                 *longPrimes.offset(fresh1 as isize) = prime;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         i = 0_i32;
         while i < longCount {
             if *longPrimes.offset(i as isize) > numbers[index as usize] {
                 let fresh2 = index;
-                index = index.wrapping_add(1);
+                index += 1_i32;
                 *totals.offset(fresh2 as isize) = count;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
-            count = count.wrapping_add(1);
+            count += 1_i32;
             count;
         }
         *totals.offset((numberCount - 1i32) as isize) = count;
@@ -128,7 +124,7 @@ fn main_0() -> i32 {
         i = 0_i32;
         while i < *totals.offset(0_isize) {
             print!("{} ", *longPrimes.offset(i as isize));
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         println!("\x08]");
@@ -140,7 +136,7 @@ fn main_0() -> i32 {
                 numbers[i as usize],
                 *totals.offset(i as isize)
             );
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         free(totals.cast::<libc::c_void>());

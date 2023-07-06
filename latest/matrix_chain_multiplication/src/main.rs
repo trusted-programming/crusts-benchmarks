@@ -20,8 +20,6 @@ pub static mut s: *mut *mut i32 = 0 as *const *mut i32 as *mut *mut i32;
 #[no_mangle]
 pub extern "C" fn optimal_matrix_chain_order(mut dims: *mut i32, mut n: i32) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut len: i32 = 0;
         let mut i: i32 = 0;
@@ -29,14 +27,14 @@ pub extern "C" fn optimal_matrix_chain_order(mut dims: *mut i32, mut n: i32) {
         let mut k: i32 = 0;
         let mut temp: i32 = 0;
         let mut cost: i32 = 0;
-        n = n.wrapping_sub(1);
+        n -= 1_i32;
         n;
         m = malloc((n as u64).wrapping_mul(::core::mem::size_of::<*mut i32>() as u64)).cast::<*mut i32>();
         i = 0_i32;
         while i < n {
             let fresh0 = &mut (*m.offset(i as isize));
             *fresh0 = calloc(n as u64, ::core::mem::size_of::<i32>() as u64).cast::<i32>();
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         s = malloc((n as u64).wrapping_mul(::core::mem::size_of::<*mut i32>() as u64)).cast::<*mut i32>();
@@ -44,7 +42,7 @@ pub extern "C" fn optimal_matrix_chain_order(mut dims: *mut i32, mut n: i32) {
         while i < n {
             let fresh1 = &mut (*s.offset(i as isize));
             *fresh1 = calloc(n as u64, ::core::mem::size_of::<i32>() as u64).cast::<i32>();
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         len = 1_i32;
@@ -65,13 +63,13 @@ pub extern "C" fn optimal_matrix_chain_order(mut dims: *mut i32, mut n: i32) {
                         *(*m.offset(i as isize)).offset(j as isize) = cost;
                         *(*s.offset(i as isize)).offset(j as isize) = k;
                     }
-                    k = k.wrapping_add(1);
+                    k += 1_i32;
                     k;
                 }
-                i = i.wrapping_add(1);
+                i += 1_i32;
                 i;
             }
-            len = len.wrapping_add(1);
+            len += 1_i32;
             len;
         }
     }
@@ -79,8 +77,6 @@ pub extern "C" fn optimal_matrix_chain_order(mut dims: *mut i32, mut n: i32) {
 
 #[no_mangle]
 pub extern "C" fn print_optimal_chain_order(mut i: i32, mut j: i32) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if i == j {
@@ -105,8 +101,6 @@ fn main_0() -> i32 {
     let mut sizes: [i32; 3] = [4, 13, 12];
     i = 0_i32;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < 3_i32 {
             print!("Dims  : [");
@@ -119,7 +113,7 @@ fn main_0() -> i32 {
                 } else {
                     println!("]");
                 }
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
             optimal_matrix_chain_order(dims_list[i as usize], n);
@@ -132,18 +126,18 @@ fn main_0() -> i32 {
             j = 0_i32;
             while j <= n - 2_i32 {
                 free((*m.offset(j as isize)).cast::<libc::c_void>());
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
             free(m.cast::<libc::c_void>());
             j = 0_i32;
             while j <= n - 2_i32 {
                 free((*s.offset(j as isize)).cast::<libc::c_void>());
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
             free(s.cast::<libc::c_void>());
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }

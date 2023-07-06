@@ -80,8 +80,6 @@ pub type sieve = sieve_tag;
 #[no_mangle]
 pub extern "C" fn bit_array_create(mut b: *mut bit_array, mut size: u32) -> bool {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut array: *mut u32 = calloc(
             u64::from(size.wrapping_add(31).wrapping_div(32)),
@@ -99,8 +97,6 @@ pub extern "C" fn bit_array_create(mut b: *mut bit_array, mut size: u32) -> bool
 #[no_mangle]
 pub extern "C" fn bit_array_destroy(mut b: *mut bit_array) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         free((*b).array.cast::<libc::c_void>());
         (*b).array = std::ptr::null_mut::<u32>();
@@ -109,8 +105,6 @@ pub extern "C" fn bit_array_destroy(mut b: *mut bit_array) {
 
 #[no_mangle]
 pub extern "C" fn bit_array_set(mut b: *mut bit_array, mut index: u32, mut value: bool) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if index < (*b).size {
@@ -150,8 +144,6 @@ pub extern "C" fn bit_array_set(mut b: *mut bit_array, mut index: u32, mut value
 #[no_mangle]
 pub extern "C" fn bit_array_get(mut b: *const bit_array, mut index: u32) -> bool {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         if index < (*b).size {
         } else {
@@ -185,8 +177,6 @@ pub extern "C" fn bit_array_get(mut b: *const bit_array, mut index: u32) -> bool
 #[no_mangle]
 pub extern "C" fn sieve_create(mut s: *mut sieve, mut limit: u32) -> bool {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         if !bit_array_create(&mut (*s).not_prime, limit.wrapping_add(1)) {
             return 0_i32 != 0_i32;
@@ -213,8 +203,6 @@ pub extern "C" fn sieve_create(mut s: *mut sieve, mut limit: u32) -> bool {
 #[no_mangle]
 pub extern "C" fn sieve_destroy(mut s: *mut sieve) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         bit_array_destroy(&mut (*s).not_prime);
     }
@@ -222,8 +210,6 @@ pub extern "C" fn sieve_destroy(mut s: *mut sieve) {
 
 #[no_mangle]
 pub extern "C" fn is_prime(mut s: *const sieve, mut n: u32) -> bool {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if n <= (*s).limit {
@@ -263,8 +249,6 @@ pub extern "C" fn find_prime_partition(
     mut p: *mut u32,
 ) -> bool {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         if count == 1 {
             if number >= min_prime && i32::from(is_prime(s, number)) != 0_i32 {
@@ -294,8 +278,6 @@ pub extern "C" fn find_prime_partition(
 
 #[no_mangle]
 pub extern "C" fn print_prime_partition(mut s: *const sieve, mut number: u32, mut count: u32) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if count > 0 {
@@ -356,8 +338,6 @@ fn main_0() -> i32 {
             },
         }
     };
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if !sieve_create(&mut s, limit) {

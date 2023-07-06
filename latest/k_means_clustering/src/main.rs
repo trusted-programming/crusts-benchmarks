@@ -28,8 +28,6 @@ pub type point = *mut point_t;
 #[no_mangle]
 pub extern "C" fn randf(mut m: f64) -> f64 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         return m * rand() as f64 / (2147483647 as f64 - 1.0f64);
     }
@@ -40,8 +38,6 @@ pub extern "C" fn gen_xy(mut count: i32, mut radius: f64) -> point {
     let mut ang: f64 = 0.;
     let mut r: f64 = 0.;
     let mut p: point = 0 as *mut point_t;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut pt: point =
@@ -77,8 +73,6 @@ pub extern "C" fn nearest(
     mut d2: *mut f64,
 ) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut min_i: i32 = 0;
@@ -98,12 +92,12 @@ pub extern "C" fn nearest(
                     min_d = d;
                     min_i = i;
                 }
-                i = i.wrapping_add(1);
+                i += 1;
                 i;
                 c = c.offset(1);
                 c;
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
             c = c.offset(1);
             c;
@@ -117,8 +111,6 @@ pub extern "C" fn nearest(
 
 #[no_mangle]
 pub extern "C" fn kpp(mut pts: point, mut len: i32, mut cent: point, mut n_cent: i32) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -138,7 +130,7 @@ pub extern "C" fn kpp(mut pts: point, mut len: i32, mut cent: point, mut n_cent:
             while j < len {
                 nearest(p, cent, n_cluster, d.offset(j as isize));
                 sum += *d.offset(j as isize);
-                j = j.wrapping_add(1);
+                j += 1;
                 j;
                 p = p.offset(1);
                 p;
@@ -149,7 +141,7 @@ pub extern "C" fn kpp(mut pts: point, mut len: i32, mut cent: point, mut n_cent:
             while j < len {
                 sum -= *d.offset(j as isize);
                 if sum > 0 as f64 {
-                    j = j.wrapping_add(1);
+                    j += 1;
                     j;
                     p = p.offset(1);
                     p;
@@ -158,14 +150,14 @@ pub extern "C" fn kpp(mut pts: point, mut len: i32, mut cent: point, mut n_cent:
                     break;
                 }
             }
-            n_cluster = n_cluster.wrapping_add(1);
+            n_cluster += 1;
             n_cluster;
         }
         j = 0;
         p = pts;
         while j < len {
             (*p).group = nearest(p, cent, n_cluster, 0 as *mut f64);
-            j = j.wrapping_add(1);
+            j += 1;
             j;
             p = p.offset(1);
             p;
@@ -181,8 +173,6 @@ pub extern "C" fn lloyd(mut pts: point, mut len: i32, mut n_cluster: i32) -> poi
     let mut min_i: i32 = 0;
     let mut changed: i32 = 0;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut cent: point =
             malloc((::core::mem::size_of::<point_t>() as u64).wrapping_mul(n_cluster as u64))
@@ -197,7 +187,7 @@ pub extern "C" fn lloyd(mut pts: point, mut len: i32, mut n_cluster: i32) -> poi
                 (*c).group = 0;
                 (*c).y = 0 as f64;
                 (*c).x = (*c).y;
-                i = i.wrapping_add(1);
+                i += 1;
                 i;
                 c = c.offset(1);
                 c;
@@ -210,7 +200,7 @@ pub extern "C" fn lloyd(mut pts: point, mut len: i32, mut n_cluster: i32) -> poi
                 (*c).group;
                 (*c).x += (*p).x;
                 (*c).y += (*p).y;
-                j = j.wrapping_add(1);
+                j += 1;
                 j;
                 p = p.offset(1);
                 p;
@@ -220,7 +210,7 @@ pub extern "C" fn lloyd(mut pts: point, mut len: i32, mut n_cluster: i32) -> poi
             while i < n_cluster {
                 (*c).x /= (*c).group as f64;
                 (*c).y /= (*c).group as f64;
-                i = i.wrapping_add(1);
+                i += 1;
                 i;
                 c = c.offset(1);
                 c;
@@ -231,11 +221,11 @@ pub extern "C" fn lloyd(mut pts: point, mut len: i32, mut n_cluster: i32) -> poi
             while j < len {
                 min_i = nearest(p, cent, n_cluster, 0 as *mut f64);
                 if min_i != (*p).group {
-                    changed = changed.wrapping_add(1);
+                    changed += 1;
                     changed;
                     (*p).group = min_i;
                 }
-                j = j.wrapping_add(1);
+                j += 1;
                 j;
                 p = p.offset(1);
                 p;
@@ -248,7 +238,7 @@ pub extern "C" fn lloyd(mut pts: point, mut len: i32, mut n_cluster: i32) -> poi
         i = 0;
         while i < n_cluster {
             (*c).group = i;
-            i = i.wrapping_add(1);
+            i += 1;
             i;
             c = c.offset(1);
             c;
@@ -259,8 +249,6 @@ pub extern "C" fn lloyd(mut pts: point, mut len: i32, mut n_cluster: i32) -> poi
 
 #[no_mangle]
 pub extern "C" fn print_eps(mut pts: point, mut len: i32, mut cent: point, mut n_cluster: i32) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -285,7 +273,7 @@ pub extern "C" fn print_eps(mut pts: point, mut len: i32, mut cent: point, mut n
             *colors.offset((3 * i + 0i32) as isize) = (3 * (i + 1i32) % 11i32) as f64 / 11.0f64;
             *colors.offset((3 * i + 1i32) as isize) = (7 * i % 11i32) as f64 / 11.0f64;
             *colors.offset((3 * i + 2i32) as isize) = (9 * i % 11i32) as f64 / 11.0f64;
-            i = i.wrapping_add(1);
+            i += 1;
             i;
             c = c.offset(1);
             c;
@@ -309,7 +297,7 @@ pub extern "C" fn print_eps(mut pts: point, mut len: i32, mut cent: point, mut n
             if min_y > (*p).y {
                 min_y = (*p).y;
             }
-            j = j.wrapping_add(1);
+            j += 1;
             j;
             p = p.offset(1);
             p;
@@ -347,7 +335,7 @@ pub extern "C" fn print_eps(mut pts: point, mut len: i32, mut cent: point, mut n
                         ((*p).y - cy) * scale + (400 / 2i32) as f64
                     );
                 }
-                j = j.wrapping_add(1);
+                j += 1;
                 j;
                 p = p.offset(1);
                 p;
@@ -357,7 +345,7 @@ pub extern "C" fn print_eps(mut pts: point, mut len: i32, mut cent: point, mut n
                 ((*c).x - cx) * scale + (400 / 2i32) as f64,
                 ((*c).y - cy) * scale + (400 / 2i32) as f64
             );
-            i = i.wrapping_add(1);
+            i += 1;
             i;
             c = c.offset(1);
             c;

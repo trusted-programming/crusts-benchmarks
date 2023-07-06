@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -24,8 +22,6 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 
 extern "C" {}
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -47,7 +43,7 @@ fn main_0() -> i32 {
                 build_str_from_raw_ptr(names.offset((j % 32 * 22i32) as isize) as *mut u8),
                 degrees[i as usize]
             );
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         0_i32

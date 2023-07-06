@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -28,8 +26,6 @@ extern "C" {
 #[no_mangle]
 pub extern "C" fn luhn(mut cc: *const i8) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let m: [i32; 10] = [0, 2, 4, 6, 8, 1, 3, 5, 7, 9];
         let mut i: i32 = 0;
@@ -38,7 +34,7 @@ pub extern "C" fn luhn(mut cc: *const i8) -> i32 {
         i = strlen(cc) as i32;
         loop {
             let fresh0 = i;
-            i = i.wrapping_sub(1);
+            i -= 1_i32;
             if fresh0 == 0_i32 {
                 break;
             }
@@ -61,8 +57,6 @@ fn main_0() -> i32 {
     let mut i: i32 = 0;
     i = 0_i32;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while !(cc[i as usize]).is_null() {
             if luhn(cc[i as usize]) != 0_i32 {
@@ -76,7 +70,7 @@ fn main_0() -> i32 {
                     build_str_from_raw_ptr(cc[i as usize] as *mut u8)
                 )
             };
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }

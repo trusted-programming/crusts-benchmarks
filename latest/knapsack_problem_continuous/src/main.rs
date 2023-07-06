@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -26,8 +24,6 @@ extern "C" {
     fn qsort(__base: *mut libc::c_void, __nmemb: u64, __size: u64, __compar: __compar_fn_t);
 }
 pub type __compar_fn_t =
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     Option<unsafe extern "C" fn(*const libc::c_void, *const libc::c_void) -> i32>;
 #[derive(Copy, Clone)]
@@ -116,8 +112,6 @@ pub static mut items: [item; 9] = [
 #[no_mangle]
 pub extern "C" fn item_cmp(mut aa: *const libc::c_void, mut bb: *const libc::c_void) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut a: *const item = aa.cast::<item>();
         let mut b: *const item = bb.cast::<item>();
@@ -129,8 +123,6 @@ pub extern "C" fn item_cmp(mut aa: *const libc::c_void, mut bb: *const libc::c_v
 
 fn main_0() -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut it: *mut item = std::ptr::null_mut::<item>();
         let mut space: f64 = 15_f64;
@@ -138,8 +130,6 @@ fn main_0() -> i32 {
             items.as_mut_ptr().cast::<libc::c_void>(),
             9,
             ::core::mem::size_of::<item>() as u64,
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
             Some(item_cmp as unsafe extern "C" fn(*const libc::c_void, *const libc::c_void) -> i32),
         );

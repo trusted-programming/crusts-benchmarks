@@ -19,12 +19,10 @@ fn rust_getchar() -> u8 {
 
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -67,8 +65,6 @@ pub extern "C" fn Game_update(mut move_0: u32) -> i32 {
     let dx: [i32; 4] = [0, 0, -1, 1];
     let dy: [i32; 4] = [-1, 1, 0, 0];
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = holeRow + dy[move_0 as usize];
         let mut j: i32 = holeCollumn + dx[move_0 as usize];
@@ -90,17 +86,15 @@ pub extern "C" fn Game_setup() {
     let mut k: i32 = 0;
     i = 0;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < 4 {
             j = 0;
             while j < 4 {
                 cells[i as usize][j as usize] = i * 4 + j + 1;
-                j = j.wrapping_add(1);
+                j += 1;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
         cells[(4 - 1i32) as usize][(4 - 1i32) as usize] = 0;
@@ -108,8 +102,6 @@ pub extern "C" fn Game_setup() {
         holeCollumn = 4 - 1;
     }
     k = 0;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while k < nShuffles {
@@ -125,23 +117,21 @@ pub extern "C" fn Game_isFinished() -> i32 {
     let mut k: i32 = 1;
     i = 0;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < 4 {
             j = 0;
             while j < 4 {
                 if k < 4 * 4 && {
                     let fresh0 = k;
-                    k = k.wrapping_add(1);
+                    k = k + 1;
                     cells[i as usize][j as usize] != fresh0
                 } {
                     return 0;
                 }
-                j = j.wrapping_add(1);
+                j += 1;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }
@@ -154,8 +144,6 @@ pub extern "C" fn View_showBoard() {
     let mut j: i32 = 0;
     print!("{}", '\n' as i32);
     i = 0;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < 4 {
@@ -174,10 +162,10 @@ pub extern "C" fn View_showBoard() {
                         print!(" {:2} \n", "\0")
                     };
                 }
-                j = j.wrapping_add(1);
+                j += 1;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }
@@ -187,8 +175,6 @@ pub extern "C" fn View_showBoard() {
 #[no_mangle]
 pub extern "C" fn View_displayMessage(mut text: *mut i8) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         print!("\n{}\n", build_str_from_raw_ptr(text as *mut u8));
     }
@@ -197,8 +183,6 @@ pub extern "C" fn View_displayMessage(mut text: *mut i8) {
 #[no_mangle]
 pub extern "C" fn Controller_getMove() -> u32 {
     let mut c: i32 = 0;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         loop {
@@ -226,8 +210,6 @@ pub extern "C" fn Controller_pause() {
 
 fn main_0() -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         srand(rust_time(None) as u32);
     }
@@ -248,8 +230,6 @@ fn main_0() -> i32 {
 }
 
 pub fn main() {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(main_0() as i32);

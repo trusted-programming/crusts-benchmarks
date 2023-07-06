@@ -23,8 +23,6 @@ pub struct Factors {
 #[no_mangle]
 pub extern "C" fn xferFactors(mut fctrs: *mut Factors, mut flist: *mut i32, mut flix: i32) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut ix: i32 = 0;
         let mut ij: i32 = 0;
@@ -42,9 +40,9 @@ pub extern "C" fn xferFactors(mut fctrs: *mut Factors, mut flist: *mut i32, mut 
         ix = i32::from((*fctrs).count);
         while ix < newSize {
             *((*fctrs).list).offset(ix as isize) = *flist.offset(ij as isize);
-            ij = ij.wrapping_add(1);
+            ij += 1_i32;
             ij;
-            ix = ix.wrapping_add(1);
+            ix += 1_i32;
             ix;
         }
         (*fctrs).count = newSize as i16;
@@ -53,8 +51,6 @@ pub extern "C" fn xferFactors(mut fctrs: *mut Factors, mut flist: *mut i32, mut 
 
 #[no_mangle]
 pub extern "C" fn factor(mut num: i32, mut fctrs: *mut Factors) -> *mut Factors {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut flist: [i32; 301] = [0; 301];
@@ -72,18 +68,18 @@ pub extern "C" fn factor(mut num: i32, mut fctrs: *mut Factors) -> *mut Factors 
                     flix = 0_i32;
                 }
                 let fresh0 = flix;
-                flix = flix.wrapping_add(1);
+                flix += 1_i32;
                 flist[fresh0 as usize] = dvsr;
                 let fresh1 = flix;
-                flix = flix.wrapping_add(1);
+                flix += 1_i32;
                 flist[fresh1 as usize] = num / dvsr;
             }
-            dvsr = dvsr.wrapping_add(1);
+            dvsr += 1_i32;
             dvsr;
         }
         if dvsr * dvsr == num {
             let fresh2 = flix;
-            flix = flix.wrapping_add(1);
+            flix += 1_i32;
             flist[fresh2 as usize] = dvsr;
         }
         if flix > 0_i32 {
@@ -94,8 +90,6 @@ pub extern "C" fn factor(mut num: i32, mut fctrs: *mut Factors) -> *mut Factors 
 }
 
 fn main_0(mut _argc: i32, mut _argv: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut nums2factor: [i32; 4] = [2059, 223092870, 3135, 45];
@@ -118,11 +112,11 @@ fn main_0(mut _argc: i32, mut _argv: *mut *mut i8) -> i32 {
             while j < i32::from(ftors.count) {
                 print!("{} {}", i32::from(sep), *(ftors.list).offset(j as isize));
                 sep = ',' as i8;
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
             println!();
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         0_i32

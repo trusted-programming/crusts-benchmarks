@@ -67,8 +67,6 @@ static mut newColor: u8 = 0;
 #[no_mangle]
 pub extern "C" fn floodFill(mut i: i32, mut j: i32) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         if 0_i32 <= i
             && i < height
@@ -88,15 +86,11 @@ pub extern "C" fn floodFill(mut i: i32, mut j: i32) {
 #[no_mangle]
 pub extern "C" fn skipLine(mut file: *mut FILE) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe { while ferror(file) == 0_i32 && feof(file) == 0_i32 && fgetc(file) != '\n' as i32 {} }
 }
 
 #[no_mangle]
 pub extern "C" fn skipCommentLines(mut file: *mut FILE) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut c: i32 = 0;
@@ -114,8 +108,6 @@ pub extern "C" fn skipCommentLines(mut file: *mut FILE) {
 
 #[no_mangle]
 pub extern "C" fn readPortableBitMap(mut file: *mut FILE) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -146,10 +138,10 @@ pub extern "C" fn readPortableBitMap(mut file: *mut FILE) -> i32 {
                             .as_mut_ptr()
                             .offset(j as isize) as *mut u8,
                     );
-                    j = j.wrapping_add(1);
+                    j += 1_i32;
                     j;
                 }
-                i = i.wrapping_add(1);
+                i += 1_i32;
                 i;
             }
         } else {
@@ -161,8 +153,6 @@ pub extern "C" fn readPortableBitMap(mut file: *mut FILE) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn writePortableBitMap(mut file: *mut FILE) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -178,19 +168,17 @@ pub extern "C" fn writePortableBitMap(mut file: *mut FILE) {
                     (b"%1d\0" as *const u8).cast::<i8>(),
                     i32::from(bitmap[i as usize][j as usize]),
                 );
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
             fprintf(file, (b"\n\0" as *const u8).cast::<i8>());
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }
 }
 
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         oldColor = 1;
@@ -203,8 +191,6 @@ fn main_0() -> i32 {
 }
 
 pub fn main() {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(main_0());

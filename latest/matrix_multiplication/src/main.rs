@@ -23,13 +23,11 @@ pub type matrix = *mut matrix_t;
 #[no_mangle]
 pub extern "C" fn dot(mut a: *mut f64, mut b: *mut f64, mut len: i32, mut step: i32) -> f64 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut r: f64 = f64::from(0_i32);
         loop {
             let fresh0 = len;
-            len = len.wrapping_sub(1);
+            len -= 1_i32;
             if fresh0 == 0_i32 {
                 break;
             }
@@ -44,8 +42,6 @@ pub extern "C" fn dot(mut a: *mut f64, mut b: *mut f64, mut len: i32, mut step: 
 
 #[no_mangle]
 pub extern "C" fn mat_new(mut h: i32, mut w: i32) -> matrix {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut r: matrix = malloc(
@@ -64,8 +60,6 @@ pub extern "C" fn mat_new(mut h: i32, mut w: i32) -> matrix {
 
 #[no_mangle]
 pub extern "C" fn mat_mul(mut a: matrix, mut b: matrix) -> matrix {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut r: matrix = std::ptr::null_mut::<matrix_t>();
@@ -86,10 +80,10 @@ pub extern "C" fn mat_mul(mut a: matrix, mut b: matrix) -> matrix {
                 let fresh2 = p;
                 p = p.offset(1);
                 *fresh2 = dot(pa, ((*b).x).offset(j as isize), (*a).w, (*b).w);
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
             pa = pa.offset((*a).w as isize);
         }
@@ -99,8 +93,6 @@ pub extern "C" fn mat_mul(mut a: matrix, mut b: matrix) -> matrix {
 
 #[no_mangle]
 pub extern "C" fn mat_show(mut a: matrix) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -113,10 +105,10 @@ pub extern "C" fn mat_show(mut a: matrix) {
                 let fresh3 = p;
                 p = p.offset(1);
                 print!("	{:7.3}", *fresh3);
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
             print!("{}", '\n' as i32);
         }

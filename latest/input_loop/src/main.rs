@@ -10,12 +10,10 @@
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -71,8 +69,6 @@ pub type FILE = _IO_FILE;
 #[no_mangle]
 pub extern "C" fn get_line(mut fp: *mut FILE) -> *mut i8 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut len: i32 = 0;
         let mut got: i32 = 0;
@@ -91,7 +87,7 @@ pub extern "C" fn get_line(mut fp: *mut FILE) -> *mut i8 {
                 buf = realloc(buf.cast::<libc::c_void>(), len as u64).cast::<i8>();
             }
             let fresh0 = got;
-            got = got.wrapping_add(1);
+            got += 1_i32;
             *buf.offset(fresh0 as isize) = c as i8;
             if c == '\n' as i32 {
                 break;
@@ -101,15 +97,13 @@ pub extern "C" fn get_line(mut fp: *mut FILE) -> *mut i8 {
             return std::ptr::null_mut::<i8>();
         }
         let fresh1 = got;
-        got = got.wrapping_add(1);
+        got += 1_i32;
         *buf.offset(fresh1 as isize) = '\0' as i8;
         buf
     }
 }
 
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut s: *mut i8 = std::ptr::null_mut::<i8>();

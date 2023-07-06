@@ -12,8 +12,6 @@ extern "C" {}
 #[no_mangle]
 pub extern "C" fn halve(mut x: *mut i32) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         *x >>= 1_i32;
     }
@@ -21,8 +19,6 @@ pub extern "C" fn halve(mut x: *mut i32) {
 
 #[no_mangle]
 pub extern "C" fn doublit(mut x: *mut i32) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         *x <<= 1_i32;
@@ -49,7 +45,7 @@ pub extern "C" fn ethiopian(mut plier: i32, mut plicand: i32, tutor: bool) -> i3
             if tutor {
                 println!("{:4} {:6} kept", plier, plicand);
             }
-            result = result.wrapping_add(plicand);
+            result += plicand;
         }
         halve(&mut plier);
         doublit(&mut plicand);

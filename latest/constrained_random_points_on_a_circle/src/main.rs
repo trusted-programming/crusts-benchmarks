@@ -16,8 +16,6 @@ pub extern "C" fn randn(mut m: i32) -> i32 {
     let mut rand_max: i32 = 2147483647 - 2147483647 % m;
     let mut r: i32 = 0;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         loop {
             r = rand();
@@ -42,7 +40,7 @@ fn main_0() -> i32 {
         r2 = x * x + y * y;
         if (100_i32..=225_i32).contains(&r2) {
             buf[(15_i32 + y) as usize] |= (1i32 << (x + 15_i32)) as u64;
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }
@@ -55,11 +53,11 @@ fn main_0() -> i32 {
             } else {
                 print!("  ")
             };
-            x = x.wrapping_add(1);
+            x += 1_i32;
             x;
         }
         println!();
-        y = y.wrapping_add(1);
+        y += 1_i32;
         y;
     }
     0_i32

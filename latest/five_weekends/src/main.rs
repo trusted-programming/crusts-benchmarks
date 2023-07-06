@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -80,8 +78,6 @@ fn main_0() -> i32 {
     println!("Months with five weekends:");
     y = 1_900_i32;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while y <= 2_100_i32 {
             i = 0_i32;
@@ -102,13 +98,13 @@ fn main_0() -> i32 {
                         y,
                         build_str_from_raw_ptr(months[m as usize] as *mut u8)
                     );
-                    n = n.wrapping_add(1);
+                    n += 1_i32;
                     n;
                 }
-                i = i.wrapping_add(1);
+                i += 1_i32;
                 i;
             }
-            y = y.wrapping_add(1);
+            y += 1_i32;
             y;
         }
     }

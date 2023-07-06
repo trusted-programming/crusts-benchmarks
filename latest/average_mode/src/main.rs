@@ -15,8 +15,6 @@ extern "C" {
 }
 pub type __compar_fn_t =
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     Option<unsafe extern "C" fn(*const libc::c_void, *const libc::c_void) -> i32>;
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -27,8 +25,6 @@ pub struct vcount {
 }
 #[no_mangle]
 pub extern "C" fn cmp_dbl(mut a: *const libc::c_void, mut b: *const libc::c_void) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut x: f64 = *a.cast::<f64>() - *b.cast::<f64>();
@@ -43,8 +39,6 @@ pub extern "C" fn cmp_dbl(mut a: *const libc::c_void, mut b: *const libc::c_void
 #[no_mangle]
 pub extern "C" fn vc_cmp(mut a: *const libc::c_void, mut b: *const libc::c_void) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         (*b.cast::<vcount>()).c - (*a.cast::<vcount>()).c
     }
@@ -52,8 +46,6 @@ pub extern "C" fn vc_cmp(mut a: *const libc::c_void, mut b: *const libc::c_void)
 
 #[no_mangle]
 pub extern "C" fn get_mode(mut x: *mut f64, mut len_0: i32, mut list: *mut *mut vcount) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -64,14 +56,12 @@ pub extern "C" fn get_mode(mut x: *mut f64, mut len_0: i32, mut list: *mut *mut 
             len_0 as u64,
             ::core::mem::size_of::<f64>() as u64,
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
             Some(cmp_dbl as unsafe extern "C" fn(*const libc::c_void, *const libc::c_void) -> i32),
         );
         i = 0_i32;
         j = 1_i32;
         while i < len_0 - 1_i32 {
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
             j += i32::from(*x.offset(i as isize) != *x.offset((i + 1i32) as isize));
         }
@@ -84,10 +74,10 @@ pub extern "C" fn get_mode(mut x: *mut f64, mut len_0: i32, mut list: *mut *mut 
         i = j;
         while i < len_0 - 1_i32 {
             if *x.offset(i as isize) != *x.offset((i + 1i32) as isize) {
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 (*vc.offset(j as isize)).v = *x.offset((i + 1i32) as isize);
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
             let fresh0 = &mut (*vc.offset(j as isize)).c;
             *fresh0 += 1_i32;
@@ -98,13 +88,11 @@ pub extern "C" fn get_mode(mut x: *mut f64, mut len_0: i32, mut list: *mut *mut 
             (j + 1i32) as u64,
             ::core::mem::size_of::<vcount>() as u64,
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
             Some(vc_cmp as unsafe extern "C" fn(*const libc::c_void, *const libc::c_void) -> i32),
         );
         i = 0_i32;
         while i <= j && (*vc.offset(i as isize)).c == (*vc.offset(0_isize)).c {
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         i
@@ -112,8 +100,6 @@ pub extern "C" fn get_mode(mut x: *mut f64, mut len_0: i32, mut list: *mut *mut 
 }
 
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut values: [f64; 13] = [
@@ -136,7 +122,7 @@ fn main_0() -> i32 {
                 (*vc.offset(i as isize)).v,
                 (*vc.offset(i as isize)).c
             );
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         free(vc.cast::<libc::c_void>());

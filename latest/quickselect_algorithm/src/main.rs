@@ -14,8 +14,6 @@ extern "C" {
 #[no_mangle]
 pub extern "C" fn qselect(mut v: *mut i32, mut len: i32, mut k: i32) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut st: i32 = 0;
@@ -27,10 +25,10 @@ pub extern "C" fn qselect(mut v: *mut i32, mut len: i32, mut k: i32) -> i32 {
                 tmp = *v.offset(i as isize);
                 *v.offset(i as isize) = *v.offset(st as isize);
                 *v.offset(st as isize) = tmp;
-                st = st.wrapping_add(1);
+                st += 1_i32;
                 st;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         tmp = *v.offset((len - 1i32) as isize);
@@ -52,8 +50,6 @@ fn main_0() -> i32 {
     let mut i: i32 = 0;
     i = 0_i32;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < 10_i32 {
             memcpy(
@@ -62,7 +58,7 @@ fn main_0() -> i32 {
                 ::core::mem::size_of::<[i32; 10]>() as u64,
             );
             println!("{}: {}", i, qselect(y.as_mut_ptr(), 10, i));
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }

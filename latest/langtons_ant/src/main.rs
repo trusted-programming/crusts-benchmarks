@@ -72,8 +72,6 @@ pub extern "C" fn refresh(mut _x: i32, mut _y: i32) {
     k = 0_i32;
     i = k;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < h {
             j = 0_i32;
@@ -86,13 +84,13 @@ pub extern "C" fn refresh(mut _x: i32, mut _y: i32) {
                         ' ' as i32
                     }
                 );
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
-                k = k.wrapping_add(1);
+                k += 1_i32;
                 k;
             }
             print!("{}", '\n' as i32);
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }
@@ -104,8 +102,6 @@ pub extern "C" fn walk() {
     let mut dy: i32 = 1;
     let mut i: i32 = 0;
     let mut k: i32 = 0;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut x: i32 = w / 2;
@@ -129,8 +125,8 @@ pub extern "C" fn walk() {
             } else {
                 print!("\x1B[{};{}H{}", y + 1_i32, x + 1_i32, ' ' as i32)
             };
-            x = x.wrapping_add(dx);
-            y = y.wrapping_add(dy);
+            x += dx;
+            y += dy;
             k = 0_i32;
             if x < 0_i32 {
                 memmove(
@@ -141,9 +137,9 @@ pub extern "C" fn walk() {
                 i = 0_i32;
                 while i < w * h {
                     *pix.offset(i as isize) = 0;
-                    i = i.wrapping_add(w);
+                    i += w;
                 }
-                x = x.wrapping_add(1);
+                x += 1_i32;
                 x;
                 k = 1_i32;
             } else if x >= w {
@@ -152,12 +148,12 @@ pub extern "C" fn walk() {
                     pix.offset(1_isize) as *const libc::c_void,
                     (w * h - 1i32) as u64,
                 );
-                i = w.wrapping_sub(1);
+                i = w - 1_i32;
                 while i < w * h {
                     *pix.offset(i as isize) = 0;
-                    i = i.wrapping_add(w);
+                    i += w;
                 }
-                x = x.wrapping_sub(1);
+                x -= 1_i32;
                 x;
                 k = 1_i32;
             }
@@ -172,7 +168,7 @@ pub extern "C" fn walk() {
                     0,
                     w as u64,
                 );
-                y = y.wrapping_sub(1);
+                y -= 1_i32;
                 y;
                 k = 1_i32;
             } else if y < 0_i32 {
@@ -182,7 +178,7 @@ pub extern "C" fn walk() {
                     (w * (h - 1i32)) as u64,
                 );
                 memset(pix.cast::<libc::c_void>(), 0, w as u64);
-                y = y.wrapping_add(1);
+                y += 1_i32;
                 y;
                 k = 1_i32;
             }
@@ -197,8 +193,6 @@ pub extern "C" fn walk() {
 }
 
 fn main_0(mut c: i32, mut v: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if c > 1_i32 {

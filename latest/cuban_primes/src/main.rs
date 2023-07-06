@@ -76,8 +76,6 @@ pub extern "C" fn allocate() -> PrimeArray {
     primes.size = 0;
     primes.capacity = 10;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         primes.ptr = malloc((primes.capacity).wrapping_mul(::core::mem::size_of::<i64>() as u64)).cast::<i64>();
     }
@@ -87,8 +85,6 @@ pub extern "C" fn allocate() -> PrimeArray {
 #[no_mangle]
 pub extern "C" fn deallocate(mut primes: *mut PrimeArray) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         free((*primes).ptr.cast::<libc::c_void>());
         (*primes).ptr = std::ptr::null_mut::<i64>();
@@ -97,8 +93,6 @@ pub extern "C" fn deallocate(mut primes: *mut PrimeArray) {
 
 #[no_mangle]
 pub extern "C" fn push_back(mut primes: *mut PrimeArray, mut p: i64) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if (*primes).size >= (*primes).capacity {
@@ -143,13 +137,11 @@ fn main_0() -> i32 {
     println!("The first {} cuban primes:", cutOff);
     i = 1;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < 9223372036854775807 {
             let mut found: bool = 0 != 0;
-            u = u.wrapping_add(6);
-            v = v.wrapping_add(u);
+            u += 6;
+            v += u;
             let mut mx: i64 = ceil(sqrt(v as f64)) as i64;
             let mut j: i64 = 0;
             j = 0;
@@ -161,12 +153,12 @@ fn main_0() -> i32 {
                     found = 1_i32 != 0_i32;
                     break;
                 } else {
-                    j = j.wrapping_add(1);
+                    j += 1;
                     j;
                 }
             }
             if !found {
-                c = c.wrapping_add(1);
+                c += 1_i32;
                 if showEach {
                     let mut z: i64 = 0;
                     z = *(primes.ptr).offset((primes.size).wrapping_sub(1) as isize) + 2;
@@ -181,14 +173,14 @@ fn main_0() -> i32 {
                                 fnd = 1_i32 != 0_i32;
                                 break;
                             } else {
-                                j = j.wrapping_add(1);
+                                j += 1;
                                 j;
                             }
                         }
                         if !fnd {
                             push_back(&mut primes, z);
                         }
-                        z = z.wrapping_add(2);
+                        z += 2;
                     }
                     push_back(&mut primes, v);
                     print!("{:11}", v);
@@ -207,7 +199,7 @@ fn main_0() -> i32 {
                     }
                 }
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }
@@ -217,8 +209,6 @@ fn main_0() -> i32 {
 }
 
 pub fn main() {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(main_0());

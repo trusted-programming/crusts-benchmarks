@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -29,8 +27,6 @@ extern "C" {
     fn strchr(_: *const i8, _: i32) -> *mut i8;
 }
 extern "C" fn _parseDecimal(mut pchCursor: *mut *const i8) -> u32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut nVal: u32 = 0;
@@ -50,8 +46,6 @@ extern "C" fn _parseDecimal(mut pchCursor: *mut *const i8) -> u32 {
 }
 
 extern "C" fn _parseHex(mut pchCursor: *mut *const i8) -> u32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut nVal: u32 = 0;
@@ -86,8 +80,6 @@ pub extern "C" fn ParseIPv4OrIPv6(
     mut pnPort: *mut i32,
     mut pbIsIPv6: *mut i32,
 ) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut abyAddrLocal: *mut u8 = std::ptr::null_mut::<u8>();
@@ -196,7 +188,7 @@ pub extern "C" fn ParseIPv4OrIPv6(
                 if pszTextBefore_0 == *ppszText {
                     if !pbyZerosLoc.is_null() {
                         if pbyZerosLoc == pbyAddrCursor_0 {
-                            nIdx = nIdx.wrapping_sub(1);
+                            nIdx -= 1_i32;
                             nIdx;
                             break;
                         } else {
@@ -243,7 +235,7 @@ pub extern "C" fn ParseIPv4OrIPv6(
                     let fresh7 = pbyAddrCursor_0;
                     pbyAddrCursor_0 = pbyAddrCursor_0.offset(1);
                     *fresh7 = abyAddrlocal[3_usize];
-                    nIdx = nIdx.wrapping_add(1);
+                    nIdx += 1_i32;
                     nIdx;
                     bIPv4Detected = 1_i32;
                     break;
@@ -263,7 +255,7 @@ pub extern "C" fn ParseIPv4OrIPv6(
                     *ppszText = (*ppszText).offset(1);
                     *ppszText;
                 }
-                nIdx = nIdx.wrapping_add(1);
+                nIdx += 1_i32;
                 nIdx;
             }
             if !pbyZerosLoc.is_null() {
@@ -330,8 +322,6 @@ pub extern "C" fn ParseIPv4OrIPv6_2(
     mut pbIsIPv6: *mut i32,
 ) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut pszTextLocal: *const i8 = pszText;
         ParseIPv4OrIPv6(&mut pszTextLocal, abyAddr, pnPort, pbIsIPv6)
@@ -340,8 +330,6 @@ pub extern "C" fn ParseIPv4OrIPv6_2(
 
 #[no_mangle]
 pub extern "C" fn htons(mut us: u16) -> u16 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         ((i32::from(*(&mut us as *mut u16).cast::<u8>().offset(0_isize)) << 8i32)
@@ -352,14 +340,12 @@ pub extern "C" fn htons(mut us: u16) -> u16 {
 #[no_mangle]
 pub extern "C" fn dumpbin(mut pbyBin: *mut u8, mut nLen: i32) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         i = 0_i32;
         while i < nLen {
             print!("{:02x}", i32::from(*pbyBin.offset(i as isize)));
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }
@@ -367,8 +353,6 @@ pub extern "C" fn dumpbin(mut pbyBin: *mut u8, mut nLen: i32) {
 
 #[no_mangle]
 pub extern "C" fn testcase(mut pszTest: *const i8) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut abyAddr: [u8; 16] = [0; 16];
@@ -404,8 +388,6 @@ pub extern "C" fn testcase(mut pszTest: *const i8) {
 }
 
 fn main_0(mut _argc: i32, mut _argv: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         testcase((b"127.0.0.1\0" as *const u8).cast::<i8>());

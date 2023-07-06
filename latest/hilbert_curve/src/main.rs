@@ -19,8 +19,6 @@ pub struct point {
 #[no_mangle]
 pub extern "C" fn rot(mut n: i32, mut p: *mut point, mut rx: i32, mut ry: i32) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut t: i32 = 0;
         if ry == 0_i32 {
@@ -38,8 +36,6 @@ pub extern "C" fn rot(mut n: i32, mut p: *mut point, mut rx: i32, mut ry: i32) {
 #[no_mangle]
 pub extern "C" fn d2pt(mut n: i32, mut d: i32, mut p: *mut point) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut s: i32 = 1;
         let mut t: i32 = d;
@@ -53,7 +49,7 @@ pub extern "C" fn d2pt(mut n: i32, mut d: i32, mut p: *mut point) {
             rot(s, p, rx, ry);
             (*p).x += s * rx;
             (*p).y += s * ry;
-            t = t.wrapping_div(4);
+            t /= 4_i32;
             s *= 2_i32;
         }
     }
@@ -75,10 +71,10 @@ fn main_0() -> i32 {
         y = 0_i32;
         while y < 32_i32 * 3_i32 {
             pts[x as usize][y as usize] = ' ' as i8;
-            y = y.wrapping_add(1);
+            y += 1_i32;
             y;
         }
-        x = x.wrapping_add(1);
+        x += 1_i32;
         x;
     }
     prev.y = 0_i32;
@@ -94,37 +90,37 @@ fn main_0() -> i32 {
         pts[cx as usize][cy as usize] = '.' as i8;
         if cx == px {
             if py < cy {
-                y = py.wrapping_add(1);
+                y = py + 1_i32;
                 while y < cy {
                     pts[cx as usize][y as usize] = '|' as i8;
-                    y = y.wrapping_add(1);
+                    y += 1_i32;
                     y;
                 }
             } else {
-                y = cy.wrapping_add(1);
+                y = cy + 1_i32;
                 while y < py {
                     pts[cx as usize][y as usize] = '|' as i8;
-                    y = y.wrapping_add(1);
+                    y += 1_i32;
                     y;
                 }
             }
         } else if px < cx {
-            x = px.wrapping_add(1);
+            x = px + 1_i32;
             while x < cx {
                 pts[x as usize][cy as usize] = '_' as i8;
-                x = x.wrapping_add(1);
+                x += 1_i32;
                 x;
             }
         } else {
-            x = cx.wrapping_add(1);
+            x = cx + 1_i32;
             while x < px {
                 pts[x as usize][cy as usize] = '_' as i8;
-                x = x.wrapping_add(1);
+                x += 1_i32;
                 x;
             }
         }
         prev = curr;
-        d = d.wrapping_add(1);
+        d += 1_i32;
         d;
     }
     x = 0_i32;
@@ -132,11 +128,11 @@ fn main_0() -> i32 {
         y = 0_i32;
         while y < 32_i32 * 3_i32 {
             print!("{}", i32::from(pts[y as usize][x as usize]));
-            y = y.wrapping_add(1);
+            y += 1_i32;
             y;
         }
         println!();
-        x = x.wrapping_add(1);
+        x += 1_i32;
         x;
     }
     0_i32

@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -26,15 +24,13 @@ extern "C" {}
 #[no_mangle]
 pub extern "C" fn check_isbn13(mut isbn: *const i8) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut ch: i32 = i32::from(*isbn);
         let mut count: i32 = 0;
         let mut sum: i32 = 0;
         while ch != 0_i32 {
             if ch == ' ' as i32 || ch == '-' as i32 {
-                count = count.wrapping_sub(1);
+                count -= 1_i32;
                 count;
             } else {
                 if ch < '0' as i32 || ch > '9' as i32 {
@@ -48,7 +44,7 @@ pub extern "C" fn check_isbn13(mut isbn: *const i8) -> i32 {
             }
             isbn = isbn.offset(1);
             ch = i32::from(*isbn);
-            count = count.wrapping_add(1);
+            count += 1_i32;
             count;
         }
         if count != 13_i32 {
@@ -68,8 +64,6 @@ fn main_0() -> i32 {
     ];
     i = 0_i32;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < 4_i32 {
             if check_isbn13(isbns[i as usize]) != 0_i32 {
@@ -83,7 +77,7 @@ fn main_0() -> i32 {
                     build_str_from_raw_ptr(isbns[i as usize] as *mut u8)
                 )
             };
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }

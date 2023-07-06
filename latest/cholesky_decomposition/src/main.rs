@@ -17,8 +17,6 @@ extern "C" {
 #[no_mangle]
 pub extern "C" fn cholesky(mut A: *mut f64, mut n: i32) -> *mut f64 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut L: *mut f64 =
             calloc((n * n) as u64, ::core::mem::size_of::<f64>() as u64).cast::<f64>();
@@ -33,7 +31,7 @@ pub extern "C" fn cholesky(mut A: *mut f64, mut n: i32) -> *mut f64 {
                 let mut k: i32 = 0;
                 while k < j {
                     s += *L.offset((i * n + k) as isize) * *L.offset((j * n + k) as isize);
-                    k = k.wrapping_add(1);
+                    k += 1_i32;
                     k;
                 }
                 *L.offset((i * n + j) as isize) = if i == j {
@@ -41,10 +39,10 @@ pub extern "C" fn cholesky(mut A: *mut f64, mut n: i32) -> *mut f64 {
                 } else {
                     1.0f64 / *L.offset((j * n + j) as isize) * (*A.offset((i * n + j) as isize) - s)
                 };
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         L
@@ -54,27 +52,23 @@ pub extern "C" fn cholesky(mut A: *mut f64, mut n: i32) -> *mut f64 {
 #[no_mangle]
 pub extern "C" fn show_matrix(mut A: *mut f64, mut n: i32) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         while i < n {
             let mut j: i32 = 0;
             while j < n {
                 print!("{:2.5} ", *A.offset((i * n + j) as isize));
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
             println!();
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }
 }
 
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut n: i32 = 3;
@@ -107,8 +101,6 @@ fn main_0() -> i32 {
 }
 
 pub fn main() {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(main_0());

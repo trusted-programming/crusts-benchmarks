@@ -24,8 +24,6 @@ pub struct SquareMatrix {
 #[no_mangle]
 pub extern "C" fn init_square_matrix(mut n: i32, mut elems: *mut f64) -> SquareMatrix {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let vla = n as usize;
         let mut A: SquareMatrix = {
@@ -44,10 +42,10 @@ pub extern "C" fn init_square_matrix(mut n: i32, mut elems: *mut f64) -> SquareM
             while j < n {
                 *(*(A.elems).offset(i as isize)).offset(j as isize) =
                     *elems.offset(i as isize * vla as isize).offset(j as isize);
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         A
@@ -62,14 +60,10 @@ pub extern "C" fn copy_square_matrix(mut src: SquareMatrix) -> SquareMatrix {
     };
     dest.n = src.n;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         dest.elems = malloc((dest.n as u64).wrapping_mul(::core::mem::size_of::<*mut f64>() as u64)).cast::<*mut f64>();
     }
     let mut i: i32 = 0;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < dest.n {
@@ -79,10 +73,10 @@ pub extern "C" fn copy_square_matrix(mut src: SquareMatrix) -> SquareMatrix {
             while j < dest.n {
                 *(*(dest.elems).offset(i as isize)).offset(j as isize) =
                     *(*(src.elems).offset(i as isize)).offset(j as isize);
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }
@@ -94,8 +88,6 @@ pub extern "C" fn det(mut A: SquareMatrix) -> f64 {
     let mut det_0: f64 = 1_f64;
     let mut j: i32 = 0;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while j < A.n {
             let mut i_max: i32 = j;
@@ -106,7 +98,7 @@ pub extern "C" fn det(mut A: SquareMatrix) -> f64 {
                 {
                     i_max = i;
                 }
-                i = i.wrapping_add(1);
+                i += 1_i32;
                 i;
             }
             if i_max != j {
@@ -116,7 +108,7 @@ pub extern "C" fn det(mut A: SquareMatrix) -> f64 {
                     *(*(A.elems).offset(i_max as isize)).offset(k as isize) =
                         *(*(A.elems).offset(j as isize)).offset(k as isize);
                     *(*(A.elems).offset(j as isize)).offset(k as isize) = tmp;
-                    k = k.wrapping_add(1);
+                    k += 1_i32;
                     k;
                 }
                 det_0 *= -1_f64;
@@ -133,24 +125,22 @@ pub extern "C" fn det(mut A: SquareMatrix) -> f64 {
                 while k_0 < A.n {
                     *(*(A.elems).offset(i_0 as isize)).offset(k_0 as isize) +=
                         mult * *(*(A.elems).offset(j as isize)).offset(k_0 as isize);
-                    k_0 = k_0.wrapping_add(1);
+                    k_0 += 1_i32;
                     k_0;
                 }
-                i_0 = i_0.wrapping_add(1);
+                i_0 += 1_i32;
                 i_0;
             }
-            j = j.wrapping_add(1);
+            j += 1_i32;
             j;
         }
     }
     let mut i_1: i32 = 0;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while i_1 < A.n {
             det_0 *= *(*(A.elems).offset(i_1 as isize)).offset(i_1 as isize);
-            i_1 = i_1.wrapping_add(1);
+            i_1 += 1_i32;
             i_1;
         }
     }
@@ -161,12 +151,10 @@ pub extern "C" fn det(mut A: SquareMatrix) -> f64 {
 pub extern "C" fn deinit_square_matrix(mut A: SquareMatrix) {
     let mut i: i32 = 0;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < A.n {
             free((*(A.elems).offset(i as isize)).cast::<libc::c_void>());
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         free(A.elems.cast::<libc::c_void>());
@@ -181,14 +169,12 @@ pub extern "C" fn cramer_solve(
     mut var: i32,
 ) -> f64 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut tmp: SquareMatrix = copy_square_matrix(A);
         let mut i: i32 = 0;
         while i < tmp.n {
             *(*(tmp.elems).offset(i as isize)).offset(var as isize) = *b.offset(i as isize);
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         let mut det_tmp: f64 = det(tmp);
@@ -198,8 +184,6 @@ pub extern "C" fn cramer_solve(
 }
 
 fn main_0(mut _argc: i32, mut _argv: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut elems: [[f64; 4]; 4] = [
@@ -216,7 +200,7 @@ fn main_0(mut _argc: i32, mut _argv: *mut *mut i8) -> i32 {
         let mut i: i32 = 0;
         while i < 4_i32 {
             println!("{:7.3}", cramer_solve(A, f64::from(det_A), b.as_mut_ptr(), i));
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         deinit_square_matrix(A);

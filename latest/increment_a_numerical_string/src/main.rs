@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -32,8 +30,6 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn incr(mut s: *mut i8) -> *mut i8 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -53,9 +49,9 @@ pub extern "C" fn incr(mut s: *mut i8) -> *mut i8 {
         } else {
             0_i32
         };
-        tail = len.wrapping_sub(1);
+        tail = len - 1_i32;
         while tail >= begin && i32::from(*s.offset(tail as isize)) == i32::from(tgt) {
-            tail = tail.wrapping_sub(1);
+            tail -= 1_i32;
             tail;
         }
         if tail < begin && neg == 0_i32 {
@@ -66,7 +62,7 @@ pub extern "C" fn incr(mut s: *mut i8) -> *mut i8 {
             i = 1_i32;
             while i <= len - begin {
                 *s.offset(i as isize) = '0' as i8;
-                i = i.wrapping_add(1);
+                i += 1_i32;
                 i;
             }
             *s.offset((len + 1i32) as isize) = '\0' as i8;
@@ -74,15 +70,15 @@ pub extern "C" fn incr(mut s: *mut i8) -> *mut i8 {
             i = 1_i32;
             while i < len - begin {
                 *s.offset(i as isize) = '9' as i8;
-                i = i.wrapping_add(1);
+                i += 1_i32;
                 i;
             }
             *s.offset((len - 1i32) as isize) = '\0' as i8;
         } else {
-            i = len.wrapping_sub(1);
+            i = len - 1_i32;
             while i > tail {
                 *s.offset(i as isize) = (if neg != 0_i32 { '9' as i32 } else { '0' as i32 }) as i8;
-                i = i.wrapping_sub(1);
+                i -= 1_i32;
                 i;
             }
             let fresh0 = &mut (*s.offset(tail as isize));
@@ -94,8 +90,6 @@ pub extern "C" fn incr(mut s: *mut i8) -> *mut i8 {
 
 #[no_mangle]
 pub extern "C" fn string_test(mut s: *const i8) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut ret: *mut i8 = malloc(strlen(s)).cast::<i8>();

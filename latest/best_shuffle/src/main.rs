@@ -10,12 +10,10 @@
 #![feature(label_break_value)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -38,8 +36,6 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn best_shuffle(mut txt: *const i8, mut result: *mut i8) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let len: u64 = strlen(txt);
@@ -238,8 +234,6 @@ pub extern "C" fn best_shuffle(mut txt: *const i8, mut result: *mut i8) {
 #[no_mangle]
 pub extern "C" fn display(mut txt1: *const i8, mut txt2: *const i8) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let len: u64 = strlen(txt1);
         if len == strlen(txt2) {
@@ -270,7 +264,7 @@ pub extern "C" fn display(mut txt1: *const i8, mut txt2: *const i8) {
         let mut i: u64 = 0;
         while i < len {
             if i32::from(*txt1.offset(i as isize)) == i32::from(*txt2.offset(i as isize)) {
-                score = score.wrapping_add(1);
+                score += 1_i32;
                 score;
             }
             i = i.wrapping_add(1);
@@ -301,8 +295,6 @@ fn main_0() -> i32 {
         .wrapping_div(::core::mem::size_of::<*const i8>() as u64);
     let mut i: u64 = 0;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < data_len {
             let shuf_len: u64 = (strlen(data[i as usize])).wrapping_add(1);
@@ -324,8 +316,6 @@ fn main_0() -> i32 {
 }
 
 pub fn main() {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(main_0());

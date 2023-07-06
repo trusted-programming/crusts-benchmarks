@@ -22,8 +22,6 @@ extern "C" {
 #[no_mangle]
 pub extern "C" fn nonsqr(mut n: i32) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         n + (0.5f64 + sqrt(f64::from(n))) as i32
     }
@@ -34,13 +32,11 @@ fn main_0() -> i32 {
     i = 1_i32;
     while i < 23_i32 {
         print!("{} ", nonsqr(i));
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     println!();
     i = 1_i32;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < 1_000_000_i32 {
@@ -63,7 +59,7 @@ fn main_0() -> i32 {
                         (*::core::mem::transmute::<&[u8; 11], &[i8; 11]>(b"int main()\0")).as_ptr(),
                     );
                 };
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }

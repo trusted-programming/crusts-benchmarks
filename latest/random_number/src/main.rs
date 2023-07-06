@@ -17,8 +17,6 @@ extern "C" {
 #[no_mangle]
 pub extern "C" fn drand() -> f64 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         (f64::from(rand()) + 1.0f64) / (2147483647_f64 + 1.0f64)
     }
@@ -26,8 +24,6 @@ pub extern "C" fn drand() -> f64 {
 
 #[no_mangle]
 pub extern "C" fn random_normal() -> f64 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         sqrt(-2_f64 * log(drand()))
@@ -41,7 +37,7 @@ fn main_0() -> i32 {
     i = 0_i32;
     while i < 1_000_i32 {
         rands[i as usize] = 0.5f64.mul_add(random_normal(), 1.0f64);
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     0_i32

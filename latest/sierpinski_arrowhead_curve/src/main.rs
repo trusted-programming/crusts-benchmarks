@@ -69,8 +69,6 @@ pub type cursor_t = cursor_tag;
 #[no_mangle]
 pub extern "C" fn turn(mut cursor: *mut cursor_t, mut angle: i32) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         (*cursor).angle = ((*cursor).angle + angle) % 360_i32;
     }
@@ -78,8 +76,6 @@ pub extern "C" fn turn(mut cursor: *mut cursor_t, mut angle: i32) {
 
 #[no_mangle]
 pub extern "C" fn draw_line(mut out: *mut FILE, mut cursor: *mut cursor_t, mut length: f64) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut theta: f64 = 3.141_592_653_589_793_f64 * f64::from((*cursor).angle) / 180.0f64;
@@ -103,8 +99,6 @@ pub extern "C" fn curve(
     mut angle: i32,
 ) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         if order == 0_i32 {
             draw_line(out, cursor, length);
@@ -120,8 +114,6 @@ pub extern "C" fn curve(
 
 #[no_mangle]
 pub extern "C" fn write_sierpinski_arrowhead(mut out: *mut FILE, mut size: i32, mut order: i32) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let margin: f64 = 20.0f64;
@@ -163,8 +155,6 @@ pub extern "C" fn write_sierpinski_arrowhead(mut out: *mut FILE, mut size: i32, 
 }
 
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut filename: *const i8 = (b"sierpinski_arrowhead.svg\0" as *const u8).cast::<i8>();

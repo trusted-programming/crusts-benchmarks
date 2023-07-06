@@ -16,8 +16,6 @@ extern "C" {
 #[no_mangle]
 pub extern "C" fn meanAngle(mut angles: *mut f64, mut size: i32) -> f64 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut y_part: f64 = f64::from(0_i32);
         let mut x_part: f64 = f64::from(0_i32);
@@ -26,7 +24,7 @@ pub extern "C" fn meanAngle(mut angles: *mut f64, mut size: i32) -> f64 {
         while i < size {
             x_part += cos((*angles.offset(i as isize)).to_radians());
             y_part += sin((*angles.offset(i as isize)).to_radians());
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         atan2(y_part / f64::from(size), x_part / f64::from(size)).to_degrees()

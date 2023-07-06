@@ -10,12 +10,10 @@
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -87,8 +85,6 @@ pub extern "C" fn bruteForceProperDivisorSum(mut n: u64) -> u64 {
 #[no_mangle]
 pub extern "C" fn printSeries(mut arr: *mut u64, mut size: i32, mut type_0: *mut i8) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         print!(
@@ -99,7 +95,7 @@ pub extern "C" fn printSeries(mut arr: *mut u64, mut size: i32, mut type_0: *mut
         i = 0_i32;
         while i < size - 1_i32 {
             print!("{}, ", *arr.offset(i as isize));
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         print!("{}", *arr.offset(i as isize));
@@ -146,10 +142,10 @@ pub extern "C" fn aliquotClassifier(mut n: u64) {
                 );
                 return;
             }
-            j = j.wrapping_add(1);
+            j += 1_i32;
             j;
         }
-        i = i.wrapping_add(1);
+        i += 1_i32;
         i;
     }
     printSeries(
@@ -161,8 +157,6 @@ pub extern "C" fn aliquotClassifier(mut n: u64) {
 
 #[no_mangle]
 pub extern "C" fn processFile(mut fileName: *mut i8) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut fp: *mut FILE = fopen(fileName, (b"r\0" as *const u8).cast::<i8>());
@@ -179,8 +173,6 @@ pub extern "C" fn processFile(mut fileName: *mut i8) {
 }
 
 fn main_0(mut argC: i32, mut argV: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if argC != 2_i32 {

@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -78,8 +76,6 @@ pub static mut char_to_idx: [i32; 128] = [0_i32; 128];
 #[no_mangle]
 pub extern "C" fn deranged(mut s1: *const i8, mut s2: *const i8) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         i = 0_i32;
@@ -87,7 +83,7 @@ pub extern "C" fn deranged(mut s1: *const i8, mut s2: *const i8) -> i32 {
             if i32::from(*s1.offset(i as isize)) == i32::from(*s2.offset(i as isize)) {
                 return 0_i32;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         1_i32
@@ -96,8 +92,6 @@ pub extern "C" fn deranged(mut s1: *const i8, mut s2: *const i8) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn count_letters(mut s: *const i8, mut c: *mut u8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -111,12 +105,12 @@ pub extern "C" fn count_letters(mut s: *const i8, mut c: *mut u8) -> i32 {
             {
                 return 0_i32;
             }
-            len = len.wrapping_add(1);
+            len += 1_i32;
             len;
             let fresh0 = &mut (*c.offset(char_to_idx[*s.offset(i as isize) as u8 as usize] as isize));
             *fresh0 = (*fresh0).wrapping_add(1);
             *fresh0;
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         len
@@ -125,8 +119,6 @@ pub extern "C" fn count_letters(mut s: *const i8, mut c: *mut u8) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn insert(mut root: *mut node, mut s: *const i8, mut cnt: *mut u8) -> *const i8 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -140,7 +132,7 @@ pub extern "C" fn insert(mut root: *mut node, mut s: *const i8, mut cnt: *mut u8
                 n = calloc(1, ::core::mem::size_of::<node>() as u64).cast::<node>();
                 (*root).down[*cnt.offset(i as isize) as usize] = n;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
             root = n;
         }
@@ -160,8 +152,6 @@ pub extern "C" fn insert(mut root: *mut node, mut s: *const i8, mut cnt: *mut u8
 }
 
 fn main_0(mut c: i32, mut v: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -228,7 +218,7 @@ fn main_0(mut c: i32, mut v: *mut *mut i8) -> i32 {
         i = 0_i32;
         while *freq.offset(i as isize) != 0 {
             char_to_idx[*freq.offset(i as isize) as u8 as usize] = i;
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         j = 0_i32;
@@ -246,10 +236,10 @@ fn main_0(mut c: i32, mut v: *mut *mut i8) -> i32 {
                         b2 = match_0;
                     }
                 }
-                i = i.wrapping_add(1);
+                i += 1_i32;
                 j = i;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         if best_len != 0_i32 {

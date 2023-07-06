@@ -17,7 +17,7 @@ fn main_0() -> i32 {
         if !(square % 1_000_000_i32 != 269_696_i32 && square < 2_147_483_647_i32) {
             break;
         }
-        current = current.wrapping_add(1);
+        current += 1_i32;
         current;
     }
     if square > 2_147_483_647_i32 {

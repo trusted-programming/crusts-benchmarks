@@ -34,7 +34,7 @@ pub extern "C" fn factorial(mut n: i32) -> f64 {
     i = 1;
     while i <= n {
         f *= i as f64;
-        i = i.wrapping_add(1);
+        i += 1;
         i;
     }
     return f;
@@ -46,12 +46,10 @@ pub extern "C" fn expected(mut n: i32) -> f64 {
     let mut i: i32 = 0;
     i = 1;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while i <= n {
             sum += factorial(n) / pow(n as f64, i as f64) / factorial(n - i);
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }
@@ -62,8 +60,6 @@ pub extern "C" fn expected(mut n: i32) -> f64 {
 pub extern "C" fn randint(mut n: i32) -> i32 {
     let mut r: i32 = 0;
     let mut rmax: i32 = 2147483647 / n * n;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         loop {
@@ -85,20 +81,18 @@ pub extern "C" fn test(mut n: i32, mut times: i32) -> i32 {
         let mut x: i32 = 1;
         let mut bits: i32 = 0;
         while bits & x == 0 {
-            count = count.wrapping_add(1);
+            count += 1;
             count;
             bits |= x;
             x = 1 << randint(n);
         }
-        i = i.wrapping_add(1);
+        i += 1;
         i;
     }
     return count;
 }
 
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         srand(rust_time(None) as u32);
@@ -112,7 +106,7 @@ fn main_0() -> i32 {
         let mut theory: f64 = expected(n);
         let mut diff: f64 = (avg / theory - 1 as f64) * 100 as f64;
         print!("{:2} {:8.4} {:8.4} {:6.3}%\n", n, avg, theory, diff);
-        n = n.wrapping_add(1);
+        n += 1;
         n;
     }
     return 0;

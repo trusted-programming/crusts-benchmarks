@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -26,8 +24,6 @@ extern "C" {
     fn strlen(_: *const i8) -> u64;
 }
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -76,7 +72,7 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
                   (* argv.offset (1_isize)).offset (i as isize)), i + 1_i32);
                 return 0_i32;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         print!(

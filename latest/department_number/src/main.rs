@@ -28,13 +28,13 @@ fn main_0() -> i32 {
                 {
                     print!("\n{}		{}		{}", police, sanitation, fire);
                 }
-                fire = fire.wrapping_add(1);
+                fire += 1_i32;
                 fire;
             }
-            sanitation = sanitation.wrapping_add(1);
+            sanitation += 1_i32;
             sanitation;
         }
-        police = police.wrapping_add(2);
+        police += 2_i32;
     }
     0_i32
 }

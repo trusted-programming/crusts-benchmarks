@@ -29,7 +29,7 @@ pub extern "C" fn mul_inv(mut a: i32, mut b: i32) -> i32 {
         x1 = t;
     }
     if x1 < 0_i32 {
-        x1 = x1.wrapping_add(b0);
+        x1 += b0;
     }
     x1
 }

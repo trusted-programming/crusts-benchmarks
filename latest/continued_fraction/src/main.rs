@@ -10,8 +10,6 @@
 
 extern "C" {}
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 pub type coeff_func = Option<unsafe extern "C" fn(u32) -> f64>;
 #[no_mangle]
 pub extern "C" fn calc(mut f_a: coeff_func, mut f_b: coeff_func, mut expansions: u32) -> f64 {
@@ -23,8 +21,6 @@ pub extern "C" fn calc(mut f_a: coeff_func, mut f_b: coeff_func, mut expansions:
     a = b;
     let mut i: u32 = 0;
     i = expansions;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         while i > 0 {
@@ -80,33 +76,21 @@ fn main_0() -> i32 {
     let mut pi: f64 = 0.;
     sqrt2 = calc(
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
         Some(sqrt2_a as unsafe extern "C" fn(u32) -> f64),
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
         Some(sqrt2_b as unsafe extern "C" fn(u32) -> f64),
         1000,
     );
     napier = calc(
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
         Some(napier_a as unsafe extern "C" fn(u32) -> f64),
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
         Some(napier_b as unsafe extern "C" fn(u32) -> f64),
         1000,
     );
     pi = calc(
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
         Some(pi_a as unsafe extern "C" fn(u32) -> f64),
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
         Some(pi_b as unsafe extern "C" fn(u32) -> f64),
         1000,

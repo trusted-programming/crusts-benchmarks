@@ -19,7 +19,7 @@ pub extern "C" fn number_of_digits(mut x: i32) -> i32 {
     NumberOfDigits = 0_i32;
     while x != 0_i32 {
         x /= 10_i32;
-        NumberOfDigits = NumberOfDigits.wrapping_add(1);
+        NumberOfDigits += 1_i32;
         NumberOfDigits;
     }
     NumberOfDigits
@@ -27,8 +27,6 @@ pub extern "C" fn number_of_digits(mut x: i32) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn convert_array(mut array: *mut i8, mut NumberOfElements: i32) -> *mut i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut convertedArray: *mut i32 =
@@ -42,7 +40,7 @@ pub extern "C" fn convert_array(mut array: *mut i8, mut NumberOfElements: i32) -
                 atoi(&mut *array.offset(originalElement as isize));
             originalElement +=
                 number_of_digits(*convertedArray.offset(convertedElement as isize)) + 1_i32;
-            convertedElement = convertedElement.wrapping_add(1);
+            convertedElement += 1_i32;
             convertedElement;
         }
         convertedArray
@@ -52,8 +50,6 @@ pub extern "C" fn convert_array(mut array: *mut i8, mut NumberOfElements: i32) -
 #[no_mangle]
 pub extern "C" fn isSorted(mut array: *mut i32, mut numberOfElements: i32) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut sorted: i32 = 1;
         let mut counter: i32 = 0;
@@ -61,10 +57,10 @@ pub extern "C" fn isSorted(mut array: *mut i32, mut numberOfElements: i32) -> i3
             if counter != 0_i32
                 && *array.offset((counter - 1i32) as isize) > *array.offset(counter as isize)
             {
-                sorted = sorted.wrapping_sub(1);
+                sorted -= 1_i32;
                 sorted;
             }
-            counter = counter.wrapping_add(1);
+            counter += 1_i32;
             counter;
         }
         sorted
@@ -72,8 +68,6 @@ pub extern "C" fn isSorted(mut array: *mut i32, mut numberOfElements: i32) -> i3
 }
 
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut convertedArray: *mut i32 = std::ptr::null_mut::<i32>();

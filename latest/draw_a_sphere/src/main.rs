@@ -21,8 +21,6 @@ pub static mut light: [f64; 3] = [30_f64, 30_f64, -50_f64];
 #[no_mangle]
 pub extern "C" fn normalize(mut v: *mut f64) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut len: f64 = sqrt(
             (*v.offset(2_isize)).mul_add(*v.offset(2_isize), (*v.offset(0_isize)).mul_add(*v.offset(0_isize), *v.offset(1_isize) * *v.offset(1_isize))),
@@ -35,8 +33,6 @@ pub extern "C" fn normalize(mut v: *mut f64) {
 
 #[no_mangle]
 pub extern "C" fn dot(mut x: *mut f64, mut y: *mut f64) -> f64 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut d: f64 = (*x.offset(2_isize)).mul_add(*y.offset(2_isize), (*x.offset(0_isize)).mul_add(*y.offset(0_isize), *x.offset(1_isize) * *y.offset(1_isize)));
@@ -53,8 +49,6 @@ pub extern "C" fn draw_sphere(mut R: f64, mut k: f64, mut ambient: f64) {
     let mut vec: [f64; 3] = [0.; 3];
     let mut x: f64 = 0.;
     let mut y: f64 = 0.;
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         i = floor(-R) as i32;
@@ -85,19 +79,17 @@ pub extern "C" fn draw_sphere(mut R: f64, mut k: f64, mut ambient: f64) {
                 } else {
                     print!("{}", ' ' as i32);
                 }
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
             print!("{}", '\n' as i32);
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }
 }
 
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         normalize(light.as_mut_ptr());

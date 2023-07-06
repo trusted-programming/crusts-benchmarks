@@ -12,10 +12,10 @@ extern "C" {}
 #[no_mangle]
 pub extern "C" fn jos(mut n: i32, mut k: i32, mut m: i32) -> i32 {
     let mut a: i32 = 0;
-    a = m.wrapping_add(1);
+    a = m + 1_i32;
     while a <= n {
         m = (m + k) % a;
-        a = a.wrapping_add(1);
+        a += 1_i32;
         a;
     }
     m

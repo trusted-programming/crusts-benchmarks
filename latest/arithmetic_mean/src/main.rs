@@ -12,15 +12,13 @@ extern "C" {}
 #[no_mangle]
 pub extern "C" fn mean(mut v: *mut f64, mut len: i32) -> f64 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut sum: f64 = f64::from(0_i32);
         let mut i: i32 = 0;
         i = 0_i32;
         while i < len {
             sum += *v.offset(i as isize);
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         sum / f64::from(len)
@@ -41,11 +39,11 @@ fn main_0() -> i32 {
             } else {
                 print!("{}", v[i as usize])
             };
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         println!("] = {}", mean(v.as_mut_ptr(), len));
-        len = len.wrapping_sub(1);
+        len -= 1_i32;
         len;
     }
     0_i32

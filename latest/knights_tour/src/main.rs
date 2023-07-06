@@ -72,8 +72,6 @@ pub static mut dy: [i32; 8] = [-1_i32, 1_i32, 2_i32, 2_i32, 1_i32, -1_i32, -2_i3
 #[no_mangle]
 pub extern "C" fn init_board(mut w: i32, mut h: i32, mut a: *mut *mut u8, mut b: *mut *mut u8) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut j: i32 = 0;
@@ -92,7 +90,7 @@ pub extern "C" fn init_board(mut w: i32, mut h: i32, mut a: *mut *mut u8, mut b:
             *fresh2 = (*a.offset((i - 1i32) as isize)).offset(p as isize);
             let fresh3 = &mut (*b.offset(i as isize));
             *fresh3 = (*a.offset(i as isize)).offset(2_isize);
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         memset(
@@ -113,13 +111,13 @@ pub extern "C" fn init_board(mut w: i32, mut h: i32, mut a: *mut *mut u8, mut b:
                     }
                     let fresh4 = &mut (*(*b.offset((i + 2i32) as isize)).offset(j as isize));
                     *fresh4 = (i32::from(*fresh4) + i32::from(x >= 0_i32 && x < w && y >= 0_i32 && y < h)) as u8;
-                    k = k.wrapping_add(1);
+                    k += 1_i32;
                     k;
                 }
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }
@@ -133,8 +131,6 @@ pub extern "C" fn walk_board(
     mut y: i32,
     mut b: *mut *mut u8,
 ) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -151,7 +147,7 @@ pub extern "C" fn walk_board(
                     .offset((x + dx[i as usize]) as isize));
                 *fresh5 = (*fresh5).wrapping_sub(1);
                 *fresh5;
-                i = i.wrapping_add(1);
+                i += 1_i32;
                 i;
             }
             least = 255_i32;
@@ -165,7 +161,7 @@ pub extern "C" fn walk_board(
                     ny = y + dy[i as usize];
                     least = i32::from(*(*b.offset(ny as isize)).offset(nx as isize));
                 }
-                i = i.wrapping_add(1);
+                i += 1_i32;
                 i;
             }
             if least > 7_i32 {
@@ -173,7 +169,7 @@ pub extern "C" fn walk_board(
                 return i32::from(steps == w * h - 1i32);
             }
             let fresh6 = steps;
-            steps = steps.wrapping_add(1);
+            steps += 1_i32;
             if fresh6 != 0_i32 {
                 print!("\x1B[{};{}H[]", y + 1_i32, 1_i32 + 2_i32 * x);
             }
@@ -188,8 +184,6 @@ pub extern "C" fn walk_board(
 
 #[no_mangle]
 pub extern "C" fn solve(mut w: i32, mut h: i32) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut x: i32 = 0;
@@ -206,10 +200,10 @@ pub extern "C" fn solve(mut w: i32, mut h: i32) -> i32 {
                 println!("Success!");
                 return 1_i32;
             }
-            x = x.wrapping_add(1);
+            x += 1_i32;
             if x >= w {
                 x = 0_i32;
-                y = y.wrapping_add(1);
+                y += 1_i32;
                 y;
             }
             if y >= h {
@@ -223,8 +217,6 @@ pub extern "C" fn solve(mut w: i32, mut h: i32) -> i32 {
 }
 
 fn main_0(mut c: i32, mut v: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut w: i32 = 0;

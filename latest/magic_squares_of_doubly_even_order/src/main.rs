@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -42,8 +40,6 @@ pub const _ISupper: u32 = 256;
 #[no_mangle]
 pub extern "C" fn doublyEvenMagicSquare(mut n: i32) -> *mut *mut i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         if n < 4_i32 || n % 4_i32 != 0_i32 {
             return std::ptr::null_mut::<*mut i32>();
@@ -62,7 +58,7 @@ pub extern "C" fn doublyEvenMagicSquare(mut n: i32) -> *mut *mut i32 {
             let fresh0 = &mut (*result.offset(i as isize));
             *fresh0 =
                 malloc((n as u64).wrapping_mul(::core::mem::size_of::<i32>() as u64)).cast::<i32>();
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         r = 0_i32;
@@ -76,12 +72,12 @@ pub extern "C" fn doublyEvenMagicSquare(mut n: i32) -> *mut *mut i32 {
                 } else {
                     size - i
                 };
-                c = c.wrapping_add(1);
+                c += 1_i32;
                 c;
-                i = i.wrapping_add(1);
+                i += 1_i32;
                 i;
             }
-            r = r.wrapping_add(1);
+            r += 1_i32;
             r;
         }
         result
@@ -92,8 +88,8 @@ pub extern "C" fn doublyEvenMagicSquare(mut n: i32) -> *mut *mut i32 {
 pub extern "C" fn numDigits(mut n: i32) -> i32 {
     let mut count: i32 = 1;
     while n >= 10_i32 {
-        n = n.wrapping_div(10);
-        count = count.wrapping_add(1);
+        n /= 10_i32;
+        count += 1_i32;
         count;
     }
     count
@@ -101,8 +97,6 @@ pub extern "C" fn numDigits(mut n: i32) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn printMagicSquare(mut square: *mut *mut i32, mut rows: i32) {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
@@ -124,19 +118,17 @@ pub extern "C" fn printMagicSquare(mut square: *mut *mut i32, mut rows: i32) {
                     "\0",
                     *(*square.offset(i as isize)).offset(j as isize)
                 );
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
             println!();
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }
 }
 
 fn main_0(mut argC: i32, mut argV: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut n: i32 = 0;

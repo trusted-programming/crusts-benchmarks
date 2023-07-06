@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -30,8 +28,6 @@ pub static mut digits: [i32; 26] = [
 #[no_mangle]
 pub extern "C" fn decode(mut roman: *const i8) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut bigger: *const i8 = std::ptr::null::<i8>();
         let mut current: i32 = 0;
@@ -44,7 +40,7 @@ pub extern "C" fn decode(mut roman: *const i8) -> i32 {
                 i32::from(*bigger) != '\0' as i32
             } {}
             if i32::from(*bigger) == '\0' as i32 {
-                arabic = arabic.wrapping_add(current);
+                arabic += current;
             } else {
                 arabic += digits[((!0x20i32 & i32::from(*bigger)) - 'A' as i32) as usize];
                 while roman < bigger {
@@ -70,8 +66,6 @@ fn main_0() -> i32 {
     let mut i: i32 = 0;
     i = 0_i32;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < 4_i32 {
             println!(
@@ -79,7 +73,7 @@ fn main_0() -> i32 {
                 build_str_from_raw_ptr(romans[i as usize] as *mut u8),
                 decode(romans[i as usize])
             );
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }

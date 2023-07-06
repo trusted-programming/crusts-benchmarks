@@ -10,12 +10,10 @@
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -76,8 +74,6 @@ pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut j: i32 = 0;
@@ -110,7 +106,7 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
         while i < sandPileEdge {
             let fresh0 = &mut (*sandPile.offset(i as isize));
             *fresh0 = calloc(sandPileEdge as u64, ::core::mem::size_of::<i32>() as u64).cast::<i32>();
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         *(*sandPile.offset((sandPileEdge / 2i32) as isize))
@@ -121,11 +117,11 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
             j = 0_i32;
             while j < sandPileEdge {
                 print!("{:3}", *(*sandPile.offset(i as isize)).offset(j as isize));
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
             println!();
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         while processAgain == 1_i32 {
@@ -173,10 +169,10 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
                             processAgain = 1_i32;
                         }
                     }
-                    j = j.wrapping_add(1);
+                    j += 1_i32;
                     j;
                 }
-                i = i.wrapping_add(1);
+                i += 1_i32;
                 i;
             }
         }
@@ -186,11 +182,11 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
             j = 0_i32;
             while j < sandPileEdge {
                 print!("{:3}", *(*sandPile.offset(i as isize)).offset(j as isize));
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
             println!();
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         fileName = malloc(
@@ -222,10 +218,10 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
                 colour[2_usize] =
                     ((*(*sandPile.offset(i as isize)).offset(j as isize) + i * j) % 256i32) as u8;
                 fwrite(colour.as_mut_ptr() as *const libc::c_void, 1, 3, fp);
-                j = j.wrapping_add(1);
+                j += 1_i32;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         fclose(fp);

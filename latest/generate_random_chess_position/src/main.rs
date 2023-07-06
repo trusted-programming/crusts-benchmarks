@@ -9,12 +9,10 @@
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -51,8 +49,6 @@ pub extern "C" fn placeKings() {
     let mut c1: i32 = 0;
     let mut c2: i32 = 0;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         loop {
             r1 = rand() % 8;
@@ -71,8 +67,6 @@ pub extern "C" fn placeKings() {
 #[no_mangle]
 pub extern "C" fn placePieces(mut pieces: *const i8, mut isPawn: i32) {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut n: i32 = 0;
         let mut r: i32 = 0;
@@ -89,7 +83,7 @@ pub extern "C" fn placePieces(mut pieces: *const i8, mut isPawn: i32) {
                 }
             }
             grid[r as usize][c as usize] = *pieces.offset(n as isize);
-            n = n.wrapping_add(1);
+            n += 1;
             n;
         }
     }
@@ -105,8 +99,6 @@ pub extern "C" fn toFen() {
     let mut index: i32 = 0;
     r = 0;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while r < 8 {
             c = 0;
@@ -118,33 +110,33 @@ pub extern "C" fn toFen() {
                     print!("{:2} ", ch as i32)
                 };
                 if ch as i32 == 0 {
-                    countEmpty = countEmpty.wrapping_add(1);
+                    countEmpty += 1;
                     countEmpty;
                 } else {
                     if countEmpty > 0 {
                         let fresh0 = index;
-                        index = index.wrapping_add(1);
+                        index = index + 1;
                         fen[fresh0 as usize] = (countEmpty + 48i32) as i8;
                         countEmpty = 0;
                     }
                     let fresh1 = index;
-                    index = index.wrapping_add(1);
+                    index = index + 1;
                     fen[fresh1 as usize] = ch;
                 }
-                c = c.wrapping_add(1);
+                c += 1;
                 c;
             }
             if countEmpty > 0 {
                 let fresh2 = index;
-                index = index.wrapping_add(1);
+                index = index + 1;
                 fen[fresh2 as usize] = (countEmpty + 48i32) as i8;
                 countEmpty = 0;
             }
             let fresh3 = index;
-            index = index.wrapping_add(1);
+            index = index + 1;
             fen[fresh3 as usize] = '/' as i8;
             print!("\n");
-            r = r.wrapping_add(1);
+            r += 1;
             r;
         }
         strcpy(
@@ -167,8 +159,6 @@ pub extern "C" fn createFen() -> *mut i8 {
 }
 
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         srand(rust_time(None) as u32);

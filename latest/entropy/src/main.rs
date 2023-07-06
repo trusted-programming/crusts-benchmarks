@@ -17,8 +17,6 @@ extern "C" {
 #[no_mangle]
 pub extern "C" fn makehist(mut S: *mut i8, mut hist: *mut i32, mut len: i32) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut wherechar: [i32; 256] = [0; 256];
         let mut i: i32 = 0;
@@ -27,20 +25,20 @@ pub extern "C" fn makehist(mut S: *mut i8, mut hist: *mut i32, mut len: i32) -> 
         i = 0_i32;
         while i < 256_i32 {
             wherechar[i as usize] = -1_i32;
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         i = 0_i32;
         while i < len {
             if wherechar[i32::from(*S.offset(i as isize)) as usize] == -1_i32 {
                 wherechar[i32::from(*S.offset(i as isize)) as usize] = histlen;
-                histlen = histlen.wrapping_add(1);
+                histlen += 1_i32;
                 histlen;
             }
             let fresh0 = &mut (*hist.offset(wherechar[i32::from(*S.offset(i as isize)) as usize] as isize));
             *fresh0 += 1_i32;
             *fresh0;
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         histlen
@@ -50,8 +48,6 @@ pub extern "C" fn makehist(mut S: *mut i8, mut hist: *mut i32, mut len: i32) -> 
 #[no_mangle]
 pub extern "C" fn entropy(mut hist: *mut i32, mut histlen: i32, mut len: i32) -> f64 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut H: f64 = 0.;
@@ -60,7 +56,7 @@ pub extern "C" fn entropy(mut hist: *mut i32, mut histlen: i32, mut len: i32) ->
         while i < histlen {
             H -= f64::from(*hist.offset(i as isize)) / f64::from(len)
                 * log2(f64::from(*hist.offset(i as isize)) / f64::from(len));
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         H
@@ -68,8 +64,6 @@ pub extern "C" fn entropy(mut hist: *mut i32, mut histlen: i32, mut len: i32) ->
 }
 
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut S: [i8; 100] = [0; 100];

@@ -14,8 +14,6 @@ extern "C" {
 }
 fn main_0(mut _argc: i32, mut argv: *mut *mut i8) -> i32 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut top: u32 = atoi(*argv.offset(1_isize)) as u32;
         let mut divsum: *mut u32 = malloc(

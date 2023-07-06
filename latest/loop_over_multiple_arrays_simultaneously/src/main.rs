@@ -18,15 +18,13 @@ pub static mut a3: [i32; 3] = [1_i32, 2_i32, 3_i32];
 fn main_0() -> i32 {
     let mut i: i32 = 0;
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < 3_i32 {
             println!(
                 "{}{}{}",
                 i32::from(a1[i as usize]), i32::from(a2[i as usize]), a3[i as usize]
             );
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
     }

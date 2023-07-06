@@ -24,8 +24,6 @@ pub extern "C" fn egyptian_division(
     mut remainder: *mut u64,
 ) -> u64 {
 // SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
     unsafe {
         static mut powers: [u64; 64] = [0; 64];
         static mut doublings: [u64; 64] = [0; 64];
@@ -37,18 +35,18 @@ pub extern "C" fn egyptian_division(
             if doublings[i as usize] > dividend {
                 break;
             }
-            i = i.wrapping_add(1);
+            i += 1_i32;
             i;
         }
         let mut answer: u64 = 0;
         let mut accumulator: u64 = 0;
-        i = i.wrapping_sub(1);
+        i -= 1_i32;
         while i >= 0_i32 {
             if accumulator.wrapping_add(doublings[i as usize]) <= dividend {
                 accumulator = (accumulator).wrapping_add(doublings[i as usize]);
                 answer = (answer).wrapping_add(powers[i as usize]);
             }
-            i = i.wrapping_sub(1);
+            i -= 1_i32;
             i;
         }
         if !remainder.is_null() {
@@ -64,8 +62,6 @@ pub extern "C" fn go(mut a: u64, mut b: u64) {
     let mut y: u64 = 0;
     x = egyptian_division(a, b, &mut y);
     println!("{} / {} = {} remainder {}", a, b, x, y);
-// SAFETY: machine generated unsafe code
-// SAFETY: machine generated unsafe code
 // SAFETY: machine generated unsafe code
     unsafe {
         if a == b.wrapping_mul(x).wrapping_add(y) {
