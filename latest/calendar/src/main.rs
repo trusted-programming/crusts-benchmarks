@@ -13,7 +13,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -214,7 +214,7 @@ pub static mut months: [months; 12] = [
 pub extern "C" fn space(mut n: i32) {
     loop {
         let fresh0 = n;
-        n -= 1_i32;
+        n = n.wrapping_sub(1);
         if fresh0 <= 0_i32 {
             break;
         }
@@ -230,7 +230,7 @@ pub extern "C" fn init_months() {
         if year % 4_i32 == 0_i32 && year % 100_i32 != 0_i32 || year % 400_i32 == 0_i32 {
             months[1_usize].days = 29_i32;
         }
-        year -= 1_i32;
+        year = year.wrapping_sub(1);
         year;
         months[0_usize].start_wday = (year * 365_i32 + year / 4_i32 - year / 100_i32 + year / 400_i32 + 1_i32) % 7_i32;
     }
@@ -238,26 +238,27 @@ pub extern "C" fn init_months() {
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < 12_i32 {
-            months[i as usize].start_wday =
-                (months[(i - 1i32) as usize].start_wday + months[(i - 1i32) as usize].days) % 7_i32;
-            i += 1_i32;
+            months[i as usize].start_wday = (months[(i.wrapping_sub(1i32)) as usize].start_wday
+                + months[(i.wrapping_sub(1i32)) as usize].days)
+                % 7_i32;
+            i = i.wrapping_add(1);
             i;
         }
-        cols = (width + 2_i32) / 22_i32;
+        cols = (width.wrapping_add(2)) / 22_i32;
         while 12_i32 % cols != 0_i32 {
-            cols -= 1_i32;
+            cols = cols.wrapping_sub(1);
             cols;
         }
         gap = if cols - 1_i32 != 0_i32 {
-            (width - 20_i32 * cols) / (cols - 1_i32)
+            (width - 20_i32 * cols) / (cols.wrapping_sub(1))
         } else {
             0_i32
         };
         if gap > 4_i32 {
             gap = 4_i32;
         }
-        lead = (width - (20_i32 + gap) * cols + gap + 1_i32) / 2_i32;
-        year += 1_i32;
+        lead = (width - (gap.wrapping_add(20)) * cols + gap.wrapping_add(1)) / 2_i32;
+        year = year.wrapping_add(1);
         year;
     }
 }
@@ -268,8 +269,8 @@ pub extern "C" fn print_row(mut row: i32) {
     let mut i: i32 = 0;
 // SAFETY: machine generated unsafe code
     unsafe {
-        let mut from: i32 = row * cols;
-        let mut to: i32 = from + cols;
+        let mut from: i32 = row.wrapping_mul(cols);
+        let mut to: i32 = from.wrapping_add(cols);
         space(lead);
         c = from;
         while c < to {
@@ -279,8 +280,8 @@ pub extern "C" fn print_row(mut row: i32) {
                 "{}",
                 build_str_from_raw_ptr(months[c as usize].name as *mut u8)
             );
-            space(20 - i - (20 - i) / 2 + (if c == to - 1 { 0 } else { gap }));
-            c += 1_i32;
+            space(20 - i - (20 - i) / 2 + (if c == to.wrapping_sub(1) { 0 } else { gap }));
+            c = c.wrapping_add(1);
             c;
         }
         print!("{}", '\n' as i32);
@@ -300,15 +301,15 @@ pub extern "C" fn print_row(mut row: i32) {
                         build_str_from_raw_ptr(wdays[i as usize] as *mut u8)
                     )
                 };
-                i += 1_i32;
+                i = i.wrapping_add(1);
                 i;
             }
-            if c < to - 1_i32 {
+            if c < to.wrapping_sub(1) {
                 space(gap);
             } else {
                 print!("{}", '\n' as i32);
             }
-            c += 1_i32;
+            c = c.wrapping_add(1);
             c;
         }
         loop {
@@ -317,7 +318,7 @@ pub extern "C" fn print_row(mut row: i32) {
                 if months[c as usize].at < months[c as usize].days {
                     break;
                 }
-                c += 1_i32;
+                c = c.wrapping_add(1);
                 c;
             }
             if c == to {
@@ -329,34 +330,34 @@ pub extern "C" fn print_row(mut row: i32) {
                 i = 0_i32;
                 while i < months[c as usize].start_wday {
                     space(3);
-                    i += 1_i32;
+                    i = i.wrapping_add(1);
                     i;
                 }
                 loop {
                     let fresh1 = i;
-                    i += 1_i32;
+                    i = i.wrapping_add(1);
                     if !(fresh1 < 7_i32 && months[c as usize].at < months[c as usize].days) {
                         break;
                     }
                     months[c as usize].at += 1_i32;
                     print!("{:2}", months[c as usize].at);
-                    if i < 7_i32 || c < to - 1_i32 {
+                    if i < 7_i32 || c < to.wrapping_sub(1) {
                         print!("{}", ' ' as i32);
                     }
                 }
                 loop {
                     let fresh2 = i;
-                    i += 1_i32;
-                    if !(fresh2 <= 7_i32 && c < to - 1_i32) {
+                    i = i.wrapping_add(1);
+                    if !(fresh2 <= 7_i32 && c < to.wrapping_sub(1)) {
                         break;
                     }
                     space(3);
                 }
-                if c < to - 1_i32 {
-                    space(gap - 1);
+                if c < to.wrapping_sub(1) {
+                    space(gap.wrapping_sub(1));
                 }
                 months[c as usize].start_wday = 0_i32;
-                c += 1_i32;
+                c = c.wrapping_add(1);
                 c;
             }
             print!("{}", '\n' as i32);
@@ -387,7 +388,7 @@ pub extern "C" fn print_year() {
     unsafe {
         while row * cols < 12_i32 {
             print_row(row);
-            row += 1_i32;
+            row = row.wrapping_add(1);
             row;
         }
     }
@@ -406,7 +407,7 @@ fn main_0(mut c: i32, mut v: *mut *mut i8) -> i32 {
                 break;
             }
             if strcmp(*v.offset(i as isize), (b"-w\0" as *const u8).cast::<i8>()) == 0_i32 {
-                i += 1_i32;
+                i = i.wrapping_add(1);
                 if i == c || {
                     width = atoi(*v.offset(i as isize));
                     width < 20_i32
@@ -430,7 +431,7 @@ fn main_0(mut c: i32, mut v: *mut *mut i8) -> i32 {
                 }
                 year_set = 1_i32;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         match current_block {

@@ -25,12 +25,13 @@ pub extern "C" fn evolve(mut cell: *mut i8, mut backup: *mut i8, mut len: i32) -
         i = 0_i32;
         while i < len {
             *backup.offset(i as isize) =
-                trans[(i32::from(i32::from(*cell.offset((i - 1i32) as isize)) != '_' as i32) * 4_i32
+                trans[(i32::from(i32::from(*cell.offset((i.wrapping_sub(1i32)) as isize)) != '_' as i32)
+                    * 4_i32
                     + i32::from(i32::from(*cell.offset(i as isize)) != '_' as i32) * 2_i32
-                    + i32::from(i32::from(*cell.offset((i + 1i32) as isize)) != '_' as i32))
+                    + i32::from(i32::from(*cell.offset((i.wrapping_add(1i32)) as isize)) != '_' as i32))
                     as usize];
             diff += i32::from(i32::from(*backup.offset(i as isize)) != i32::from(*cell.offset(i as isize)));
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         strcpy(cell, backup as *const i8);

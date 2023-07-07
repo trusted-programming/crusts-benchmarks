@@ -13,7 +13,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -80,14 +80,14 @@ pub extern "C" fn get_line(mut fp: *mut FILE) -> *mut i8 {
                 break;
             }
             if got + 1_i32 >= len {
-                len *= 2_i32;
+                len = len.wrapping_mul(2);
                 if len < 4_i32 {
                     len = 4_i32;
                 }
                 buf = realloc(buf.cast::<libc::c_void>(), len as u64).cast::<i8>();
             }
             let fresh0 = got;
-            got += 1_i32;
+            got = got.wrapping_add(1);
             *buf.offset(fresh0 as isize) = c as i8;
             if c == '\n' as i32 {
                 break;
@@ -97,7 +97,7 @@ pub extern "C" fn get_line(mut fp: *mut FILE) -> *mut i8 {
             return std::ptr::null_mut::<i8>();
         }
         let fresh1 = got;
-        got += 1_i32;
+        got = got.wrapping_add(1);
         *buf.offset(fresh1 as isize) = '\0' as i8;
         buf
     }

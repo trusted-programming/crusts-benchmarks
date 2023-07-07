@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -80,7 +80,7 @@ fn main_0(mut _argc: i32, mut _argv: *mut *mut i8) -> i32 {
                 build_str_from_raw_ptr(bb.as_mut_ptr().cast::<u8>()),
                 b
             );
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         0_i32

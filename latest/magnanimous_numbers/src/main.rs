@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -128,7 +128,7 @@ pub extern "C" fn list_mags(mut from: i32, mut thru: i32, mut digs: i32, mut per
     }
     while c < thru {
         if is_magnanimous(i) != 0_i32 {
-            c += 1_i32;
+            c = c.wrapping_add(1);
             if c >= from {
                 print!("{1:0$} ", (digs).unsigned_abs() as usize, i);
                 if c % per_line == 0_i32 {

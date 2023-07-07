@@ -26,7 +26,7 @@ pub type f_int = Option<unsafe extern "C" fn() -> i32>;
 #[no_mangle]
 pub extern "C" fn _tmpl() -> i32 {
     let mut x: i32 = 0xdeadbeef;
-    x * x
+    x.wrapping_mul(x)
 }
 
 #[no_mangle]
@@ -99,7 +99,7 @@ fn main_0() -> i32 {
         i = 0_i32;
         while i < 10_i32 {
             funcs[i as usize] = dupf(i);
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         i = 0_i32;
@@ -111,7 +111,7 @@ fn main_0() -> i32 {
                     (funcs[i as usize]).expect("non-null function pointer"),
                 )()
             );
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }

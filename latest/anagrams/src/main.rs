@@ -212,7 +212,7 @@ pub extern "C" fn buildAnagrams(mut fin: *mut FILE) -> i32 {
                 (*he).link = mostPerms;
                 mostPerms = he;
             }
-            numWords += 1_i32;
+            numWords = numWords.wrapping_add(1);
             numWords;
         }
         println!("{} words in dictionary max ana={}", numWords, maxPC);

@@ -14,15 +14,15 @@ pub extern "C" fn bsearch(mut a: *mut i32, mut n: i32, mut x: i32) -> i32 {
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
-        let mut j: i32 = n - 1;
+        let mut j: i32 = n.wrapping_sub(1);
         while i <= j {
             let mut k: i32 = i + (j - i) / 2;
             if *a.offset(k as isize) == x {
                 return k;
             } else if *a.offset(k as isize) < x {
-                i = k + 1_i32;
+                i = k.wrapping_add(1);
             } else {
-                j = k - 1_i32;
+                j = k.wrapping_sub(1);
             }
         }
         -1_i32
@@ -40,9 +40,9 @@ pub extern "C" fn bsearch_r(mut a: *mut i32, mut x: i32, mut i: i32, mut j: i32)
         if *a.offset(k as isize) == x {
             k
         } else if *a.offset(k as isize) < x {
-            return bsearch_r(a, x, k + 1, j);
+            return bsearch_r(a, x, k.wrapping_add(1), j);
         } else {
-            return bsearch_r(a, x, i, k - 1);
+            return bsearch_r(a, x, i, k.wrapping_sub(1));
         }
     }
 }
@@ -55,7 +55,7 @@ fn main_0() -> i32 {
     let mut i: i32 = bsearch(a.as_mut_ptr(), n, x);
     println!("{} is at index {}", x, i);
     x = 5_i32;
-    i = bsearch_r(a.as_mut_ptr(), x, 0, n - 1);
+    i = bsearch_r(a.as_mut_ptr(), x, 0, n.wrapping_sub(1));
     println!("{} is at index {}", x, i);
     0_i32
 }

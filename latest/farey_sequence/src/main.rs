@@ -77,7 +77,9 @@ pub extern "C" fn farey_len(mut n: i32) -> u64 {
             return *cache.offset(n as isize);
         }
     }
-    let mut len: u64 = (n as u64).wrapping_mul((n + 3i32) as u64).wrapping_div(2);
+    let mut len: u64 = (n as u64)
+        .wrapping_mul((n.wrapping_add(3i32)) as u64)
+        .wrapping_div(2);
     let mut p: i32 = 0;
     let mut q: i32 = 0;
     p = 2_i32;
@@ -99,13 +101,13 @@ fn main_0() -> i32 {
     while n <= 11_i32 {
         print!("{}: ", n);
         farey(n);
-        n += 1_i32;
+        n = n.wrapping_add(1);
         n;
     }
     n = 100_i32;
     while n <= 1_000_i32 {
         println!("{}: {} items", n, farey_len(n));
-        n += 100_i32;
+        n = n.wrapping_add(100);
     }
     n = 10_000_000_i32;
     print!("\n{}: {} items\n", n, farey_len(n));

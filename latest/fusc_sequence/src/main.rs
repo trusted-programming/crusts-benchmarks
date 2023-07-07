@@ -14,9 +14,9 @@ pub extern "C" fn fusc(mut n: i32) -> i32 {
     if n == 0_i32 || n == 1_i32 {
         n
     } else if n % 2_i32 == 0_i32 {
-        return fusc(n / 2);
+        return fusc(n.wrapping_div(2));
     } else {
-        return fusc((n - 1) / 2) + fusc((n + 1) / 2);
+        return fusc((n.wrapping_sub(1)) / 2) + fusc((n.wrapping_add(1)) / 2);
     }
 }
 
@@ -24,8 +24,8 @@ pub extern "C" fn fusc(mut n: i32) -> i32 {
 pub extern "C" fn numLen(mut n: i32) -> i32 {
     let mut sum: i32 = 1;
     while n > 9_i32 {
-        n /= 10_i32;
-        sum += 1_i32;
+        n = n.wrapping_add(10);
+        sum = sum.wrapping_add(1);
         sum;
     }
     sum
@@ -49,7 +49,7 @@ pub extern "C" fn printLargeFuscs(mut limit: i32) {
             maxLen = len;
             print!("\n{:5}{:12}", i, f);
         }
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
 }
@@ -60,7 +60,7 @@ fn main_0() -> i32 {
     i = 0_i32;
     while i < 61_i32 {
         print!("\n{:5}{:12}", i, fusc(i));
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     0_i32

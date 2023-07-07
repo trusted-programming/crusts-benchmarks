@@ -17,9 +17,10 @@ pub extern "C" fn wday(mut year: i32, mut month: i32, mut day: i32) -> i32 {
     let mut mm: i32 = 0;
     let mut yy: i32 = 0;
     adjustment = (14_i32 - month) / 12_i32;
-    mm = month + 12_i32 * adjustment - 2_i32;
+    mm = month + 12_i32 * adjustment.wrapping_sub(2);
     yy = year - adjustment;
-    (day + (13_i32 * mm - 1_i32) / 5_i32 + yy + yy / 4_i32 - yy / 100_i32 + yy / 400_i32) % 7_i32
+    (day + (13_i32 * mm.wrapping_sub(1)) / 5_i32 + yy + yy / 4_i32 - yy / 100_i32 + yy.wrapping_div(400))
+        % 7_i32
 }
 
 fn main_0() -> i32 {
@@ -31,7 +32,7 @@ fn main_0() -> i32 {
             if wday(y, 12, 25) == 0_i32 {
                 printf((b"%04d-12-25\n\0" as *const u8).cast::<i8>(), y);
             }
-            y += 1_i32;
+            y = y.wrapping_add(1);
             y;
         }
     }

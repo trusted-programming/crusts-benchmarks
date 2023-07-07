@@ -12,12 +12,12 @@ extern "C" {}
 #[no_mangle]
 pub extern "C" fn ackermann(mut m: i32, mut n: i32) -> i32 {
     if m == 0_i32 {
-        return n + 1_i32;
+        return n.wrapping_add(1);
     }
     if n == 0_i32 {
-        return ackermann(m - 1, 1);
+        return ackermann(m.wrapping_sub(1), 1);
     }
-    ackermann(m - 1, ackermann(m, n - 1))
+    ackermann(m.wrapping_sub(1), ackermann(m, n.wrapping_sub(1)))
 }
 
 fn main_0() -> i32 {
@@ -28,10 +28,10 @@ fn main_0() -> i32 {
         n = 0_i32;
         while n < 6_i32 - m {
             println!("A({}, {}) = {}", m, n, ackermann(m, n));
-            n += 1_i32;
+            n = n.wrapping_add(1);
             n;
         }
-        m += 1_i32;
+        m = m.wrapping_add(1);
         m;
     }
     0_i32

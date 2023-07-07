@@ -84,14 +84,14 @@ pub extern "C" fn intRangeList(mut f: i32, mut t: i32) -> *mut List {
             (&mut f as *mut i32).cast::<libc::c_void>(),
         );
         let mut e: *mut List = l;
-        let mut i: i32 = f + 1;
+        let mut i: i32 = f.wrapping_add(1);
         while i <= t {
             (*e).nx = listNew(
                 ::core::mem::size_of::<i32>() as i32,
                 (&mut i as *mut i32).cast::<libc::c_void>(),
             );
             e = (*e).nx;
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         l
@@ -182,7 +182,7 @@ fn main_0() -> i32 {
                     0_i32
                 }) != 0_i32
                 {
-                    if x * x + y * y == z * z {
+                    if x * x + y * y == z.wrapping_mul(z) {
                         if !((*SEQ_var).l).is_null() {
                             listAppend(
                                 (*SEQ_var).l,

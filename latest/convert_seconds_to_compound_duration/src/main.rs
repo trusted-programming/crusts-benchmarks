@@ -13,7 +13,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -162,7 +162,7 @@ pub extern "C" fn format_sec(mut input: u64) -> *mut i8 {
                 fflush(stream);
                 first = 0_i32 != 0_i32;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         fprintf(stream, (b"\n\0" as *const u8).cast::<i8>());

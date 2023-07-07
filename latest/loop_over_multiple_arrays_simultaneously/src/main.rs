@@ -24,7 +24,7 @@ fn main_0() -> i32 {
                 "{}{}{}",
                 i32::from(a1[i as usize]), i32::from(a2[i as usize]), a3[i as usize]
             );
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }

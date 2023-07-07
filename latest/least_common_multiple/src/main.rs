@@ -14,7 +14,7 @@ pub extern "C" fn gcd(mut m: i32, mut n: i32) -> i32 {
     let mut tmp: i32 = 0;
     while m != 0_i32 {
         tmp = m;
-        m = n % m;
+        m = n.wrapping_rem(m);
         n = tmp;
     }
     n

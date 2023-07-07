@@ -20,16 +20,16 @@ pub extern "C" fn mul_inv(mut a: i32, mut b: i32) -> i32 {
         return 1_i32;
     }
     while a > 1_i32 {
-        q = a / b;
+        q = a.wrapping_add(b);
         t = b;
-        b = a % b;
+        b = a.wrapping_rem(b);
         a = t;
         t = x0;
-        x0 = x1 - q * x0;
+        x0 = x1 - q.wrapping_mul(x0);
         x1 = t;
     }
     if x1 < 0_i32 {
-        x1 += b0;
+        x1 = x1.wrapping_add(b0);
     }
     x1
 }
@@ -45,14 +45,14 @@ pub extern "C" fn chinese_remainder(mut n: *mut i32, mut a: *mut i32, mut len: i
         i = 0_i32;
         while i < len {
             prod *= *n.offset(i as isize);
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         i = 0_i32;
         while i < len {
             p = prod / *n.offset(i as isize);
             sum += *a.offset(i as isize) * mul_inv(p, *n.offset(i as isize)) * p;
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         sum % prod

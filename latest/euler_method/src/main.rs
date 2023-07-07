@@ -24,7 +24,7 @@ pub extern "C" fn ivp_euler(mut f: deriv_f, mut y: f64, mut step: i32, mut end_t
                 print!(" {:7.3}", y);
             }
             y += f64::from(step) * f.expect("non-null function pointer")(f64::from(t), y);
-            t += step;
+            t = t.wrapping_add(step);
             if t > end_t {
                 break;
             }

@@ -168,7 +168,7 @@ fn main_0() -> i32 {
                     )
                 );
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         printf((b"\n\nRunning for %c2 :\0" as *const u8).cast::<i8>(), 251);
@@ -193,7 +193,7 @@ fn main_0() -> i32 {
                     )
                 );
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -218,7 +218,7 @@ fn main_0() -> i32 {
                     )
                 );
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }

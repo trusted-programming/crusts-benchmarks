@@ -18,7 +18,7 @@ pub extern "C" fn mean(mut v: *mut f64, mut len: i32) -> f64 {
         i = 0_i32;
         while i < len {
             sum += *v.offset(i as isize);
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         sum / f64::from(len)
@@ -39,11 +39,11 @@ fn main_0() -> i32 {
             } else {
                 print!("{}", v[i as usize])
             };
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         println!("] = {}", mean(v.as_mut_ptr(), len));
-        len -= 1_i32;
+        len = len.wrapping_sub(1);
         len;
     }
     0_i32

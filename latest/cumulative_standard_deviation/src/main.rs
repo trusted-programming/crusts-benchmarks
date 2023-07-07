@@ -59,7 +59,7 @@ pub extern "C" fn stat_obj_value(mut so: StatObject, mut action: u32) -> f64 {
     if action as u32 == MEAN as u32 {
         return mean;
     }
-    var = (*so).sum2 / num - mean * mean;
+    var = (*so).sum2 / num - mean.wrapping_mul(mean);
     if action as u32 == VAR as u32 {
         return var;
     }
@@ -78,7 +78,7 @@ pub extern "C" fn stat_object_add(mut so: StatObject, mut v_0: f64) -> f64 {
     (*so).num = ((*so).num).wrapping_add(1);
     (*so).num;
     (*so).sum += v_0;
-    (*so).sum2 += v_0 * v_0;
+    (*so).sum2 += v_0.wrapping_mul(v_0);
     return stat_obj_value(so, (*so).action);
 }
 
@@ -101,7 +101,7 @@ fn main_0() -> i32 {
                 v[i as usize],
                 stat_object_add(so, v[i as usize])
             );
-            i += 1;
+            i = i.wrapping_add(1);
             i;
         }
         free(so as *mut libc::c_void);

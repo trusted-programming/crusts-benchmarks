@@ -60,10 +60,10 @@ pub extern "C" fn get_mode(mut x: *mut f64, mut len_0: i32, mut list: *mut *mut 
         );
         i = 0_i32;
         j = 1_i32;
-        while i < len_0 - 1_i32 {
-            i += 1_i32;
+        while i < len_0.wrapping_sub(1) {
+            i = i.wrapping_add(1);
             i;
-            j += i32::from(*x.offset(i as isize) != *x.offset((i + 1i32) as isize));
+            j += i32::from(*x.offset(i as isize) != *x.offset((i.wrapping_add(1i32)) as isize));
         }
         vc =
             malloc((::core::mem::size_of::<vcount>() as u64).wrapping_mul(j as u64)).cast::<vcount>();
@@ -72,12 +72,12 @@ pub extern "C" fn get_mode(mut x: *mut f64, mut len_0: i32, mut list: *mut *mut 
         (*vc.offset(0_isize)).c = 1_i32;
         j = 0_i32;
         i = j;
-        while i < len_0 - 1_i32 {
-            if *x.offset(i as isize) != *x.offset((i + 1i32) as isize) {
-                j += 1_i32;
-                (*vc.offset(j as isize)).v = *x.offset((i + 1i32) as isize);
+        while i < len_0.wrapping_sub(1) {
+            if *x.offset(i as isize) != *x.offset((i.wrapping_add(1i32)) as isize) {
+                j = j.wrapping_add(1);
+                (*vc.offset(j as isize)).v = *x.offset((i.wrapping_add(1i32)) as isize);
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
             let fresh0 = &mut (*vc.offset(j as isize)).c;
             *fresh0 += 1_i32;
@@ -85,14 +85,14 @@ pub extern "C" fn get_mode(mut x: *mut f64, mut len_0: i32, mut list: *mut *mut 
         }
         qsort(
             vc.cast::<libc::c_void>(),
-            (j + 1i32) as u64,
+            (j.wrapping_add(1i32)) as u64,
             ::core::mem::size_of::<vcount>() as u64,
 // SAFETY: machine generated unsafe code
             Some(vc_cmp as unsafe extern "C" fn(*const libc::c_void, *const libc::c_void) -> i32),
         );
         i = 0_i32;
         while i <= j && (*vc.offset(i as isize)).c == (*vc.offset(0_isize)).c {
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         i
@@ -122,7 +122,7 @@ fn main_0() -> i32 {
                 (*vc.offset(i as isize)).v,
                 (*vc.offset(i as isize)).c
             );
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         free(vc.cast::<libc::c_void>());

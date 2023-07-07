@@ -37,14 +37,14 @@ pub extern "C" fn init() {
         while i < 10_i32 {
             j = 0_i32;
             while j < 10_i32 {
-                let mut idx: i32 = i * 10 + j;
+                let mut idx: i32 = i * j.wrapping_add(10);
                 transitions[idx as usize].a = i as u8;
                 transitions[idx as usize].b = j as u8;
                 transitions[idx as usize].c = 0;
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -68,7 +68,7 @@ pub extern "C" fn record(mut prev: i32, mut curr: i32) {
                     break;
                 }
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -91,7 +91,7 @@ pub extern "C" fn printTransitions(mut limit: i32, mut last_prime: i32) {
                     100.0f64 * f64::from(transitions[i as usize].c) / f64::from(limit)
                 );
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -130,16 +130,16 @@ pub extern "C" fn isPrime(mut n: i32) -> bool {
     t = 23_i32;
     a1 = 96_i32;
     a2 = 216_i32;
-    s = t * t;
+    s = t.wrapping_mul(t);
 // SAFETY: machine generated unsafe code
     unsafe {
         while s <= n {
             if n % t == 0_i32 {
                 return 0_i32 != 0_i32;
             }
-            s += a1;
-            t += 2_i32;
-            a1 += 24_i32;
+            s = s.wrapping_add(a1);
+            t = t.wrapping_add(2);
+            a1 = a1.wrapping_add(24);
             if t * t == s {
             } else {
                 __assert_fail(
@@ -164,9 +164,9 @@ pub extern "C" fn isPrime(mut n: i32) -> bool {
                 if n % t == 0_i32 {
                     return 0_i32 != 0_i32;
                 }
-                s += a2;
-                t += 4_i32;
-                a2 += 48_i32;
+                s = s.wrapping_add(a2);
+                t = t.wrapping_add(4);
+                a2 = a2.wrapping_add(48);
                 if t * t == s {
                 } else {
                     __assert_fail(
@@ -205,18 +205,18 @@ fn main_0() -> i32 {
         if isPrime(n) {
             record(last_prime, n);
             last_prime = n;
-            count += 1_i32;
+            count = count.wrapping_add(1);
             count;
         }
-        n += 2_i32;
+        n = n.wrapping_add(2);
         if count < 1_000_000_i32 {
             if isPrime(n) {
                 record(last_prime, n);
                 last_prime = n;
-                count += 1_i32;
+                count = count.wrapping_add(1);
                 count;
             }
-            n += 4_i32;
+            n = n.wrapping_add(4);
         }
     }
     printTransitions(1000000, last_prime);

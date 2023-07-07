@@ -40,9 +40,9 @@ pub extern "C" fn xferFactors(mut fctrs: *mut Factors, mut flist: *mut i32, mut 
         ix = i32::from((*fctrs).count);
         while ix < newSize {
             *((*fctrs).list).offset(ix as isize) = *flist.offset(ij as isize);
-            ij += 1_i32;
+            ij = ij.wrapping_add(1);
             ij;
-            ix += 1_i32;
+            ix = ix.wrapping_add(1);
             ix;
         }
         (*fctrs).count = newSize as i16;
@@ -68,18 +68,18 @@ pub extern "C" fn factor(mut num: i32, mut fctrs: *mut Factors) -> *mut Factors 
                     flix = 0_i32;
                 }
                 let fresh0 = flix;
-                flix += 1_i32;
+                flix = flix.wrapping_add(1);
                 flist[fresh0 as usize] = dvsr;
                 let fresh1 = flix;
-                flix += 1_i32;
+                flix = flix.wrapping_add(1);
                 flist[fresh1 as usize] = num / dvsr;
             }
-            dvsr += 1_i32;
+            dvsr = dvsr.wrapping_add(1);
             dvsr;
         }
         if dvsr * dvsr == num {
             let fresh2 = flix;
-            flix += 1_i32;
+            flix = flix.wrapping_add(1);
             flist[fresh2 as usize] = dvsr;
         }
         if flix > 0_i32 {
@@ -112,11 +112,11 @@ fn main_0(mut _argc: i32, mut _argv: *mut *mut i8) -> i32 {
             while j < i32::from(ftors.count) {
                 print!("{} {}", i32::from(sep), *(ftors.list).offset(j as isize));
                 sep = ',' as i8;
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
             println!();
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         0_i32

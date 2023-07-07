@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -83,7 +83,7 @@ pub extern "C" fn deranged(mut s1: *const i8, mut s2: *const i8) -> i32 {
             if i32::from(*s1.offset(i as isize)) == i32::from(*s2.offset(i as isize)) {
                 return 0_i32;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         1_i32
@@ -105,12 +105,12 @@ pub extern "C" fn count_letters(mut s: *const i8, mut c: *mut u8) -> i32 {
             {
                 return 0_i32;
             }
-            len += 1_i32;
+            len = len.wrapping_add(1);
             len;
             let fresh0 = &mut (*c.offset(char_to_idx[*s.offset(i as isize) as u8 as usize] as isize));
             *fresh0 = (*fresh0).wrapping_add(1);
             *fresh0;
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         len
@@ -132,7 +132,7 @@ pub extern "C" fn insert(mut root: *mut node, mut s: *const i8, mut cnt: *mut u8
                 n = calloc(1, ::core::mem::size_of::<node>() as u64).cast::<node>();
                 (*root).down[*cnt.offset(i as isize) as usize] = n;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
             root = n;
         }
@@ -218,7 +218,7 @@ fn main_0(mut c: i32, mut v: *mut *mut i8) -> i32 {
         i = 0_i32;
         while *freq.offset(i as isize) != 0 {
             char_to_idx[*freq.offset(i as isize) as u8 as usize] = i;
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         j = 0_i32;
@@ -236,10 +236,10 @@ fn main_0(mut c: i32, mut v: *mut *mut i8) -> i32 {
                         b2 = match_0;
                     }
                 }
-                i += 1_i32;
+                i = i.wrapping_add(1);
                 j = i;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         if best_len != 0_i32 {

@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -61,7 +61,7 @@ pub extern "C" fn initialize(mut prisoners: i32) {
             (malloc((prisoners as u64).wrapping_mul(::core::mem::size_of::<drawer>() as u64))
                 as *mut drawer)
                 .offset(-(1 as isize));
-        card = rand() % prisoners + 1;
+        card = rand() % prisoners.wrapping_add(1);
         *drawerSet.offset(1 as isize) = {
             let mut init = drawer {
                 cardNum: card,
@@ -70,16 +70,16 @@ pub extern "C" fn initialize(mut prisoners: i32) {
             init
         };
         i = 1 + 1;
-        while i < prisoners + 1 {
+        while i < prisoners.wrapping_add(1) {
             unique = 0 != 0;
             while unique as i32 == 0 {
                 j = 0;
                 while j < i {
                     if (*drawerSet.offset(j as isize)).cardNum == card {
-                        card = rand() % prisoners + 1;
+                        card = rand() % prisoners.wrapping_add(1);
                         break;
                     } else {
-                        j += 1;
+                        j = j.wrapping_add(1);
                         j;
                     }
                 }
@@ -94,7 +94,7 @@ pub extern "C" fn initialize(mut prisoners: i32) {
                 };
                 init
             };
-            i += 1;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -106,9 +106,9 @@ pub extern "C" fn closeAllDrawers(mut prisoners: i32) {
     i = 1;
 // SAFETY: machine generated unsafe code
     unsafe {
-        while i < prisoners + 1 {
+        while i < prisoners.wrapping_add(1) {
             (*drawerSet.offset(i as isize)).hasBeenOpened = 0 != 0;
-            i += 1;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -122,12 +122,12 @@ pub extern "C" fn libertyOrDeathAtRandom(mut prisoners: i32, mut chances: i32) -
     i = 1;
 // SAFETY: machine generated unsafe code
     unsafe {
-        while i < prisoners + 1 {
+        while i < prisoners.wrapping_add(1) {
             let mut foundCard: bool = 0 != 0;
             j = 0;
             while j < chances {
                 loop {
-                    chosenDrawer = rand() % prisoners + 1;
+                    chosenDrawer = rand() % prisoners.wrapping_add(1);
                     if !((*drawerSet.offset(chosenDrawer as isize)).hasBeenOpened as i32 == 1) {
                         break;
                     }
@@ -137,7 +137,7 @@ pub extern "C" fn libertyOrDeathAtRandom(mut prisoners: i32, mut chances: i32) -
                     break;
                 } else {
                     (*drawerSet.offset(chosenDrawer as isize)).hasBeenOpened = 1 != 0;
-                    j += 1;
+                    j = j.wrapping_add(1);
                     j;
                 }
             }
@@ -145,7 +145,7 @@ pub extern "C" fn libertyOrDeathAtRandom(mut prisoners: i32, mut chances: i32) -
             if foundCard as i32 == 0 {
                 return 1 != 0;
             }
-            i += 1;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -160,7 +160,7 @@ pub extern "C" fn libertyOrDeathPlanned(mut prisoners: i32, mut chances: i32) ->
     i = 1;
 // SAFETY: machine generated unsafe code
     unsafe {
-        while i < prisoners + 1 {
+        while i < prisoners.wrapping_add(1) {
             chosenDrawer = i;
             let mut foundCard: bool = 0 != 0;
             j = 0;
@@ -172,7 +172,7 @@ pub extern "C" fn libertyOrDeathPlanned(mut prisoners: i32, mut chances: i32) ->
                 } else {
                     if chosenDrawer == (*drawerSet.offset(chosenDrawer as isize)).cardNum {
                         loop {
-                            chosenDrawer = rand() % prisoners + 1;
+                            chosenDrawer = rand() % prisoners.wrapping_add(1);
                             if !((*drawerSet.offset(chosenDrawer as isize)).hasBeenOpened as i32
                                 == 1)
                             {
@@ -182,7 +182,7 @@ pub extern "C" fn libertyOrDeathPlanned(mut prisoners: i32, mut chances: i32) ->
                     } else {
                         chosenDrawer = (*drawerSet.offset(chosenDrawer as isize)).cardNum;
                     }
-                    j += 1;
+                    j = j.wrapping_add(1);
                     j;
                 }
             }
@@ -190,7 +190,7 @@ pub extern "C" fn libertyOrDeathPlanned(mut prisoners: i32, mut chances: i32) ->
             if foundCard as i32 == 0 {
                 return 1 != 0;
             }
-            i += 1;
+            i = i.wrapping_add(1);
             i;
         }
     }

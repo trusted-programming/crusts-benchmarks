@@ -13,7 +13,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -56,14 +56,16 @@ pub unsafe extern "C" fn lcp(mut num: i32, mut args: ...) -> *mut i8 {
     while i < num {
         len = strlen(vaList.arg::<*mut i8>()) as i32;
         let fresh0 = &mut (*strings.offset(i as isize));
-        *fresh0 = malloc(((len + 1i32) as u64).wrapping_mul(::core::mem::size_of::<i8>() as u64)).cast::<i8>();
+        *fresh0 = malloc(
+            ((len.wrapping_add(1i32)) as u64).wrapping_mul(::core::mem::size_of::<i8>() as u64),
+        ).cast::<i8>();
         strcpy(*strings.offset(i as isize), vaList2.arg::<*mut i8>());
         if i == 0_i32 {
             min = len;
         } else if len < min {
             min = len;
         }
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     if min == 0_i32 {
@@ -80,18 +82,22 @@ pub unsafe extern "C" fn lcp(mut num: i32, mut args: ...) -> *mut i8 {
                     return (b"\0" as *const u8).cast::<i8>() as *mut i8;
                 } else {
                     dest = malloc((i as u64).wrapping_mul(::core::mem::size_of::<i8>() as u64)).cast::<i8>();
-                    strncpy(dest, *strings.offset(0_isize), (i - 1i32) as u64);
+                    strncpy(
+                        dest,
+                        *strings.offset(0_isize),
+                        (i.wrapping_sub(1i32)) as u64,
+                    );
                     return dest;
                 }
             }
-            j += 1_i32;
+            j = j.wrapping_add(1);
             j;
         }
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     dest =
-        malloc(((min + 1i32) as u64).wrapping_mul(::core::mem::size_of::<i8>() as u64)).cast::<i8>();
+        malloc(((min.wrapping_add(1i32)) as u64).wrapping_mul(::core::mem::size_of::<i8>() as u64)).cast::<i8>();
     strncpy(dest, *strings.offset(0_isize), min as u64);
     dest
 }

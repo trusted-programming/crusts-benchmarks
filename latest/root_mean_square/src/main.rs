@@ -20,7 +20,7 @@ pub extern "C" fn rms(mut v: *mut f64, mut n: i32) -> f64 {
         i = 0_i32;
         while i < n {
             sum += *v.offset(i as isize) * *v.offset(i as isize);
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         sqrt(sum / f64::from(n))

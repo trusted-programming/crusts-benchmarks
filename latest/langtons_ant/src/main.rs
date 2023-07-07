@@ -84,13 +84,13 @@ pub extern "C" fn refresh(mut _x: i32, mut _y: i32) {
                         ' ' as i32
                     }
                 );
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
-                k += 1_i32;
+                k = k.wrapping_add(1);
                 k;
             }
             print!("{}", '\n' as i32);
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -104,12 +104,12 @@ pub extern "C" fn walk() {
     let mut k: i32 = 0;
 // SAFETY: machine generated unsafe code
     unsafe {
-        let mut x: i32 = w / 2;
-        let mut y: i32 = h / 2;
-        pix = calloc(1, (w * h) as u64).cast::<u8>();
+        let mut x: i32 = w.wrapping_div(2);
+        let mut y: i32 = h.wrapping_div(2);
+        pix = calloc(1, (w.wrapping_mul(h)) as u64).cast::<u8>();
         print!("\x1B[H\x1B[J");
         loop {
-            i = y * w + x;
+            i = y * w.wrapping_add(x);
             if *pix.offset(i as isize) != 0 {
                 k = dx;
                 dx = -dy;
@@ -125,35 +125,35 @@ pub extern "C" fn walk() {
             } else {
                 print!("\x1B[{};{}H{}", y + 1_i32, x + 1_i32, ' ' as i32)
             };
-            x += dx;
-            y += dy;
+            x = x.wrapping_add(dx);
+            y = y.wrapping_add(dy);
             k = 0_i32;
             if x < 0_i32 {
                 memmove(
                     pix.offset(1_isize).cast::<libc::c_void>(),
                     pix as *const libc::c_void,
-                    (w * h - 1i32) as u64,
+                    (w * h.wrapping_sub(1i32)) as u64,
                 );
                 i = 0_i32;
-                while i < w * h {
+                while i < w.wrapping_mul(h) {
                     *pix.offset(i as isize) = 0;
-                    i += w;
+                    i = i.wrapping_add(w);
                 }
-                x += 1_i32;
+                x = x.wrapping_add(1);
                 x;
                 k = 1_i32;
             } else if x >= w {
                 memmove(
                     pix.cast::<libc::c_void>(),
                     pix.offset(1_isize) as *const libc::c_void,
-                    (w * h - 1i32) as u64,
+                    (w * h.wrapping_sub(1i32)) as u64,
                 );
-                i = w - 1_i32;
-                while i < w * h {
+                i = w.wrapping_sub(1);
+                while i < w.wrapping_mul(h) {
                     *pix.offset(i as isize) = 0;
-                    i += w;
+                    i = i.wrapping_add(w);
                 }
-                x -= 1_i32;
+                x = x.wrapping_sub(1);
                 x;
                 k = 1_i32;
             }
@@ -161,24 +161,24 @@ pub extern "C" fn walk() {
                 memmove(
                     pix.cast::<libc::c_void>(),
                     pix.offset(w as isize) as *const libc::c_void,
-                    (w * (h - 1i32)) as u64,
+                    (w * (h.wrapping_sub(1i32))) as u64,
                 );
                 memset(
-                    pix.offset((w * (h - 1i32)) as isize).cast::<libc::c_void>(),
+                    pix.offset((w * (h.wrapping_sub(1i32))) as isize).cast::<libc::c_void>(),
                     0,
                     w as u64,
                 );
-                y -= 1_i32;
+                y = y.wrapping_sub(1);
                 y;
                 k = 1_i32;
             } else if y < 0_i32 {
                 memmove(
                     pix.offset(w as isize).cast::<libc::c_void>(),
                     pix as *const libc::c_void,
-                    (w * (h - 1i32)) as u64,
+                    (w * (h.wrapping_sub(1i32))) as u64,
                 );
                 memset(pix.cast::<libc::c_void>(), 0, w as u64);
-                y += 1_i32;
+                y = y.wrapping_add(1);
                 y;
                 k = 1_i32;
             }

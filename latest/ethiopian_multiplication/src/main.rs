@@ -45,7 +45,7 @@ pub extern "C" fn ethiopian(mut plier: i32, mut plicand: i32, tutor: bool) -> i3
             if tutor {
                 println!("{:4} {:6} kept", plier, plicand);
             }
-            result += plicand;
+            result = result.wrapping_add(plicand);
         }
         halve(&mut plier);
         doublit(&mut plicand);

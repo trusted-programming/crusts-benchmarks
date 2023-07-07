@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -35,7 +35,7 @@ pub extern "C" fn rand_idx(mut p: *mut f64, mut n: i32) -> i32 {
             s -= *p.offset(i as isize);
             s >= f64::from(0_i32)
         } {
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         i
@@ -77,7 +77,7 @@ fn main_0() -> i32 {
                     return 0_i32;
                 }
             } else {
-                user_action -= 1_i32;
+                user_action = user_action.wrapping_sub(1);
                 user_action;
                 if !(0_i32..=2_i32).contains(&user_action) {
                     println!("invalid choice; again");

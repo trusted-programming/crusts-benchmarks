@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -298,7 +298,7 @@ fn main_0() -> i32 {
                 delete(&mut root, rand() % 32);
             }
             verify(root);
-            x += 1;
+            x = x.wrapping_add(1);
             x;
         }
         puts(b"Tree is:\0" as *const u8 as *const i8);
@@ -310,14 +310,14 @@ fn main_0() -> i32 {
             if !p.is_null() {
                 print!("{:2} found: {:p} {}\n", x, p, (*p).payload);
             }
-            x += 1;
+            x = x.wrapping_add(1);
             x;
         }
         x = 0;
         while x < 32 {
             delete(&mut root, x);
             verify(root);
-            x += 1;
+            x = x.wrapping_add(1);
             x;
         }
         puts(b"\nAfter deleting all values, tree is:\0" as *const u8 as *const i8);

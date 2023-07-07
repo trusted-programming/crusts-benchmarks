@@ -15,7 +15,7 @@ pub extern "C" fn is89(mut x: i32) -> i32 {
         let mut s: i32 = 0;
         loop {
             s += x % 10_i32 * (x % 10_i32);
-            x /= 10_i32;
+            x = x.wrapping_div(10);
             if x == 0_i32 {
                 break;
             }
@@ -122,20 +122,20 @@ fn main_0() -> i32 {
     ];
     let mut n: i32 = 1;
     loop {
-        let mut i: i32 = n * 81;
+        let mut i: i32 = n.wrapping_mul(81);
         while i != 0_i32 {
             let mut j: i32 = 1;
             while j < 10_i32 {
-                let mut s: i32 = j * j;
+                let mut s: i32 = j.wrapping_mul(j);
                 if s > i {
                     break;
                 }
                 sums[i as usize] =
                     sums[i as usize].wrapping_add(sums[(i - s) as usize]);
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
-            i -= 1_i32;
+            i = i.wrapping_sub(1);
             i;
         }
         let mut count89: u64 = 0;
@@ -148,11 +148,11 @@ fn main_0() -> i32 {
                 }
                 count89 = (count89).wrapping_add(sums[i_0 as usize]);
             }
-            i_0 += 1_i32;
+            i_0 = i_0.wrapping_add(1);
             i_0;
         }
         println!("1->10^{}: {}", n, count89);
-        n += 1_i32;
+        n = n.wrapping_add(1);
         n;
     }
 }

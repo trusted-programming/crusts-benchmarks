@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -121,7 +121,7 @@ pub extern "C" fn add_range(mut x: i32, mut y: i32) -> i32 {
     }
     while x <= y {
         let fresh2 = x;
-        x += 1_i32;
+        x = x.wrapping_add(1);
         print!("{} ", fresh2);
     }
     1_i32

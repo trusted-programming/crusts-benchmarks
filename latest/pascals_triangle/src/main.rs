@@ -26,14 +26,14 @@ fn main_0() -> i32 {
             num = den;
             k = 2_i32;
             while k <= n {
-                num = num.wrapping_mul((n + k) as u64);
+                num = num.wrapping_mul((n.wrapping_add(k)) as u64);
                 den = den.wrapping_mul(k as u64);
                 catalan = num.wrapping_div(den) as i32;
-                k += 1_i32;
+                k = k.wrapping_add(1);
                 k;
             }
             print!("{} ", catalan);
-            n += 1_i32;
+            n = n.wrapping_add(1);
             n;
         }
     }

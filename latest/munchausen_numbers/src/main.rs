@@ -21,12 +21,12 @@ fn main_0() -> i32 {
             while number > 0_i32 {
                 let mut digit: i32 = number % 10;
                 sum = (f64::from(sum) + pow(f64::from(digit), f64::from(digit))) as i32;
-                number /= 10_i32;
+                number = number.wrapping_div(10);
             }
             if sum == i {
                 println!("{}", i);
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }

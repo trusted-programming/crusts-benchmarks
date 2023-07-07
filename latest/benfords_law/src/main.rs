@@ -64,8 +64,9 @@ pub extern "C" fn benford_distribution() -> *mut libc::c_float {
         static mut prob: [libc::c_float; 9] = [0.; 9];
         let mut i: i32 = 1;
         while i < 10_i32 {
-            prob[(i - 1i32) as usize] = log10f((1_f64 + 1.0f64 / f64::from(i)) as libc::c_float);
-            i += 1_i32;
+            prob[(i.wrapping_sub(1i32)) as usize] =
+                log10f((1_f64 + 1.0f64 / f64::from(i)) as libc::c_float);
+            i = i.wrapping_add(1);
             i;
         }
         prob.as_mut_ptr()
@@ -94,7 +95,7 @@ pub extern "C" fn get_actual_distribution(mut fn_0: *mut i8) -> *mut libc::c_flo
             }
             tally[(i32::from(c) - '1' as i32) as usize] += 1_i32;
             tally[(i32::from(c) - '1' as i32) as usize];
-            total += 1_i32;
+            total = total.wrapping_add(1);
             total;
             loop {
                 c = getc(input) as i8;
@@ -108,7 +109,7 @@ pub extern "C" fn get_actual_distribution(mut fn_0: *mut i8) -> *mut libc::c_flo
         let mut i: i32 = 0;
         while i < 9_i32 {
             freq[i as usize] = tally[i as usize] as libc::c_float / total as libc::c_float;
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         freq.as_mut_ptr()
@@ -133,7 +134,7 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
                 f64::from(*actual.offset(i as isize)),
                 f64::from(*expected.offset(i as isize))
             );
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         0_i32

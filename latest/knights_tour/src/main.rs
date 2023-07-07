@@ -78,8 +78,8 @@ pub extern "C" fn init_board(mut w: i32, mut h: i32, mut a: *mut *mut u8, mut b:
         let mut k: i32 = 0;
         let mut x: i32 = 0;
         let mut y: i32 = 0;
-        let mut p: i32 = w + 4;
-        let mut q: i32 = h + 4;
+        let mut p: i32 = w.wrapping_add(4);
+        let mut q: i32 = h.wrapping_add(4);
         let fresh0 = &mut (*a.offset(0_isize));
         *fresh0 = a.offset(q as isize).cast::<u8>();
         let fresh1 = &mut (*b.offset(0_isize));
@@ -87,16 +87,16 @@ pub extern "C" fn init_board(mut w: i32, mut h: i32, mut a: *mut *mut u8, mut b:
         i = 1_i32;
         while i < q {
             let fresh2 = &mut (*a.offset(i as isize));
-            *fresh2 = (*a.offset((i - 1i32) as isize)).offset(p as isize);
+            *fresh2 = (*a.offset((i.wrapping_sub(1i32)) as isize)).offset(p as isize);
             let fresh3 = &mut (*b.offset(i as isize));
             *fresh3 = (*a.offset(i as isize)).offset(2_isize);
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         memset(
             (*a.offset(0_isize)).cast::<libc::c_void>(),
             255,
-            (p * q) as u64,
+            (p.wrapping_mul(q)) as u64,
         );
         i = 0_i32;
         while i < h {
@@ -106,18 +106,20 @@ pub extern "C" fn init_board(mut w: i32, mut h: i32, mut a: *mut *mut u8, mut b:
                 while k < 8_i32 {
                     x = j + dx[k as usize];
                     y = i + dy[k as usize];
-                    if i32::from(*(*b.offset((i + 2i32) as isize)).offset(j as isize)) == 255_i32 {
-                        *(*b.offset((i + 2i32) as isize)).offset(j as isize) = 0;
+                    if i32::from(*(*b.offset((i.wrapping_add(2i32)) as isize)).offset(j as isize))
+                        == 255_i32
+                    {
+                        *(*b.offset((i.wrapping_add(2i32)) as isize)).offset(j as isize) = 0;
                     }
-                    let fresh4 = &mut (*(*b.offset((i + 2i32) as isize)).offset(j as isize));
+                    let fresh4 = &mut (*(*b.offset((i.wrapping_add(2i32)) as isize)).offset(j as isize));
                     *fresh4 = (i32::from(*fresh4) + i32::from(x >= 0_i32 && x < w && y >= 0_i32 && y < h)) as u8;
-                    k += 1_i32;
+                    k = k.wrapping_add(1);
                     k;
                 }
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -147,7 +149,7 @@ pub extern "C" fn walk_board(
                     .offset((x + dx[i as usize]) as isize));
                 *fresh5 = (*fresh5).wrapping_sub(1);
                 *fresh5;
-                i += 1_i32;
+                i = i.wrapping_add(1);
                 i;
             }
             least = 255_i32;
@@ -161,15 +163,15 @@ pub extern "C" fn walk_board(
                     ny = y + dy[i as usize];
                     least = i32::from(*(*b.offset(ny as isize)).offset(nx as isize));
                 }
-                i += 1_i32;
+                i = i.wrapping_add(1);
                 i;
             }
             if least > 7_i32 {
                 print!("\x1B[{}H", h + 2_i32);
-                return i32::from(steps == w * h - 1i32);
+                return i32::from(steps == w * h.wrapping_sub(1i32));
             }
             let fresh6 = steps;
-            steps += 1_i32;
+            steps = steps.wrapping_add(1);
             if fresh6 != 0_i32 {
                 print!("\x1B[{};{}H[]", y + 1_i32, 1_i32 + 2_i32 * x);
             }
@@ -190,20 +192,25 @@ pub extern "C" fn solve(mut w: i32, mut h: i32) -> i32 {
         let mut y: i32 = 0;
         let mut a: *mut *mut u8 = std::ptr::null_mut::<*mut u8>();
         let mut b: *mut *mut u8 = std::ptr::null_mut::<*mut u8>();
-        a = malloc((((w + 4i32) * (h + 4i32)) as u64).wrapping_add(
-            (::core::mem::size_of::<*mut u8>() as u64).wrapping_mul((h + 4i32) as u64),
-        )).cast::<*mut u8>();
-        b = malloc(((h + 4i32) as u64).wrapping_mul(::core::mem::size_of::<*mut u8>() as u64)).cast::<*mut u8>();
+        a = malloc(
+            (((w.wrapping_add(4i32)) * (h.wrapping_add(4i32))) as u64).wrapping_add(
+                (::core::mem::size_of::<*mut u8>() as u64)
+                    .wrapping_mul((h.wrapping_add(4i32)) as u64),
+            ),
+        ).cast::<*mut u8>();
+        b = malloc(
+            ((h.wrapping_add(4i32)) as u64).wrapping_mul(::core::mem::size_of::<*mut u8>() as u64),
+        ).cast::<*mut u8>();
         loop {
             init_board(w, h, a, b);
             if walk_board(w, h, x, y, b.offset(2_isize)) != 0_i32 {
                 println!("Success!");
                 return 1_i32;
             }
-            x += 1_i32;
+            x = x.wrapping_add(1);
             if x >= w {
                 x = 0_i32;
-                y += 1_i32;
+                y = y.wrapping_add(1);
                 y;
             }
             if y >= h {

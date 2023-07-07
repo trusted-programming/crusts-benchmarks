@@ -45,14 +45,14 @@ pub extern "C" fn bf() {
                     && b <= hi
                     && (unique == 0_i32 || b != a && b != c && b != d && b != g && b != e && b != f)
                 {
-                    solutions += 1_i32;
+                    solutions = solutions.wrapping_add(1);
                     solutions;
                     if show != 0_i32 {
                         println!("{} {} {} {} {} {} {}", a, b, c, d, e, f, g);
                     }
                 }
             }
-            f += 1_i32;
+            f = f.wrapping_add(1);
             f;
         }
     }
@@ -65,12 +65,12 @@ pub extern "C" fn ge() {
         e = lo;
         while e <= hi {
             if unique == 0_i32 || e != a && e != c && e != d {
-                g = d + e;
+                g = d.wrapping_add(e);
                 if g >= lo && g <= hi && (unique == 0_i32 || g != a && g != c && g != d && g != e) {
                     bf();
                 }
             }
-            e += 1_i32;
+            e = e.wrapping_add(1);
             e;
         }
     }
@@ -85,15 +85,15 @@ pub extern "C" fn acd() {
             d = lo;
             while d <= hi {
                 if unique == 0_i32 || c != d {
-                    a = c + d;
+                    a = c.wrapping_add(d);
                     if a >= lo && a <= hi && (unique == 0_i32 || c != 0_i32 && d != 0_i32) {
                         ge();
                     }
                 }
-                d += 1_i32;
+                d = d.wrapping_add(1);
                 d;
             }
-            c += 1_i32;
+            c = c.wrapping_add(1);
             c;
         }
     }

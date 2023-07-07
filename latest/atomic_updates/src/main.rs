@@ -125,7 +125,7 @@ pub extern "C" fn print_buckets() {
     unsafe {
         while i < 15_i32 {
             pthread_mutex_lock(&mut *bucket_mutex.as_mut_ptr().offset(i as isize));
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -135,7 +135,7 @@ pub extern "C" fn print_buckets() {
         while i < 15_i32 {
             print!("{:3} ", buckets[i as usize]);
             sum += buckets[i as usize];
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -145,7 +145,7 @@ pub extern "C" fn print_buckets() {
     unsafe {
         while i < 15_i32 {
             pthread_mutex_unlock(&mut *bucket_mutex.as_mut_ptr().offset(i as isize));
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -162,7 +162,7 @@ pub extern "C" fn equalizer_start(mut _t: *mut libc::c_void) -> *mut libc::c_voi
             if diff < 0_i32 {
                 transfer_value(b2, b1, -diff / 2);
             } else {
-                transfer_value(b1, b2, diff / 2);
+                transfer_value(b1, b2, diff.wrapping_div(2));
             }
         }
     }
@@ -192,7 +192,7 @@ fn main_0() -> i32 {
                 &mut *bucket_mutex.as_mut_ptr().offset(i as isize),
                 std::ptr::null::<pthread_mutexattr_t>(),
             );
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -203,7 +203,7 @@ fn main_0() -> i32 {
             buckets[i as usize] = rand() % 100_i32;
             total += buckets[i as usize];
             print!("{:3} ", buckets[i as usize]);
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -231,7 +231,7 @@ fn main_0() -> i32 {
         while i_0 < 2_i32 {
             sleep(1);
             print_buckets();
-            i_0 += 1_i32;
+            i_0 = i_0.wrapping_add(1);
             i_0;
         }
     }
@@ -240,7 +240,7 @@ fn main_0() -> i32 {
     unsafe {
         while i < 15_i32 {
             pthread_mutex_destroy(bucket_mutex.as_mut_ptr().offset(i as isize));
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }

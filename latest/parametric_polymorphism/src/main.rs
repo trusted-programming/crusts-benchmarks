@@ -105,14 +105,14 @@ fn main_0() -> i32 {
         i = 0;
         while i < 10000 {
             node_double_insert(root_d, rand() as f64 / 2147483647 as f64);
-            i += 1;
+            i = i.wrapping_add(1);
             i;
         }
         let mut root_i: node_int = node_int_new(rand());
         i = 0;
         while i < 10000 {
             node_int_insert(root_i, rand());
-            i += 1;
+            i = i.wrapping_add(1);
             i;
         }
     }

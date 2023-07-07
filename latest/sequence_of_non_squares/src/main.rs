@@ -32,7 +32,7 @@ fn main_0() -> i32 {
     i = 1_i32;
     while i < 23_i32 {
         print!("{} ", nonsqr(i));
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     println!();
@@ -59,7 +59,7 @@ fn main_0() -> i32 {
                         (*::core::mem::transmute::<&[u8; 11], &[i8; 11]>(b"int main()\0")).as_ptr(),
                     );
                 };
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }

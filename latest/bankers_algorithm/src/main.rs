@@ -38,9 +38,9 @@ fn main_0() -> i32 {
     i = 0_i32;
     while i < p {
         running[i as usize] = 1_i32;
-        count += 1_i32;
+        count = count.wrapping_add(1);
         count;
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     print!("\nEnter Claim Vector: ");
@@ -52,7 +52,7 @@ fn main_0() -> i32 {
                 (b"%d\0" as *const u8).cast::<i8>(),
                 &mut *max_res.as_mut_ptr().offset(i as isize) as *mut i32,
             );
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -69,10 +69,10 @@ fn main_0() -> i32 {
                         .as_mut_ptr()
                         .offset(j as isize) as *mut i32,
                 );
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -89,10 +89,10 @@ fn main_0() -> i32 {
                         .as_mut_ptr()
                         .offset(j as isize) as *mut i32,
                 );
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -100,7 +100,7 @@ fn main_0() -> i32 {
     i = 0_i32;
     while i < r {
         print!("{} ", max_res[i as usize]);
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     print!("\nThe Allocated Resource Table:\n");
@@ -109,11 +109,11 @@ fn main_0() -> i32 {
         j = 0_i32;
         while j < r {
             print!("	{}", curr[i as usize][j as usize]);
-            j += 1_i32;
+            j = j.wrapping_add(1);
             j;
         }
         println!();
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     print!("\nThe Maximum Claim Table:\n");
@@ -122,11 +122,11 @@ fn main_0() -> i32 {
         j = 0_i32;
         while j < r {
             print!("	{}", max_claim[i as usize][j as usize]);
-            j += 1_i32;
+            j = j.wrapping_add(1);
             j;
         }
         println!();
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     i = 0_i32;
@@ -134,30 +134,30 @@ fn main_0() -> i32 {
         j = 0_i32;
         while j < r {
             alloc[j as usize] += curr[i as usize][j as usize];
-            j += 1_i32;
+            j = j.wrapping_add(1);
             j;
         }
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     print!("\nAllocated resources: ");
     i = 0_i32;
     while i < r {
         print!("{} ", alloc[i as usize]);
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     i = 0_i32;
     while i < r {
         avl[i as usize] = max_res[i as usize] - alloc[i as usize];
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     print!("\nAvailable resources: ");
     i = 0_i32;
     while i < r {
         print!("{} ", avl[i as usize]);
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     println!();
@@ -175,26 +175,26 @@ fn main_0() -> i32 {
                         exec = 0_i32;
                         break;
                     } else {
-                        j += 1_i32;
+                        j = j.wrapping_add(1);
                         j;
                     }
                 }
                 if exec != 0_i32 {
                     print!("\nProcess{} is executing.\n", i + 1_i32);
                     running[i as usize] = 0_i32;
-                    count -= 1_i32;
+                    count = count.wrapping_sub(1);
                     count;
                     safe = 1_i32 != 0_i32;
                     j = 0_i32;
                     while j < r {
                         avl[j as usize] += curr[i as usize][j as usize];
-                        j += 1_i32;
+                        j = j.wrapping_add(1);
                         j;
                     }
                     break;
                 }
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         if !safe {
@@ -209,7 +209,7 @@ fn main_0() -> i32 {
             i = 0_i32;
             while i < r {
                 print!("{} ", avl[i as usize]);
-                i += 1_i32;
+                i = i.wrapping_add(1);
                 i;
             }
         }

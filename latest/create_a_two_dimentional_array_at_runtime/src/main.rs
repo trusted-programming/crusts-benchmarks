@@ -24,11 +24,11 @@ fn main_0(mut _argc: i32, mut _argv: *mut *mut i8) -> i32 {
         );
         let vla = user1 as usize;
         let vla_0 = user2 as usize;
-        let mut array: Vec<i32> = ::std::vec::from_elem(0_i32, vla * vla_0);
+        let mut array: Vec<i32> = ::std::vec::from_elem(0_i32, vla.wrapping_mul(vla_0));
         *array
             .as_mut_ptr()
-            .offset((user1 / 2i32) as isize * vla_0 as isize)
-            .offset((user2 / 2i32) as isize) = user1 + user2;
+            .offset((user1.wrapping_div(2i32)) as isize * vla_0 as isize)
+            .offset((user2.wrapping_div(2i32)) as isize) = user1.wrapping_add(user2);
         println!(
             "array[{}][{}] is {}",
             user1 / 2_i32,

@@ -8,7 +8,7 @@
     unused_mut
 )]
 #![feature(extern_types)]
-
+use c2rust_out::*;
 extern "C" {
     pub type _IO_wide_data;
     pub type _IO_codecvt;
@@ -68,12 +68,12 @@ fn main_0() -> i32 {
         let CxMax: f64 = 1.5f64;
         let CyMin: f64 = -2.0f64;
         let CyMax: f64 = 2.0f64;
-        let mut PixelWidth: f64 = (CxMax - CxMin) / f64::from(iXmax);
-        let mut PixelHeight: f64 = (CyMax - CyMin) / f64::from(iYmax);
+        let mut PixelWidth: f64 = (CxMax - CxMin) / iXmax as f64;
+        let mut PixelHeight: f64 = (CyMax - CyMin) / iYmax as f64;
         let MaxColorComponentValue: i32 = 255;
-        let mut fp: *mut FILE = std::ptr::null_mut::<FILE>();
-        let mut filename: *mut i8 = (b"new1.ppm\0" as *const u8).cast::<i8>() as *mut i8;
-        let mut comment: *mut i8 = (b"# \0" as *const u8).cast::<i8>() as *mut i8;
+        let mut fp: *mut FILE = 0 as *mut FILE;
+        let mut filename: *mut i8 = b"new1.ppm\0" as *const u8 as *const i8 as *mut i8;
+        let mut comment: *mut i8 = b"# \0" as *const u8 as *const i8 as *mut i8;
         static mut color: [u8; 3] = [0; 3];
         let mut Zx: f64 = 0.;
         let mut Zy: f64 = 0.;
@@ -81,60 +81,60 @@ fn main_0() -> i32 {
         let mut Zy2: f64 = 0.;
         let mut Iteration: i32 = 0;
         let IterationMax: i32 = 200;
-        let EscapeRadius: f64 = 2_f64;
-        let mut ER2: f64 = EscapeRadius * EscapeRadius;
-        fp = fopen(filename, (b"wb\0" as *const u8).cast::<i8>());
+        let EscapeRadius: f64 = 2 as f64;
+        let mut ER2: f64 = EscapeRadius.wrapping_mul(EscapeRadius);
+        fp = fopen(filename, b"wb\0" as *const u8 as *const i8);
         fprintf(
             fp,
-            (b"P6\n %s\n %d\n %d\n %d\n\0" as *const u8).cast::<i8>(),
+            b"P6\n %s\n %d\n %d\n %d\n\0" as *const u8 as *const i8,
             comment,
             iXmax,
             iYmax,
             MaxColorComponentValue,
         );
-        iY = 0_i32;
+        iY = 0;
         while iY < iYmax {
-            Cy = f64::from(iY).mul_add(PixelHeight, CyMin);
-            if fabs(Cy) < PixelHeight / 2_f64 {
+            Cy = CyMin + iY as f64 * PixelHeight;
+            if fabs(Cy) < PixelHeight / 2 as f64 {
                 Cy = 0.0f64;
             }
-            iX = 0_i32;
+            iX = 0;
             while iX < iXmax {
-                Cx = f64::from(iX).mul_add(PixelWidth, CxMin);
+                Cx = CxMin + iX as f64 * PixelWidth;
                 Zx = 0.0f64;
                 Zy = 0.0f64;
-                Zx2 = Zx * Zx;
-                Zy2 = Zy * Zy;
-                Iteration = 0_i32;
+                Zx2 = Zx.wrapping_mul(Zx);
+                Zy2 = Zy.wrapping_mul(Zy);
+                Iteration = 0;
                 while Iteration < IterationMax && Zx2 + Zy2 < ER2 {
-                    Zy = (2_f64 * Zx).mul_add(Zy, Cy);
-                    Zx = Zx2 - Zy2 + Cx;
-                    Zx2 = Zx * Zx;
-                    Zy2 = Zy * Zy;
-                    Iteration += 1_i32;
+                    Zy = 2 as f64 * Zx * Zy.wrapping_add(Cy);
+                    Zx = Zx2 - Zy2.wrapping_add(Cx);
+                    Zx2 = Zx.wrapping_mul(Zx);
+                    Zy2 = Zy.wrapping_mul(Zy);
+                    Iteration = Iteration.wrapping_add(1);
                     Iteration;
                 }
                 if Iteration == IterationMax {
-                    color[0_usize] = 0;
-                    color[1_usize] = 0;
-                    color[2_usize] = 0;
+                    color[0 as usize] = 0;
+                    color[1 as usize] = 0;
+                    color[2 as usize] = 0;
                 } else {
-                    color[0_usize] = 255;
-                    color[1_usize] = 255;
-                    color[2_usize] = 255;
+                    color[0 as usize] = 255;
+                    color[1 as usize] = 255;
+                    color[2 as usize] = 255;
                 }
                 fwrite(color.as_mut_ptr() as *const libc::c_void, 1, 3, fp);
-                iX += 1_i32;
+                iX = iX.wrapping_add(1);
                 iX;
             }
-            iY += 1_i32;
+            iY = iY.wrapping_add(1);
             iY;
         }
         fclose(fp);
-        0_i32
+        return 0;
     }
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

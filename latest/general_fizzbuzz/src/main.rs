@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -66,14 +66,14 @@ pub extern "C" fn generic_fizz_buzz(
                     );
                     found_word = 1_i32;
                 }
-                it += 1_i32;
+                it = it.wrapping_add(1);
                 it;
             }
             if 0_i32 == found_word {
                 print!("{}", i);
             }
             println!();
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }

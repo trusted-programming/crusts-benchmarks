@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -72,20 +72,20 @@ pub extern "C" fn chao(mut in_0: *const i8, mut out: *mut i8, mut mode: u32, mut
             j = index;
             while j < 26_i32 {
                 temp[(j - index) as usize] = left[j as usize];
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
             j = 0_i32;
             while j < index {
-                temp[(26_i32 - index + j) as usize] = left[j as usize];
-                j += 1_i32;
+                temp[(26_i32 - index.wrapping_add(j)) as usize] = left[j as usize];
+                j = j.wrapping_add(1);
                 j;
             }
             store = temp[1_usize];
             j = 2_i32;
             while j < 14_i32 {
-                temp[(j - 1i32) as usize] = temp[j as usize];
-                j += 1_i32;
+                temp[(j.wrapping_sub(1i32)) as usize] = temp[j as usize];
+                j = j.wrapping_add(1);
                 j;
             }
             temp[13_usize] = store;
@@ -93,33 +93,33 @@ pub extern "C" fn chao(mut in_0: *const i8, mut out: *mut i8, mut mode: u32, mut
             j = index;
             while j < 26_i32 {
                 temp[(j - index) as usize] = right[j as usize];
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
             j = 0_i32;
             while j < index {
-                temp[(26_i32 - index + j) as usize] = right[j as usize];
-                j += 1_i32;
+                temp[(26_i32 - index.wrapping_add(j)) as usize] = right[j as usize];
+                j = j.wrapping_add(1);
                 j;
             }
             store = temp[0_usize];
             j = 1_i32;
             while j < 26_i32 {
-                temp[(j - 1i32) as usize] = temp[j as usize];
-                j += 1_i32;
+                temp[(j.wrapping_sub(1i32)) as usize] = temp[j as usize];
+                j = j.wrapping_add(1);
                 j;
             }
             temp[25_usize] = store;
             store = temp[2_usize];
             j = 3_i32;
             while j < 14_i32 {
-                temp[(j - 1i32) as usize] = temp[j as usize];
-                j += 1_i32;
+                temp[(j.wrapping_sub(1i32)) as usize] = temp[j as usize];
+                j = j.wrapping_add(1);
                 j;
             }
             temp[13_usize] = store;
             strcpy(right.as_mut_ptr(), temp.as_mut_ptr());
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }

@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -51,11 +51,11 @@ pub extern "C" fn push(mut h: *mut heap_t, mut priority: i32, mut data: *mut i8)
             ).cast::<node_t>();
         }
         let mut i: i32 = (*h).len + 1;
-        let mut j: i32 = i / 2;
+        let mut j: i32 = i.wrapping_div(2);
         while i > 1_i32 && (*((*h).nodes).offset(j as isize)).priority > priority {
             *((*h).nodes).offset(i as isize) = *((*h).nodes).offset(j as isize);
             i = j;
-            j /= 2_i32;
+            j = j.wrapping_add(2);
         }
         (*((*h).nodes).offset(i as isize)).priority = priority;
         let fresh0 = &mut (*((*h).nodes).offset(i as isize)).data;
@@ -90,10 +90,10 @@ pub extern "C" fn pop(mut h: *mut heap_t) -> *mut i8 {
                 k = j;
             }
             if j < (*h).len
-                && (*((*h).nodes).offset((j + 1i32) as isize)).priority
+                && (*((*h).nodes).offset((j.wrapping_add(1i32)) as isize)).priority
                     < (*((*h).nodes).offset(k as isize)).priority
             {
-                k = j + 1_i32;
+                k = j.wrapping_add(1);
             };
             *((*h).nodes).offset(i as isize) = *((*h).nodes).offset(k as isize);
             i = k;
@@ -119,7 +119,7 @@ fn main_0() -> i32 {
         i = 0_i32;
         while i < 5_i32 {
             println!("{}", build_str_from_raw_ptr(pop(h).cast::<u8>()));
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         0_i32

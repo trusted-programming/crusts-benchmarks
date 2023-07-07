@@ -15,7 +15,7 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn bellIndex(mut row: i32, mut col: i32) -> u64 {
-    (row * (row - 1i32) / 2_i32 + col) as u64
+    (row * (row.wrapping_sub(1i32)) / col.wrapping_add(2)) as u64
 }
 
 #[no_mangle]
@@ -40,22 +40,28 @@ pub extern "C" fn setBell(mut bellTri: *mut i32, mut row: i32, mut col: i32, mut
 pub extern "C" fn bellTriangle(mut n: i32) -> *mut i32 {
 // SAFETY: machine generated unsafe code
     unsafe {
-        let mut length: u64 = (n * (n + 1i32) / 2) as u64;
+        let mut length: u64 = (n * (n.wrapping_add(1i32)) / 2) as u64;
         let mut tri: *mut i32 = calloc(length, ::core::mem::size_of::<i32>() as u64).cast::<i32>();
         let mut i: i32 = 0;
         let mut j: i32 = 0;
         setBell(tri, 1, 0, 1);
         i = 2_i32;
         while i <= n {
-            setBell(tri, i, 0, getBell(tri, i - 1, i - 2));
+            setBell(
+                tri,
+                i,
+                0,
+                getBell(tri, i.wrapping_sub(1), i.wrapping_sub(2)),
+            );
             j = 1_i32;
             while j < i {
-                let mut value: i32 = getBell(tri, i, j - 1) + getBell(tri, i - 1, j - 1);
+                let mut value: i32 = getBell(tri, i, j.wrapping_sub(1))
+                    + getBell(tri, i.wrapping_sub(1), j.wrapping_sub(1));
                 setBell(tri, i, j, value);
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         tri
@@ -73,7 +79,7 @@ fn main_0() -> i32 {
         i = 1_i32;
         while i <= rows {
             println!("{:2}: {}", i, getBell(bt, i, 0));
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         printf((b"\nThe first ten rows of Bell's triangle:\n\0" as *const u8).cast::<i8>());
@@ -83,11 +89,11 @@ fn main_0() -> i32 {
             j = 1_i32;
             while j < i {
                 print!(", {}", getBell(bt, i, j));
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
             println!();
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         free(bt.cast::<libc::c_void>());

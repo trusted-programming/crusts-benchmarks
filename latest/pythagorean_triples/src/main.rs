@@ -71,7 +71,7 @@ pub extern "C" fn new_tri(mut in_0: *mut u64) {
                 .wrapping_add((U[i as usize][7_usize]).wrapping_mul(*in_0.offset(1_isize)))
                 .wrapping_add((U[i as usize][8_usize]).wrapping_mul(*in_0.offset(2_isize)));
             new_tri(t.as_mut_ptr());
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }

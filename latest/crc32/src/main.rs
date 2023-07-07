@@ -35,11 +35,11 @@ pub extern "C" fn rc_crc32(mut crc: u32, mut buf: *const i8, mut len: u64) -> u3
                     } else {
                         rem >>= 1_i32;
                     }
-                    j += 1_i32;
+                    j = j.wrapping_add(1);
                     j;
                 }
                 table[i as usize] = rem;
-                i += 1_i32;
+                i = i.wrapping_add(1);
                 i;
             }
             have_table = 1_i32;

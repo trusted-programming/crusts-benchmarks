@@ -129,7 +129,7 @@ fn main_0() -> i32 {
                 (sma(SMA_ADD, h3, v[i as usize])).sma,
                 (sma(SMA_ADD, h5, v[i as usize])).sma
             );
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         sma(SMA_FREE, h3);

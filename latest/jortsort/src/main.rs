@@ -18,8 +18,8 @@ pub extern "C" fn number_of_digits(mut x: i32) -> i32 {
     let mut NumberOfDigits: i32 = 0;
     NumberOfDigits = 0_i32;
     while x != 0_i32 {
-        x /= 10_i32;
-        NumberOfDigits += 1_i32;
+        x = x.wrapping_add(10);
+        NumberOfDigits = NumberOfDigits.wrapping_add(1);
         NumberOfDigits;
     }
     NumberOfDigits
@@ -40,7 +40,7 @@ pub extern "C" fn convert_array(mut array: *mut i8, mut NumberOfElements: i32) -
                 atoi(&mut *array.offset(originalElement as isize));
             originalElement +=
                 number_of_digits(*convertedArray.offset(convertedElement as isize)) + 1_i32;
-            convertedElement += 1_i32;
+            convertedElement = convertedElement.wrapping_add(1);
             convertedElement;
         }
         convertedArray
@@ -55,12 +55,13 @@ pub extern "C" fn isSorted(mut array: *mut i32, mut numberOfElements: i32) -> i3
         let mut counter: i32 = 0;
         while counter < numberOfElements {
             if counter != 0_i32
-                && *array.offset((counter - 1i32) as isize) > *array.offset(counter as isize)
+                && *array.offset((counter.wrapping_sub(1i32)) as isize)
+                    > *array.offset(counter as isize)
             {
-                sorted -= 1_i32;
+                sorted = sorted.wrapping_sub(1);
                 sorted;
             }
-            counter += 1_i32;
+            counter = counter.wrapping_add(1);
             counter;
         }
         sorted
@@ -71,8 +72,8 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut convertedArray: *mut i32 = std::ptr::null_mut::<i32>();
-        convertedArray = convert_array(*argv.offset(1_isize), argc - 1);
-        if isSorted(convertedArray, argc - 1) == 1_i32 {
+        convertedArray = convert_array(*argv.offset(1_isize), argc.wrapping_sub(1));
+        if isSorted(convertedArray, argc.wrapping_sub(1)) == 1_i32 {
             println!("Did you forgot to turn on your brain?! This array is already sorted!");
         } else if argc - 1_i32 <= 10_i32 {
             println!("Am I really supposed to sort this? Sort it by yourself!");

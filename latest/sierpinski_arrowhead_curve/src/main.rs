@@ -103,11 +103,23 @@ pub extern "C" fn curve(
         if order == 0_i32 {
             draw_line(out, cursor, length);
         } else {
-            curve(out, order - 1, length / 2_f64, cursor, -angle);
+            curve(
+                out,
+                order.wrapping_sub(1),
+                length / 2_f64,
+                cursor,
+                -angle,
+            );
             turn(cursor, angle);
-            curve(out, order - 1, length / 2_f64, cursor, angle);
+            curve(out, order.wrapping_sub(1), length / 2_f64, cursor, angle);
             turn(cursor, angle);
-            curve(out, order - 1, length / 2_f64, cursor, -angle);
+            curve(
+                out,
+                order.wrapping_sub(1),
+                length / 2_f64,
+                cursor,
+                -angle,
+            );
         };
     }
 }

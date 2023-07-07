@@ -81,21 +81,22 @@ pub extern "C" fn NewSquareMtx(
         if !sm.is_null() {
             let mut rw: i32 = 0;
             (*sm).dim = dim;
-            (*sm).cells =
-                malloc(((dim * dim) as u64).wrapping_mul(::core::mem::size_of::<f64>() as u64)).cast::<f64>();
+            (*sm).cells = malloc(
+                ((dim.wrapping_mul(dim)) as u64).wrapping_mul(::core::mem::size_of::<f64>() as u64),
+            ).cast::<f64>();
             (*sm).m = malloc((dim as u64).wrapping_mul(::core::mem::size_of::<*mut f64>() as u64)).cast::<*mut f64>();
             if !((*sm).cells).is_null() && !((*sm).m).is_null() {
                 rw = 0_i32;
                 while rw < dim {
                     let fresh0 = &mut (*((*sm).m).offset(rw as isize));
-                    *fresh0 = ((*sm).cells).offset((dim * rw) as isize);
+                    *fresh0 = ((*sm).cells).offset((dim.wrapping_mul(rw)) as isize);
                     fillFunc.expect("non-null function pointer")(
                         *((*sm).m).offset(rw as isize),
                         rw,
                         dim,
                         ff_data,
                     );
-                    rw += 1_i32;
+                    rw = rw.wrapping_add(1);
                     rw;
                 }
             } else {
@@ -127,11 +128,11 @@ pub extern "C" fn ffMatxSquare(mut cells: *mut f64, mut rw: i32, mut dim: i32, m
             while ix < dim {
                 sum += *m0rw.offset(ix as isize)
                     * *(*((*m0).m).offset(ix as isize)).offset(col as isize);
-                ix += 1_i32;
+                ix = ix.wrapping_add(1);
                 ix;
             }
             *cells.offset(col as isize) = sum;
-            col += 1_i32;
+            col = col.wrapping_add(1);
             col;
         }
     }
@@ -159,11 +160,11 @@ pub extern "C" fn ffMatxMulply(
             while ix < dim {
                 sum += *m0rw.offset(ix as isize)
                     * *(*((*mrigt).m).offset(ix as isize)).offset(col as isize);
-                ix += 1_i32;
+                ix = ix.wrapping_add(1);
                 ix;
             }
             *cells.offset(col as isize) = sum;
-            col += 1_i32;
+            col = col.wrapping_add(1);
             col;
         }
     }
@@ -185,7 +186,7 @@ pub extern "C" fn MatxMul(mut mr: SquareMtx, mut left: SquareMtx, mut rigt: Squa
                 (*left).dim,
                 mplcnds.as_mut_ptr(),
             );
-            rw += 1_i32;
+            rw = rw.wrapping_add(1);
             rw;
         }
     }
@@ -204,7 +205,7 @@ pub extern "C" fn ffIdentity(
         col = 0_i32;
         while col < dim {
             *cells.offset(col as isize) = 0.0f64;
-            col += 1_i32;
+            col = col.wrapping_add(1);
             col;
         }
         *cells.offset(rw as isize) = 1.0f64;
@@ -219,7 +220,7 @@ pub extern "C" fn ffCopy(mut cells: *mut f64, mut rw: i32, mut dim: i32, mut m1:
         col = 0_i32;
         while col < dim {
             *cells.offset(col as isize) = *(*((*m1).m).offset(rw as isize)).offset(col as isize);
-            col += 1_i32;
+            col = col.wrapping_add(1);
             col;
         }
     }
@@ -305,7 +306,7 @@ pub extern "C" fn SquareMtxPow(mut m0: SquareMtx, mut exp: i32) -> SquareMtx {
             t = base0;
             base0 = base1;
             base1 = t;
-            exp /= 2_i32;
+            exp = exp.wrapping_add(2);
         }
         if !base0.is_null() {
             FreeSquareMtx(base0);
@@ -345,11 +346,11 @@ pub extern "C" fn SquareMtxPrint(mut mtx: SquareMtx, mut mn: *const i8) {
                     (b"%8.5f \0" as *const u8).cast::<i8>(),
                     *(*((*mtx).m).offset(rw as isize)).offset(col as isize),
                 );
-                col += 1_i32;
+                col = col.wrapping_add(1);
                 col;
             }
             fprintf(fout, (b" |\n\0" as *const u8).cast::<i8>());
-            rw += 1_i32;
+            rw = rw.wrapping_add(1);
             rw;
         }
         fprintf(fout, (b"\n\0" as *const u8).cast::<i8>());

@@ -13,7 +13,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -87,8 +87,8 @@ fn main_0() {
             if read == -1_i64 {
                 break;
             }
-            if i32::from(*line.offset((read - 1i64) as isize)) == '\n' as i32 {
-                *line.offset((read - 1i64) as isize) = 0;
+            if i32::from(*line.offset((read.wrapping_sub(1i64)) as isize)) == '\n' as i32 {
+                *line.offset((read.wrapping_sub(1i64)) as isize) = 0;
             }
             if i32::from(*line.offset(0_isize)) == '>' as i32 {
                 if state == 1_i32 {

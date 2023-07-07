@@ -18,14 +18,18 @@ pub extern "C" fn hailstone(mut n: i32, mut arry: *mut i32) -> i32 {
     unsafe {
         let mut hs: i32 = 1;
         while n != 1_i32 {
-            hs += 1_i32;
+            hs = hs.wrapping_add(1);
             hs;
             if !arry.is_null() {
                 let fresh0 = arry;
                 arry = arry.offset(1);
                 *fresh0 = n;
             }
-            n = if n & 1_i32 != 0_i32 { 3_i32 * n + 1_i32 } else { n / 2_i32 };
+            n = if n & 1_i32 != 0_i32 {
+                3_i32 * n.wrapping_add(1)
+            } else {
+                n.wrapping_div(2)
+            };
         }
         if !arry.is_null() {
             let fresh1 = arry;
@@ -51,7 +55,7 @@ fn main_0() -> i32 {
                 hmax = n;
                 jatmax = j;
             }
-            j += 1_i32;
+            j = j.wrapping_add(1);
             j;
         }
         n = hailstone(27, std::ptr::null_mut::<i32>());

@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -45,18 +45,20 @@ pub extern "C" fn leven(mut a: *mut i8, mut b: *mut i8) {
         let mut j: i32 = 0;
         let mut la: i32 = strlen(a) as i32;
         let mut lb: i32 = strlen(b) as i32;
-        let mut tbl: *mut edit =
-            malloc((::core::mem::size_of::<edit>() as u64).wrapping_mul((1 + la) as u64)).cast::<*mut edit_s>();
+        let mut tbl: *mut edit = malloc(
+            (::core::mem::size_of::<edit>() as u64).wrapping_mul((la.wrapping_add(1)) as u64),
+        ).cast::<*mut edit_s>();
         let fresh0 = &mut (*tbl.offset(0_isize));
         *fresh0 = calloc(
-            ((1 + la) * (1 + lb)) as u64,
+            ((la.wrapping_add(1)) * (lb.wrapping_add(1))) as u64,
             ::core::mem::size_of::<edit_t>() as u64,
         ).cast::<edit_s>();
         i = 1_i32;
         while i <= la {
             let fresh1 = &mut (*tbl.offset(i as isize));
-            *fresh1 = (*tbl.offset((i - 1i32) as isize)).offset((1 + lb) as isize);
-            i += 1_i32;
+            *fresh1 = (*tbl.offset((i.wrapping_sub(1i32)) as isize))
+                .offset((lb.wrapping_add(1)) as isize);
+            i = i.wrapping_add(1);
             i;
         }
         i = la;
@@ -68,13 +70,14 @@ pub extern "C" fn leven(mut a: *mut i8, mut b: *mut i8) {
                 if !(*aa == 0 && *bb == 0) {
                     let mut e: edit =
                         &mut *(*tbl.offset(i as isize)).offset(j as isize) as *mut edit_s;
-                    let mut repl: edit = &mut *(*tbl.offset((i + 1i32) as isize))
-                        .offset((j + 1i32) as isize)
+                    let mut repl: edit = &mut *(*tbl.offset((i.wrapping_add(1i32)) as isize))
+                        .offset((j.wrapping_add(1i32)) as isize)
                         as *mut edit_s;
-                    let mut dela: edit =
-                        &mut *(*tbl.offset((i + 1i32) as isize)).offset(j as isize) as *mut edit_s;
-                    let mut delb: edit =
-                        &mut *(*tbl.offset(i as isize)).offset((j + 1i32) as isize) as *mut edit_s;
+                    let mut dela: edit = &mut *(*tbl.offset((i.wrapping_add(1i32)) as isize))
+                        .offset(j as isize) as *mut edit_s;
+                    let mut delb: edit = &mut *(*tbl.offset(i as isize))
+                        .offset((j.wrapping_add(1i32)) as isize)
+                        as *mut edit_s;
                     (*e).c1 = *aa;
                     (*e).c2 = *bb;
                     if *aa == 0 {
@@ -101,10 +104,10 @@ pub extern "C" fn leven(mut a: *mut i8, mut b: *mut i8) {
                         }
                     }
                 }
-                j -= 1_i32;
+                j = j.wrapping_sub(1);
                 j;
             }
-            i -= 1_i32;
+            i = i.wrapping_sub(1);
             i;
         }
         let mut p: edit = *tbl.offset(0_isize);

@@ -49,7 +49,7 @@ pub struct tm {
 pub extern "C" fn ddate(mut y: i32, mut d: i32) -> *mut i8 {
 // SAFETY: machine generated unsafe code
     unsafe {
-        let mut dyear: i32 = 1166 + y;
+        let mut dyear: i32 = y.wrapping_add(1166);
         let mut result: *mut i8 =
             malloc(100u64.wrapping_mul(::core::mem::size_of::<i8>() as u64)) as *mut i8;
         if y % 400 == 0 || y % 4 == 0 && y % 100 != 0 {
@@ -61,7 +61,7 @@ pub extern "C" fn ddate(mut y: i32, mut d: i32) -> *mut i8 {
                 );
                 return result;
             } else if d >= 60 {
-                d -= 1;
+                d = d.wrapping_sub(1);
                 d;
             }
         }
@@ -79,13 +79,13 @@ pub extern "C" fn ddate(mut y: i32, mut d: i32) -> *mut i8 {
             } else {
                 b"Setting Orange\0" as *const u8 as *const i8
             },
-            if (if d % 73 == 0 { d - 1 } else { d }) / 73 == 0 {
+            if (if d % 73 == 0 { d.wrapping_sub(1) } else { d }) / 73 == 0 {
                 b"Chaos\0" as *const u8 as *const i8
-            } else if (if d % 73 == 0 { d - 1 } else { d }) / 73 == 1 {
+            } else if (if d % 73 == 0 { d.wrapping_sub(1) } else { d }) / 73 == 1 {
                 b"Discord\0" as *const u8 as *const i8
-            } else if (if d % 73 == 0 { d - 1 } else { d }) / 73 == 2 {
+            } else if (if d % 73 == 0 { d.wrapping_sub(1) } else { d }) / 73 == 2 {
                 b"Confusion\0" as *const u8 as *const i8
-            } else if (if d % 73 == 0 { d - 1 } else { d }) / 73 == 3 {
+            } else if (if d % 73 == 0 { d.wrapping_sub(1) } else { d }) / 73 == 3 {
                 b"Bureaucracy\0" as *const u8 as *const i8
             } else {
                 b"The Aftermath\0" as *const u8 as *const i8
@@ -101,12 +101,12 @@ pub extern "C" fn ddate(mut y: i32, mut d: i32) -> *mut i8 {
 pub extern "C" fn day_of_year(mut y: i32, mut m: i32, mut d: i32) -> i32 {
     let mut month_lengths: [i32; 12] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     while m > 1 {
-        d += month_lengths[(m - 2i32) as usize];
+        d += month_lengths[(m.wrapping_sub(2i32)) as usize];
         if m == 3 && (y % 400 == 0 || y % 4 == 0 && y % 100 != 0) {
-            d += 1;
+            d = d.wrapping_add(1);
             d;
         }
-        m -= 1;
+        m = m.wrapping_sub(1);
         m;
     }
     return d;

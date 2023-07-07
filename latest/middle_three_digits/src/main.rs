@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -40,7 +40,7 @@ pub extern "C" fn mid3(mut n: i32) -> *mut i8 {
             return std::ptr::null_mut::<i8>();
         }
         l = l / 2_i32 - 1_i32;
-        buf[(l + 3i32) as usize] = 0;
+        buf[(l.wrapping_add(3i32)) as usize] = 0;
         buf.as_mut_ptr().offset(l as isize)
     }
 }
@@ -68,7 +68,7 @@ fn main_0() -> i32 {
                 x[i as usize],
                 build_str_from_raw_ptr(m.cast::<u8>())
             );
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         0_i32

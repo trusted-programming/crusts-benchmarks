@@ -30,10 +30,10 @@ pub extern "C" fn transpose(
             while j < src_w {
                 *d.offset(j as isize * vla as isize).offset(i as isize) =
                     *s.offset(i as isize * vla_0 as isize).offset(j as isize);
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -63,10 +63,10 @@ fn main_0() -> i32 {
             } else {
                 print!("{}{}", b[i as usize][j as usize], ' ' as i32)
             };
-            j += 1_i32;
+            j = j.wrapping_add(1);
             j;
         }
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     0_i32

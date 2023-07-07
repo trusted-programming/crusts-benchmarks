@@ -13,7 +13,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -99,7 +99,7 @@ pub extern "C" fn b_write(mut buf: *mut u8, mut n_bits: u64, mut shift: u64, mut
         shift = shift.wrapping_rem(8);
         while n_bits != 0 || bits >= 8_i32 {
             while bits >= 8_i32 {
-                bits -= 8_i32;
+                bits = bits.wrapping_sub(8);
                 fputc((accu >> bits) as i32, (*bf).fp);
                 accu &= ((1i32 << bits) - 1_i32) as u32;
             }
@@ -108,7 +108,7 @@ pub extern "C" fn b_write(mut buf: *mut u8, mut n_bits: u64, mut shift: u64, mut
                     accu << 1_i32 | ((128_i32 >> shift & i32::from(*buf)) >> 7u64.wrapping_sub(shift)) as u32;
                 n_bits = n_bits.wrapping_sub(1);
                 n_bits;
-                bits += 1_i32;
+                bits = bits.wrapping_add(1);
                 bits;
                 shift = shift.wrapping_add(1);
                 if shift == 8 {
@@ -141,14 +141,14 @@ pub extern "C" fn b_read(
         while n_bits != 0 {
             while bits != 0_i32 && n_bits != 0 {
                 mask = 128_i32 >> shift;
-                if accu & (1i32 << (bits - 1_i32)) as u32 != 0 {
+                if accu & (1i32 << bits.wrapping_sub(1)) as u32 != 0 {
                     *buf = (i32::from(*buf) | mask) as u8;
                 } else {
                     *buf = (i32::from(*buf) & !mask) as u8;
                 }
                 n_bits = n_bits.wrapping_sub(1);
                 n_bits;
-                bits -= 1_i32;
+                bits = bits.wrapping_sub(1);
                 bits;
                 shift = shift.wrapping_add(1);
                 if shift >= 8 {
@@ -161,7 +161,7 @@ pub extern "C" fn b_read(
                 break;
             }
             accu = accu << 8_i32 | fgetc((*bf).fp) as u32;
-            bits += 8_i32;
+            bits = bits.wrapping_add(8);
         }
         (*bf).accu = accu;
         (*bf).bits = bits;
@@ -195,7 +195,7 @@ fn main_0() -> i32 {
         i = 0_i32;
         while i < 10_i32 {
             b_write(s.as_mut_ptr().offset(i as isize), 7, 1, b);
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         b_detach(b);
@@ -208,7 +208,7 @@ fn main_0() -> i32 {
         i = 0_i32;
         while i < 10_i32 {
             b_read(s2.as_mut_ptr().offset(i as isize), 7, 1, b);
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         b_detach(b);

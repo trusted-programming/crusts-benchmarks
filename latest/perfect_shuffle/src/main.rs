@@ -78,7 +78,7 @@ fn main_0() -> i32 {
             nShuffles = 0_i32;
             loop {
                 ShuffleDeck(deck, nCards);
-                nShuffles += 1_i32;
+                nShuffles = nShuffles.wrapping_add(1);
                 nShuffles;
                 if InitedDeck(deck, nCards) != 0_i32 {
                     break;
@@ -89,7 +89,7 @@ fn main_0() -> i32 {
                 nCards, nShuffles
             );
             FreeDeck(&mut deck);
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         0_i32
@@ -122,7 +122,7 @@ pub extern "C" fn InitDeck(mut deck: *mut i32, mut nCards: i32) {
             i = 0_i32;
             while i < nCards {
                 *deck.offset(i as isize) = i;
-                i += 1_i32;
+                i = i.wrapping_add(1);
                 i;
             }
         }
@@ -160,7 +160,7 @@ pub extern "C" fn InitedDeck(mut deck: *mut i32, mut nCards: i32) -> i32 {
             if *deck.offset(i as isize) != i {
                 return 0_i32;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         1_i32
@@ -177,12 +177,13 @@ pub extern "C" fn ShuffleDeck(mut deck: *mut i32, mut nCards: i32) -> i32 {
             let mut j: i32 = 0;
             j = 0_i32;
             i = j;
-            while i < nCards / 2_i32 {
+            while i < nCards.wrapping_div(2) {
                 *deck.offset(j as isize) = *copy.offset(i as isize);
-                *deck.offset((j + 1i32) as isize) = *copy.offset((i + nCards / 2i32) as isize);
-                i += 1_i32;
+                *deck.offset((j.wrapping_add(1i32)) as isize) =
+                    *copy.offset((i + nCards.wrapping_div(2i32)) as isize);
+                i = i.wrapping_add(1);
                 i;
-                j += 2_i32;
+                j = j.wrapping_add(2);
             }
             FreeDeck(&mut copy);
             1_i32

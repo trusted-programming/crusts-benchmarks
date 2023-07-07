@@ -203,7 +203,7 @@ pub extern "C" fn eat(mut id: i32) {
     let mut i: i32 = 0;
     f[1_usize] = id;
     f[0_usize] = f[1_usize];
-    f[(id & 1i32) as usize] = (id + 1_i32) % 5_i32;
+    f[(id & 1i32) as usize] = (id.wrapping_add(1)) % 5_i32;
 // SAFETY: machine generated unsafe code
     unsafe {
         print(id, 12, (b"\x1B[K\0" as *const u8).cast::<i8>());
@@ -228,7 +228,7 @@ pub extern "C" fn eat(mut id: i32) {
                 f[i as usize],
             );
             sleep(1);
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -237,9 +237,13 @@ pub extern "C" fn eat(mut id: i32) {
     unsafe {
         ration = 3_i32 + rand() % 8_i32;
         while i < ration {
-            print(id, 24 + i * 4, (b"nom\0" as *const u8).cast::<i8>());
+            print(
+                id,
+                24 + i.wrapping_mul(4),
+                (b"nom\0" as *const u8).cast::<i8>(),
+            );
             sleep(1);
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -248,7 +252,7 @@ pub extern "C" fn eat(mut id: i32) {
     unsafe {
         while i < 2_i32 {
             pthread_mutex_unlock(forks.as_mut_ptr().offset(f[i as usize] as isize));
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -273,14 +277,14 @@ pub extern "C" fn think(mut id: i32) {
             while buf[i as usize] != 0 {
                 print(
                     id,
-                    i + 12,
+                    i.wrapping_add(12),
                     (b"%c\0" as *const u8).cast::<i8>(),
                     i32::from(buf[i as usize]),
                 );
                 if i < 5_i32 {
                     usleep(200000);
                 }
-                i += 1_i32;
+                i = i.wrapping_add(1);
                 i;
             }
             usleep((500000 + rand() % 1000000i32) as u32);
@@ -322,7 +326,7 @@ fn main_0() -> i32 {
                 forks.as_mut_ptr().offset(id[i as usize] as isize),
                 std::ptr::null::<pthread_mutexattr_t>(),
             );
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -337,7 +341,7 @@ fn main_0() -> i32 {
                 Some(philosophize as unsafe extern "C" fn(*mut libc::c_void) -> *mut libc::c_void),
                 id.as_mut_ptr().offset(i as isize).cast::<libc::c_void>(),
             );
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         pthread_join(tid[0_usize], std::ptr::null_mut::<*mut libc::c_void>())

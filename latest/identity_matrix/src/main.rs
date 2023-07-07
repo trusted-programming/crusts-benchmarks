@@ -26,7 +26,7 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
             println!("Dimensions of matrix cannot be negative");
             exit(1);
         }
-        let mut numElements: i32 = rowsize * rowsize;
+        let mut numElements: i32 = rowsize.wrapping_mul(rowsize);
         if numElements < rowsize {
             println!(
                 "Squaring {} caused result to overflow to {}.",

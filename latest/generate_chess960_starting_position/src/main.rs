@@ -57,7 +57,7 @@ pub extern "C" fn generateFirstRank() {
         while i < 8 {
             rank[i as usize] = 'e' as i8;
             pos[i as usize] = i;
-            i += 1;
+            i = i.wrapping_add(1);
             i;
         }
         loop {
@@ -112,7 +112,7 @@ pub extern "C" fn generateFirstRank() {
                 rank[i as usize] = 'N' as i8;
                 break;
             } else {
-                i += 1;
+                i = i.wrapping_add(1);
                 i;
             }
         }
@@ -143,7 +143,7 @@ pub extern "C" fn printRank() {
             if rank[i as usize] as i32 == 'N' as i32 {
                 print!("{}", 9816);
             }
-            i += 1;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -159,7 +159,7 @@ fn main_0() -> i32 {
     while i < 9 {
         generateFirstRank();
         printRank();
-        i += 1;
+        i = i.wrapping_add(1);
         i;
     }
     return 0;

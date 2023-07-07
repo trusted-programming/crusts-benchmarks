@@ -24,7 +24,7 @@ pub type va_list = __builtin_va_list;
 #[no_mangle]
 pub extern "C" fn factorial(mut n: i32) -> i64 {
     if n > 1_i32 {
-        return i64::from(n) * factorial(n - 1);
+        return i64::from(n) * factorial(n.wrapping_sub(1));
     }
     1
 }
@@ -37,7 +37,7 @@ pub unsafe extern "C" fn sumOfFactorials(mut num: i32, mut args: ...) -> i64 {
     vaList = args.clone();
     loop {
         let fresh0 = num;
-        num -= 1_i32;
+        num = num.wrapping_sub(1);
         if fresh0 == 0_i32 {
             break;
         }

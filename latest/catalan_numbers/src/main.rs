@@ -34,7 +34,7 @@ pub extern "C" fn binomial(mut m: u64, mut n: u64) -> u64 {
 
 #[no_mangle]
 pub extern "C" fn catalan1(mut n: i32) -> u64 {
-    (binomial((2 * n) as u64, n as u64)).wrapping_div((1 + n) as u64)
+    (binomial((2 * n) as u64, n as u64)).wrapping_div((n.wrapping_add(1)) as u64)
 }
 
 #[no_mangle]
@@ -44,7 +44,7 @@ pub extern "C" fn catalan2(mut n: i32) -> u64 {
     i = 0_i32;
     while i < n {
         r = (r).wrapping_add((catalan2(i)).wrapping_mul(catalan2(n - 1 - i)));
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     r
@@ -53,9 +53,9 @@ pub extern "C" fn catalan2(mut n: i32) -> u64 {
 #[no_mangle]
 pub extern "C" fn catalan3(mut n: i32) -> u64 {
     if n != 0_i32 {
-        ((2 * (2 * n - 1i32)) as u64)
-            .wrapping_mul(catalan3(n - 1))
-            .wrapping_div((1 + n) as u64)
+        ((2 * (2 * n.wrapping_sub(1i32))) as u64)
+            .wrapping_mul(catalan3(n.wrapping_sub(1)))
+            .wrapping_div((n.wrapping_add(1)) as u64)
     } else {
         1
     }
@@ -70,7 +70,7 @@ fn main_0() -> i32 {
     i = 0_i32;
     while i < 16_i32 {
         println!("{}	{}	{}	{}", i, catalan1(i), catalan2(i), catalan3(i));
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     0_i32

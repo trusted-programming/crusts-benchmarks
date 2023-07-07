@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -48,8 +48,8 @@ pub extern "C" fn powerset(mut v: *mut *mut i8, mut n: i32, mut up: *mut node) {
         } else {
             me.s = *v;
             me.prev = up;
-            powerset(v.offset(1_isize), n - 1, up);
-            powerset(v.offset(1_isize), n - 1, &mut me);
+            powerset(v.offset(1_isize), n.wrapping_sub(1), up);
+            powerset(v.offset(1_isize), n.wrapping_sub(1), &mut me);
         };
     }
 }
@@ -57,7 +57,11 @@ pub extern "C" fn powerset(mut v: *mut *mut i8, mut n: i32, mut up: *mut node) {
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
 // SAFETY: machine generated unsafe code
     unsafe {
-        powerset(argv.offset(1_isize), argc - 1, std::ptr::null_mut::<node>());
+        powerset(
+            argv.offset(1_isize),
+            argc.wrapping_sub(1),
+            std::ptr::null_mut::<node>(),
+        );
         0_i32
     }
 }

@@ -40,20 +40,22 @@ pub extern "C" fn carmichael3(mut p1: i32) {
     h3 = 1_i32;
     while h3 < p1 {
         d = 1_i32;
-        while d < h3 + p1 {
-            if (h3 + p1) * (p1 - 1_i32) % d == 0_i32 && (-p1 * p1 % h3 + h3) % h3 == d % h3 {
-                p2 = 1_i32 + (p1 - 1_i32) * (h3 + p1) / d;
+        while d < h3.wrapping_add(p1) {
+            if (h3.wrapping_add(p1)) * (p1.wrapping_sub(1)) % d == 0_i32
+                && (-p1 * p1 % h3.wrapping_add(h3)) % h3 == d % h3
+            {
+                p2 = 1_i32 + (p1.wrapping_sub(1)) * (h3.wrapping_add(p1)) / d;
                 if is_prime(p2 as u32) != 0_i32 {
                     p3 = 1_i32 + p1 * p2 / h3;
-                    if !(is_prime(p3 as u32) == 0_i32 || p2 * p3 % (p1 - 1_i32) != 1_i32) {
+                    if !(is_prime(p3 as u32) == 0_i32 || p2 * p3 % (p1.wrapping_sub(1)) != 1_i32) {
                         println!("{} {} {}", p1, p2, p3);
                     }
                 }
             }
-            d += 1_i32;
+            d = d.wrapping_add(1);
             d;
         }
-        h3 += 1_i32;
+        h3 = h3.wrapping_add(1);
         h3;
     }
 }
@@ -63,7 +65,7 @@ fn main_0() -> i32 {
     p1 = 2_i32;
     while p1 < 62_i32 {
         carmichael3(p1);
-        p1 += 1_i32;
+        p1 = p1.wrapping_add(1);
         p1;
     }
     0_i32

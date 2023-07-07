@@ -38,7 +38,7 @@ pub extern "C" fn qpush(mut h: u64) {
         n = n.wrapping_add(1);
         i = fresh0 as i32;
         loop {
-            j = i / 2_i32;
+            j = i.wrapping_add(2);
             if !(j != 0_i32 && *q.offset(j as isize) > h) {
                 break;
             };
@@ -63,13 +63,14 @@ pub extern "C" fn qpop() -> u64 {
             n = n.wrapping_sub(1);
             t = *q.offset(n as isize);
             loop {
-                j = i * 2_i32;
+                j = i.wrapping_mul(2);
                 if (j as u64) >= n {
                     break;
                 }
-                if ((j + 1i32) as u64) < n && *q.offset(j as isize) > *q.offset((j + 1i32) as isize)
+                if ((j.wrapping_add(1i32)) as u64) < n
+                    && *q.offset(j as isize) > *q.offset((j.wrapping_add(1i32)) as isize)
                 {
-                    j += 1_i32;
+                    j = j.wrapping_add(1);
                     j;
                 }
                 if t <= *q.offset(j as isize) {
@@ -97,7 +98,7 @@ fn main_0() -> i32 {
         if i <= 20_i32 || i == 1_691_i32 {
             println!("{:6}: {}", i, h);
         }
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     0_i32

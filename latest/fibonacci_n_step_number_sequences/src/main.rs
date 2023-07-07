@@ -22,14 +22,14 @@ pub extern "C" fn anynacci(mut seedArray: *mut i32, mut howMany: i32) -> *mut i3
         let mut initialCardinality: i32 = 0;
         i = 0_i32;
         while *seedArray.offset(i as isize) != 0_i32 {
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         initialCardinality = i;
         i = 0_i32;
         while i < initialCardinality {
             *result.offset(i as isize) = *seedArray.offset(i as isize);
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         i = initialCardinality;
@@ -38,10 +38,10 @@ pub extern "C" fn anynacci(mut seedArray: *mut i32, mut howMany: i32) -> *mut i3
             j = i - initialCardinality;
             while j < i {
                 *result.offset(i as isize) += *result.offset(j as isize);
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         result
@@ -70,7 +70,7 @@ fn main_0() -> i32 {
                 *tetranacci.offset(i as isize),
                 *lucas.offset(i as isize)
             );
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         0_i32

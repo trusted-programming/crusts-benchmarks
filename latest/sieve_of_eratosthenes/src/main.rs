@@ -25,25 +25,28 @@ pub extern "C" fn eratosthenes(mut n: i32, mut c: *mut i32) -> *mut i8 {
         if n < 2_i32 {
             return std::ptr::null_mut::<i8>();
         }
-        *c = n - 1_i32;
+        *c = n.wrapping_sub(1);
         m = sqrt(f64::from(n)) as i32;
-        sieve_0 = calloc((n + 1i32) as u64, ::core::mem::size_of::<i8>() as u64).cast::<i8>();
+        sieve_0 = calloc(
+            (n.wrapping_add(1i32)) as u64,
+            ::core::mem::size_of::<i8>() as u64,
+        ).cast::<i8>();
         *sieve_0.offset(0_isize) = 1;
         *sieve_0.offset(1_isize) = 1;
         i = 2_i32;
         while i <= m {
             if *sieve_0.offset(i as isize) == 0 {
-                j = i * i;
+                j = i.wrapping_mul(i);
                 while j <= n {
                     if *sieve_0.offset(j as isize) == 0 {
                         *sieve_0.offset(j as isize) = 1;
                         *c -= 1_i32;
                         *c;
                     }
-                    j += i;
+                    j = j.wrapping_add(i);
                 }
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         sieve_0
@@ -55,7 +58,9 @@ fn main_0() -> i32 {
     unsafe {
         let mut array: *mut i32 = std::ptr::null_mut::<i32>();
         let mut n: i32 = 10;
-        array = malloc(((n + 1i32) as u64).wrapping_mul(::core::mem::size_of::<i32>() as u64)).cast::<i32>();
+        array = malloc(
+            ((n.wrapping_add(1i32)) as u64).wrapping_mul(::core::mem::size_of::<i32>() as u64),
+        ).cast::<i32>();
         sieve(array, n);
         0_i32
     }
@@ -70,7 +75,7 @@ pub extern "C" fn sieve(mut a: *mut i32, mut n: i32) {
         i = 2_i32;
         while i <= n {
             *a.offset(i as isize) = 1_i32;
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         i = 2_i32;
@@ -84,20 +89,20 @@ pub extern "C" fn sieve(mut a: *mut i32, mut n: i32) {
                         (b"\nBefore a[%d*%d]: %d\0" as *const u8).cast::<i8>(),
                         i,
                         j,
-                        *a.offset((i * j) as isize),
+                        *a.offset((i.wrapping_mul(j)) as isize),
                     );
-                    *a.offset((i * j) as isize) = 0_i32;
+                    *a.offset((i.wrapping_mul(j)) as isize) = 0_i32;
                     printf(
                         (b"\nAfter a[%d*%d]: %d\0" as *const u8).cast::<i8>(),
                         i,
                         j,
-                        *a.offset((i * j) as isize),
+                        *a.offset((i.wrapping_mul(j)) as isize),
                     );
-                    j += 1_i32;
+                    j = j.wrapping_add(1);
                     j;
                 }
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         print!("\nPrimes numbers from 1 to {} are : ", n);
@@ -106,7 +111,7 @@ pub extern "C" fn sieve(mut a: *mut i32, mut n: i32) {
             if *a.offset(i as isize) == 1_i32 {
                 print!("{}, ", i);
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         print!("\n\n");

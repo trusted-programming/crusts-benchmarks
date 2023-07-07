@@ -117,13 +117,13 @@ fn main_0() -> i32 {
         i = 0_i32;
         while i < 20_i32 {
             seq_next(s);
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         i = 0_i32;
         while i < 10_i32 {
             println!("{}", seq_next(s));
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         0_i32

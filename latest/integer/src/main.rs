@@ -20,12 +20,12 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
         if argc < 3_i32 {
             exit(1);
         }
-        argc -= 1_i32;
+        argc = argc.wrapping_sub(1);
         b = atoi(*argv.offset(argc as isize));
         if b == 0_i32 {
             exit(2);
         }
-        argc -= 1_i32;
+        argc = argc.wrapping_sub(1);
         a = atoi(*argv.offset(argc as isize));
         println!("a+b = {}", a + b);
         println!("a-b = {}", a - b);

@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -45,9 +45,9 @@ pub extern "C" fn encodeNegativeBase(mut n: i64, mut base: i64, mut out: *mut i8
         }
         while n != 0 {
             let mut rem: i64 = n % base;
-            n /= base;
+            n = n.wrapping_add(base);
             if rem < 0 {
-                n += 1;
+                n = n.wrapping_add(1);
                 n;
                 rem -= base;
             }
@@ -98,10 +98,10 @@ pub extern "C" fn decodeNegativeBase(mut ns: *const i8, mut base: i64) -> i64 {
             while i < DIGITS_LEN {
                 if i32::from(*ptr) == i32::from(DIGITS[i as usize]) {
                     value += i64::from(i) * bb;
-                    bb *= base;
+                    bb = bb.wrapping_mul(base);
                     break;
                 } else {
-                    i += 1_i32;
+                    i = i.wrapping_add(1);
                     i;
                 }
             }

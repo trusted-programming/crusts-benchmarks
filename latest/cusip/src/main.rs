@@ -13,7 +13,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -90,10 +90,10 @@ pub extern "C" fn cusipCheck(mut str: *mut i8) -> i32 {
                 v = 38_i32;
             }
             if i % 2_i32 != 0_i32 {
-                v *= 2_i32;
+                v = v.wrapping_mul(2);
             }
             sum += v / 10_i32 + v % 10_i32;
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         (10_i32 - sum % 10_i32) % 10_i32
@@ -135,7 +135,7 @@ fn main_0(mut argC: i32, mut argV: *mut *mut i8) -> i32 {
                         build_str_from_raw_ptr(cusipStr.as_mut_ptr().cast::<u8>())
                     )
                 };
-                i += 1_i32;
+                i = i.wrapping_add(1);
                 i;
             }
             fclose(fp);

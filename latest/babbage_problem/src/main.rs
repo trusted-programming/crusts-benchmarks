@@ -13,11 +13,11 @@ fn main_0() -> i32 {
     let mut current: i32 = 0;
     let mut square: i32 = 0;
     loop {
-        square = current * current;
+        square = current.wrapping_mul(current);
         if !(square % 1_000_000_i32 != 269_696_i32 && square < 2_147_483_647_i32) {
             break;
         }
-        current += 1_i32;
+        current = current.wrapping_add(1);
         current;
     }
     if square > 2_147_483_647_i32 {

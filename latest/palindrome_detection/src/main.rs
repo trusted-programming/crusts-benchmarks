@@ -20,11 +20,12 @@ pub extern "C" fn palindrome(mut s: *const i8) -> i32 {
         let mut l: i32 = 0;
         l = strlen(s) as i32;
         i = 0_i32;
-        while i < l / 2_i32 {
-            if i32::from(*s.offset(i as isize)) != i32::from(*s.offset((l - i - 1i32) as isize)) {
+        while i < l.wrapping_div(2) {
+            if i32::from(*s.offset(i as isize)) != i32::from(*s.offset((l - i.wrapping_sub(1i32)) as isize))
+            {
                 return 0_i32;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         1_i32
@@ -38,10 +39,10 @@ pub extern "C" fn palindrome_r(mut s: *const i8, mut b: i32, mut e: i32) -> i32 
         if e - 1_i32 <= b {
             return 1_i32;
         }
-        if i32::from(*s.offset(b as isize)) != i32::from(*s.offset((e - 1i32) as isize)) {
+        if i32::from(*s.offset(b as isize)) != i32::from(*s.offset((e.wrapping_sub(1i32)) as isize)) {
             return 0_i32;
         }
-        palindrome_r(s, b + 1, e - 1)
+        palindrome_r(s, b.wrapping_add(1), e.wrapping_sub(1))
     }
 }
 

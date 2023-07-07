@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -31,7 +31,7 @@ fn main_0() -> i32 {
 // SAFETY: machine generated unsafe code
     unsafe {
         while i < 16_i32 {
-            j = 32_i32 + i;
+            j = i.wrapping_add(32);
             while j < 128_i32 {
                 match j {
                     32_i32 => {
@@ -49,10 +49,10 @@ fn main_0() -> i32 {
                     j,
                     build_str_from_raw_ptr(k.as_mut_ptr().cast::<u8>())
                 );
-                j += 16_i32;
+                j = j.wrapping_add(16);
             }
             println!();
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }

@@ -27,7 +27,7 @@ pub extern "C" fn string_repeat(mut n: i32, mut s: *const i8) -> *mut i8 {
         p = dest;
         while i < n {
             memcpy(p.cast::<libc::c_void>(), s.cast::<libc::c_void>(), slen);
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
             p = p.offset(slen as isize);
         }

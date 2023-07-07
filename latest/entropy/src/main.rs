@@ -25,20 +25,20 @@ pub extern "C" fn makehist(mut S: *mut i8, mut hist: *mut i32, mut len: i32) -> 
         i = 0_i32;
         while i < 256_i32 {
             wherechar[i as usize] = -1_i32;
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         i = 0_i32;
         while i < len {
             if wherechar[i32::from(*S.offset(i as isize)) as usize] == -1_i32 {
                 wherechar[i32::from(*S.offset(i as isize)) as usize] = histlen;
-                histlen += 1_i32;
+                histlen = histlen.wrapping_add(1);
                 histlen;
             }
             let fresh0 = &mut (*hist.offset(wherechar[i32::from(*S.offset(i as isize)) as usize] as isize));
             *fresh0 += 1_i32;
             *fresh0;
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         histlen
@@ -56,7 +56,7 @@ pub extern "C" fn entropy(mut hist: *mut i32, mut histlen: i32, mut len: i32) ->
         while i < histlen {
             H -= f64::from(*hist.offset(i as isize)) / f64::from(len)
                 * log2(f64::from(*hist.offset(i as isize)) / f64::from(len));
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         H

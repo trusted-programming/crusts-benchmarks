@@ -75,10 +75,10 @@ pub extern "C" fn floodFill(mut i: i32, mut j: i32) {
             && i32::from(bitmap[i as usize][j as usize]) == i32::from(oldColor)
         {
             bitmap[i as usize][j as usize] = newColor;
-            floodFill(i - 1, j);
-            floodFill(i + 1, j);
-            floodFill(i, j - 1);
-            floodFill(i, j + 1);
+            floodFill(i.wrapping_sub(1), j);
+            floodFill(i.wrapping_add(1), j);
+            floodFill(i, j.wrapping_sub(1));
+            floodFill(i, j.wrapping_add(1));
         }
     }
 }
@@ -138,10 +138,10 @@ pub extern "C" fn readPortableBitMap(mut file: *mut FILE) -> i32 {
                             .as_mut_ptr()
                             .offset(j as isize) as *mut u8,
                     );
-                    j += 1_i32;
+                    j = j.wrapping_add(1);
                     j;
                 }
-                i += 1_i32;
+                i = i.wrapping_add(1);
                 i;
             }
         } else {
@@ -168,11 +168,11 @@ pub extern "C" fn writePortableBitMap(mut file: *mut FILE) {
                     (b"%1d\0" as *const u8).cast::<i8>(),
                     i32::from(bitmap[i as usize][j as usize]),
                 );
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
             fprintf(file, (b"\n\0" as *const u8).cast::<i8>());
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -184,7 +184,7 @@ fn main_0() -> i32 {
         oldColor = 1;
         newColor = (if i32::from(oldColor) != 0_i32 { 0_i32 } else { 1_i32 }) as u8;
         readPortableBitMap(stdin);
-        floodFill(height / 2, width / 2);
+        floodFill(height.wrapping_div(2), width.wrapping_div(2));
         writePortableBitMap(stdout);
     }
     0_i32

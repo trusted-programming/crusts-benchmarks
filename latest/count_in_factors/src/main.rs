@@ -23,7 +23,7 @@ pub extern "C" fn get_prime(mut idx: i32) -> u64 {
         let mut i: i32 = 0;
         if i64::from(idx) >= n_primes {
             if n_primes >= alloc {
-                alloc += 16;
+                alloc = alloc.wrapping_add(16);
                 primes = realloc(
                     primes.cast::<libc::c_void>(),
                     (::core::mem::size_of::<u64>() as u64).wrapping_mul(alloc as u64),
@@ -34,7 +34,7 @@ pub extern "C" fn get_prime(mut idx: i32) -> u64 {
                 *primes.offset(1_isize) = 3;
                 n_primes = 2;
             }
-            last = *primes.offset((n_primes - 1i64) as isize);
+            last = *primes.offset((n_primes.wrapping_sub(1i64)) as isize);
             while i64::from(idx) >= n_primes {
                 last = (last).wrapping_add(2);
                 i = 0_i32;
@@ -42,14 +42,14 @@ pub extern "C" fn get_prime(mut idx: i32) -> u64 {
                     p = *primes.offset(i as isize);
                     if p.wrapping_mul(p) > last {
                         let fresh0 = n_primes;
-                        n_primes += 1;
+                        n_primes = n_primes.wrapping_add(1);
                         *primes.offset(fresh0 as isize) = last;
                         break;
                     } else {
                         if last.wrapping_rem(p) == 0 {
                             break;
                         }
-                        i += 1_i32;
+                        i = i.wrapping_add(1);
                         i;
                     }
                 }
@@ -84,7 +84,7 @@ fn main_0() -> i32 {
             if n <= p.wrapping_mul(p) {
                 break;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         if first != 0_i32 {

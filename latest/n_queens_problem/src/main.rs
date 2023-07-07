@@ -19,7 +19,7 @@ pub extern "C" fn solve(mut n: i32, mut col: i32, mut hist: *mut i32) {
 // SAFETY: machine generated unsafe code
     unsafe {
         if col == n {
-            count += 1_i32;
+            count = count.wrapping_add(1);
             print!("\nNo. {}\n-----\n", count);
             let mut i: i32 = 0;
             while i < n {
@@ -35,10 +35,10 @@ pub extern "C" fn solve(mut n: i32, mut col: i32, mut hist: *mut i32) {
                             '.' as i32
                         }
                     );
-                    j += 1_i32;
+                    j = j.wrapping_add(1);
                     j;
                 }
-                i += 1_i32;
+                i = i.wrapping_add(1);
                 i;
                 print!("{}", '\n' as i32);
             }
@@ -52,14 +52,14 @@ pub extern "C" fn solve(mut n: i32, mut col: i32, mut hist: *mut i32) {
                 && !(*hist.offset(j_0 as isize) == i_0
                     || abs(*hist.offset(j_0 as isize) - i_0) == col - j_0)
             {
-                j_0 += 1_i32;
+                j_0 = j_0.wrapping_add(1);
                 j_0;
             }
             if j_0 >= col {
                 *hist.offset(col as isize) = i_0;
-                solve(n, col + 1, hist);
+                solve(n, col.wrapping_add(1), hist);
             }
-            i_0 += 1_i32;
+            i_0 = i_0.wrapping_add(1);
             i_0;
         }
     }

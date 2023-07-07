@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -224,32 +224,34 @@ pub extern "C" fn knapsack(mut items_0: *mut item_t, mut n: i32, mut w: i32) -> 
         let mut m: *mut *mut i32 = std::ptr::null_mut::<*mut i32>();
         let mut s: *mut i32 = std::ptr::null_mut::<i32>();
         mm = calloc(
-            ((n + 1i32) * (w + 1)) as u64,
+            ((n.wrapping_add(1i32)) * (w.wrapping_add(1))) as u64,
             ::core::mem::size_of::<i32>() as u64,
         ).cast::<i32>();
-        m = malloc(((n + 1i32) as u64).wrapping_mul(::core::mem::size_of::<*mut i32>() as u64)).cast::<*mut i32>();
+        m = malloc(
+            ((n.wrapping_add(1i32)) as u64).wrapping_mul(::core::mem::size_of::<*mut i32>() as u64),
+        ).cast::<*mut i32>();
         let fresh0 = &mut (*m.offset(0_isize));
         *fresh0 = mm;
         i = 1_i32;
         while i <= n {
             let fresh1 = &mut (*m.offset(i as isize));
-            *fresh1 = &mut *mm.offset((i * (w + 1i32)) as isize) as *mut i32;
+            *fresh1 = &mut *mm.offset((i * (w.wrapping_add(1i32))) as isize) as *mut i32;
             j = 0_i32;
             while j <= w {
-                if (*items_0.offset((i - 1i32) as isize)).weight > j {
+                if (*items_0.offset((i.wrapping_sub(1i32)) as isize)).weight > j {
                     *(*m.offset(i as isize)).offset(j as isize) =
-                        *(*m.offset((i - 1i32) as isize)).offset(j as isize);
+                        *(*m.offset((i.wrapping_sub(1i32)) as isize)).offset(j as isize);
                 } else {
-                    a = *(*m.offset((i - 1i32) as isize)).offset(j as isize);
-                    b = *(*m.offset((i - 1i32) as isize))
-                        .offset((j - (*items_0.offset((i - 1i32) as isize)).weight) as isize)
-                        + (*items_0.offset((i - 1i32) as isize)).value;
+                    a = *(*m.offset((i.wrapping_sub(1i32)) as isize)).offset(j as isize);
+                    b = *(*m.offset((i.wrapping_sub(1i32)) as isize)).offset(
+                        (j - (*items_0.offset((i.wrapping_sub(1i32)) as isize)).weight) as isize,
+                    ) + (*items_0.offset((i.wrapping_sub(1i32)) as isize)).value;
                     *(*m.offset(i as isize)).offset(j as isize) = if a > b { a } else { b };
                 }
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         s = calloc(n as u64, ::core::mem::size_of::<i32>() as u64).cast::<i32>();
@@ -257,12 +259,12 @@ pub extern "C" fn knapsack(mut items_0: *mut item_t, mut n: i32, mut w: i32) -> 
         j = w;
         while i > 0_i32 {
             if *(*m.offset(i as isize)).offset(j as isize)
-                > *(*m.offset((i - 1i32) as isize)).offset(j as isize)
+                > *(*m.offset((i.wrapping_sub(1i32)) as isize)).offset(j as isize)
             {
-                *s.offset((i - 1i32) as isize) = 1_i32;
-                j -= (*items_0.offset((i - 1i32) as isize)).weight;
+                *s.offset((i.wrapping_sub(1i32)) as isize) = 1_i32;
+                j -= (*items_0.offset((i.wrapping_sub(1i32)) as isize)).weight;
             }
-            i -= 1_i32;
+            i = i.wrapping_sub(1);
             i;
         }
         free(mm.cast::<libc::c_void>());
@@ -294,7 +296,7 @@ fn main_0() -> i32 {
                 tw += items[i as usize].weight;
                 tv += items[i as usize].value;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         println!("{:-22} {:5} {:5}", "totals:\0", tw, tv);

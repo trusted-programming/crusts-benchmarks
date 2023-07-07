@@ -27,7 +27,7 @@ pub extern "C" fn dot(mut a: *mut f64, mut b: *mut f64, mut len: i32, mut step: 
         let mut r: f64 = f64::from(0_i32);
         loop {
             let fresh0 = len;
-            len -= 1_i32;
+            len = len.wrapping_sub(1);
             if fresh0 == 0_i32 {
                 break;
             }
@@ -80,10 +80,10 @@ pub extern "C" fn mat_mul(mut a: matrix, mut b: matrix) -> matrix {
                 let fresh2 = p;
                 p = p.offset(1);
                 *fresh2 = dot(pa, ((*b).x).offset(j as isize), (*a).w, (*b).w);
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
             pa = pa.offset((*a).w as isize);
         }
@@ -105,10 +105,10 @@ pub extern "C" fn mat_show(mut a: matrix) {
                 let fresh3 = p;
                 p = p.offset(1);
                 print!("	{:7.3}", *fresh3);
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
             print!("{}", '\n' as i32);
         }

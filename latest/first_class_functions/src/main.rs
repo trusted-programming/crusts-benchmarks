@@ -31,7 +31,7 @@ pub struct sComposition {
 pub type Composition = *mut sComposition;
 #[no_mangle]
 pub extern "C" fn functionA(mut v: f64) -> f64 {
-    return v * v * v;
+    return v * v.wrapping_mul(v);
 }
 
 #[no_mangle]
@@ -124,7 +124,7 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
         while ix < 4 {
             c = Compose(funcListA[ix as usize], funcListB[ix as usize]);
             print!("Compostion {}(0.9) = {}\n", ix, CallComposed(c, 0.9f64));
-            ix += 1;
+            ix = ix.wrapping_add(1);
             ix;
         }
         return 0;

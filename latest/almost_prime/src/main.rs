@@ -16,11 +16,11 @@ pub extern "C" fn kprime(mut n: i32, mut k: i32) -> i32 {
     p = 2_i32;
     while f < k && p * p <= n {
         while 0_i32 == n % p {
-            n /= p;
-            f += 1_i32;
+            n = n.wrapping_div(p);
+            f = f.wrapping_add(1);
             f;
         }
-        p += 1_i32;
+        p = p.wrapping_add(1);
         p;
     }
     i32::from(f + i32::from(n > 1i32) == k)
@@ -38,14 +38,14 @@ fn main_0() -> i32 {
         while c < 10_i32 {
             if kprime(i, k) != 0_i32 {
                 print!(" {}", i);
-                c += 1_i32;
+                c = c.wrapping_add(1);
                 c;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         print!("{}", '\n' as i32);
-        k += 1_i32;
+        k = k.wrapping_add(1);
         k;
     }
     0_i32

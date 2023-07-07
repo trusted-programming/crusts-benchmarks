@@ -35,18 +35,18 @@ pub extern "C" fn egyptian_division(
             if doublings[i as usize] > dividend {
                 break;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         let mut answer: u64 = 0;
         let mut accumulator: u64 = 0;
-        i -= 1_i32;
+        i = i.wrapping_sub(1);
         while i >= 0_i32 {
             if accumulator.wrapping_add(doublings[i as usize]) <= dividend {
                 accumulator = (accumulator).wrapping_add(doublings[i as usize]);
                 answer = (answer).wrapping_add(powers[i as usize]);
             }
-            i -= 1_i32;
+            i = i.wrapping_sub(1);
             i;
         }
         if !remainder.is_null() {

@@ -13,7 +13,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -104,15 +104,15 @@ pub extern "C" fn trim(mut str: *mut *mut i8) -> i32 {
         let mut n: i32 = 0;
         let mut len: i32 = 0;
         len = strlen(*str) as i32;
-        n = len - 1_i32;
+        n = len.wrapping_sub(1);
         while n >= 0_i32
             && i32::from(*(*__ctype_b_loc()).offset(i32::from(*(*str).offset(n as isize)) as isize))
                 & _ISspace as i32
                 != 0_i32
         {
             *(*str).offset(n as isize) = '\0' as i8;
-            trimmed += 1_i32;
-            n -= 1_i32;
+            trimmed = trimmed.wrapping_add(1);
+            n = n.wrapping_sub(1);
             n;
         }
         n = 0_i32;
@@ -123,8 +123,8 @@ pub extern "C" fn trim(mut str: *mut *mut i8) -> i32 {
         {
             *(*str).offset(0_isize) = '\0' as i8;
             *str = (*str).offset(1_isize);
-            trimmed += 1_i32;
-            n += 1_i32;
+            trimmed = trimmed.wrapping_add(1);
+            n = n.wrapping_add(1);
             n;
         }
         trimmed
@@ -225,11 +225,11 @@ pub extern "C" fn csv_display(mut csv: *mut CSV) {
             while (col as u32) < (*csv).cols {
                 content = csv_get(csv, col as u32, row as u32);
                 print!("{}	|", build_str_from_raw_ptr(content.cast::<u8>()));
-                col += 1_i32;
+                col = col.wrapping_add(1);
                 col;
             }
             println!("]");
-            row += 1_i32;
+            row = row.wrapping_add(1);
             row;
         }
         println!();
@@ -383,11 +383,11 @@ pub extern "C" fn csv_save(mut csv: *mut CSV, mut filename: *mut i8) -> i32 {
                         (*csv).delim as *const i8
                     },
                 );
-                col += 1_i32;
+                col = col.wrapping_add(1);
                 col;
             }
             fprintf(fp, (b"\n\0" as *const u8).cast::<i8>());
-            row += 1_i32;
+            row = row.wrapping_add(1);
             row;
         }
         fclose(fp);

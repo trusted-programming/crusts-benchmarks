@@ -21,13 +21,13 @@ pub extern "C" fn perfect(mut n: i32) -> i32 {
         i = 2_i32;
         while i < max {
             if n % i == 0_i32 {
-                tot += i;
+                tot = tot.wrapping_add(i);
                 let mut q: i32 = n / i;
                 if q > i {
-                    tot += q;
+                    tot = tot.wrapping_add(q);
                 }
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         i32::from(tot == n)
@@ -41,7 +41,7 @@ fn main_0() -> i32 {
         if perfect(n) != 0_i32 {
             println!("{}", n);
         }
-        n += 1_i32;
+        n = n.wrapping_add(1);
         n;
     }
     0_i32

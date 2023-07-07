@@ -108,8 +108,8 @@ fn main_0() -> i32 {
         let size: i32 = 512;
         let mut i: i32 = 0;
         let mut j: i32 = 0;
-        let mut colors: *mut u8 = malloc((size * 3i32) as u64).cast::<u8>();
-        let mut pix: *mut u8 = malloc((size * size * 3i32) as u64).cast::<u8>();
+        let mut colors: *mut u8 = malloc((size.wrapping_mul(3i32)) as u64).cast::<u8>();
+        let mut pix: *mut u8 = malloc((size * size.wrapping_mul(3i32)) as u64).cast::<u8>();
         let mut p: *mut u8 = std::ptr::null_mut::<u8>();
         let mut fp: *mut FILE = std::ptr::null_mut::<FILE>();
         i = 0_i32;
@@ -119,7 +119,7 @@ fn main_0() -> i32 {
                 f64::from(i) * 1.0f64 / f64::from(size),
                 colors.offset((3 * i) as isize),
             );
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         i = 0_i32;
@@ -132,11 +132,11 @@ fn main_0() -> i32 {
                     colors.offset(((i ^ j) * 3i32) as isize) as *const libc::c_void,
                     3,
                 );
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
                 p = p.offset(3_isize);
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         fp = fopen(
@@ -151,7 +151,7 @@ fn main_0() -> i32 {
         );
         fwrite(
             pix as *const libc::c_void,
-            (size * size * 3i32) as u64,
+            (size * size.wrapping_mul(3i32)) as u64,
             1,
             fp,
         );

@@ -24,10 +24,10 @@ pub extern "C" fn mat_zero(mut x: mat, mut n: i32) {
             let mut j: i32 = 0;
             while j < n {
                 *(*x.offset(i as isize)).offset(j as isize) = f64::from(0_i32);
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -48,8 +48,8 @@ pub extern "C" fn mat_new(mut n: i32) -> mat {
         let mut i: i32 = 0;
         while i < n {
             let fresh1 = &mut (*x.offset(i as isize));
-            *fresh1 = (*x.offset(0_isize)).offset((n * i) as isize);
-            i += 1_i32;
+            *fresh1 = (*x.offset(0_isize)).offset((n.wrapping_mul(i)) as isize);
+            i = i.wrapping_add(1);
             i;
         }
         mat_zero(x, n);
@@ -70,10 +70,10 @@ pub extern "C" fn mat_copy(mut s: *mut libc::c_void, mut n: i32) -> mat {
                 *(*x.offset(i as isize)).offset(j as isize) = *s.cast::<f64>()
                     .offset(i as isize * vla as isize)
                     .offset(j as isize);
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         x
@@ -106,17 +106,17 @@ pub extern "C" fn mat_show(mut x: mat, mut fmt: *mut i8, mut n: i32) {
             let mut j: i32 = 0;
             while j < n {
                 printf(fmt, *(*x.offset(i as isize)).offset(j as isize));
-                if j < n - 1_i32 {
+                if j < n.wrapping_sub(1) {
                     print!("  ")
-                } else if i == n - 1_i32 {
+                } else if i == n.wrapping_sub(1) {
                     println!(" ]")
                 } else {
                     println!()
                 };
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -138,13 +138,13 @@ pub extern "C" fn mat_mul(mut a: mat, mut b: mat, mut n: i32) -> mat {
                     *(*c.offset(i as isize)).offset(j as isize) += *(*a.offset(i as isize))
                         .offset(k as isize)
                         * *(*b.offset(k as isize)).offset(j as isize);
-                    k += 1_i32;
+                    k = k.wrapping_add(1);
                     k;
                 }
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -160,10 +160,10 @@ pub extern "C" fn mat_pivot(mut a: mat, mut p: mat, mut n: i32) {
             let mut j: i32 = 0;
             while j < n {
                 *(*p.offset(i as isize)).offset(j as isize) = f64::from(i32::from(i == j));
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -179,7 +179,7 @@ pub extern "C" fn mat_pivot(mut a: mat, mut p: mat, mut n: i32) {
                 {
                     max_j = j_0;
                 }
-                j_0 += 1_i32;
+                j_0 = j_0.wrapping_add(1);
                 j_0;
             }
             if max_j != i_0 {
@@ -189,11 +189,11 @@ pub extern "C" fn mat_pivot(mut a: mat, mut p: mat, mut n: i32) {
                     *(*p.offset(i_0 as isize)).offset(k as isize) =
                         *(*p.offset(max_j as isize)).offset(k as isize);
                     *(*p.offset(max_j as isize)).offset(k as isize) = tmp;
-                    k += 1_i32;
+                    k = k.wrapping_add(1);
                     k;
                 }
             }
-            i_0 += 1_i32;
+            i_0 = i_0.wrapping_add(1);
             i_0;
         }
     }
@@ -210,7 +210,7 @@ pub extern "C" fn mat_LU(mut A: mat, mut L: mat, mut U: mat, mut P: mat, mut n: 
     unsafe {
         while i < n {
             *(*L.offset(i as isize)).offset(i as isize) = 1_f64;
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -227,7 +227,7 @@ pub extern "C" fn mat_LU(mut A: mat, mut L: mat, mut U: mat, mut P: mat, mut n: 
                     while k < j {
                         s += *(*L.offset(j as isize)).offset(k as isize)
                             * *(*U.offset(k as isize)).offset(i_0 as isize);
-                        k += 1_i32;
+                        k = k.wrapping_add(1);
                         k;
                     }
                     *(*U.offset(j as isize)).offset(i_0 as isize) =
@@ -239,17 +239,17 @@ pub extern "C" fn mat_LU(mut A: mat, mut L: mat, mut U: mat, mut P: mat, mut n: 
                     while k_0 < i_0 {
                         s += *(*L.offset(j as isize)).offset(k_0 as isize)
                             * *(*U.offset(k_0 as isize)).offset(i_0 as isize);
-                        k_0 += 1_i32;
+                        k_0 = k_0.wrapping_add(1);
                         k_0;
                     }
                     *(*L.offset(j as isize)).offset(i_0 as isize) =
                         (*(*Aprime.offset(j as isize)).offset(i_0 as isize) - s)
                             / *(*U.offset(i_0 as isize)).offset(i_0 as isize);
                 }
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
-            i_0 += 1_i32;
+            i_0 = i_0.wrapping_add(1);
             i_0;
         }
     }

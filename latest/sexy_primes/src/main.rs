@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -36,7 +36,7 @@ pub extern "C" fn sieve(mut c: *mut u8, mut limit: i32) {
         *c.offset(0_isize) = 1;
         *c.offset(1_isize) = 1;
         loop {
-            p2 = p * p;
+            p2 = p.wrapping_mul(p);
             if p2 >= limit {
                 break;
             }
@@ -46,7 +46,7 @@ pub extern "C" fn sieve(mut c: *mut u8, mut limit: i32) {
                 i += 2_i32 * p;
             }
             loop {
-                p += 2_i32;
+                p = p.wrapping_add(2);
                 if *c.offset(p as isize) == 0 {
                     break;
                 }
@@ -93,7 +93,7 @@ pub extern "C" fn printArray(mut a: *mut i32, mut len: i32) {
         i = 0_i32;
         while i < len {
             print!("{} ", *a.offset(i as isize));
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         print!("\x08]");
@@ -127,8 +127,10 @@ fn main_0() -> i32 {
         let mut last_qd: [[i32; 4]; 5] = [[0; 4]; 5];
         let mut last_qn: [[i32; 5]; 5] = [[0; 5]; 5];
         let mut last_un: [i32; 10] = [0; 10];
-        let mut sv: *mut u8 =
-            calloc((lim - 1i32) as u64, ::core::mem::size_of::<u8>() as u64).cast::<u8>();
+        let mut sv: *mut u8 = calloc(
+            (lim.wrapping_sub(1i32)) as u64,
+            ::core::mem::size_of::<u8>() as u64,
+        ).cast::<u8>();
         setlocale(1, (b"\0" as *const u8).cast::<i8>());
         sieve(sv, lim);
         i = 3_i32;
@@ -136,31 +138,31 @@ fn main_0() -> i32 {
             if i > 5_i32
                 && i < lim - 6_i32
                 && *sv.offset(i as isize) == 0
-                && i32::from(*sv.offset((i - 6i32) as isize)) != 0_i32
-                && i32::from(*sv.offset((i + 6i32) as isize)) != 0_i32
+                && i32::from(*sv.offset((i.wrapping_sub(6i32)) as isize)) != 0_i32
+                && i32::from(*sv.offset((i.wrapping_add(6i32)) as isize)) != 0_i32
             {
-                unsexy += 1_i32;
+                unsexy = unsexy.wrapping_add(1);
                 unsexy;
             } else if i < lim - 6_i32
                 && *sv.offset(i as isize) == 0
-                && *sv.offset((i + 6i32) as isize) == 0
+                && *sv.offset((i.wrapping_add(6i32)) as isize) == 0
             {
-                pairs += 1_i32;
+                pairs = pairs.wrapping_add(1);
                 pairs;
-                if i < lim - 12_i32 && *sv.offset((i + 12i32) as isize) == 0 {
-                    trips += 1_i32;
+                if i < lim - 12_i32 && *sv.offset((i.wrapping_add(12i32)) as isize) == 0 {
+                    trips = trips.wrapping_add(1);
                     trips;
-                    if i < lim - 18_i32 && *sv.offset((i + 18i32) as isize) == 0 {
-                        quads += 1_i32;
+                    if i < lim - 18_i32 && *sv.offset((i.wrapping_add(18i32)) as isize) == 0 {
+                        quads = quads.wrapping_add(1);
                         quads;
-                        if i < lim - 24_i32 && *sv.offset((i + 24i32) as isize) == 0 {
-                            quins += 1_i32;
+                        if i < lim - 24_i32 && *sv.offset((i.wrapping_add(24i32)) as isize) == 0 {
+                            quins = quins.wrapping_add(1);
                             quins;
                         }
                     }
                 }
             }
-            i += 2_i32;
+            i = i.wrapping_add(2);
         }
         if pairs < lpr {
             lpr = pairs;
@@ -182,60 +184,60 @@ fn main_0() -> i32 {
             if i > 5_i32
                 && i < lim - 6_i32
                 && *sv.offset(i as isize) == 0
-                && i32::from(*sv.offset((i - 6i32) as isize)) != 0_i32
-                && i32::from(*sv.offset((i + 6i32) as isize)) != 0_i32
+                && i32::from(*sv.offset((i.wrapping_sub(6i32)) as isize)) != 0_i32
+                && i32::from(*sv.offset((i.wrapping_add(6i32)) as isize)) != 0_i32
             {
-                un += 1_i32;
+                un = un.wrapping_add(1);
                 un;
                 if un > unsexy - lun {
                     last_un[(un + lun - 1_i32 - unsexy) as usize] = i;
                 }
             } else if i < lim - 6_i32
                 && *sv.offset(i as isize) == 0
-                && *sv.offset((i + 6i32) as isize) == 0
+                && *sv.offset((i.wrapping_add(6i32)) as isize) == 0
             {
-                pr += 1_i32;
+                pr = pr.wrapping_add(1);
                 pr;
                 if pr > pairs - lpr {
                     ix = pr + lpr - 1_i32 - pairs;
                     last_pr[ix as usize][0_usize] = i;
-                    last_pr[ix as usize][1_usize] = i + 6_i32;
+                    last_pr[ix as usize][1_usize] = i.wrapping_add(6);
                 }
-                if i < lim - 12_i32 && *sv.offset((i + 12i32) as isize) == 0 {
-                    tr += 1_i32;
+                if i < lim - 12_i32 && *sv.offset((i.wrapping_add(12i32)) as isize) == 0 {
+                    tr = tr.wrapping_add(1);
                     tr;
                     if tr > trips - ltr {
                         ix = tr + ltr - 1_i32 - trips;
                         last_tr[ix as usize][0_usize] = i;
-                        last_tr[ix as usize][1_usize] = i + 6_i32;
-                        last_tr[ix as usize][2_usize] = i + 12_i32;
+                        last_tr[ix as usize][1_usize] = i.wrapping_add(6);
+                        last_tr[ix as usize][2_usize] = i.wrapping_add(12);
                     }
-                    if i < lim - 18_i32 && *sv.offset((i + 18i32) as isize) == 0 {
-                        qd += 1_i32;
+                    if i < lim - 18_i32 && *sv.offset((i.wrapping_add(18i32)) as isize) == 0 {
+                        qd = qd.wrapping_add(1);
                         qd;
                         if qd > quads - lqd {
                             ix = qd + lqd - 1_i32 - quads;
                             last_qd[ix as usize][0_usize] = i;
-                            last_qd[ix as usize][1_usize] = i + 6_i32;
-                            last_qd[ix as usize][2_usize] = i + 12_i32;
-                            last_qd[ix as usize][3_usize] = i + 18_i32;
+                            last_qd[ix as usize][1_usize] = i.wrapping_add(6);
+                            last_qd[ix as usize][2_usize] = i.wrapping_add(12);
+                            last_qd[ix as usize][3_usize] = i.wrapping_add(18);
                         }
-                        if i < lim - 24_i32 && *sv.offset((i + 24i32) as isize) == 0 {
-                            qn += 1_i32;
+                        if i < lim - 24_i32 && *sv.offset((i.wrapping_add(24i32)) as isize) == 0 {
+                            qn = qn.wrapping_add(1);
                             qn;
                             if qn > quins - lqn {
                                 ix = qn + lqn - 1_i32 - quins;
                                 last_qn[ix as usize][0_usize] = i;
-                                last_qn[ix as usize][1_usize] = i + 6_i32;
-                                last_qn[ix as usize][2_usize] = i + 12_i32;
-                                last_qn[ix as usize][3_usize] = i + 18_i32;
-                                last_qn[ix as usize][4_usize] = i + 24_i32;
+                                last_qn[ix as usize][1_usize] = i.wrapping_add(6);
+                                last_qn[ix as usize][2_usize] = i.wrapping_add(12);
+                                last_qn[ix as usize][3_usize] = i.wrapping_add(18);
+                                last_qn[ix as usize][4_usize] = i.wrapping_add(24);
                             }
                         }
                     }
                 }
             }
-            i += 2_i32;
+            i = i.wrapping_add(2);
         }
         printHelper((b"pairs\0" as *const u8).cast::<i8>(), pairs, lim, lpr);
         print!("  [");
@@ -243,7 +245,7 @@ fn main_0() -> i32 {
         while i < lpr {
             printArray((last_pr[i as usize]).as_mut_ptr(), 2);
             print!("\x08] ");
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         print!("\x08]\n\n");
@@ -253,7 +255,7 @@ fn main_0() -> i32 {
         while i < ltr {
             printArray((last_tr[i as usize]).as_mut_ptr(), 3);
             print!("\x08] ");
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         print!("\x08]\n\n");
@@ -263,7 +265,7 @@ fn main_0() -> i32 {
         while i < lqd {
             printArray((last_qd[i as usize]).as_mut_ptr(), 4);
             print!("\x08] ");
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         print!("\x08]\n\n");
@@ -273,7 +275,7 @@ fn main_0() -> i32 {
         while i < lqn {
             printArray((last_qn[i as usize]).as_mut_ptr(), 5);
             print!("\x08] ");
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         print!("\x08]\n\n");

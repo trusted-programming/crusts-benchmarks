@@ -48,14 +48,14 @@ fn main_0() -> i32 {
             if niven > previous.wrapping_add(gap) {
                 gap = niven.wrapping_sub(previous);
                 let fresh0 = gap_index;
-                gap_index += 1_i32;
+                gap_index = gap_index.wrapping_add(1);
                 println!(
                     "{:9} {:4} {:14} {:15}",
                     fresh0, gap, niven_index, previous
                 );
             }
             previous = niven;
-            niven_index += 1_i32;
+            niven_index = niven_index.wrapping_add(1);
             niven_index;
         }
         niven = niven.wrapping_add(1);

@@ -25,12 +25,12 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
             return 1_i32;
         }
         days[1_usize] -= i32::from(y % 4_i32 != 0_i32 || y % 100_i32 == 0_i32 && y % 400_i32 != 0_i32);
-        w = y * 365_i32 + 97_i32 * (y - 1_i32) / 400_i32 + 4_i32;
+        w = y * 365_i32 + 97_i32 * (y.wrapping_sub(1)) / 400_i32 + 4_i32;
         m = 0_i32;
         while m < 12_i32 {
             w = (w + days[m as usize]) % 7_i32;
             println!("{}-{:02}-{}", y, m + 1_i32, days[m as usize] - w);
-            m += 1_i32;
+            m = m.wrapping_add(1);
             m;
         }
         0_i32

@@ -202,7 +202,7 @@ fn main_0() -> i32 {
                 p[i as usize],
                 0 as *mut libc::c_void,
             );
-            i += 1;
+            i = i.wrapping_add(1);
             i;
         }
         sleep(1);
@@ -214,7 +214,7 @@ fn main_0() -> i32 {
     unsafe {
         while i < 3 {
             pthread_join(a[i as usize], 0 as *mut *mut libc::c_void);
-            i += 1;
+            i = i.wrapping_add(1);
             i;
         }
     }

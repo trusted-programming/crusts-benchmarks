@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -63,9 +63,10 @@ pub extern "C" fn extractPoint(mut str: *mut i8) -> point {
                 length = end - start;
                 holder = malloc((length as u64).wrapping_mul(::core::mem::size_of::<i8>() as u64)).cast::<i8>();
                 j = 0_i32;
-                while j < length - 1_i32 {
-                    *holder.offset(j as isize) = *str.offset((start + j + 1i32) as isize);
-                    j += 1_i32;
+                while j < length.wrapping_sub(1) {
+                    *holder.offset(j as isize) =
+                        *str.offset((start + j.wrapping_add(1i32)) as isize);
+                    j = j.wrapping_add(1);
                     j;
                 }
                 *holder.offset(j as isize) = 0;
@@ -76,7 +77,7 @@ pub extern "C" fn extractPoint(mut str: *mut i8) -> point {
                     c.y = atof(holder);
                 }
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         c

@@ -13,7 +13,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -93,9 +93,9 @@ pub extern "C" fn printSeries(mut arr: *mut u64, mut size: i32, mut type_0: *mut
             build_str_from_raw_ptr(type_0.cast::<u8>())
         );
         i = 0_i32;
-        while i < size - 1_i32 {
+        while i < size.wrapping_sub(1) {
             print!("{}, ", *arr.offset(i as isize));
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         print!("{}", *arr.offset(i as isize));
@@ -110,21 +110,23 @@ pub extern "C" fn aliquotClassifier(mut n: u64) {
     arr[0_usize] = n;
     i = 1_i32;
     while i < 16_i32 {
-        arr[i as usize] = bruteForceProperDivisorSum(arr[(i - 1i32) as usize]);
+        arr[i as usize] = bruteForceProperDivisorSum(arr[(i.wrapping_sub(1i32)) as usize]);
         if arr[i as usize] == 0
             || arr[i as usize] == n
-            || arr[i as usize] == arr[(i - 1i32) as usize] && arr[i as usize] != n
+            || arr[i as usize] == arr[(i.wrapping_sub(1i32)) as usize] && arr[i as usize] != n
         {
             printSeries(
                 arr.as_mut_ptr(),
-                i + 1,
+                i.wrapping_add(1),
                 (if arr[i as usize] == 0u64 {
                     (b"Terminating\0" as *const u8).cast::<i8>()
                 } else if arr[i as usize] == n && i == 1i32 {
                     (b"Perfect\0" as *const u8).cast::<i8>()
                 } else if arr[i as usize] == n && i == 2_i32 {
                     (b"Amicable\0" as *const u8).cast::<i8>()
-                } else if arr[i as usize] == arr[(i - 1i32) as usize] && arr[i as usize] != n {
+                } else if arr[i as usize] == arr[(i.wrapping_sub(1i32)) as usize]
+                    && arr[i as usize] != n
+                {
                     (b"Aspiring\0" as *const u8).cast::<i8>()
                 } else {
                     (b"Sociable\0" as *const u8).cast::<i8>()
@@ -137,20 +139,20 @@ pub extern "C" fn aliquotClassifier(mut n: u64) {
             if arr[j as usize] == arr[i as usize] {
                 printSeries(
                     arr.as_mut_ptr(),
-                    i + 1,
+                    i.wrapping_add(1),
                     (b"Cyclic\0" as *const u8).cast::<i8>() as *mut i8,
                 );
                 return;
             }
-            j += 1_i32;
+            j = j.wrapping_add(1);
             j;
         }
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     printSeries(
         arr.as_mut_ptr(),
-        i + 1,
+        i.wrapping_add(1),
         (b"Non-Terminating\0" as *const u8).cast::<i8>() as *mut i8,
     );
 }

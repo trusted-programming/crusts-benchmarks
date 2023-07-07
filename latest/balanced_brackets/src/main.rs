@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -31,18 +31,18 @@ pub extern "C" fn isBal(mut s: *const i8, mut l: i32) -> i32 {
         let mut c: i32 = 0;
         loop {
             let fresh0 = l;
-            l -= 1_i32;
+            l = l.wrapping_sub(1);
             if fresh0 == 0_i32 {
                 break;
             }
             if i32::from(*s.offset(l as isize)) == ']' as i32 {
-                c += 1_i32;
+                c = c.wrapping_add(1);
                 c;
             } else {
                 if i32::from(*s.offset(l as isize)) != '[' as i32 {
                     continue;
                 }
-                c -= 1_i32;
+                c = c.wrapping_sub(1);
                 if c < 0_i32 {
                     break;
                 }
@@ -61,7 +61,7 @@ pub extern "C" fn shuffle(mut s: *mut i8, mut h: i32) {
         let mut i: i32 = h;
         loop {
             let fresh1 = i;
-            i -= 1_i32;
+            i = i.wrapping_sub(1);
             if fresh1 == 0_i32 {
                 break;
             }
@@ -84,9 +84,9 @@ pub extern "C" fn genSeq(mut s: *mut i8, mut n: i32) {
                 ']' as i32,
                 n as u64,
             );
-            shuffle(s, n * 2);
+            shuffle(s, n.wrapping_mul(2));
         };
-        *s.offset((n * 2i32) as isize) = 0;
+        *s.offset((n.wrapping_mul(2i32)) as isize) = 0;
     }
 }
 
@@ -97,7 +97,7 @@ pub extern "C" fn doSeq(mut n: i32) {
         let mut s: [i8; 64] = [0; 64];
         let mut o: *const i8 = (b"False\0" as *const u8).cast::<i8>();
         genSeq(s.as_mut_ptr(), n);
-        if isBal(s.as_mut_ptr(), n * 2) != 0_i32 {
+        if isBal(s.as_mut_ptr(), n.wrapping_mul(2)) != 0_i32 {
             o = (b"True\0" as *const u8).cast::<i8>();
         }
         println!(
@@ -112,7 +112,7 @@ fn main_0() -> i32 {
     let mut n: i32 = 0;
     while n < 9_i32 {
         let fresh2 = n;
-        n += 1_i32;
+        n = n.wrapping_add(1);
         doSeq(fresh2);
     }
     0_i32

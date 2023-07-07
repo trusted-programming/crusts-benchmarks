@@ -13,7 +13,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -108,7 +108,7 @@ pub extern "C" fn processFile(mut name: *mut i8) {
             } else {
                 print!("\nDifference between b2({}) and b1({}) is {}", b2, b1, diff)
             };
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         fclose(fp);

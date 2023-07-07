@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -42,9 +42,9 @@ pub extern "C" fn reverse(mut str: *mut i8, mut i: i32, mut j: i32) {
     unsafe {
         while i < j {
             swap(str, i, j);
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
-            j -= 1_i32;
+            j = j.wrapping_sub(1);
             j;
         }
     }
@@ -58,21 +58,21 @@ pub extern "C" fn next_permutation(mut str: *mut i8) -> bool {
         if len < 2_i32 {
             return 0_i32 != 0_i32;
         }
-        let mut i: i32 = len - 1;
+        let mut i: i32 = len.wrapping_sub(1);
         while i > 0_i32 {
             let mut j: i32 = i;
             let mut k: i32 = 0;
-            i -= 1_i32;
+            i = i.wrapping_sub(1);
             if i32::from(*str.offset(i as isize)) < i32::from(*str.offset(j as isize)) {
                 k = len;
                 loop {
-                    k -= 1_i32;
+                    k = k.wrapping_sub(1);
                     if i32::from(*str.offset(i as isize)) < i32::from(*str.offset(k as isize)) {
                         break;
                     }
                 }
                 swap(str, i, k);
-                reverse(str, j, len - 1);
+                reverse(str, j, len.wrapping_sub(1));
                 return 1_i32 != 0_i32;
             }
         }
@@ -112,7 +112,7 @@ fn main_0() -> i32 {
             numbers[i as usize],
             next_highest_int(numbers[i as usize])
         );
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
 // SAFETY: machine generated unsafe code

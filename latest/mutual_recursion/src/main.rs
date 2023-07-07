@@ -11,12 +11,20 @@
 extern "C" {}
 #[no_mangle]
 pub extern "C" fn F(n: i32) -> i32 {
-    if n == 0_i32 { 1_i32 } else { n - M(F(n - 1)) }
+    if n == 0_i32 {
+        1_i32
+    } else {
+        n - M(F(n.wrapping_sub(1)))
+    }
 }
 
 #[no_mangle]
 pub extern "C" fn M(n: i32) -> i32 {
-    if n == 0_i32 { 0_i32 } else { n - F(M(n - 1)) }
+    if n == 0_i32 {
+        0_i32
+    } else {
+        n - F(M(n.wrapping_sub(1)))
+    }
 }
 
 fn main_0() -> i32 {
@@ -24,14 +32,14 @@ fn main_0() -> i32 {
     i = 0_i32;
     while i < 20_i32 {
         print!("{:2} ", F(i));
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     println!();
     i = 0_i32;
     while i < 20_i32 {
         print!("{:2} ", M(i));
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     println!();

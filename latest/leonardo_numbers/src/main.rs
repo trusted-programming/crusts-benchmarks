@@ -26,9 +26,9 @@ pub extern "C" fn leonardo(mut a: i32, mut b: i32, mut step: i32, mut num: i32) 
             print!(" {}", a + b + step);
             temp = a;
             a = b;
-            b = temp + b + step;
+            b = temp + b.wrapping_add(step);
         }
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
 }

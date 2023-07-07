@@ -110,7 +110,7 @@ pub extern "C" fn show_list(mut l: list) {
             if i < (*l).ival - 1 {
                 print!(", ");
             }
-            i += 1;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -134,7 +134,7 @@ pub extern "C" fn flatten(mut from: list, mut to: list) -> list {
             i = 0;
             while i < (*from).ival {
                 flatten(*((*from).lst).offset(i as isize), to);
-                i += 1;
+                i = i.wrapping_add(1);
                 i;
             }
         }
@@ -154,7 +154,7 @@ pub extern "C" fn delete_list(mut l: list) {
             i = 0;
             while i < (*l).ival {
                 delete_list(*((*l).lst).offset(i as isize));
-                i += 1;
+                i = i.wrapping_add(1);
                 i;
             }
             free((*l).lst as *mut libc::c_void);

@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -188,7 +188,7 @@ pub extern "C" fn ParseIPv4OrIPv6(
                 if pszTextBefore_0 == *ppszText {
                     if !pbyZerosLoc.is_null() {
                         if pbyZerosLoc == pbyAddrCursor_0 {
-                            nIdx -= 1_i32;
+                            nIdx = nIdx.wrapping_sub(1);
                             nIdx;
                             break;
                         } else {
@@ -235,7 +235,7 @@ pub extern "C" fn ParseIPv4OrIPv6(
                     let fresh7 = pbyAddrCursor_0;
                     pbyAddrCursor_0 = pbyAddrCursor_0.offset(1);
                     *fresh7 = abyAddrlocal[3_usize];
-                    nIdx += 1_i32;
+                    nIdx = nIdx.wrapping_add(1);
                     nIdx;
                     bIPv4Detected = 1_i32;
                     break;
@@ -255,7 +255,7 @@ pub extern "C" fn ParseIPv4OrIPv6(
                     *ppszText = (*ppszText).offset(1);
                     *ppszText;
                 }
-                nIdx += 1_i32;
+                nIdx = nIdx.wrapping_add(1);
                 nIdx;
             }
             if !pbyZerosLoc.is_null() {
@@ -345,7 +345,7 @@ pub extern "C" fn dumpbin(mut pbyBin: *mut u8, mut nLen: i32) {
         i = 0_i32;
         while i < nLen {
             print!("{:02x}", i32::from(*pbyBin.offset(i as isize)));
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }

@@ -193,11 +193,11 @@ pub extern "C" fn printTable(mut tbl: Table, mut fout: *mut FILE, mut colFmts: *
                     *colFmts.offset(col as isize),
                     *(*((*tbl).rows).offset(row as isize)).offset(col as isize),
                 );
-                col += 1_i32;
+                col = col.wrapping_add(1);
                 col;
             }
             fprintf(fout, (b"\n\0" as *const u8).cast::<i8>());
-            row += 1_i32;
+            row = row.wrapping_add(1);
             row;
         }
         fprintf(fout, (b"\n\0" as *const u8).cast::<i8>());

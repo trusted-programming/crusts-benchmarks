@@ -57,7 +57,7 @@ fn main_0() -> i32 {
                 j = 0;
                 while j < 4 {
                     numbers[j as usize] = 1 + rand() % 6;
-                    j += 1;
+                    j = j.wrapping_add(1);
                     j;
                 }
                 qsort(
@@ -77,12 +77,12 @@ fn main_0() -> i32 {
                 j = 1;
                 while j < 4 {
                     nsum += numbers[j as usize];
-                    j += 1;
+                    j = j.wrapping_add(1);
                     j;
                 }
                 values[i as usize] = nsum;
                 vsum += values[i as usize];
-                i += 1;
+                i = i.wrapping_add(1);
                 i;
             }
             if vsum < 75 {
@@ -92,10 +92,10 @@ fn main_0() -> i32 {
             j = 0;
             while j < 6 {
                 if values[j as usize] >= 15 {
-                    vcount += 1;
+                    vcount = vcount.wrapping_add(1);
                     vcount;
                 }
-                j += 1;
+                j = j.wrapping_add(1);
                 j;
             }
             if vcount < 2 {
@@ -106,7 +106,7 @@ fn main_0() -> i32 {
             j = 0;
             while j < 6 {
                 print!("{} ", values[j as usize]);
-                j += 1;
+                j = j.wrapping_add(1);
                 j;
             }
             print!("\x08]\n");

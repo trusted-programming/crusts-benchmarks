@@ -24,7 +24,7 @@ pub extern "C" fn meanAngle(mut angles: *mut f64, mut size: i32) -> f64 {
         while i < size {
             x_part += cos((*angles.offset(i as isize)).to_radians());
             y_part += sin((*angles.offset(i as isize)).to_radians());
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         atan2(y_part / f64::from(size), x_part / f64::from(size)).to_degrees()

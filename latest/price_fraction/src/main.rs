@@ -45,7 +45,7 @@ pub extern "C" fn price_fix(mut x: f64) -> f64 {
             if x < table[i as usize][0_usize] {
                 return table[i as usize][1_usize];
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         abort();
@@ -61,7 +61,7 @@ fn main_0() -> i32 {
             f64::from(i) / 100.0f64,
             price_fix(f64::from(i) / 100.0f64)
         );
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     0_i32

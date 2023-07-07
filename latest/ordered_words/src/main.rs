@@ -13,7 +13,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -115,12 +115,13 @@ pub extern "C" fn is_ordered_word(mut word: *const i8) -> i32 {
         let mut i: i32 = 0;
         i = 0_i32;
         while i32::from(*word.offset(i as isize)) != '\0' as i32 {
-            if i32::from(*word.offset(i as isize)) > i32::from(*word.offset((i + 1i32) as isize))
-                && i32::from(*word.offset((i + 1i32) as isize)) != '\0' as i32
+            if i32::from(*word.offset(i as isize))
+                > i32::from(*word.offset((i.wrapping_add(1i32)) as isize))
+                && i32::from(*word.offset((i.wrapping_add(1i32)) as isize)) != '\0' as i32
             {
                 return 0_i32;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         1_i32

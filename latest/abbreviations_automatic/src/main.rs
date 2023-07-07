@@ -13,7 +13,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -79,19 +79,19 @@ pub extern "C" fn process(mut lineNum: i32, mut buffer: *mut i8) {
         while i32::from(*buffer.offset(i as isize)) != 0_i32 {
             if i32::from(*buffer.offset(i as isize)) == ' ' as i32 {
                 days[d as usize][j as usize] = '\0' as i8;
-                d += 1_i32;
+                d = d.wrapping_add(1);
                 d;
                 j = 0_i32;
             } else if i32::from(*buffer.offset(i as isize)) == '\n' as i32
                 || i32::from(*buffer.offset(i as isize)) == '\r' as i32
             {
                 days[d as usize][j as usize] = '\0' as i8;
-                d += 1_i32;
+                d = d.wrapping_add(1);
                 d;
                 break;
             } else {
                 days[d as usize][j as usize] = *buffer.offset(i as isize);
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
             if d >= 7_i32 {
@@ -101,12 +101,12 @@ pub extern "C" fn process(mut lineNum: i32, mut buffer: *mut i8) {
                 );
                 return;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         if i32::from(*buffer.offset(i as isize)) == '\0' as i32 {
             days[d as usize][j as usize] = '\0' as i8;
-            d += 1_i32;
+            d = d.wrapping_add(1);
             d;
         }
         if d < 7_i32 {
@@ -128,7 +128,7 @@ pub extern "C" fn process(mut lineNum: i32, mut buffer: *mut i8) {
                         break;
                     }
                     let mut d2: i32 = 0;
-                    d2 = d1 + 1_i32;
+                    d2 = d1.wrapping_add(1);
                     while d2 < 7_i32 {
                         let mut unique: i32 = 0;
                         i = 0_i32;
@@ -139,7 +139,7 @@ pub extern "C" fn process(mut lineNum: i32, mut buffer: *mut i8) {
                                 unique = 1_i32;
                                 break;
                             } else {
-                                i += 1_i32;
+                                i = i.wrapping_add(1);
                                 i;
                             }
                         }
@@ -147,10 +147,10 @@ pub extern "C" fn process(mut lineNum: i32, mut buffer: *mut i8) {
                             current_block_35 = 10891380440665537214;
                             break 's_113;
                         }
-                        d2 += 1_i32;
+                        d2 = d2.wrapping_add(1);
                         d2;
                     }
-                    d1 += 1_i32;
+                    d1 = d1.wrapping_add(1);
                     d1;
                 }
                 match current_block_35 {
@@ -163,14 +163,14 @@ pub extern "C" fn process(mut lineNum: i32, mut buffer: *mut i8) {
                                 " {}",
                                 build_str_from_raw_ptr((days[i as usize]).as_mut_ptr().cast::<u8>())
                             );
-                            i += 1_i32;
+                            i = i.wrapping_add(1);
                             i;
                         }
                         println!();
                         return;
                     }
                 }
-                len += 1_i32;
+                len = len.wrapping_add(1);
                 len;
             }
         }
@@ -201,11 +201,11 @@ fn main_0() -> i32 {
                 fp,
             );
             len = strlen(buffer.as_mut_ptr()) as i32;
-            if len == 0_i32 || i32::from(buffer[(len - 1i32) as usize]) == '\0' as i32 {
+            if len == 0_i32 || i32::from(buffer[(len.wrapping_sub(1i32)) as usize]) == '\0' as i32 {
                 break;
             }
             let fresh0 = lineNum;
-            lineNum += 1_i32;
+            lineNum = lineNum.wrapping_add(1);
             process(fresh0, buffer.as_mut_ptr());
         }
         fclose(fp);

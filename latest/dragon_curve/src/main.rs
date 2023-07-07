@@ -88,11 +88,11 @@ pub extern "C" fn sc_up() {
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut tmp: i64 = dx - dy;
-        dy += dx;
+        dy = dx.wrapping_add(dy);
         dx = tmp;
-        scale *= 2;
-        x *= 2;
-        y *= 2;
+        scale = scale.wrapping_mul(2);
+        x = x.wrapping_mul(2);
+        y = y.wrapping_mul(2);
     }
 }
 
@@ -147,12 +147,12 @@ pub extern "C" fn iter_string(mut str: *const i8, mut d: i32) {
             match i32::from(*fresh0) {
                 88_i32 => {
                     if d != 0_i32 {
-                        iter_string((b"X+YF+\0" as *const u8).cast::<i8>(), d - 1);
+                        iter_string((b"X+YF+\0" as *const u8).cast::<i8>(), d.wrapping_sub(1));
                     }
                 }
                 89_i32 => {
                     if d != 0_i32 {
-                        iter_string((b"-FX-Y\0" as *const u8).cast::<i8>(), d - 1);
+                        iter_string((b"-FX-Y\0" as *const u8).cast::<i8>(), d.wrapping_sub(1));
                     }
                 }
                 43_i32 => {
@@ -166,11 +166,11 @@ pub extern "C" fn iter_string(mut str: *const i8, mut d: i32) {
                     dx = tmp;
                 }
                 70_i32 => {
-                    clen += 1;
+                    clen = clen.wrapping_add(1);
                     clen;
                     h_rgb(x / scale, y / scale);
-                    x += dx;
-                    y += dy;
+                    x = x.wrapping_add(dx);
+                    y = y.wrapping_add(dy);
                 }
                 _ => {}
             }
@@ -184,7 +184,7 @@ pub extern "C" fn dragon(mut leng: i64, mut depth: i32) {
     unsafe {
         let mut i: i64 = 0;
         let mut d: i64 = leng / 3 + 1;
-        let mut h: i64 = leng + 3;
+        let mut h: i64 = leng.wrapping_add(3);
         let mut w: i64 = leng + d * 3 / 2 + 2;
         let mut buf: *mut rgb = malloc(
             (::core::mem::size_of::<rgb>() as u64)
@@ -195,8 +195,8 @@ pub extern "C" fn dragon(mut leng: i64, mut depth: i32) {
         i = 0;
         while i < h {
             let fresh1 = &mut (*pix.offset(i as isize));
-            *fresh1 = buf.offset((w * i) as isize);
-            i += 1;
+            *fresh1 = buf.offset((w.wrapping_mul(i)) as isize);
+            i = i.wrapping_add(1);
             i;
         }
         memset(
@@ -215,32 +215,32 @@ pub extern "C" fn dragon(mut leng: i64, mut depth: i32) {
         i = 0;
         while i < i64::from(depth) {
             sc_up();
-            i += 1;
+            i = i.wrapping_add(1);
             i;
         }
         iter_string((b"FX\0" as *const u8).cast::<i8>(), depth);
-        let mut fpix: *mut u8 = malloc((w * h * 3i64) as u64).cast::<u8>();
+        let mut fpix: *mut u8 = malloc((w * h.wrapping_mul(3i64)) as u64).cast::<u8>();
         let mut maxv: f64 = f64::from(0_i32);
         let mut dbuf: *mut f64 = buf.cast::<f64>();
-        i = 3 * w * h - 1;
+        i = 3 * w * h.wrapping_sub(1);
         while i >= 0 {
             if *dbuf.offset(i as isize) > maxv {
                 maxv = *dbuf.offset(i as isize);
             }
-            i -= 1;
+            i = i.wrapping_sub(1);
             i;
         }
-        i = 3 * h * w - 1;
+        i = 3 * h * w.wrapping_sub(1);
         while i >= 0 {
             *fpix.offset(i as isize) = (255_f64 * *dbuf.offset(i as isize) / maxv) as u8;
-            i -= 1;
+            i = i.wrapping_sub(1);
             i;
         }
         print!("P6\n{} {}\n255\n", w, h);
         fflush(stdout);
         fwrite(
             fpix as *const libc::c_void,
-            (h * w * 3i64) as u64,
+            (h * w.wrapping_mul(3i64)) as u64,
             1,
             stdout,
         );
@@ -264,7 +264,7 @@ fn main_0(mut c: i32, mut v: *mut *mut i8) -> i32 {
             size,
             depth,
         );
-        dragon(i64::from(size), depth * 2);
+        dragon(i64::from(size), depth.wrapping_mul(2));
         0_i32
     }
 }

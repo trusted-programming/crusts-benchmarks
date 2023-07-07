@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -32,7 +32,7 @@ pub extern "C" fn show_set(mut x: u32, mut name: *const i8) {
             if x & 1 << i != 0 {
                 print!(" {}", i);
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         print!("{}", '\n' as i32);
@@ -48,7 +48,7 @@ fn main_0() -> i32 {
     i = 0_i32;
     while i < 10_i32 {
         a |= 1 << i;
-        i += 3_i32;
+        i = i.wrapping_add(3);
     }
     show_set(a, (b"a\0" as *const u8).cast::<i8>());
     i = 0_i32;
@@ -58,7 +58,7 @@ fn main_0() -> i32 {
         } else {
             println!("	{} not\0 in set a", i)
         };
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     b = a;

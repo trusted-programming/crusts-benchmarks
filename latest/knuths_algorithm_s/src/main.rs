@@ -94,7 +94,7 @@ pub extern "C" fn test(mut n: u32, mut items_set: *mut i32, mut num_items: u32) 
                 &mut s_env,
                 &mut *items_set.offset(i as isize) as *mut i32 as *mut libc::c_void,
             );
-            i += 1;
+            i = i.wrapping_add(1);
             i;
         }
         return s_env.sample as *mut i32;

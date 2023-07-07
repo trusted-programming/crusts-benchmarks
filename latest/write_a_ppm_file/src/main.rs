@@ -80,10 +80,10 @@ fn main_0() -> i32 {
                 color[1_usize] = (j % 256i32) as u8;
                 color[2_usize] = (i * j % 256i32) as u8;
                 fwrite(color.as_mut_ptr() as *const libc::c_void, 1, 3, fp);
-                i += 1_i32;
+                i = i.wrapping_add(1);
                 i;
             }
-            j += 1_i32;
+            j = j.wrapping_add(1);
             j;
         }
         fclose(fp);

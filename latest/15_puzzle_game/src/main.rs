@@ -22,7 +22,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -90,11 +90,11 @@ pub extern "C" fn Game_setup() {
         while i < 4 {
             j = 0;
             while j < 4 {
-                cells[i as usize][j as usize] = i * 4 + j + 1;
-                j += 1;
+                cells[i as usize][j as usize] = i * 4 + j.wrapping_add(1);
+                j = j.wrapping_add(1);
                 j;
             }
-            i += 1;
+            i = i.wrapping_add(1);
             i;
         }
         cells[(4 - 1i32) as usize][(4 - 1i32) as usize] = 0;
@@ -123,15 +123,15 @@ pub extern "C" fn Game_isFinished() -> i32 {
             while j < 4 {
                 if k < 4 * 4 && {
                     let fresh0 = k;
-                    k = k + 1;
+                    k = k.wrapping_add(1);
                     cells[i as usize][j as usize] != fresh0
                 } {
                     return 0;
                 }
-                j += 1;
+                j = j.wrapping_add(1);
                 j;
             }
-            i += 1;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -162,10 +162,10 @@ pub extern "C" fn View_showBoard() {
                         print!(" {:2} \n", "\0")
                     };
                 }
-                j += 1;
+                j = j.wrapping_add(1);
                 j;
             }
-            i += 1;
+            i = i.wrapping_add(1);
             i;
         }
     }

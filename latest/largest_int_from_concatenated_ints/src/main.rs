@@ -53,7 +53,7 @@ pub extern "C" fn maxcat(mut a: *mut i32, mut len: i32) {
         i = 0_i32;
         while i < len {
             print!("{}", *a.offset(i as isize));
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         print!("{}", '\n' as i32);

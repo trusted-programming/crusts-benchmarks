@@ -140,8 +140,8 @@ fn main_0() -> i32 {
     unsafe {
         while i < 9223372036854775807 {
             let mut found: bool = 0 != 0;
-            u += 6;
-            v += u;
+            u = u.wrapping_add(6);
+            v = v.wrapping_add(u);
             let mut mx: i64 = ceil(sqrt(v as f64)) as i64;
             let mut j: i64 = 0;
             j = 0;
@@ -153,16 +153,16 @@ fn main_0() -> i32 {
                     found = 1_i32 != 0_i32;
                     break;
                 } else {
-                    j += 1;
+                    j = j.wrapping_add(1);
                     j;
                 }
             }
             if !found {
-                c += 1_i32;
+                c = c.wrapping_add(1);
                 if showEach {
                     let mut z: i64 = 0;
                     z = *(primes.ptr).offset((primes.size).wrapping_sub(1) as isize) + 2;
-                    while z <= v - 2 {
+                    while z <= v.wrapping_sub(2) {
                         let mut fnd: bool = 0 != 0;
                         j = 0;
                         while (j as u64) < primes.size as u64 {
@@ -173,14 +173,14 @@ fn main_0() -> i32 {
                                 fnd = 1_i32 != 0_i32;
                                 break;
                             } else {
-                                j += 1;
+                                j = j.wrapping_add(1);
                                 j;
                             }
                         }
                         if !fnd {
                             push_back(&mut primes, z);
                         }
-                        z += 2;
+                        z = z.wrapping_add(2);
                     }
                     push_back(&mut primes, v);
                     print!("{:11}", v);
@@ -199,7 +199,7 @@ fn main_0() -> i32 {
                     }
                 }
             }
-            i += 1;
+            i = i.wrapping_add(1);
             i;
         }
     }

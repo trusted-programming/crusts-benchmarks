@@ -29,14 +29,14 @@ pub extern "C" fn coef(mut n: i32) {
         c[i as usize] = 1;
         while i < n {
             j = i;
-            c[(1_i32 + j) as usize] = 1;
+            c[(j.wrapping_add(1)) as usize] = 1;
             while j > 0_i32 {
-                c[j as usize] = c[(j - 1i32) as usize] - c[j as usize];
-                j -= 1_i32;
+                c[j as usize] = c[(j.wrapping_sub(1i32)) as usize] - c[j as usize];
+                j = j.wrapping_sub(1);
                 j;
             }
             c[0_usize] = -c[0_usize];
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -56,7 +56,7 @@ pub extern "C" fn is_prime(mut n: i32) -> i32 {
         c[i as usize] -= 1;
         loop {
             let fresh0 = i;
-            i -= 1_i32;
+            i = i.wrapping_sub(1);
             if !(fresh0 != 0_i32 && c[i as usize] % i64::from(n) == 0) {
                 break;
             }
@@ -72,7 +72,7 @@ pub extern "C" fn show(mut n: i32) {
         loop {
             print!("{:+}x^{}", c[n as usize], n);
             let fresh1 = n;
-            n -= 1_i32;
+            n = n.wrapping_sub(1);
             if fresh1 == 0_i32 {
                 break;
             }
@@ -88,7 +88,7 @@ fn main_0() -> i32 {
         print!("(x-1)^{} = ", n);
         show(n);
         print!("{}", '\n' as i32);
-        n += 1_i32;
+        n = n.wrapping_add(1);
         n;
     }
     print!("\nprimes (never mind the 1):");
@@ -97,7 +97,7 @@ fn main_0() -> i32 {
         if is_prime(n) != 0_i32 {
             print!(" {}", n);
         }
-        n += 1_i32;
+        n = n.wrapping_add(1);
         n;
     }
     print!("{}", '\n' as i32);

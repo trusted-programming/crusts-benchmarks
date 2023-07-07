@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -71,7 +71,7 @@ fn main_0() -> i32 {
                 "{} ",
                 build_str_from_raw_ptr(addSuffix(i, s.as_mut_ptr(), 5).cast::<u8>())
             );
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -86,7 +86,7 @@ fn main_0() -> i32 {
                 "{} ",
                 build_str_from_raw_ptr(addSuffix(i, s_0.as_mut_ptr(), 6).cast::<u8>())
             );
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -101,7 +101,7 @@ fn main_0() -> i32 {
                 "{} ",
                 build_str_from_raw_ptr(addSuffix(i, s_1.as_mut_ptr(), 7).cast::<u8>())
             );
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }

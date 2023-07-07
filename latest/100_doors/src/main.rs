@@ -18,9 +18,9 @@ fn main_0() -> i32 {
         door = pass;
         while door < 100_i32 {
             is_open[door as usize] = i8::from(is_open[door as usize] == 0);
-            door += pass + 1_i32;
+            door += pass.wrapping_add(1);
         }
-        pass += 1_i32;
+        pass = pass.wrapping_add(1);
         pass;
     }
     door = 0_i32;
@@ -30,7 +30,7 @@ fn main_0() -> i32 {
         } else {
             println!("door #{} is closed\0.", door + 1_i32)
         };
-        door += 1_i32;
+        door = door.wrapping_add(1);
         door;
     }
     0_i32

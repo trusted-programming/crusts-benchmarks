@@ -72,7 +72,7 @@ extern "C" fn init_rot13_table() {
         let mut ch: i32 = '\0' as i32;
         while ch <= 127_i32 * 2_i32 + 1_i32 {
             rot13_table[ch as usize] = ch as i8;
-            ch += 1_i32;
+            ch = ch.wrapping_add(1);
             ch;
         }
         let mut p: *const u8 = upper.as_ptr();
@@ -121,7 +121,7 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
                 }
                 rot13_file(fp);
                 fclose(fp);
-                i += 1_i32;
+                i = i.wrapping_add(1);
                 i;
             }
         } else {

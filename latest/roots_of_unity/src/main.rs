@@ -53,15 +53,15 @@ fn main_0() -> i32 {
                 } else {
                     print!("")
                 };
-                if i == n - 1_i32 {
+                if i == n.wrapping_sub(1) {
                     println!()
                 } else {
                     print!(",  ")
                 };
-                i += 1_i32;
+                i = i.wrapping_add(1);
                 i;
             }
-            n += 1_i32;
+            n = n.wrapping_add(1);
             n;
         }
     }

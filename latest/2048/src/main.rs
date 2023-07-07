@@ -22,7 +22,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -134,7 +134,7 @@ pub extern "C" fn do_draw() {
     let mut i: i32 = 0;
     while i < 25 {
         print!("-");
-        i += 1;
+        i = i.wrapping_add(1);
         i;
     }
     print!("\n");
@@ -157,18 +157,18 @@ pub extern "C" fn do_draw() {
                 } else {
                     print!("{1:0$} |", 4, "\0");
                 }
-                x += 1;
+                x = x.wrapping_add(1);
                 x;
             }
             print!("\n");
-            y += 1;
+            y = y.wrapping_add(1);
             y;
         }
     }
     let mut i_0: i32 = 0;
     while i_0 < 25 {
         print!("-");
-        i_0 += 1;
+        i_0 = i_0.wrapping_add(1);
         i_0;
     }
     print!("\n");
@@ -187,20 +187,22 @@ pub extern "C" fn do_merge(mut d: i32) {
                     while y < 4 {
                         if game.grid[x as usize][y as usize] != 0
                             && game.grid[x as usize][y as usize]
-                                == game.grid[(x + 1i32) as usize][(y + 0i32) as usize]
+                                == game.grid[(x.wrapping_add(1i32)) as usize]
+                                    [(y.wrapping_add(0i32)) as usize]
                         {
                             game.have_moved = 1;
                             game.grid[x as usize][y as usize] += game.have_moved;
                             let fresh0 = game.blocks_in_play;
                             game.blocks_in_play = game.blocks_in_play - 1;
-                            game.grid[(x + 1i32) as usize][(y + 0i32) as usize] = 0 * fresh0;
+                            game.grid[(x.wrapping_add(1i32)) as usize]
+                                [(y.wrapping_add(0i32)) as usize] = 0 * fresh0;
                             game.score_last_move +=
                                 values[game.grid[x as usize][y as usize] as usize];
                             game.total_score += values[game.grid[x as usize][y as usize] as usize];
                         }
-                        y += 1;
+                        y = y.wrapping_add(1);
                     }
-                    x += 1;
+                    x = x.wrapping_add(1);
                 }
             }
             3 => {
@@ -210,19 +212,21 @@ pub extern "C" fn do_merge(mut d: i32) {
                     while y_0 < 4 {
                         if game.grid[x_0 as usize][y_0 as usize] != 0
                             && game.grid[x_0 as usize][y_0 as usize]
-                                == game.grid[(x_0 + -1i32) as usize][(y_0 + 0i32) as usize]
+                                == game.grid[(x_0 + -1i32) as usize]
+                                    [(y_0.wrapping_add(0i32)) as usize]
                         {
                             game.have_moved = 1;
                             game.grid[x_0 as usize][y_0 as usize] += game.have_moved;
                             let fresh1 = game.blocks_in_play;
                             game.blocks_in_play = game.blocks_in_play - 1;
-                            game.grid[(x_0 + -1i32) as usize][(y_0 + 0i32) as usize] = 0 * fresh1;
+                            game.grid[(x_0 + -1i32) as usize][(y_0.wrapping_add(0i32)) as usize] =
+                                0 * fresh1;
                             game.score_last_move +=
                                 values[game.grid[x_0 as usize][y_0 as usize] as usize];
                             game.total_score +=
                                 values[game.grid[x_0 as usize][y_0 as usize] as usize];
                         }
-                        y_0 += 1;
+                        y_0 = y_0.wrapping_add(1);
                     }
                     x_0 += -1;
                 }
@@ -234,19 +238,21 @@ pub extern "C" fn do_merge(mut d: i32) {
                     while x_1 < 4 {
                         if game.grid[x_1 as usize][y_1 as usize] != 0
                             && game.grid[x_1 as usize][y_1 as usize]
-                                == game.grid[(x_1 + 0i32) as usize][(y_1 + -1i32) as usize]
+                                == game.grid[(x_1.wrapping_add(0i32)) as usize]
+                                    [(y_1 + -1i32) as usize]
                         {
                             game.have_moved = 1;
                             game.grid[x_1 as usize][y_1 as usize] += game.have_moved;
                             let fresh2 = game.blocks_in_play;
                             game.blocks_in_play = game.blocks_in_play - 1;
-                            game.grid[(x_1 + 0i32) as usize][(y_1 + -1i32) as usize] = 0 * fresh2;
+                            game.grid[(x_1.wrapping_add(0i32)) as usize][(y_1 + -1i32) as usize] =
+                                0 * fresh2;
                             game.score_last_move +=
                                 values[game.grid[x_1 as usize][y_1 as usize] as usize];
                             game.total_score +=
                                 values[game.grid[x_1 as usize][y_1 as usize] as usize];
                         }
-                        x_1 += 1;
+                        x_1 = x_1.wrapping_add(1);
                     }
                     y_1 += -1;
                 }
@@ -258,21 +264,23 @@ pub extern "C" fn do_merge(mut d: i32) {
                     while x_2 < 4 {
                         if game.grid[x_2 as usize][y_2 as usize] != 0
                             && game.grid[x_2 as usize][y_2 as usize]
-                                == game.grid[(x_2 + 0i32) as usize][(y_2 + 1i32) as usize]
+                                == game.grid[(x_2.wrapping_add(0i32)) as usize]
+                                    [(y_2.wrapping_add(1i32)) as usize]
                         {
                             game.have_moved = 1;
                             game.grid[x_2 as usize][y_2 as usize] += game.have_moved;
                             let fresh3 = game.blocks_in_play;
                             game.blocks_in_play = game.blocks_in_play - 1;
-                            game.grid[(x_2 + 0i32) as usize][(y_2 + 1i32) as usize] = 0 * fresh3;
+                            game.grid[(x_2.wrapping_add(0i32)) as usize]
+                                [(y_2.wrapping_add(1i32)) as usize] = 0 * fresh3;
                             game.score_last_move +=
                                 values[game.grid[x_2 as usize][y_2 as usize] as usize];
                             game.total_score +=
                                 values[game.grid[x_2 as usize][y_2 as usize] as usize];
                         }
-                        x_2 += 1;
+                        x_2 = x_2.wrapping_add(1);
                     }
-                    y_2 += 1;
+                    y_2 = y_2.wrapping_add(1);
                 }
             }
             _ => {}
@@ -294,17 +302,21 @@ pub extern "C" fn do_gravity(mut d: i32) {
                         let mut y: i32 = 0;
                         while y < 4 {
                             if game.grid[x as usize][y as usize] == 0
-                                && game.grid[(x + 1i32) as usize][(y + 0i32) as usize] != 0
+                                && game.grid[(x.wrapping_add(1i32)) as usize]
+                                    [(y.wrapping_add(0i32)) as usize]
+                                    != 0
                             {
-                                game.grid[x as usize][y as usize] =
-                                    game.grid[(x + 1i32) as usize][(y + 0i32) as usize];
+                                game.grid[x as usize][y as usize] = game.grid
+                                    [(x.wrapping_add(1i32)) as usize]
+                                    [(y.wrapping_add(0i32)) as usize];
                                 break_cond = 0;
-                                game.grid[(x + 1i32) as usize][(y + 0i32) as usize] = break_cond;
+                                game.grid[(x.wrapping_add(1i32)) as usize]
+                                    [(y.wrapping_add(0i32)) as usize] = break_cond;
                                 game.have_moved = 1;
                             }
-                            y += 1;
+                            y = y.wrapping_add(1);
                         }
-                        x += 1;
+                        x = x.wrapping_add(1);
                     }
                     do_draw();
                     usleep(40000);
@@ -319,16 +331,19 @@ pub extern "C" fn do_gravity(mut d: i32) {
                         let mut y_0: i32 = 0;
                         while y_0 < 4 {
                             if game.grid[x_0 as usize][y_0 as usize] == 0
-                                && game.grid[(x_0 + -1i32) as usize][(y_0 + 0i32) as usize] != 0
+                                && game.grid[(x_0 + -1i32) as usize]
+                                    [(y_0.wrapping_add(0i32)) as usize]
+                                    != 0
                             {
-                                game.grid[x_0 as usize][y_0 as usize] =
-                                    game.grid[(x_0 + -1i32) as usize][(y_0 + 0i32) as usize];
+                                game.grid[x_0 as usize][y_0 as usize] = game.grid
+                                    [(x_0 + -1i32) as usize]
+                                    [(y_0.wrapping_add(0i32)) as usize];
                                 break_cond_0 = 0;
-                                game.grid[(x_0 + -1i32) as usize][(y_0 + 0i32) as usize] =
-                                    break_cond_0;
+                                game.grid[(x_0 + -1i32) as usize]
+                                    [(y_0.wrapping_add(0i32)) as usize] = break_cond_0;
                                 game.have_moved = 1;
                             }
-                            y_0 += 1;
+                            y_0 = y_0.wrapping_add(1);
                         }
                         x_0 += -1;
                     }
@@ -345,16 +360,19 @@ pub extern "C" fn do_gravity(mut d: i32) {
                         let mut x_1: i32 = 0;
                         while x_1 < 4 {
                             if game.grid[x_1 as usize][y_1 as usize] == 0
-                                && game.grid[(x_1 + 0i32) as usize][(y_1 + -1i32) as usize] != 0
+                                && game.grid[(x_1.wrapping_add(0i32)) as usize]
+                                    [(y_1 + -1i32) as usize]
+                                    != 0
                             {
-                                game.grid[x_1 as usize][y_1 as usize] =
-                                    game.grid[(x_1 + 0i32) as usize][(y_1 + -1i32) as usize];
+                                game.grid[x_1 as usize][y_1 as usize] = game.grid
+                                    [(x_1.wrapping_add(0i32)) as usize]
+                                    [(y_1 + -1i32) as usize];
                                 break_cond_1 = 0;
-                                game.grid[(x_1 + 0i32) as usize][(y_1 + -1i32) as usize] =
-                                    break_cond_1;
+                                game.grid[(x_1.wrapping_add(0i32)) as usize]
+                                    [(y_1 + -1i32) as usize] = break_cond_1;
                                 game.have_moved = 1;
                             }
-                            x_1 += 1;
+                            x_1 = x_1.wrapping_add(1);
                         }
                         y_1 += -1;
                     }
@@ -371,18 +389,21 @@ pub extern "C" fn do_gravity(mut d: i32) {
                         let mut x_2: i32 = 0;
                         while x_2 < 4 {
                             if game.grid[x_2 as usize][y_2 as usize] == 0
-                                && game.grid[(x_2 + 0i32) as usize][(y_2 + 1i32) as usize] != 0
+                                && game.grid[(x_2.wrapping_add(0i32)) as usize]
+                                    [(y_2.wrapping_add(1i32)) as usize]
+                                    != 0
                             {
-                                game.grid[x_2 as usize][y_2 as usize] =
-                                    game.grid[(x_2 + 0i32) as usize][(y_2 + 1i32) as usize];
+                                game.grid[x_2 as usize][y_2 as usize] = game.grid
+                                    [(x_2.wrapping_add(0i32)) as usize]
+                                    [(y_2.wrapping_add(1i32)) as usize];
                                 break_cond_2 = 0;
-                                game.grid[(x_2 + 0i32) as usize][(y_2 + 1i32) as usize] =
-                                    break_cond_2;
+                                game.grid[(x_2.wrapping_add(0i32)) as usize]
+                                    [(y_2.wrapping_add(1i32)) as usize] = break_cond_2;
                                 game.have_moved = 1;
                             }
-                            x_2 += 1;
+                            x_2 = x_2.wrapping_add(1);
                         }
-                        y_2 += 1;
+                        y_2 = y_2.wrapping_add(1);
                     }
                     do_draw();
                     usleep(40000);
@@ -406,19 +427,19 @@ pub extern "C" fn do_check_end_condition() -> i32 {
                     return 1;
                 }
                 if game.grid[x as usize][y as usize] == 0
-                    || (x + 1) < 4
+                    || (x.wrapping_add(1)) < 4
                         && game.grid[x as usize][y as usize]
-                            == game.grid[(x + 1i32) as usize][y as usize]
-                    || (y + 1) < 4
+                            == game.grid[(x.wrapping_add(1i32)) as usize][y as usize]
+                    || (y.wrapping_add(1)) < 4
                         && game.grid[x as usize][y as usize]
-                            == game.grid[x as usize][(y + 1i32) as usize]
+                            == game.grid[x as usize][(y.wrapping_add(1i32)) as usize]
                 {
                     ret = 0;
                 }
-                y += 1;
+                y = y.wrapping_add(1);
                 y;
             }
-            x += 1;
+            x = x.wrapping_add(1);
             x;
         }
     }
@@ -459,14 +480,14 @@ pub extern "C" fn do_newblock() {
                         game.blocks_in_play += 1;
                         return;
                     } else {
-                        pn += 1;
+                        pn = pn.wrapping_add(1);
                         pn;
                     }
                 }
-                y += 1;
+                y = y.wrapping_add(1);
                 y;
             }
-            x += 1;
+            x = x.wrapping_add(1);
             x;
         }
     }

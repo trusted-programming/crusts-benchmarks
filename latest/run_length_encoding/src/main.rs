@@ -128,11 +128,11 @@ pub extern "C" fn output(mut out: stream, mut buf: *mut u8, mut len: i32) {
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
-        ((*out).put).expect("non-null function pointer")(out, 128 + len);
+        ((*out).put).expect("non-null function pointer")(out, len.wrapping_add(128));
         i = 0;
         while i < len {
             ((*out).put).expect("non-null function pointer")(out, *buf.offset(i as isize) as i32);
-            i += 1;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -156,30 +156,34 @@ pub extern "C" fn encode(mut in_0: stream, mut out: stream) {
             end = (c == -1) as i32;
             if end == 0 {
                 let fresh1 = len;
-                len = len + 1;
+                len = len.wrapping_add(1);
                 buf[fresh1 as usize] = c as u8;
                 if len <= 1 {
                     continue;
                 }
             }
             if repeat != 0 {
-                if buf[(len - 1i32) as usize] as i32 != buf[(len - 2i32) as usize] as i32 {
+                if buf[(len.wrapping_sub(1i32)) as usize] as i32
+                    != buf[(len.wrapping_sub(2i32)) as usize] as i32
+                {
                     repeat = 0;
                 }
                 if repeat == 0 || len == 129 || end != 0 {
                     put.expect("non-null function pointer")(
                         out,
-                        if end != 0 { len } else { len - 1 },
+                        if end != 0 { len } else { len.wrapping_sub(1) },
                     );
                     put.expect("non-null function pointer")(out, buf[0 as usize] as i32);
-                    buf[0 as usize] = buf[(len - 1i32) as usize];
+                    buf[0 as usize] = buf[(len.wrapping_sub(1i32)) as usize];
                     len = 1;
                 }
-            } else if buf[(len - 1i32) as usize] as i32 == buf[(len - 2i32) as usize] as i32 {
+            } else if buf[(len.wrapping_sub(1i32)) as usize] as i32
+                == buf[(len.wrapping_sub(2i32)) as usize] as i32
+            {
                 repeat = 1;
                 if len > 2 {
-                    output(out, buf.as_mut_ptr(), len - 2);
-                    buf[1 as usize] = buf[(len - 1i32) as usize];
+                    output(out, buf.as_mut_ptr(), len.wrapping_sub(2));
+                    buf[1 as usize] = buf[(len.wrapping_sub(1i32)) as usize];
                     buf[0 as usize] = buf[1 as usize];
                     len = 2;
                 }
@@ -204,14 +208,14 @@ pub extern "C" fn decode(mut in_0: stream, mut out: stream) {
             return;
         }
         if c > 128 {
-            cnt = c - 128;
+            cnt = c.wrapping_sub(128);
             i = 0;
             while i < cnt {
                 ((*out).put).expect("non-null function pointer")(
                     out,
                     ((*in_0).get).expect("non-null function pointer")(in_0),
                 );
-                i += 1;
+                i = i.wrapping_add(1);
                 i;
             }
         } else {
@@ -220,7 +224,7 @@ pub extern "C" fn decode(mut in_0: stream, mut out: stream) {
             i = 0;
             while i < cnt {
                 ((*out).put).expect("non-null function pointer")(out, c);
-                i += 1;
+                i = i.wrapping_add(1);
                 i;
             }
         }

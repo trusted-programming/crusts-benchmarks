@@ -188,23 +188,23 @@ pub extern "C" fn sieve(mut p: u32) {
         while i < 8_i32 {
             q = u32::from(rem_num[i as usize]).wrapping_mul(p) as i32;
             b[i as usize] = !i32::from(bit_pos[(q % 30i32) as usize]) as u8;
-            ofs[i as usize] = i64::from(q / 30i32);
-            i += 1_i32;
+            ofs[i as usize] = i64::from(q.wrapping_div(30i32));
+            i = i.wrapping_add(1);
             i;
         }
     }
     q = ofs[1_usize] as i32;
     i = 7_i32;
     while i != 0_i32 {
-        ofs[i as usize] -= ofs[(i - 1i32) as usize];
-        i -= 1_i32;
+        ofs[i as usize] -= ofs[(i.wrapping_sub(1i32)) as usize];
+        i = i.wrapping_sub(1);
         i;
     }
     ofs[0_usize] = i64::from(p);
     i = 1_i32;
     while i < 8_i32 {
         ofs[0_usize] -= ofs[i as usize];
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     i = 1_i32;
@@ -235,7 +235,7 @@ pub extern "C" fn next_prime(mut p: u32) -> u32 {
                 rem;
             }
             while i32::from(*pbits.offset(addr as isize)) < i32::from(bits) || bits == 0 {
-                addr += 1;
+                addr = addr.wrapping_add(1);
                 if addr >= i64::from((!0u32).wrapping_div(30).wrapping_add(1)) {
                     return 0;
                 }
@@ -281,13 +281,13 @@ pub extern "C" fn decompose(mut n: u64, mut f: *mut u64) -> i32 {
             while n.wrapping_rem(u64::from(p)) == 0 {
                 n = n.wrapping_div(u64::from(p));
                 let fresh1 = i;
-                i += 1_i32;
+                i = i.wrapping_add(1);
                 *f.offset(fresh1 as isize) = u64::from(p);
             }
         }
         if n > 1 {
             let fresh2 = i;
-            i += 1_i32;
+            i = i.wrapping_add(1);
             *f.offset(fresh2 as isize) = n;
         }
         i
@@ -317,7 +317,7 @@ fn main_0() -> i32 {
                     } else {
                         print!(" {} {}", '=' as i32, f[i as usize])
                     };
-                    i += 1_i32;
+                    i = i.wrapping_add(1);
                     i;
                 }
             }

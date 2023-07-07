@@ -209,7 +209,7 @@ fn main_0() -> i32 {
         ix = 0_i32;
         while ix < 6_i32 {
             HashAdd(keyList[ix as usize], valuList[ix as usize]);
-            ix += 1_i32;
+            ix = ix.wrapping_add(1);
             ix;
         }
     }

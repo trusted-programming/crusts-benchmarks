@@ -27,24 +27,26 @@ fn main_0() -> i32 {
         .wrapping_div(::core::mem::size_of::<i32>() as u64) as i32;
 // SAFETY: machine generated unsafe code
     unsafe {
-        let base: i32 = ((sqrt(f64::from(8_i32 * len + 1i32)) - 1_f64) / 2_f64) as i32;
-        let mut step: i32 = base - 1;
+        let base: i32 = ((sqrt(f64::from(8_i32 * len.wrapping_add(1i32))) - 1_f64) / 2_f64) as i32;
+        let mut step: i32 = base.wrapping_sub(1);
         let mut stepc: i32 = 0;
         let mut i: i32 = 0;
-        i = len - base - 1_i32;
+        i = len - base.wrapping_sub(1);
         while i >= 0_i32 {
-            tri[i as usize] += if tri[(i + step) as usize] > tri[(i + step + 1i32) as usize] {
-                tri[(i + step) as usize]
+            tri[i as usize] += if tri[(i.wrapping_add(step)) as usize]
+                > tri[(i + step.wrapping_add(1i32)) as usize]
+            {
+                tri[(i.wrapping_add(step)) as usize]
             } else {
-                tri[(i + step + 1i32) as usize]
+                tri[(i + step.wrapping_add(1i32)) as usize]
             };
-            stepc += 1_i32;
+            stepc = stepc.wrapping_add(1);
             if stepc == step {
-                step -= 1_i32;
+                step = step.wrapping_sub(1);
                 step;
                 stepc = 0_i32;
             }
-            i -= 1_i32;
+            i = i.wrapping_sub(1);
             i;
         }
         println!("{}", tri[0_usize]);

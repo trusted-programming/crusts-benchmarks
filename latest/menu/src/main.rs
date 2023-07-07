@@ -13,7 +13,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -103,7 +103,7 @@ pub extern "C" fn menu_select(mut items: *const *const i8, mut prompt: *const i8
                     i + 1_i32,
                     build_str_from_raw_ptr(*items.offset(i as isize) as *mut u8)
                 );
-                i += 1_i32;
+                i = i.wrapping_add(1);
                 i;
             }
             choice_max = i;
@@ -125,7 +125,7 @@ pub extern "C" fn menu_select(mut items: *const *const i8, mut prompt: *const i8
                 break;
             }
         }
-        *items.offset((choice - 1i32) as isize)
+        *items.offset((choice.wrapping_sub(1i32)) as isize)
     }
 }
 

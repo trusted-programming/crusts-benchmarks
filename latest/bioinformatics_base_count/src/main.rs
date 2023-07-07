@@ -13,7 +13,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -93,8 +93,8 @@ pub static mut Thymine: i32 = 0_i32;
 pub extern "C" fn numDigits(mut num: i32) -> i32 {
     let mut len: i32 = 1;
     while num > 10_i32 {
-        num /= 10_i32;
-        len += 1_i32;
+        num = num.wrapping_add(10);
+        len = len.wrapping_add(1);
         len;
     }
     len
@@ -108,29 +108,29 @@ pub extern "C" fn buildGenome(mut str: *mut i8) {
         let mut i: i32 = 0;
         let mut genomeIterator: *mut genome = std::ptr::null_mut::<genome>();
         let mut newGenome: *mut genome = std::ptr::null_mut::<genome>();
-        totalLength += len;
+        totalLength = totalLength.wrapping_add(len);
         i = 0_i32;
         while i < len {
             match i32::from(*str.offset(i as isize)) {
                 65_i32 => {
-                    Adenine += 1_i32;
+                    Adenine = Adenine.wrapping_add(1);
                     Adenine;
                 }
                 84_i32 => {
-                    Thymine += 1_i32;
+                    Thymine = Thymine.wrapping_add(1);
                     Thymine;
                 }
                 67_i32 => {
-                    Cytosine += 1_i32;
+                    Cytosine = Cytosine.wrapping_add(1);
                     Cytosine;
                 }
                 71_i32 => {
-                    Guanine += 1_i32;
+                    Guanine = Guanine.wrapping_add(1);
                     Guanine;
                 }
                 _ => {}
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         if genomeData.is_null() {

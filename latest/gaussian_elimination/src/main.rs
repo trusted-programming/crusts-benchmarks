@@ -24,12 +24,12 @@ pub extern "C" fn swap_row(mut a: *mut f64, mut b: *mut f64, mut r1: i32, mut r2
         }
         i = 0_i32;
         while i < n {
-            p1 = a.offset((r1 * n + i) as isize);
-            p2 = a.offset((r2 * n + i) as isize);
+            p1 = a.offset((r1 * n.wrapping_add(i)) as isize);
+            p2 = a.offset((r2 * n.wrapping_add(i)) as isize);
             tmp = *p1;
             *p1 = *p2;
             *p2 = tmp;
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         tmp = *b.offset(r1 as isize);
@@ -53,47 +53,48 @@ pub extern "C" fn gauss_eliminate(mut a: *mut f64, mut b: *mut f64, mut x: *mut 
         dia = 0_i32;
         while dia < n {
             max_row = dia;
-            max = *a.offset((dia * n + dia) as isize);
-            row = dia + 1_i32;
+            max = *a.offset((dia * n.wrapping_add(dia)) as isize);
+            row = dia.wrapping_add(1);
             while row < n {
-                tmp = fabs(*a.offset((row * n + dia) as isize));
+                tmp = fabs(*a.offset((row * n.wrapping_add(dia)) as isize));
                 if tmp > max {
                     max_row = row;
                     max = tmp;
                 }
-                row += 1_i32;
+                row = row.wrapping_add(1);
                 row;
             }
             swap_row(a, b, dia, max_row, n);
-            row = dia + 1_i32;
+            row = dia.wrapping_add(1);
             while row < n {
-                tmp = *a.offset((row * n + dia) as isize) / *a.offset((dia * n + dia) as isize);
-                col = dia + 1_i32;
+                tmp = *a.offset((row * n.wrapping_add(dia)) as isize)
+                    / *a.offset((dia * n.wrapping_add(dia)) as isize);
+                col = dia.wrapping_add(1);
                 while col < n {
-                    *a.offset((row * n + col) as isize) -=
-                        tmp * *a.offset((dia * n + col) as isize);
-                    col += 1_i32;
+                    *a.offset((row * n.wrapping_add(col)) as isize) -=
+                        tmp * *a.offset((dia * n.wrapping_add(col)) as isize);
+                    col = col.wrapping_add(1);
                     col;
                 }
-                *a.offset((row * n + dia) as isize) = f64::from(0_i32);
+                *a.offset((row * n.wrapping_add(dia)) as isize) = f64::from(0_i32);
                 *b.offset(row as isize) -= tmp * *b.offset(dia as isize);
-                row += 1_i32;
+                row = row.wrapping_add(1);
                 row;
             }
-            dia += 1_i32;
+            dia = dia.wrapping_add(1);
             dia;
         }
-        row = n - 1_i32;
+        row = n.wrapping_sub(1);
         while row >= 0_i32 {
             tmp = *b.offset(row as isize);
-            j = n - 1_i32;
+            j = n.wrapping_sub(1);
             while j > row {
-                tmp -= *x.offset(j as isize) * *a.offset((row * n + j) as isize);
-                j -= 1_i32;
+                tmp -= *x.offset(j as isize) * *a.offset((row * n.wrapping_add(j)) as isize);
+                j = j.wrapping_sub(1);
                 j;
             }
-            *x.offset(row as isize) = tmp / *a.offset((row * n + row) as isize);
-            row -= 1_i32;
+            *x.offset(row as isize) = tmp / *a.offset((row * n.wrapping_add(row)) as isize);
+            row = row.wrapping_sub(1);
             row;
         }
     }
@@ -113,7 +114,7 @@ fn main_0() -> i32 {
     i = 0_i32;
     while i < 6_i32 {
         println!("{}", x[i as usize]);
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     0_i32

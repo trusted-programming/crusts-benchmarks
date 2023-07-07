@@ -47,10 +47,10 @@ pub extern "C" fn grep(
         while i < len {
             if sel.expect("non-null function pointer")(*in_0.offset(i as isize)) != 0_i32 {
                 let fresh0 = j;
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 *out.offset(fresh0 as isize) = *in_0.offset(i as isize);
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         if inplace == 0_i32 && j < len {
@@ -82,7 +82,7 @@ fn main_0() -> i32 {
         i = 0_i32;
         while i < len {
             print!(" {}", *even.offset(i as isize));
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         println!();
@@ -98,7 +98,7 @@ fn main_0() -> i32 {
         i = 0_i32;
         while i < len {
             print!(" {}", in_0[i as usize]);
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         println!();

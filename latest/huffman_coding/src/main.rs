@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -76,22 +76,22 @@ extern "C" fn _heap_sort(mut heap: *mut heap_t) {
         let mut j: i32 = 2;
         let mut a: *mut i32 = (*heap).h;
         while i < (*heap).n {
-            if *((*heap).f).offset(*a.offset((i - 1i32) as isize) as isize)
+            if *((*heap).f).offset(*a.offset((i.wrapping_sub(1i32)) as isize) as isize)
                 >= *((*heap).f).offset(*a.offset(i as isize) as isize)
             {
                 i = j;
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             } else {
                 let mut t_: i32 = 0;
-                t_ = *a.offset((i - 1i32) as isize);
-                *a.offset((i - 1i32) as isize) = *a.offset(i as isize);
+                t_ = *a.offset((i.wrapping_sub(1i32)) as isize);
+                *a.offset((i.wrapping_sub(1i32)) as isize) = *a.offset(i as isize);
                 *a.offset(i as isize) = t_;
-                i -= 1_i32;
+                i = i.wrapping_sub(1);
                 i;
                 i = if i == 0_i32 {
                     let fresh0 = j;
-                    j += 1_i32;
+                    j = j.wrapping_add(1);
                     fresh0
                 } else {
                     i
@@ -161,7 +161,7 @@ pub extern "C" fn create_huffman_codes(mut freqs: *mut i64) -> *mut *mut huffcod
             if efreqs[i as usize] > 0 {
                 _heap_add(heap, i);
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         while (*heap).n > 1_i32 {
@@ -171,7 +171,7 @@ pub extern "C" fn create_huffman_codes(mut freqs: *mut i64) -> *mut *mut huffcod
             _heap_add(heap, extf);
             preds[r1 as usize] = extf;
             preds[r2 as usize] = -extf;
-            extf += 1_i32;
+            extf = extf.wrapping_add(1);
             extf;
         }
         r1 = _heap_remove(heap);
@@ -193,7 +193,7 @@ pub extern "C" fn create_huffman_codes(mut freqs: *mut i64) -> *mut *mut huffcod
                 while abs(preds[ix as usize]) != ix {
                     bc |= (if preds[ix as usize] >= 0_i32 { 1_i32 } else { 0_i32 }) << bn;
                     ix = abs(preds[ix as usize]);
-                    bn += 1_i32;
+                    bn = bn.wrapping_add(1);
                     bn;
                 }
                 let fresh2 = &mut (*codes.offset(i as isize));
@@ -201,7 +201,7 @@ pub extern "C" fn create_huffman_codes(mut freqs: *mut i64) -> *mut *mut huffcod
                 (**codes.offset(i as isize)).nbits = bn;
                 (**codes.offset(i as isize)).code = bc;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         codes
@@ -216,7 +216,7 @@ pub extern "C" fn free_huffman_codes(mut c: *mut *mut huffcode_t) {
         i = 0_i32;
         while i < 256_i32 {
             free((*c.offset(i as isize)).cast::<libc::c_void>());
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         free(c.cast::<libc::c_void>());
@@ -229,9 +229,9 @@ pub extern "C" fn inttobits(mut c: i32, mut n: i32, mut s: *mut i8) {
     unsafe {
         *s.offset(n as isize) = 0;
         while n > 0_i32 {
-            *s.offset((n - 1i32) as isize) = (c % 2_i32 + '0' as i32) as i8;
+            *s.offset((n.wrapping_sub(1i32)) as isize) = (c % 2_i32 + '0' as i32) as i8;
             c >>= 1_i32;
-            n -= 1_i32;
+            n = n.wrapping_sub(1);
             n;
         }
     }
@@ -276,7 +276,7 @@ fn main_0() -> i32 {
                     build_str_from_raw_ptr(strbit.as_mut_ptr().cast::<u8>())
                 );
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         free_huffman_codes(r);

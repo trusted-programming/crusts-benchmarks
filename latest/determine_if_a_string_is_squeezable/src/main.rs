@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -62,7 +62,7 @@ pub extern "C" fn strcmpi(mut str1: *mut i8, mut str2: *mut i8) -> i32 {
                 } else if i32::from(*str1.offset(i as isize)) != i32::from(*str2.offset(i as isize)) {
                     return 1_i32;
                 }
-                i += 1_i32;
+                i = i.wrapping_add(1);
                 i;
             }
         }
@@ -90,7 +90,7 @@ pub extern "C" fn strToCharList(mut str: *mut i8) -> *mut charList {
             (*nextChar).next = std::ptr::null_mut::<charList>();
             (*iterator).next = nextChar;
             iterator = nextChar;
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         list
@@ -106,17 +106,19 @@ pub extern "C" fn charListToString(mut list: *mut charList) -> *mut i8 {
         let mut i: i32 = 0;
         let mut str: *mut i8 = std::ptr::null_mut::<i8>();
         while !iterator.is_null() {
-            count += 1_i32;
+            count = count.wrapping_add(1);
             count;
             iterator = (*iterator).next;
         }
-        str = malloc(((count + 1i32) as u64).wrapping_mul(::core::mem::size_of::<i8>() as u64)).cast::<i8>();
+        str = malloc(
+            ((count.wrapping_add(1i32)) as u64).wrapping_mul(::core::mem::size_of::<i8>() as u64),
+        ).cast::<i8>();
         iterator = list;
         i = 0_i32;
         while i < count {
             *str.offset(i as isize) = (*iterator).c;
             iterator = (*iterator).next;
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         free(list.cast::<libc::c_void>());

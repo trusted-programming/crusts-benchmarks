@@ -26,7 +26,7 @@ pub extern "C" fn map(
         i = 0_i32;
         while i < len {
             callback.expect("non-null function pointer")(i, *array.offset(i as isize));
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }

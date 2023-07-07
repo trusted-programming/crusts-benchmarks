@@ -23,7 +23,7 @@ pub extern "C" fn gcd(mut m: i64, mut n: i64) -> i64 {
     let mut t: i64 = 0;
     while n != 0 {
         t = n;
-        n = m % n;
+        n = m.wrapping_rem(n);
         m = t;
     }
     m
@@ -109,13 +109,13 @@ fn main_0() -> i32 {
                 kf = frac_new(1, i64::from(n / k));
                 sum = frac_add(sum, kf);
             }
-            k += 1_i32;
+            k = k.wrapping_add(1);
             k;
         }
         if frac_cmp(sum, frac_new(1, 1)) == 0_i32 {
             println!("{}", n);
         }
-        n += 1_i32;
+        n = n.wrapping_add(1);
         n;
     }
     0_i32

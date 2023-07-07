@@ -34,7 +34,7 @@ pub extern "C" fn walk(mut y: i32, mut x: i32) {
             cnt = cnt.wrapping_add(2);
             return;
         }
-        t = y * (w + 1_i32) + x;
+        t = y * (w.wrapping_add(1)) + x;
         let fresh0 = &mut (*grid.offset(t as isize));
         *fresh0 = (*fresh0).wrapping_add(1);
         *fresh0;
@@ -52,7 +52,7 @@ pub extern "C" fn walk(mut y: i32, mut x: i32) {
                     x + dir[i as usize][1_usize],
                 );
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         let fresh2 = &mut (*grid.offset(t as isize));
@@ -91,30 +91,30 @@ pub extern "C" fn solve(mut hh: i32, mut ww: i32, mut recur: i32) -> u64 {
         if h == 2_i32 {
             return w as u64;
         }
-        cy = h / 2_i32;
-        cx = w / 2_i32;
-        len = (h + 1_i32) * (w + 1_i32);
+        cy = h.wrapping_add(2);
+        cx = w.wrapping_add(2);
+        len = (h.wrapping_add(1)) * (w.wrapping_add(1));
         grid = realloc(grid.cast::<libc::c_void>(), len as u64).cast::<u8>();
         let fresh4 = len;
-        len -= 1_i32;
+        len = len.wrapping_sub(1);
         memset(grid.cast::<libc::c_void>(), 0, fresh4 as u64);
         next[0_usize] = -1_i32;
         next[1_usize] = -w - 1_i32;
         next[2_usize] = 1_i32;
-        next[3_usize] = w + 1_i32;
+        next[3_usize] = w.wrapping_add(1);
         if recur != 0_i32 {
             cnt = 0;
         }
     }
-    x = cx + 1_i32;
+    x = cx.wrapping_add(1);
 // SAFETY: machine generated unsafe code
     unsafe {
         while x < w {
-            t = cy * (w + 1_i32) + x;
+            t = cy * (w.wrapping_add(1)) + x;
             *grid.offset(t as isize) = 1;
             *grid.offset((len - t) as isize) = 1;
-            walk(cy - 1, x);
-            x += 1_i32;
+            walk(cy.wrapping_sub(1), x);
+            x = x.wrapping_add(1);
             x;
         }
         cnt = cnt.wrapping_add(1);
@@ -138,10 +138,10 @@ fn main_0() -> i32 {
             if x & 1_i32 == 0_i32 || y & 1_i32 == 0_i32 {
                 println!("{} x {}: {}", y, x, solve(y, x, 1));
             }
-            x += 1_i32;
+            x = x.wrapping_add(1);
             x;
         }
-        y += 1_i32;
+        y = y.wrapping_add(1);
         y;
     }
     0_i32

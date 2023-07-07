@@ -20,7 +20,7 @@ pub extern "C" fn reduce(mut fn_0: intFn, mut size: i32, mut elms: *mut i32) -> 
         i = 1_i32;
         while i < size {
             val = fn_0.expect("non-null function pointer")(val, *elms.offset(i as isize));
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         val
@@ -29,7 +29,7 @@ pub extern "C" fn reduce(mut fn_0: intFn, mut size: i32, mut elms: *mut i32) -> 
 
 #[no_mangle]
 pub extern "C" fn add(mut a: i32, mut b: i32) -> i32 {
-    a + b
+    a.wrapping_add(b)
 }
 
 #[no_mangle]
@@ -39,7 +39,7 @@ pub extern "C" fn sub(mut a: i32, mut b: i32) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn mul(mut a: i32, mut b: i32) -> i32 {
-    a * b
+    a.wrapping_mul(b)
 }
 
 fn main_0() -> i32 {

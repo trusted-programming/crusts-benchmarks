@@ -25,7 +25,7 @@ fn main_0() -> i32 {
                 rand() % 10_000_i32,
                 rand() % 10_000_i32
             );
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }

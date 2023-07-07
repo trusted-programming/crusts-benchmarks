@@ -116,7 +116,7 @@ fn main_0() -> i32 {
             } else {
                 dequeue(q, &mut n) == 0;
             }
-            i += 1;
+            i = i.wrapping_add(1);
             i;
         }
     }

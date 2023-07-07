@@ -30,7 +30,7 @@ pub extern "C" fn lcs(sa: *const i8, sb: *const i8, beg: *mut *mut i8, end: *mut
                         && i32::from(*sa.offset(apos.wrapping_add(len as u64) as isize))
                             == i32::from(*sb.offset(bpos.wrapping_add(len as u64) as isize))
                     {
-                        len += 1_i32;
+                        len = len.wrapping_add(1);
                         len;
                     }
                 }

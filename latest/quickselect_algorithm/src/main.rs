@@ -20,19 +20,19 @@ pub extern "C" fn qselect(mut v: *mut i32, mut len: i32, mut k: i32) -> i32 {
         let mut tmp: i32 = 0;
         i = 0_i32;
         st = i;
-        while i < len - 1_i32 {
-            if *v.offset(i as isize) <= *v.offset((len - 1i32) as isize) {
+        while i < len.wrapping_sub(1) {
+            if *v.offset(i as isize) <= *v.offset((len.wrapping_sub(1i32)) as isize) {
                 tmp = *v.offset(i as isize);
                 *v.offset(i as isize) = *v.offset(st as isize);
                 *v.offset(st as isize) = tmp;
-                st += 1_i32;
+                st = st.wrapping_add(1);
                 st;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
-        tmp = *v.offset((len - 1i32) as isize);
-        *v.offset((len - 1i32) as isize) = *v.offset(st as isize);
+        tmp = *v.offset((len.wrapping_sub(1i32)) as isize);
+        *v.offset((len.wrapping_sub(1i32)) as isize) = *v.offset(st as isize);
         *v.offset(st as isize) = tmp;
         if k == st {
             *v.offset(st as isize)
@@ -58,7 +58,7 @@ fn main_0() -> i32 {
                 ::core::mem::size_of::<[i32; 10]>() as u64,
             );
             println!("{}: {}", i, qselect(y.as_mut_ptr(), 10, i));
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }

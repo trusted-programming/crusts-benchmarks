@@ -37,7 +37,7 @@ fn main_0() -> i32 {
     i = 0_i32;
     while i < 1_000_i32 {
         rands[i as usize] = 0.5f64.mul_add(random_normal(), 1.0f64);
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     0_i32

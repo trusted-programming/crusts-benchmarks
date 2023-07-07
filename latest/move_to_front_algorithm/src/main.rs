@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -64,7 +64,7 @@ pub extern "C" fn decode(mut pass: *mut i32, mut size: i32, mut sym: *mut i8) {
                 print!("there is an error");
             };
             *sym.offset(i as isize) = c;
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         *sym.offset(size as isize) = '\0' as i8;
@@ -83,7 +83,7 @@ pub extern "C" fn encode(mut sym: *mut i8, mut size: i32, mut pass: *mut i32) {
         while i < size {
             c = *sym.offset(i as isize);
             *pass.offset(i as isize) = move_to_front(table.as_mut_ptr(), c);
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -102,7 +102,7 @@ pub extern "C" fn check(mut sym: *mut i8, mut size: i32, mut pass: *mut i32) -> 
         encode(sym, size, pass2);
         i = 0_i32;
         while i < size && *pass.offset(i as isize) == *pass2.offset(i as isize) {
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         if i != size {
@@ -140,7 +140,7 @@ fn main_0() -> i32 {
             j = 0_i32;
             while j < len {
                 print!("{} ", pass[j as usize]);
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
             println!("]");
@@ -149,7 +149,7 @@ fn main_0() -> i32 {
             } else {
                 println!("Incorrect :(");
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }

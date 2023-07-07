@@ -21,14 +21,14 @@ fn main_0() -> i32 {
 // SAFETY: machine generated unsafe code
     unsafe {
         while f64::from(k) < pow(f64::from(base), f64::from(N)) {
-            c1 += 1_i32;
+            c1 = c1.wrapping_add(1);
             c1;
-            if k % (base - 1_i32) == k * k % (base - 1_i32) {
-                c2 += 1_i32;
+            if k % (base.wrapping_sub(1)) == k * k % (base.wrapping_sub(1)) {
+                c2 = c2.wrapping_add(1);
                 c2;
                 print!("{} ", k);
             }
-            k += 1_i32;
+            k = k.wrapping_add(1);
             k;
         }
     }

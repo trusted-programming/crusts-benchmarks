@@ -33,7 +33,7 @@ fn main_0() -> i32 {
         } else {
             println!("{} is not \0a leap year.", year)
         };
-        key += 1_i32;
+        key = key.wrapping_add(1);
         key;
     }
     0_i32

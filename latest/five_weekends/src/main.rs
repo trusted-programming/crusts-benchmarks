@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -83,7 +83,7 @@ fn main_0() -> i32 {
             i = 0_i32;
             while i < 7_i32 {
                 m = long_months[i as usize];
-                t.tm_year = y - 1_900_i32;
+                t.tm_year = y.wrapping_sub(1900);
                 t.tm_mon = m;
                 t.tm_mday = 1_i32;
                 if mktime(&mut t) == -1_i64 {
@@ -98,13 +98,13 @@ fn main_0() -> i32 {
                         y,
                         build_str_from_raw_ptr(months[m as usize] as *mut u8)
                     );
-                    n += 1_i32;
+                    n = n.wrapping_add(1);
                     n;
                 }
-                i += 1_i32;
+                i = i.wrapping_add(1);
                 i;
             }
-            y += 1_i32;
+            y = y.wrapping_add(1);
             y;
         }
     }

@@ -18,31 +18,35 @@ extern "C" {
 pub extern "C" fn cholesky(mut A: *mut f64, mut n: i32) -> *mut f64 {
 // SAFETY: machine generated unsafe code
     unsafe {
-        let mut L: *mut f64 =
-            calloc((n * n) as u64, ::core::mem::size_of::<f64>() as u64).cast::<f64>();
+        let mut L: *mut f64 = calloc(
+            (n.wrapping_mul(n)) as u64,
+            ::core::mem::size_of::<f64>() as u64,
+        ).cast::<f64>();
         if L.is_null() {
             exit(1);
         }
         let mut i: i32 = 0;
         while i < n {
             let mut j: i32 = 0;
-            while j < i + 1_i32 {
+            while j < i.wrapping_add(1) {
                 let mut s: f64 = f64::from(0_i32);
                 let mut k: i32 = 0;
                 while k < j {
-                    s += *L.offset((i * n + k) as isize) * *L.offset((j * n + k) as isize);
-                    k += 1_i32;
+                    s += *L.offset((i * n.wrapping_add(k)) as isize)
+                        * *L.offset((j * n.wrapping_add(k)) as isize);
+                    k = k.wrapping_add(1);
                     k;
                 }
-                *L.offset((i * n + j) as isize) = if i == j {
-                    sqrt(*A.offset((i * n + i) as isize) - s)
+                *L.offset((i * n.wrapping_add(j)) as isize) = if i == j {
+                    sqrt(*A.offset((i * n.wrapping_add(i)) as isize) - s)
                 } else {
-                    1.0f64 / *L.offset((j * n + j) as isize) * (*A.offset((i * n + j) as isize) - s)
+                    1.0f64 / *L.offset((j * n.wrapping_add(j)) as isize)
+                        * (*A.offset((i * n.wrapping_add(j)) as isize) - s)
                 };
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         L
@@ -58,11 +62,11 @@ pub extern "C" fn show_matrix(mut A: *mut f64, mut n: i32) {
             let mut j: i32 = 0;
             while j < n {
                 print!("{:2.5} ", *A.offset((i * n + j) as isize));
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
             println!();
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }

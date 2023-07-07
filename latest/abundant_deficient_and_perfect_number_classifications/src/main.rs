@@ -17,18 +17,18 @@ fn main_0() -> i32 {
     let mut count_list: [i32; 3] = [1, 0, 0];
     i = 2_i32;
     while i <= 20_000_i32 {
-        try_max = i / 2_i32;
+        try_max = i.wrapping_add(2);
         sum = 1_i32;
         j = 2_i32;
         while j < try_max {
             if i % j == 0_i32 {
-                try_max = i / j;
-                sum += j;
+                try_max = i.wrapping_add(j);
+                sum = sum.wrapping_add(j);
                 if j != try_max {
-                    sum += try_max;
+                    sum = sum.wrapping_add(try_max);
                 }
             }
-            j += 1_i32;
+            j = j.wrapping_add(1);
             j;
         }
         if sum < i {
@@ -41,7 +41,7 @@ fn main_0() -> i32 {
             count_list[1_usize] += 1_i32;
             count_list[1_usize];
         }
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     print!("\nThere are {} deficient,", count_list[0_usize]);

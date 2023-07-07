@@ -66,7 +66,7 @@ pub extern "C" fn myopenimage(mut in_0: *const i8) -> i32 {
             in_0,
         );
         let fresh0 = handle;
-        handle += 1_i32;
+        handle = handle.wrapping_add(1);
         fresh0
     }
 }

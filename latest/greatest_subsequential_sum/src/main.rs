@@ -31,14 +31,14 @@ pub extern "C" fn maxSubseq(mut sequence: *const i32, len: i32) -> Range {
         while j < len {
             thisSum += *sequence.offset(j as isize);
             if thisSum < 0_i32 {
-                i = j + 1_i32;
+                i = j.wrapping_add(1);
                 thisSum = 0_i32;
             } else if thisSum > maxSum {
                 maxSum = thisSum;
                 start = i;
                 end = j;
             }
-            j += 1_i32;
+            j = j.wrapping_add(1);
             j;
         }
         let mut r: Range = Range {
@@ -48,7 +48,7 @@ pub extern "C" fn maxSubseq(mut sequence: *const i32, len: i32) -> Range {
         };
         if start <= end && start >= 0_i32 && end >= 0_i32 {
             r.start = start;
-            r.end = end + 1_i32;
+            r.end = end.wrapping_add(1);
             r.sum = maxSum;
         } else {
             r.start = 0_i32;
@@ -72,7 +72,7 @@ fn main_0(mut _argc: i32, mut _argv: *mut *mut i8) -> i32 {
         i = r.start;
         while i < r.end {
             print!("{} ", a[i as usize]);
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         println!();

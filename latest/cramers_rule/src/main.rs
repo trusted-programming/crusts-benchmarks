@@ -42,10 +42,10 @@ pub extern "C" fn init_square_matrix(mut n: i32, mut elems: *mut f64) -> SquareM
             while j < n {
                 *(*(A.elems).offset(i as isize)).offset(j as isize) =
                     *elems.offset(i as isize * vla as isize).offset(j as isize);
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         A
@@ -73,10 +73,10 @@ pub extern "C" fn copy_square_matrix(mut src: SquareMatrix) -> SquareMatrix {
             while j < dest.n {
                 *(*(dest.elems).offset(i as isize)).offset(j as isize) =
                     *(*(src.elems).offset(i as isize)).offset(j as isize);
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -98,7 +98,7 @@ pub extern "C" fn det(mut A: SquareMatrix) -> f64 {
                 {
                     i_max = i;
                 }
-                i += 1_i32;
+                i = i.wrapping_add(1);
                 i;
             }
             if i_max != j {
@@ -108,7 +108,7 @@ pub extern "C" fn det(mut A: SquareMatrix) -> f64 {
                     *(*(A.elems).offset(i_max as isize)).offset(k as isize) =
                         *(*(A.elems).offset(j as isize)).offset(k as isize);
                     *(*(A.elems).offset(j as isize)).offset(k as isize) = tmp;
-                    k += 1_i32;
+                    k = k.wrapping_add(1);
                     k;
                 }
                 det_0 *= -1_f64;
@@ -117,7 +117,7 @@ pub extern "C" fn det(mut A: SquareMatrix) -> f64 {
                 puts((b"Singular matrix!\0" as *const u8).cast::<i8>());
                 return f64::from(::core::f32::NAN);
             }
-            let mut i_0: i32 = j + 1;
+            let mut i_0: i32 = j.wrapping_add(1);
             while i_0 < A.n {
                 let mut mult: f64 = -*(*(A.elems).offset(i_0 as isize)).offset(j as isize)
                     / *(*(A.elems).offset(j as isize)).offset(j as isize);
@@ -125,13 +125,13 @@ pub extern "C" fn det(mut A: SquareMatrix) -> f64 {
                 while k_0 < A.n {
                     *(*(A.elems).offset(i_0 as isize)).offset(k_0 as isize) +=
                         mult * *(*(A.elems).offset(j as isize)).offset(k_0 as isize);
-                    k_0 += 1_i32;
+                    k_0 = k_0.wrapping_add(1);
                     k_0;
                 }
-                i_0 += 1_i32;
+                i_0 = i_0.wrapping_add(1);
                 i_0;
             }
-            j += 1_i32;
+            j = j.wrapping_add(1);
             j;
         }
     }
@@ -140,7 +140,7 @@ pub extern "C" fn det(mut A: SquareMatrix) -> f64 {
     unsafe {
         while i_1 < A.n {
             det_0 *= *(*(A.elems).offset(i_1 as isize)).offset(i_1 as isize);
-            i_1 += 1_i32;
+            i_1 = i_1.wrapping_add(1);
             i_1;
         }
     }
@@ -154,7 +154,7 @@ pub extern "C" fn deinit_square_matrix(mut A: SquareMatrix) {
     unsafe {
         while i < A.n {
             free((*(A.elems).offset(i as isize)).cast::<libc::c_void>());
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         free(A.elems.cast::<libc::c_void>());
@@ -174,7 +174,7 @@ pub extern "C" fn cramer_solve(
         let mut i: i32 = 0;
         while i < tmp.n {
             *(*(tmp.elems).offset(i as isize)).offset(var as isize) = *b.offset(i as isize);
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         let mut det_tmp: f64 = det(tmp);
@@ -200,7 +200,7 @@ fn main_0(mut _argc: i32, mut _argv: *mut *mut i8) -> i32 {
         let mut i: i32 = 0;
         while i < 4_i32 {
             println!("{:7.3}", cramer_solve(A, f64::from(det_A), b.as_mut_ptr(), i));
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         deinit_square_matrix(A);

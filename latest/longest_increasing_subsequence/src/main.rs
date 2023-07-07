@@ -31,13 +31,13 @@ pub extern "C" fn lis(mut v: *mut i32, mut len: i32) {
         i = 0_i32;
         while i < len {
             (*n.offset(i as isize)).val = *v.offset(i as isize);
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         i = len;
         loop {
             let fresh0 = i;
-            i -= 1_i32;
+            i = i.wrapping_sub(1);
             if fresh0 == 0_i32 {
                 break;
             }
@@ -62,7 +62,7 @@ pub extern "C" fn lis(mut v: *mut i32, mut len: i32) {
             if (*n.offset(i as isize)).len > (*p).len {
                 p = n.offset(i as isize);
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         loop {

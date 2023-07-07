@@ -167,10 +167,10 @@ pub extern "C" fn convexHull(mut len: i32, mut p: *mut Point) -> *mut Node {
             h = pushBack(h, *p.offset(i as isize));
             hLen = hLen.wrapping_add(1);
             hLen;
-            i += 1;
+            i = i.wrapping_add(1);
             i;
         }
-        i = len - 1;
+        i = len.wrapping_sub(1);
         while i >= 0 {
             while hLen >= 2 {
                 hptr = h;
@@ -191,7 +191,7 @@ pub extern "C" fn convexHull(mut len: i32, mut p: *mut Point) -> *mut Node {
             h = pushBack(h, *p.offset(i as isize));
             hLen = hLen.wrapping_add(1);
             hLen;
-            i -= 1;
+            i = i.wrapping_sub(1);
             i;
         }
         popBack(h);

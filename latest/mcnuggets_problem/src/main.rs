@@ -17,40 +17,40 @@ fn main_0() -> i32 {
     let mut twenties: i32 = 0;
     's_3: while i < 100_i32 {
         sixes = 0_i32;
-        while (sixes * 6_i32) < i {
+        while (sixes.wrapping_mul(6)) < i {
             if sixes * 6_i32 == i {
-                i += 1_i32;
+                i = i.wrapping_add(1);
                 i;
                 continue 's_3;
             } else {
                 nines = 0_i32;
-                while (nines * 9_i32) < i {
+                while (nines.wrapping_mul(9)) < i {
                     if sixes * 6_i32 + nines * 9_i32 == i {
-                        i += 1_i32;
+                        i = i.wrapping_add(1);
                         i;
                         continue 's_3;
                     } else {
                         twenties = 0_i32;
-                        while (twenties * 20_i32) < i {
+                        while (twenties.wrapping_mul(20)) < i {
                             if sixes * 6_i32 + nines * 9_i32 + twenties * 20_i32 == i {
-                                i += 1_i32;
+                                i = i.wrapping_add(1);
                                 i;
                                 continue 's_3;
                             } else {
-                                twenties += 1_i32;
+                                twenties = twenties.wrapping_add(1);
                                 twenties;
                             }
                         }
-                        nines += 1_i32;
+                        nines = nines.wrapping_add(1);
                         nines;
                     }
                 }
-                sixes += 1_i32;
+                sixes = sixes.wrapping_add(1);
                 sixes;
             }
         }
         max = i;
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     println!("Maximum non-McNuggets number is {}", max);

@@ -40,10 +40,10 @@ fn main_0() -> i32 {
             j = 0;
             while j < 10 {
                 a[i as usize][j as usize] = rand() % 20 + 1;
-                j += 1;
+                j = j.wrapping_add(1);
                 j;
             }
-            i += 1;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -55,11 +55,11 @@ fn main_0() -> i32 {
             if a[i as usize][j as usize] == 20 {
                 break 's_32;
             }
-            j += 1;
+            j = j.wrapping_add(1);
             j;
         }
         print!("\n");
-        i += 1;
+        i = i.wrapping_add(1);
         i;
     }
     print!("\n");

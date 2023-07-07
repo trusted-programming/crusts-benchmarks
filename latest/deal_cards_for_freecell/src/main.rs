@@ -53,7 +53,7 @@ pub extern "C" fn show(mut c: *const i32) {
                 s_suits[(*c % 4i32) as usize],
                 s_nums[(*c / 4i32) as usize]
             );
-            i += 1;
+            i = i.wrapping_add(1);
             if i % 8 == 0 || i == 52 {
                 print!("{}", '\n' as i32);
             }
@@ -73,7 +73,7 @@ pub extern "C" fn deal(mut s: i32, mut t: *mut i32) {
         i = 0;
         while i < 52 {
             *t.offset(i as isize) = 51 - i;
-            i += 1;
+            i = i.wrapping_add(1);
             i;
         }
         i = 0;
@@ -82,7 +82,7 @@ pub extern "C" fn deal(mut s: i32, mut t: *mut i32) {
             s = *t.offset(i as isize);
             *t.offset(i as isize) = *t.offset(j as isize);
             *t.offset(j as isize) = s;
-            i += 1;
+            i = i.wrapping_add(1);
             i;
         }
     }

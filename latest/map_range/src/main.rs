@@ -29,7 +29,7 @@ fn main_0() -> i32 {
             i,
             mapRange(f64::from(0_i32), 10_f64, -1_f64, f64::from(0_i32), f64::from(i))
         );
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     0_i32

@@ -13,7 +13,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -264,7 +264,7 @@ pub extern "C" fn display(mut txt1: *const i8, mut txt2: *const i8) {
         let mut i: u64 = 0;
         while i < len {
             if i32::from(*txt1.offset(i as isize)) == i32::from(*txt2.offset(i as isize)) {
-                score += 1_i32;
+                score = score.wrapping_add(1);
                 score;
             }
             i = i.wrapping_add(1);

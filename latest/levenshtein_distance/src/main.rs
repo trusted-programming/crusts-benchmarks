@@ -25,19 +25,21 @@ pub extern "C" fn levenshtein(mut s: *const i8, mut ls: i32, mut t: *const i8, m
         if lt == 0_i32 {
             return ls;
         }
-        if i32::from(*s.offset((ls - 1i32) as isize)) == i32::from(*t.offset((lt - 1i32) as isize)) {
-            return levenshtein(s, ls - 1, t, lt - 1);
+        if i32::from(*s.offset((ls.wrapping_sub(1i32)) as isize))
+            == i32::from(*t.offset((lt.wrapping_sub(1i32)) as isize))
+        {
+            return levenshtein(s, ls.wrapping_sub(1), t, lt.wrapping_sub(1));
         }
-        a = levenshtein(s, ls - 1, t, lt - 1);
-        b = levenshtein(s, ls, t, lt - 1);
-        c = levenshtein(s, ls - 1, t, lt);
+        a = levenshtein(s, ls.wrapping_sub(1), t, lt.wrapping_sub(1));
+        b = levenshtein(s, ls, t, lt.wrapping_sub(1));
+        c = levenshtein(s, ls.wrapping_sub(1), t, lt);
         if a > b {
             a = b;
         }
         if a > c {
             a = c;
         }
-        a + 1_i32
+        a.wrapping_add(1)
     }
 }
 

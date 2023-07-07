@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -45,8 +45,8 @@ pub extern "C" fn doublyEvenMagicSquare(mut n: i32) -> *mut *mut i32 {
             return std::ptr::null_mut::<*mut i32>();
         }
         let mut bits: i32 = 38505;
-        let mut size: i32 = n * n;
-        let mut mult: i32 = n / 4;
+        let mut size: i32 = n.wrapping_mul(n);
+        let mut mult: i32 = n.wrapping_div(4);
         let mut i: i32 = 0;
         let mut r: i32 = 0;
         let mut c: i32 = 0;
@@ -58,7 +58,7 @@ pub extern "C" fn doublyEvenMagicSquare(mut n: i32) -> *mut *mut i32 {
             let fresh0 = &mut (*result.offset(i as isize));
             *fresh0 =
                 malloc((n as u64).wrapping_mul(::core::mem::size_of::<i32>() as u64)).cast::<i32>();
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         r = 0_i32;
@@ -66,18 +66,18 @@ pub extern "C" fn doublyEvenMagicSquare(mut n: i32) -> *mut *mut i32 {
         while r < n {
             c = 0_i32;
             while c < n {
-                bitPos = c / mult + r / mult * 4_i32;
+                bitPos = c / mult + r / mult.wrapping_mul(4);
                 *(*result.offset(r as isize)).offset(c as isize) = if bits & 1_i32 << bitPos != 0_i32 {
-                    i + 1_i32
+                    i.wrapping_add(1)
                 } else {
                     size - i
                 };
-                c += 1_i32;
+                c = c.wrapping_add(1);
                 c;
-                i += 1_i32;
+                i = i.wrapping_add(1);
                 i;
             }
-            r += 1_i32;
+            r = r.wrapping_add(1);
             r;
         }
         result
@@ -88,8 +88,8 @@ pub extern "C" fn doublyEvenMagicSquare(mut n: i32) -> *mut *mut i32 {
 pub extern "C" fn numDigits(mut n: i32) -> i32 {
     let mut count: i32 = 1;
     while n >= 10_i32 {
-        n /= 10_i32;
-        count += 1_i32;
+        n = n.wrapping_div(10);
+        count = count.wrapping_add(1);
         count;
     }
     count
@@ -101,7 +101,7 @@ pub extern "C" fn printMagicSquare(mut square: *mut *mut i32, mut rows: i32) {
     unsafe {
         let mut i: i32 = 0;
         let mut j: i32 = 0;
-        let mut baseWidth: i32 = numDigits(rows * rows) + 3;
+        let mut baseWidth: i32 = numDigits(rows.wrapping_mul(rows)) + 3;
         print!(
             "Doubly Magic Square of Order : {} and Magic Constant : {}\n\n",
             rows,
@@ -118,11 +118,11 @@ pub extern "C" fn printMagicSquare(mut square: *mut *mut i32, mut rows: i32) {
                     "\0",
                     *(*square.offset(i as isize)).offset(j as isize)
                 );
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
             println!();
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }

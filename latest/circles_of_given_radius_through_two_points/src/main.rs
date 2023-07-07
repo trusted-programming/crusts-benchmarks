@@ -138,10 +138,10 @@ fn main_0() -> i32 {
         print!("\nCase {})", i + 1_i32);
         findCircles(
             cases[(2_i32 * i) as usize],
-            cases[(2_i32 * i + 1i32) as usize],
+            cases[(2_i32 * i.wrapping_add(1i32)) as usize],
             radii[i as usize],
         );
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     0_i32

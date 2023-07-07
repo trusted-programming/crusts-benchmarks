@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -102,12 +102,18 @@ pub extern "C" fn trie_all(
         while (i as u64) < ::core::mem::size_of::<[i8; 41]>() as u64 {
             if !((*root).next[i as usize]).is_null() {
                 *path.offset(depth as isize) = idx_chr[i as usize];
-                *path.offset((depth + 1i32) as isize) = '\0' as i8;
-                if trie_all((*root).next[i as usize], path, depth + 1, callback) == 0_i32 {
+                *path.offset((depth.wrapping_add(1i32)) as isize) = '\0' as i8;
+                if trie_all(
+                    (*root).next[i as usize],
+                    path,
+                    depth.wrapping_add(1),
+                    callback,
+                ) == 0_i32
+                {
                     return 0_i32;
                 }
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         1_i32
@@ -176,9 +182,9 @@ pub extern "C" fn init_tables() -> trie {
 // SAFETY: machine generated unsafe code
     unsafe {
         while (i as u64) < ::core::mem::size_of::<[i8; 41]>() as u64 {
-            chr_idx[i32::from(chr_legal[i as usize]) as usize] = i + 1_i32;
-            idx_chr[(i + 1i32) as usize] = chr_legal[i as usize];
-            i += 1_i32;
+            chr_idx[i32::from(chr_legal[i as usize]) as usize] = i.wrapping_add(1);
+            idx_chr[(i.wrapping_add(1i32)) as usize] = chr_legal[i as usize];
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -192,10 +198,10 @@ pub extern "C" fn init_tables() -> trie {
                     break;
                 }
                 add_index(root, text[i as usize][j as usize], files[i as usize]);
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }

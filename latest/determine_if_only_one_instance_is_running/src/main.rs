@@ -164,7 +164,7 @@ fn main_0() -> i32 {
             };
             fflush(stdout);
             sleep(1);
-            i -= 1_i32;
+            i = i.wrapping_sub(1);
             i;
         }
         puts((b"Fin!\0" as *const u8).cast::<i8>());

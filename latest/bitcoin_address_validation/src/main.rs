@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -49,19 +49,19 @@ pub extern "C" fn unbase58(mut s: *const i8, mut out: *mut u8) -> i32 {
             j = 25_i32;
             loop {
                 let fresh0 = j;
-                j -= 1_i32;
+                j = j.wrapping_sub(1);
                 if fresh0 == 0_i32 {
                     break;
                 }
                 c += 58_i32 * i32::from(*out.offset(j as isize));
                 *out.offset(j as isize) = (c % 256i32) as u8;
-                c /= 256_i32;
+                c = c.wrapping_div(256);
             }
             if c != 0_i32 {
                 coin_err = (b"address too long\0" as *const u8).cast::<i8>();
                 return 0_i32;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         1_i32
@@ -123,7 +123,7 @@ fn main_0() -> i32 {
                     build_str_from_raw_ptr(coin_err as *mut u8)
                 )
             };
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }

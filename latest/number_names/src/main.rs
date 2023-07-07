@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -83,11 +83,12 @@ pub extern "C" fn say_hundred(
         i = -3_i32;
         while i < 0_i32 {
             if len + i >= 0_i32 {
-                c[(i + 3i32) as usize] = i32::from(*s.offset((len + i) as isize)) - '0' as i32;
+                c[(i.wrapping_add(3i32)) as usize] =
+                    i32::from(*s.offset((len.wrapping_add(i)) as isize)) - '0' as i32;
             } else {
-                c[(i + 3i32) as usize] = 0_i32;
+                c[(i.wrapping_add(3i32)) as usize] = 0_i32;
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         if c[0_usize] + c[1_usize] + c[2_usize] == 0_i32 {
@@ -148,10 +149,10 @@ pub extern "C" fn say_maxillion(
 ) -> i32 {
 // SAFETY: machine generated unsafe code
     unsafe {
-        let mut n: i32 = len / 3;
+        let mut n: i32 = len.wrapping_div(3);
         let mut r: i32 = len % 3;
         if r == 0_i32 {
-            n -= 1_i32;
+            n = n.wrapping_sub(1);
             n;
             r = 3_i32;
         }
@@ -170,7 +171,7 @@ pub extern "C" fn say_maxillion(
             e = e.offset(3_isize);
             r = 3_i32;
             let fresh0 = n;
-            n -= 1_i32;
+            n = n.wrapping_sub(1);
             if fresh0 == 0_i32 {
                 break;
             }
@@ -237,20 +238,22 @@ pub extern "C" fn say_number(mut s: *const i8) {
                             print!("(not a number)");
                             return;
                         }
-                        i += 1_i32;
+                        i = i.wrapping_add(1);
                         i;
                     }
                     if got_sign == -1_i32 {
                         print!("minus ");
                     }
-                    n = len / maxillion;
-                    r = len % maxillion;
+                    n = len.wrapping_add(maxillion);
+                    r = len.wrapping_rem(maxillion);
                     if r == 0_i32 {
                         r = maxillion;
-                        n -= 1_i32;
+                        n = n.wrapping_sub(1);
                         n;
                     }
-                    end = s.offset(len as isize).offset(-((n * maxillion) as isize));
+                    end = s
+                        .offset(len as isize)
+                        .offset(-((n.wrapping_mul(maxillion)) as isize));
                     has_lead = 0_i32;
                     loop {
                         has_lead = say_maxillion(s, r, n, has_lead);
@@ -263,14 +266,14 @@ pub extern "C" fn say_number(mut s: *const i8) {
                                         llions[(maxillion / 3i32) as usize] as *mut u8
                                     )
                                 );
-                                i += 1_i32;
+                                i = i.wrapping_add(1);
                                 i;
                             }
                             if n != 0_i32 {
                                 print!(", ");
                             }
                         }
-                        n -= 1_i32;
+                        n = n.wrapping_sub(1);
                         n;
                         r = maxillion;
                         s = end;

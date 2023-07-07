@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -167,7 +167,7 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
         i = 0_i32;
         while i < len {
             checkAndUpdateLetterList(*(*argv.offset(1_isize)).offset(i as isize), i);
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         if i32::from(duplicatesFound) == 0_i32 {

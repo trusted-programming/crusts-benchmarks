@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -40,7 +40,7 @@ pub extern "C" fn decode(mut roman: *const i8) -> i32 {
                 i32::from(*bigger) != '\0' as i32
             } {}
             if i32::from(*bigger) == '\0' as i32 {
-                arabic += current;
+                arabic = arabic.wrapping_add(current);
             } else {
                 arabic += digits[((!0x20i32 & i32::from(*bigger)) - 'A' as i32) as usize];
                 while roman < bigger {
@@ -73,7 +73,7 @@ fn main_0() -> i32 {
                 build_str_from_raw_ptr(romans[i as usize] as *mut u8),
                 decode(romans[i as usize])
             );
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }

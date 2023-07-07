@@ -37,10 +37,10 @@ fn main_0() -> i32 {
     while i < 100_i32 {
         x = randn(31) - 15_i32;
         y = randn(31) - 15_i32;
-        r2 = x * x + y * y;
+        r2 = x * x + y.wrapping_mul(y);
         if (100_i32..=225_i32).contains(&r2) {
-            buf[(15_i32 + y) as usize] |= (1i32 << (x + 15_i32)) as u64;
-            i += 1_i32;
+            buf[(y.wrapping_add(15)) as usize] |= (1i32 << x.wrapping_add(15)) as u64;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -53,11 +53,11 @@ fn main_0() -> i32 {
             } else {
                 print!("  ")
             };
-            x += 1_i32;
+            x = x.wrapping_add(1);
             x;
         }
         println!();
-        y += 1_i32;
+        y = y.wrapping_add(1);
         y;
     }
     0_i32

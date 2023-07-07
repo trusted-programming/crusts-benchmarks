@@ -20,7 +20,7 @@ fn main_0() -> i32 {
         } else {
             print!("{:3}{}", j, '\n' as i32)
         };
-        j += 1_i32;
+        j = j.wrapping_add(1);
         j;
     }
     j = 0_i32;
@@ -30,7 +30,7 @@ fn main_0() -> i32 {
         } else {
             println!("+")
         };
-        j += 1_i32;
+        j = j.wrapping_add(1);
         j;
     }
     i = 1_i32;
@@ -42,11 +42,11 @@ fn main_0() -> i32 {
             } else {
                 print!("{:3} ", i * j)
             };
-            j += 1_i32;
+            j = j.wrapping_add(1);
             j;
         }
         println!("| {}", i);
-        i += 1_i32;
+        i = i.wrapping_add(1);
         i;
     }
     0_i32

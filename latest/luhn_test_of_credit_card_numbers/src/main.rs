@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -34,7 +34,7 @@ pub extern "C" fn luhn(mut cc: *const i8) -> i32 {
         i = strlen(cc) as i32;
         loop {
             let fresh0 = i;
-            i -= 1_i32;
+            i = i.wrapping_sub(1);
             if fresh0 == 0_i32 {
                 break;
             }
@@ -70,7 +70,7 @@ fn main_0() -> i32 {
                     build_str_from_raw_ptr(cc[i as usize] as *mut u8)
                 )
             };
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }

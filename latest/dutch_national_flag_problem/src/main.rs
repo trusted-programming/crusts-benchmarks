@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -66,7 +66,7 @@ pub extern "C" fn issorted(mut balls: *mut i8) -> bool {
             if *balls.offset(i as isize) as i32 > state {
                 state = *balls.offset(i as isize) as i32;
             }
-            i += 1;
+            i = i.wrapping_add(1);
             i;
         }
         return 1 != 0;
@@ -88,7 +88,7 @@ pub extern "C" fn printout(mut balls: *mut i8) {
             } else {
                 'b' as i32
             }) as i8;
-            i += 1;
+            i = i.wrapping_add(1);
             i;
         }
         print!("{}\n", build_str_from_raw_ptr(str.as_mut_ptr() as *mut u8));
@@ -108,7 +108,7 @@ fn main_0() -> i32 {
     unsafe {
         while i < 5 {
             balls[i as usize] = (rand() as f64 / 2147483647 as f64 * 3 as f64) as i8;
-            i += 1;
+            i = i.wrapping_add(1);
             i;
         }
         while issorted(balls.as_mut_ptr()) {
@@ -117,7 +117,7 @@ fn main_0() -> i32 {
             i = 0;
             while i < 5 {
                 balls[i as usize] = (rand() as f64 / 2147483647 as f64 * 3 as f64) as i8;
-                i += 1;
+                i = i.wrapping_add(1);
                 i;
             }
         }

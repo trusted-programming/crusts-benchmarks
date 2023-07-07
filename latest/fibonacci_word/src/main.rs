@@ -12,7 +12,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.add(str_size) != 0 {
-            str_size += 1;
+            str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -40,7 +40,7 @@ pub extern "C" fn print_headings() {
 #[no_mangle]
 pub extern "C" fn calculate_entropy(mut ones: i32, mut zeros: i32) -> f64 {
     let mut result: f64 = f64::from(0_i32);
-    let mut total: i32 = ones + zeros;
+    let mut total: i32 = ones.wrapping_add(zeros);
 // SAFETY: machine generated unsafe code
     unsafe {
         result -= f64::from(ones) / f64::from(total) * log2(f64::from(ones) / f64::from(total));
@@ -64,16 +64,16 @@ pub extern "C" fn print_entropy(mut word: *mut i8) {
             let mut c: i8 = *word.offset(i as isize);
             match i32::from(c) {
                 48_i32 => {
-                    zeros += 1_i32;
+                    zeros = zeros.wrapping_add(1);
                     zeros;
                 }
                 49_i32 => {
-                    ones += 1_i32;
+                    ones = ones.wrapping_add(1);
                     ones;
                 }
                 _ => {}
             }
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         let mut entropy: f64 = calculate_entropy(ones, zeros);
@@ -120,7 +120,7 @@ fn main_0(mut _argc: i32, mut _argv: *mut *mut i8) -> i32 {
             free(last_word.cast::<libc::c_void>());
             last_word = current_word;
             current_word = next_word;
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         free(last_word.cast::<libc::c_void>());

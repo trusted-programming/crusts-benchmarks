@@ -7,7 +7,7 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {
     fn pow(_: f64, _: f64) -> f64;
     fn sqrt(_: f64) -> f64;
@@ -15,19 +15,21 @@ extern "C" {
     fn floor(_: f64) -> f64;
 }
 #[no_mangle]
-pub static mut shades: *const i8 = (b".:!*oe&#%@\0" as *const u8).cast::<i8>();
+pub static mut shades: *const i8 = b".:!*oe&#%@\0" as *const u8 as *const i8;
 #[no_mangle]
-pub static mut light: [f64; 3] = [30_f64, 30_f64, -50_f64];
+pub static mut light: [f64; 3] = [30 as f64, 30 as f64, -50i32 as f64];
 #[no_mangle]
 pub extern "C" fn normalize(mut v: *mut f64) {
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut len: f64 = sqrt(
-            (*v.offset(2_isize)).mul_add(*v.offset(2_isize), (*v.offset(0_isize)).mul_add(*v.offset(0_isize), *v.offset(1_isize) * *v.offset(1_isize))),
+            *v.offset(0 as isize) * *v.offset(0 as isize)
+                + *v.offset(1 as isize) * *v.offset(1 as isize)
+                + *v.offset(2 as isize) * *v.offset(2 as isize),
         );
-        *v.offset(0_isize) /= len;
-        *v.offset(1_isize) /= len;
-        *v.offset(2_isize) /= len;
+        *v.offset(0 as isize) /= len;
+        *v.offset(1 as isize) /= len;
+        *v.offset(2 as isize) /= len;
     }
 }
 
@@ -35,8 +37,10 @@ pub extern "C" fn normalize(mut v: *mut f64) {
 pub extern "C" fn dot(mut x: *mut f64, mut y: *mut f64) -> f64 {
 // SAFETY: machine generated unsafe code
     unsafe {
-        let mut d: f64 = (*x.offset(2_isize)).mul_add(*y.offset(2_isize), (*x.offset(0_isize)).mul_add(*y.offset(0_isize), *x.offset(1_isize) * *y.offset(1_isize)));
-        if d < f64::from(0_i32) { -d } else { f64::from(0_i32) }
+        let mut d: f64 = *x.offset(0 as isize) * *y.offset(0 as isize)
+            + *x.offset(1 as isize) * *y.offset(1 as isize)
+            + *x.offset(2 as isize) * *y.offset(2 as isize);
+        return if d < 0 as f64 { -d } else { 0 as f64 };
     }
 }
 
@@ -52,22 +56,22 @@ pub extern "C" fn draw_sphere(mut R: f64, mut k: f64, mut ambient: f64) {
 // SAFETY: machine generated unsafe code
     unsafe {
         i = floor(-R) as i32;
-        while f64::from(i) <= ceil(R) {
-            x = f64::from(i) + 0.5f64;
-            j = floor(-2_f64 * R) as i32;
-            while f64::from(j) <= ceil(2_f64 * R) {
-                y = f64::from(j) / 2.0f64 + 0.5f64;
-                if x.mul_add(x, y * y) <= R * R {
-                    vec[0_usize] = x;
-                    vec[1_usize] = y;
-                    vec[2_usize] = sqrt(y.mul_add(-y, R.mul_add(R, -x * x)));
+        while i as f64 <= ceil(R) {
+            x = i as f64 + 0.5f64;
+            j = floor(-2i32 as f64 * R) as i32;
+            while j as f64 <= ceil(2 as f64 * R) {
+                y = j as f64 / 2.0f64 + 0.5f64;
+                if x * x + y * y <= R.wrapping_mul(R) {
+                    vec[0 as usize] = x;
+                    vec[1 as usize] = y;
+                    vec[2 as usize] = sqrt(R * R - x * x - y.wrapping_mul(y));
                     normalize(vec.as_mut_ptr());
                     b = pow(dot(light.as_mut_ptr(), vec.as_mut_ptr()), k) + ambient;
-                    intensity = ((1_f64 - b)
+                    intensity = ((1 as f64 - b)
                         * (::core::mem::size_of::<*const i8>() as u64).wrapping_sub(1u64) as f64)
                         as i32;
-                    if intensity < 0_i32 {
-                        intensity = 0_i32;
+                    if intensity < 0 {
+                        intensity = 0;
                     }
                     if intensity as u64
                         >= (::core::mem::size_of::<*const i8>() as u64).wrapping_sub(1)
@@ -75,15 +79,15 @@ pub extern "C" fn draw_sphere(mut R: f64, mut k: f64, mut ambient: f64) {
                         intensity =
                             (::core::mem::size_of::<*const i8>() as u64).wrapping_sub(2) as i32;
                     }
-                    print!("{}", i32::from(*shades.offset(intensity as isize)));
+                    print!("{}", *shades.offset(intensity as isize) as i32);
                 } else {
                     print!("{}", ' ' as i32);
                 }
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
             print!("{}", '\n' as i32);
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
@@ -94,11 +98,11 @@ fn main_0() -> i32 {
     unsafe {
         normalize(light.as_mut_ptr());
     }
-    draw_sphere(20_f64, 4_f64, 0.1f64);
-    draw_sphere(10_f64, 2_f64, 0.4f64);
-    0_i32
+    draw_sphere(20 as f64, 4 as f64, 0.1f64);
+    draw_sphere(10 as f64, 2 as f64, 0.4f64);
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

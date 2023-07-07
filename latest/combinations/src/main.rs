@@ -13,7 +13,7 @@ extern "C" {}
 pub static mut one: u64 = 1;
 #[no_mangle]
 pub extern "C" fn comb(mut pool: i32, mut need: i32, mut chosen: u64, mut at: i32) {
-    if pool < need + at {
+    if pool < need.wrapping_add(at) {
         return;
     }
 // SAFETY: machine generated unsafe code
@@ -24,15 +24,20 @@ pub extern "C" fn comb(mut pool: i32, mut need: i32, mut chosen: u64, mut at: i3
                 if chosen & one << at != 0 {
                     print!("{} ", at);
                 }
-                at += 1_i32;
+                at = at.wrapping_add(1);
                 at;
             }
             println!();
             return;
         }
-        comb(pool, need - 1, chosen | one << at, at + 1);
+        comb(
+            pool,
+            need.wrapping_sub(1),
+            chosen | one << at,
+            at.wrapping_add(1),
+        );
     }
-    comb(pool, need, chosen, at + 1);
+    comb(pool, need, chosen, at.wrapping_add(1));
 }
 
 fn main_0() -> i32 {

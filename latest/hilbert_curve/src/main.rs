@@ -44,13 +44,13 @@ pub extern "C" fn d2pt(mut n: i32, mut d: i32, mut p: *mut point) {
         (*p).x = 0_i32;
         (*p).y = 0_i32;
         while s < n {
-            rx = 1_i32 & (t / 2_i32);
+            rx = 1_i32 & t.wrapping_div(2);
             ry = 1_i32 & (t ^ rx);
             rot(s, p, rx, ry);
-            (*p).x += s * rx;
-            (*p).y += s * ry;
-            t /= 4_i32;
-            s *= 2_i32;
+            (*p).x += s.wrapping_mul(rx);
+            (*p).y += s.wrapping_mul(ry);
+            t = t.wrapping_div(4);
+            s = s.wrapping_mul(2);
         }
     }
 }
@@ -71,10 +71,10 @@ fn main_0() -> i32 {
         y = 0_i32;
         while y < 32_i32 * 3_i32 {
             pts[x as usize][y as usize] = ' ' as i8;
-            y += 1_i32;
+            y = y.wrapping_add(1);
             y;
         }
-        x += 1_i32;
+        x = x.wrapping_add(1);
         x;
     }
     prev.y = 0_i32;
@@ -90,37 +90,37 @@ fn main_0() -> i32 {
         pts[cx as usize][cy as usize] = '.' as i8;
         if cx == px {
             if py < cy {
-                y = py + 1_i32;
+                y = py.wrapping_add(1);
                 while y < cy {
                     pts[cx as usize][y as usize] = '|' as i8;
-                    y += 1_i32;
+                    y = y.wrapping_add(1);
                     y;
                 }
             } else {
-                y = cy + 1_i32;
+                y = cy.wrapping_add(1);
                 while y < py {
                     pts[cx as usize][y as usize] = '|' as i8;
-                    y += 1_i32;
+                    y = y.wrapping_add(1);
                     y;
                 }
             }
         } else if px < cx {
-            x = px + 1_i32;
+            x = px.wrapping_add(1);
             while x < cx {
                 pts[x as usize][cy as usize] = '_' as i8;
-                x += 1_i32;
+                x = x.wrapping_add(1);
                 x;
             }
         } else {
-            x = cx + 1_i32;
+            x = cx.wrapping_add(1);
             while x < px {
                 pts[x as usize][cy as usize] = '_' as i8;
-                x += 1_i32;
+                x = x.wrapping_add(1);
                 x;
             }
         }
         prev = curr;
-        d += 1_i32;
+        d = d.wrapping_add(1);
         d;
     }
     x = 0_i32;
@@ -128,11 +128,11 @@ fn main_0() -> i32 {
         y = 0_i32;
         while y < 32_i32 * 3_i32 {
             print!("{}", i32::from(pts[y as usize][x as usize]));
-            y += 1_i32;
+            y = y.wrapping_add(1);
             y;
         }
         println!();
-        x += 1_i32;
+        x = x.wrapping_add(1);
         x;
     }
     0_i32

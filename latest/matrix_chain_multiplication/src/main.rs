@@ -27,14 +27,14 @@ pub extern "C" fn optimal_matrix_chain_order(mut dims: *mut i32, mut n: i32) {
         let mut k: i32 = 0;
         let mut temp: i32 = 0;
         let mut cost: i32 = 0;
-        n -= 1_i32;
+        n = n.wrapping_sub(1);
         n;
         m = malloc((n as u64).wrapping_mul(::core::mem::size_of::<*mut i32>() as u64)).cast::<*mut i32>();
         i = 0_i32;
         while i < n {
             let fresh0 = &mut (*m.offset(i as isize));
             *fresh0 = calloc(n as u64, ::core::mem::size_of::<i32>() as u64).cast::<i32>();
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         s = malloc((n as u64).wrapping_mul(::core::mem::size_of::<*mut i32>() as u64)).cast::<*mut i32>();
@@ -42,34 +42,34 @@ pub extern "C" fn optimal_matrix_chain_order(mut dims: *mut i32, mut n: i32) {
         while i < n {
             let fresh1 = &mut (*s.offset(i as isize));
             *fresh1 = calloc(n as u64, ::core::mem::size_of::<i32>() as u64).cast::<i32>();
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
         len = 1_i32;
         while len < n {
             i = 0_i32;
             while i < n - len {
-                j = i + len;
+                j = i.wrapping_add(len);
                 *(*m.offset(i as isize)).offset(j as isize) = 2_147_483_647_i32;
                 k = i;
                 while k < j {
                     temp = *dims.offset(i as isize)
-                        * *dims.offset((k + 1i32) as isize)
-                        * *dims.offset((j + 1i32) as isize);
+                        * *dims.offset((k.wrapping_add(1i32)) as isize)
+                        * *dims.offset((j.wrapping_add(1i32)) as isize);
                     cost = *(*m.offset(i as isize)).offset(k as isize)
-                        + *(*m.offset((k + 1i32) as isize)).offset(j as isize)
+                        + *(*m.offset((k.wrapping_add(1i32)) as isize)).offset(j as isize)
                         + temp;
                     if cost < *(*m.offset(i as isize)).offset(j as isize) {
                         *(*m.offset(i as isize)).offset(j as isize) = cost;
                         *(*s.offset(i as isize)).offset(j as isize) = k;
                     }
-                    k += 1_i32;
+                    k = k.wrapping_add(1);
                     k;
                 }
-                i += 1_i32;
+                i = i.wrapping_add(1);
                 i;
             }
-            len += 1_i32;
+            len = len.wrapping_add(1);
             len;
         }
     }
@@ -108,36 +108,36 @@ fn main_0() -> i32 {
             j = 0_i32;
             while j < n {
                 print!("{}", *(dims_list[i as usize]).offset(j as isize));
-                if j < n - 1_i32 {
+                if j < n.wrapping_sub(1) {
                     print!(", ");
                 } else {
                     println!("]");
                 }
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
             optimal_matrix_chain_order(dims_list[i as usize], n);
             print!("Order : ");
-            print_optimal_chain_order(0, n - 2);
+            print_optimal_chain_order(0, n.wrapping_sub(2));
             print!(
                 "\nCost  : {}\n\n",
                 *(*m.offset(0_isize)).offset((n - 2i32) as isize)
             );
             j = 0_i32;
-            while j <= n - 2_i32 {
+            while j <= n.wrapping_sub(2) {
                 free((*m.offset(j as isize)).cast::<libc::c_void>());
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
             free(m.cast::<libc::c_void>());
             j = 0_i32;
-            while j <= n - 2_i32 {
+            while j <= n.wrapping_sub(2) {
                 free((*s.offset(j as isize)).cast::<libc::c_void>());
-                j += 1_i32;
+                j = j.wrapping_add(1);
                 j;
             }
             free(s.cast::<libc::c_void>());
-            i += 1_i32;
+            i = i.wrapping_add(1);
             i;
         }
     }
