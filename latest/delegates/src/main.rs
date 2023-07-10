@@ -55,8 +55,10 @@ pub extern "C" fn NewDelegate(mut rspndr: Responder) -> Delegate {
 #[no_mangle]
 pub extern "C" fn DelegateThing(mut dl: Delegate, mut p1: i32) -> *const i8 {
     return if ((*dl).operation).is_some() {
-        (Some(((*dl).operation).expect("non-null function pointer")))
-            .expect("non-null function pointer")(p1)
+        match (Some(((*dl).operation).expect("non-null function pointer"))) {
+            Some(temp_m) => temp_m(p1),
+            None => panic!("non-null function pointer"),
+        }
     } else {
         0 as *const i8
     };

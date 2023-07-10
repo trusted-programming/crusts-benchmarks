@@ -23,13 +23,22 @@ pub extern "C" fn rk4(
 ) -> f64 {
 // SAFETY: machine generated unsafe code
     unsafe {
-        let mut k1: f64 = dx * f.expect("non-null function pointer")(x, y);
-        let mut k2: f64 =
-            dx * f.expect("non-null function pointer")(x + dx / 2 as f64, y + k1 / 2 as f64);
-        let mut k3: f64 =
-            dx * f.expect("non-null function pointer")(x + dx / 2 as f64, y + k2 / 2 as f64);
-        let mut k4: f64 =
-            dx * f.expect("non-null function pointer")(x.wrapping_add(dx), y.wrapping_add(k3));
+        let mut k1: f64 = match f {
+            Some(f_m) => dx * f_m(x, y),
+            None => panic!("non-null function pointer"),
+        };
+        let mut k2: f64 = match f {
+            Some(f_m) => dx * f_m(x + dx / 2 as f64, y + k1 / 2 as f64),
+            None => panic!("non-null function pointer"),
+        };
+        let mut k3: f64 = match f {
+            Some(f_m) => dx * f_m(x + dx / 2 as f64, y + k2 / 2 as f64),
+            None => panic!("non-null function pointer"),
+        };
+        let mut k4: f64 = match f {
+            Some(f_m) => dx * f_m(x.wrapping_add(dx), y.wrapping_add(k3)),
+            None => panic!("non-null function pointer"),
+        };
         return y + (k1 + 2 as f64 * k2 + 2 as f64 * k3.wrapping_add(k4)) / 6 as f64;
     }
 }

@@ -85,17 +85,17 @@ pub extern "C" fn NewSquareMtx(
                 ((dim.wrapping_mul(dim)) as u64).wrapping_mul(::core::mem::size_of::<f64>() as u64),
             ).cast::<f64>();
             (*sm).m = malloc((dim as u64).wrapping_mul(::core::mem::size_of::<*mut f64>() as u64)).cast::<*mut f64>();
-            if !((*sm).cells).is_null() && !((*sm).m).is_null() {
+            if !((*sm).cells).is_null() & &!((*sm).m).is_null() {
                 rw = 0_i32;
                 while rw < dim {
                     let fresh0 = &mut (*((*sm).m).offset(rw as isize));
                     *fresh0 = ((*sm).cells).offset((dim.wrapping_mul(rw)) as isize);
-                    fillFunc.expect("non-null function pointer")(
-                        *((*sm).m).offset(rw as isize),
-                        rw,
-                        dim,
-                        ff_data,
-                    );
+                    match fillFunc {
+                        Some(fillFunc_m) => {
+                            fillFunc_m(*((*sm).m).offset(rw as isize), rw, dim, ff_data)
+                        }
+                        None => panic!("non-null function pointer"),
+                    }
                     rw = rw.wrapping_add(1);
                     rw;
                 }

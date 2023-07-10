@@ -19,7 +19,10 @@ pub extern "C" fn reduce(mut fn_0: intFn, mut size: i32, mut elms: *mut i32) -> 
         let mut val: i32 = *elms;
         i = 1_i32;
         while i < size {
-            val = fn_0.expect("non-null function pointer")(val, *elms.offset(i as isize));
+            match fn_0 {
+                Some(fn_0_m) => val = fn_0_m(val, *elms.offset(i as isize)),
+                None => panic!("non-null function pointer"),
+            }
             i = i.wrapping_add(1);
             i;
         }

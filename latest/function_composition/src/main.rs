@@ -88,10 +88,10 @@ fn main_0() -> i32 {
 // SAFETY: machine generated unsafe code
             Some(asin_call as unsafe extern "C" fn(*mut double_to_double, f64) -> f64);
         let mut sin_asin: *mut double_to_double = compose(my_sin, my_asin);
-        println!(
-            "{}",
-            ((*sin_asin).fn_0).expect("non-null function pointer")(sin_asin, 0.5f64)
-        );
+        match (*sin_asin).fn_0 {
+            Some(temp_m) => println!("{}", temp_m(sin_asin, 0.5f64)),
+            None => panic!("non-null function pointer"),
+        }
         free(sin_asin.cast::<libc::c_void>());
         free(my_sin.cast::<libc::c_void>());
         free(my_asin.cast::<libc::c_void>());

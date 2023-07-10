@@ -8,7 +8,7 @@
     unused_mut
 )]
 #![feature(extern_types)]
-
+use c2rust_out::*;
 extern "C" {
     pub type _IO_wide_data;
     pub type _IO_codecvt;
@@ -56,43 +56,43 @@ pub struct _IO_FILE {
 pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 #[no_mangle]
-pub static mut kDecks: [i32; 7] = [8_i32, 24_i32, 52_i32, 100_i32, 1_020_i32, 1_024_i32, 10_000_i32];
+pub static mut kDecks: [i32; 7] = [8, 24, 52, 100, 1020, 1024, 10000];
 fn main_0() -> i32 {
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut nCards: i32 = 0;
         let mut nShuffles: i32 = 0;
-        let mut deck: *mut i32 = std::ptr::null_mut::<i32>();
-        i = 0_i32;
-        while i < 7_i32 {
+        let mut deck: *mut i32 = 0 as *mut i32;
+        i = 0;
+        while i < 7 {
             nCards = kDecks[i as usize];
-            if CreateDeck(&mut deck, nCards) == 0_i32 {
+            if CreateDeck(&mut deck, nCards) == 0 {
                 fprintf(
                     stderr,
-                    (b"Error: malloc() failed!\n\0" as *const u8).cast::<i8>(),
+                    b"Error: malloc() failed!\n\0" as *const u8 as *const i8,
                 );
-                return 1_i32;
+                return 1;
             }
             InitDeck(deck, nCards);
-            nShuffles = 0_i32;
+            nShuffles = 0;
             loop {
                 ShuffleDeck(deck, nCards);
                 nShuffles = nShuffles.wrapping_add(1);
                 nShuffles;
-                if InitedDeck(deck, nCards) != 0_i32 {
+                if !(InitedDeck(deck, nCards) == 0) {
                     break;
                 }
             }
-            println!(
-                "Cards count: {}, shuffles required: {}.",
+            print!(
+                "Cards count: {}, shuffles required: {}.\n",
                 nCards, nShuffles
             );
             FreeDeck(&mut deck);
             i = i.wrapping_add(1);
             i;
         }
-        0_i32
+        return 0;
     }
 }
 
@@ -100,16 +100,17 @@ fn main_0() -> i32 {
 pub extern "C" fn CreateDeck(mut deck: *mut *mut i32, mut nCards: i32) -> i32 {
 // SAFETY: machine generated unsafe code
     unsafe {
-        let mut tmp: *mut i32 = std::ptr::null_mut::<i32>();
+        let mut tmp: *mut i32 = 0 as *mut i32;
         if !deck.is_null() {
-            tmp = malloc((nCards as u64).wrapping_mul(::core::mem::size_of::<i32>() as u64)).cast::<i32>();
+            tmp = malloc((nCards as u64).wrapping_mul(::core::mem::size_of::<i32>() as u64))
+                as *mut i32;
         }
-        if !tmp.is_null() {
+        return if !tmp.is_null() {
             *deck = tmp;
-            i32::from(*deck != std::ptr::null_mut::<libc::c_void>().cast::<i32>())
+            (*deck != 0 as *mut libc::c_void as *mut i32) as i32
         } else {
-            0_i32
-        }
+            0
+        };
     }
 }
 
@@ -119,7 +120,7 @@ pub extern "C" fn InitDeck(mut deck: *mut i32, mut nCards: i32) {
     unsafe {
         if !deck.is_null() {
             let mut i: i32 = 0;
-            i = 0_i32;
+            i = 0;
             while i < nCards {
                 *deck.offset(i as isize) = i;
                 i = i.wrapping_add(1);
@@ -137,16 +138,16 @@ pub extern "C" fn DuplicateDeck(
 ) -> i32 {
 // SAFETY: machine generated unsafe code
     unsafe {
-        if !orig.is_null() && CreateDeck(dest, nCards) != 0_i32 {
+        if !orig.is_null() & &CreateDeck(dest, nCards) != 0 {
             memcpy(
-                (*dest).cast::<libc::c_void>(),
-                orig.cast::<libc::c_void>(),
+                *dest as *mut libc::c_void,
+                orig as *const libc::c_void,
                 (nCards as u64).wrapping_mul(::core::mem::size_of::<i32>() as u64),
             );
-            1_i32
+            return 1;
         } else {
-            0_i32
-        }
+            return 0;
+        };
     }
 }
 
@@ -155,15 +156,15 @@ pub extern "C" fn InitedDeck(mut deck: *mut i32, mut nCards: i32) -> i32 {
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
-        i = 0_i32;
+        i = 0;
         while i < nCards {
             if *deck.offset(i as isize) != i {
-                return 0_i32;
+                return 0;
             }
             i = i.wrapping_add(1);
             i;
         }
-        1_i32
+        return 1;
     }
 }
 
@@ -171,11 +172,11 @@ pub extern "C" fn InitedDeck(mut deck: *mut i32, mut nCards: i32) -> i32 {
 pub extern "C" fn ShuffleDeck(mut deck: *mut i32, mut nCards: i32) -> i32 {
 // SAFETY: machine generated unsafe code
     unsafe {
-        let mut copy: *mut i32 = std::ptr::null_mut::<i32>();
-        if DuplicateDeck(&mut copy, deck, nCards) != 0_i32 {
+        let mut copy: *mut i32 = 0 as *mut i32;
+        if DuplicateDeck(&mut copy, deck, nCards) != 0 {
             let mut i: i32 = 0;
             let mut j: i32 = 0;
-            j = 0_i32;
+            j = 0;
             i = j;
             while i < nCards.wrapping_div(2) {
                 *deck.offset(j as isize) = *copy.offset(i as isize);
@@ -186,10 +187,10 @@ pub extern "C" fn ShuffleDeck(mut deck: *mut i32, mut nCards: i32) -> i32 {
                 j = j.wrapping_add(2);
             }
             FreeDeck(&mut copy);
-            1_i32
+            return 1;
         } else {
-            0_i32
-        }
+            return 0;
+        };
     }
 }
 
@@ -198,12 +199,12 @@ pub extern "C" fn FreeDeck(mut deck: *mut *mut i32) {
 // SAFETY: machine generated unsafe code
     unsafe {
         if !(*deck).is_null() {
-            free((*deck).cast::<libc::c_void>());
-            *deck = std::ptr::null_mut::<i32>();
+            free(*deck as *mut libc::c_void);
+            *deck = 0 as *mut i32;
         }
     }
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

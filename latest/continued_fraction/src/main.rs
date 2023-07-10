@@ -24,13 +24,22 @@ pub extern "C" fn calc(mut f_a: coeff_func, mut f_b: coeff_func, mut expansions:
 // SAFETY: machine generated unsafe code
     unsafe {
         while i > 0 {
-            a = f_a.expect("non-null function pointer")(i);
-            b = f_b.expect("non-null function pointer")(i);
+            match f_a {
+                Some(f_a_m) => a = f_a_m(i),
+                None => panic!("non-null function pointer"),
+            }
+            match f_b {
+                Some(f_b_m) => b = f_b_m(i),
+                None => panic!("non-null function pointer"),
+            }
             r = b / (a.wrapping_add(r));
             i = i.wrapping_sub(1);
             i;
         }
-        a = f_a.expect("non-null function pointer")(0);
+        match f_a {
+            Some(f_a_m) => a = f_a_m(0),
+            None => panic!("non-null function pointer"),
+        }
     }
     return a.wrapping_add(r);
 }

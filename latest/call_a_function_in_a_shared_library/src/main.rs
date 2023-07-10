@@ -82,9 +82,12 @@ fn main_0() -> i32 {
         if !imglib.is_null() {
             let fresh1 = &mut (*(&mut extopenimage as *mut Option<unsafe extern "C" fn(*const i8) -> i32>).cast::<*mut libc::c_void>());
             *fresh1 = dlsym(imglib, (b"openimage\0" as *const u8).cast::<i8>());
-            imghandle = extopenimage.expect("non-null function pointer")(
-                (b"fake.img\0" as *const u8).cast::<i8>(),
-            );
+            match extopenimage {
+                Some(extopenimage_m) => {
+                    imghandle = extopenimage_m((b"fake.img\0" as *const u8).cast::<i8>())
+                }
+                None => panic!("non-null function pointer"),
+            }
         } else {
             imghandle = myopenimage((b"fake.img\0" as *const u8).cast::<i8>());
         }

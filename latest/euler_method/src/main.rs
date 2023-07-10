@@ -23,7 +23,10 @@ pub extern "C" fn ivp_euler(mut f: deriv_f, mut y: f64, mut step: i32, mut end_t
             if t % 10_i32 == 0_i32 {
                 print!(" {:7.3}", y);
             }
-            y += f64::from(step) * f.expect("non-null function pointer")(f64::from(t), y);
+            match f {
+                Some(f_m) => y += f64::from(step) * f_m(f64::from(t), y),
+                None => panic!("non-null function pointer"),
+            }
             t = t.wrapping_add(step);
             if t > end_t {
                 break;

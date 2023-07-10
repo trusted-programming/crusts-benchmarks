@@ -11,7 +11,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
-        while *raw_ptr.add(str_size) != 0 {
+        while *raw_ptr.offset(str_size as isize) != 0 {
             str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
@@ -19,57 +19,60 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     }
 }
 
-
+use c2rust_out::*;
 extern "C" {}
 #[no_mangle]
 pub static mut digits: [i32; 26] = [
-    0_i32, 0_i32, 100_i32, 500_i32, 0_i32, 0_i32, 0_i32, 0_i32, 1_i32, 1_i32, 0_i32, 50_i32, 1_000_i32, 0_i32, 0_i32, 0_i32, 0_i32, 0_i32, 0_i32, 0_i32, 5_i32, 5_i32, 0_i32, 10_i32, 0_i32, 0_i32,
+    0, 0, 100, 500, 0, 0, 0, 0, 1, 1, 0, 50, 1000, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 10, 0, 0,
 ];
 #[no_mangle]
 pub extern "C" fn decode(mut roman: *const i8) -> i32 {
 // SAFETY: machine generated unsafe code
     unsafe {
-        let mut bigger: *const i8 = std::ptr::null::<i8>();
+        let mut bigger: *const i8 = 0 as *const i8;
         let mut current: i32 = 0;
         let mut arabic: i32 = 0;
-        while i32::from(*roman) != '\0' as i32 {
-            current = digits[((!0x20i32 & i32::from(*roman)) - 'A' as i32) as usize];
+        while *roman as i32 != '\0' as i32 {
+            current = digits[((!0x20i32 & *roman as i32) - 'A' as i32) as usize];
             bigger = roman;
-            while digits[((!0x20i32 & i32::from(*bigger)) - 'A' as i32) as usize] <= current && {
-                bigger = bigger.offset(1);
-                i32::from(*bigger) != '\0' as i32
-            } {}
-            if i32::from(*bigger) == '\0' as i32 {
+            while digits[((!0x20i32 & *bigger as i32) - 'A' as i32) as usize]
+                <= current
+                    & &{
+                        bigger = bigger.offset(1);
+                        *bigger as i32 != '\0' as i32
+                    }
+            {}
+            if *bigger as i32 == '\0' as i32 {
                 arabic = arabic.wrapping_add(current);
             } else {
-                arabic += digits[((!0x20i32 & i32::from(*bigger)) - 'A' as i32) as usize];
+                arabic += digits[((!0x20i32 & *bigger as i32) - 'A' as i32) as usize];
                 while roman < bigger {
                     let fresh0 = roman;
                     roman = roman.offset(1);
-                    arabic -= digits[((!0x20i32 & i32::from(*fresh0)) - 'A' as i32) as usize];
+                    arabic -= digits[((!0x20i32 & *fresh0 as i32) - 'A' as i32) as usize];
                 }
             }
             roman = roman.offset(1);
             roman;
         }
-        arabic
+        return arabic;
     }
 }
 
 fn main_0() -> i32 {
     let mut romans: [*const i8; 4] = [
-        (b"MCmxC\0" as *const u8).cast::<i8>(),
-        (b"MMVIII\0" as *const u8).cast::<i8>(),
-        (b"MDClXVI\0" as *const u8).cast::<i8>(),
-        (b"MCXLUJ\0" as *const u8).cast::<i8>(),
+        b"MCmxC\0" as *const u8 as *const i8,
+        b"MMVIII\0" as *const u8 as *const i8,
+        b"MDClXVI\0" as *const u8 as *const i8,
+        b"MCXLUJ\0" as *const u8 as *const i8,
     ];
     let mut i: i32 = 0;
-    i = 0_i32;
+    i = 0;
 // SAFETY: machine generated unsafe code
     unsafe {
-        while i < 4_i32 {
-            println!(
-                "{}	{}",
+        while i < 4 {
+            print!(
+                "{}	{}\n",
                 build_str_from_raw_ptr(romans[i as usize] as *mut u8),
                 decode(romans[i as usize])
             );
@@ -77,9 +80,9 @@ fn main_0() -> i32 {
             i;
         }
     }
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

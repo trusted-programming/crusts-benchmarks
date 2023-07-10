@@ -97,7 +97,7 @@ fn main_0() -> i32 {
             }
             lw = strrchr(line, ' ' as i32);
             lt = strrchr(line, '\t' as i32);
-            if lw.is_null() && lt.is_null() {
+            if lw.is_null() & &lt.is_null() {
                 continue;
             }
             if lt > lw {

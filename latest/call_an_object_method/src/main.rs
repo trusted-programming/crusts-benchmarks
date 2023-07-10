@@ -63,11 +63,10 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
                     funcPtr: Some(factorial as unsafe extern "C" fn(i32) -> i32),
                 }
             };
-            print!(
-                "\nFactorial of {} is {}\n",
-                response.x,
-                (response.funcPtr).expect("non-null function pointer")(response.x)
-            );
+            match response.funcPtr {
+                Some(temp_m) => print!("\nFactorial of {} is {}\n", response.x, temp_m(response.x)),
+                None => panic!("non-null function pointer"),
+            }
         }
         0_i32
     }

@@ -25,7 +25,10 @@ pub extern "C" fn map(
         let mut i: i32 = 0;
         i = 0_i32;
         while i < len {
-            callback.expect("non-null function pointer")(i, *array.offset(i as isize));
+            match callback {
+                Some(callback_m) => callback_m(i, *array.offset(i as isize)),
+                None => panic!("non-null function pointer"),
+            }
             i = i.wrapping_add(1);
             i;
         }

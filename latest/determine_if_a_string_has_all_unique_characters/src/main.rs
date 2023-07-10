@@ -11,7 +11,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
-        while *raw_ptr.add(str_size) != 0 {
+        while *raw_ptr.offset(str_size as isize) != 0 {
             str_size = str_size.wrapping_add(1);
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
@@ -19,7 +19,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
     }
 }
 
-
+use c2rust_out::*;
 extern "C" {
     fn strlen(_: *const i8) -> u64;
     fn malloc(_: u64) -> *mut libc::c_void;
@@ -43,57 +43,57 @@ pub struct letterList {
 #[no_mangle]
 pub static mut letterSet: *mut letterList = 0 as *const letterList as *mut letterList;
 #[no_mangle]
-pub static mut duplicatesFound: bool = 0_i32 != 0_i32;
+pub static mut duplicatesFound: bool = 0 != 0;
 #[no_mangle]
 pub extern "C" fn checkAndUpdateLetterList(mut c: i8, mut pos: i32) {
 // SAFETY: machine generated unsafe code
     unsafe {
         let mut letterOccurs: bool = 0 != 0;
-        let mut letterIterator: *mut letterList = std::ptr::null_mut::<letterList>();
-        let mut newLetter: *mut letterList = std::ptr::null_mut::<letterList>();
-        let mut positionIterator: *mut positionList = std::ptr::null_mut::<positionList>();
-        let mut newPosition: *mut positionList = std::ptr::null_mut::<positionList>();
+        let mut letterIterator: *mut letterList = 0 as *mut letterList;
+        let mut newLetter: *mut letterList = 0 as *mut letterList;
+        let mut positionIterator: *mut positionList = 0 as *mut positionList;
+        let mut newPosition: *mut positionList = 0 as *mut positionList;
         if letterSet.is_null() {
-            letterSet = malloc(::core::mem::size_of::<letterList>() as u64).cast::<letterList>();
+            letterSet = malloc(::core::mem::size_of::<letterList>() as u64) as *mut letterList;
             (*letterSet).letter = c;
-            (*letterSet).repititions = 0_i32;
+            (*letterSet).repititions = 0;
             (*letterSet).positions =
-                malloc(::core::mem::size_of::<positionList>() as u64).cast::<positionList>();
+                malloc(::core::mem::size_of::<positionList>() as u64) as *mut positionList;
             (*(*letterSet).positions).position = pos;
-            (*(*letterSet).positions).next = std::ptr::null_mut::<positionList>();
-            (*letterSet).next = std::ptr::null_mut::<letterList>();
+            (*(*letterSet).positions).next = 0 as *mut positionList;
+            (*letterSet).next = 0 as *mut letterList;
         } else {
             letterIterator = letterSet;
             while !letterIterator.is_null() {
-                if i32::from((*letterIterator).letter) == i32::from(c) {
-                    letterOccurs = 1_i32 != 0_i32;
-                    duplicatesFound = 1_i32 != 0_i32;
-                    (*letterIterator).repititions += 1_i32;
+                if (*letterIterator).letter as i32 == c as i32 {
+                    letterOccurs = 1 != 0;
+                    duplicatesFound = 1 != 0;
+                    (*letterIterator).repititions += 1;
                     (*letterIterator).repititions;
                     positionIterator = (*letterIterator).positions;
                     while !((*positionIterator).next).is_null() {
                         positionIterator = (*positionIterator).next;
                     }
                     newPosition =
-                        malloc(::core::mem::size_of::<positionList>() as u64).cast::<positionList>();
+                        malloc(::core::mem::size_of::<positionList>() as u64) as *mut positionList;
                     (*newPosition).position = pos;
-                    (*newPosition).next = std::ptr::null_mut::<positionList>();
+                    (*newPosition).next = 0 as *mut positionList;
                     (*positionIterator).next = newPosition;
                 }
-                if i32::from(letterOccurs) == 0_i32 && ((*letterIterator).next).is_null() {
+                if letterOccurs as i32 == 0 & &((*letterIterator).next).is_null() {
                     break;
                 }
                 letterIterator = (*letterIterator).next;
             }
-            if i32::from(letterOccurs) == 0_i32 {
-                newLetter = malloc(::core::mem::size_of::<letterList>() as u64).cast::<letterList>();
+            if letterOccurs as i32 == 0 {
+                newLetter = malloc(::core::mem::size_of::<letterList>() as u64) as *mut letterList;
                 (*newLetter).letter = c;
-                (*newLetter).repititions = 0_i32;
+                (*newLetter).repititions = 0;
                 (*newLetter).positions =
-                    malloc(::core::mem::size_of::<positionList>() as u64).cast::<positionList>();
+                    malloc(::core::mem::size_of::<positionList>() as u64) as *mut positionList;
                 (*(*newLetter).positions).position = pos;
-                (*(*newLetter).positions).next = std::ptr::null_mut::<positionList>();
-                (*newLetter).next = std::ptr::null_mut::<letterList>();
+                (*(*newLetter).positions).next = 0 as *mut positionList;
+                (*newLetter).next = 0 as *mut letterList;
                 (*letterIterator).next = newLetter;
             }
         };
@@ -104,24 +104,24 @@ pub extern "C" fn checkAndUpdateLetterList(mut c: i8, mut pos: i32) {
 pub extern "C" fn printLetterList() {
 // SAFETY: machine generated unsafe code
     unsafe {
-        let mut positionIterator: *mut positionList = std::ptr::null_mut::<positionList>();
+        let mut positionIterator: *mut positionList = 0 as *mut positionList;
         let mut letterIterator: *mut letterList = letterSet;
         while !letterIterator.is_null() {
-            if (*letterIterator).repititions > 0_i32 {
+            if (*letterIterator).repititions > 0 {
                 print!(
                     "\n{} (0x{:x}) at positions :",
-                    i32::from((*letterIterator).letter),
-                    i32::from((*letterIterator).letter)
+                    (*letterIterator).letter as i32,
+                    (*letterIterator).letter as i32
                 );
                 positionIterator = (*letterIterator).positions;
                 while !positionIterator.is_null() {
-                    print!("{:3}", (*positionIterator).position + 1_i32);
+                    print!("{:3}", (*positionIterator).position + 1);
                     positionIterator = (*positionIterator).next;
                 }
             }
             letterIterator = (*letterIterator).next;
         }
-        println!();
+        print!("\n");
     }
 }
 
@@ -130,63 +130,69 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
     unsafe {
         let mut i: i32 = 0;
         let mut len: i32 = 0;
-        if argc > 2_i32 {
-            println!(
-                "Usage : {} <Test string>",
-                build_str_from_raw_ptr((*argv.offset(0_isize)).cast::<u8>())
+        if argc > 2 {
+            print!(
+                "Usage : {} <Test string>\n",
+                build_str_from_raw_ptr(*argv.offset(0 as isize) as *mut u8)
             );
-            return 0_i32;
+            return 0;
         }
-        if argc == 1_i32 || strlen(*argv.offset(1_isize)) == 1 {
-            if argc == 1_i32 {
-                if argc == 1_i32 {
-                    println!(
-                        "\"\0\" - Length {} - Contains only unique characters.", 0_i32
+        if argc == 1 || strlen(*argv.offset(1 as isize)) == 1 {
+            if argc == 1 {
+                if argc == 1 {
+                    print!(
+                        "\"{}\" - Length {} - Contains only unique characters.\n",
+                        "\0", 0
                     )
                 } else {
-                    println!(
-                        "\"\0\" - Length {} - Contains only unique characters.", 1_i32
+                    print!(
+                        "\"{}\" - Length {} - Contains only unique characters.\n",
+                        "\0", 1
                     )
                 }
-            } else if argc == 1_i32 {
-                println!(
-                    "\"{}\" - Length {} - Contains only unique characters.",
-                    build_str_from_raw_ptr(*argv.offset(1_isize) as *const i8 as *mut u8),
-                    0_i32
-                )
             } else {
-                println!(
-                    "\"{}\" - Length {} - Contains only unique characters.",
-                    build_str_from_raw_ptr(*argv.offset(1_isize) as *const i8 as *mut u8),
-                    1_i32
-                )
+                if argc == 1 {
+                    print!(
+                        "\"{}\" - Length {} - Contains only unique characters.\n",
+                        build_str_from_raw_ptr(*argv.offset(1 as isize) as *const i8 as *mut u8),
+                        0
+                    )
+                } else {
+                    print!(
+                        "\"{}\" - Length {} - Contains only unique characters.\n",
+                        build_str_from_raw_ptr(*argv.offset(1 as isize) as *const i8 as *mut u8),
+                        1
+                    )
+                }
             };
-            return 0_i32;
+            return 0;
         }
-        len = strlen(*argv.offset(1_isize)) as i32;
-        i = 0_i32;
+        len = strlen(*argv.offset(1 as isize)) as i32;
+        i = 0;
         while i < len {
-            checkAndUpdateLetterList(*(*argv.offset(1_isize)).offset(i as isize), i);
+            checkAndUpdateLetterList(*(*argv.offset(1 as isize)).offset(i as isize), i);
             i = i.wrapping_add(1);
             i;
         }
-        if i32::from(duplicatesFound) == 0_i32 {
+        if duplicatesFound as i32 == 0 {
             print!(
-                "\"{}\" - Length {} - Contains only unique characters.\n\0",
-                build_str_from_raw_ptr((*argv.offset(1_isize)).cast::<u8>()),
-                len
+                "\"{}\" - Length {} - {}",
+                build_str_from_raw_ptr(*argv.offset(1 as isize) as *mut u8),
+                len,
+                "Contains only unique characters.\n\0"
             )
         } else {
             print!(
-                "\"{}\" - Length {} - Contains the following duplicate characters :\0",
-                build_str_from_raw_ptr((*argv.offset(1_isize)).cast::<u8>()),
-                len
+                "\"{}\" - Length {} - {}",
+                build_str_from_raw_ptr(*argv.offset(1 as isize) as *mut u8),
+                len,
+                "Contains the following duplicate characters :\0"
             )
         };
-        if i32::from(duplicatesFound) == 1_i32 {
+        if duplicatesFound as i32 == 1 {
             printLetterList();
         }
-        0_i32
+        return 0;
     }
 }
 
@@ -200,5 +206,5 @@ pub fn main() {
         );
     }
     args.push(::core::ptr::null_mut());
-    ::std::process::exit(main_0((args.len() - 1) as i32, args.as_mut_ptr()));
+    ::std::process::exit(main_0((args.len() - 1) as i32, args.as_mut_ptr() as *mut *mut i8) as i32);
 }

@@ -140,7 +140,7 @@ pub extern "C" fn human() {
                 b"%d\0" as *const u8 as *const i8,
                 &mut move_0 as *mut i32,
             ) != 1
-                || move_0 != 0 && (move_0 < 1 || move_0 > 3 || total + move_0 > 21))
+                || move_0 != 0 & &(move_0 < 1 || move_0 > 3 || total + move_0 > 21))
             {
                 break;
             }

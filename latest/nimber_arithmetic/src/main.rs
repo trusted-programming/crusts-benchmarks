@@ -85,7 +85,10 @@ pub extern "C" fn print_table(
             print!("{:2} |", b);
             let mut a_1: u32 = 0;
             while a_1 <= n {
-                print!("{:3}", func.expect("non-null function pointer")(a_1, b));
+                match func {
+                    Some(temp_m) => print!("{:3}", temp_m(a_1, b)),
+                    None => panic!("non-null function pointer"),
+                }
                 a_1 = a_1.wrapping_add(1);
                 a_1;
             }

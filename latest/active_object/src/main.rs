@@ -66,7 +66,10 @@ pub extern "C" fn update(mut x: integ) {
         t = ((tv.tv_sec - (*x).start.tv_sec) * 1000000 + tv.tv_usec - (*x).start.tv_usec) as f64
             * 1e-6f64;
         v = if f.is_some() {
-            f.expect("non-null function pointer")(t)
+            match f {
+                Some(temp_m) => temp_m(t),
+                None => panic!("non-null function pointer"),
+            }
         } else {
             0 as f64
         };
@@ -99,7 +102,10 @@ pub extern "C" fn set_input(mut x: integ, mut func: Option<unsafe extern "C" fn(
 // SAFETY: machine generated unsafe code
     unsafe {
         (*x).last_v = if func.is_some() {
-            func.expect("non-null function pointer")(0 as f64)
+            match func {
+                Some(temp_m) => temp_m(0 as f64),
+                None => panic!("non-null function pointer"),
+            }
         } else {
             0 as f64
         };
