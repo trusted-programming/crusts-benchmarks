@@ -1,131 +1,127 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-    unsafe {
-        let mut str_size: usize = 0;
-        while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size += 1;
-        }
-        return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
-            .to_owned();
-    }
-}
-
-use c2rust_out::*;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
 extern "C" {
-    fn malloc(_: u64) -> *mut libc::c_void;
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+    fn malloc(_: libc::c_ulong) -> *mut libc::c_void;
     fn free(_: *mut libc::c_void);
-    fn strcpy(_: *mut i8, _: *const i8) -> *mut i8;
-    fn strcat(_: *mut i8, _: *const i8) -> *mut i8;
-    fn strlen(_: *const i8) -> u64;
-    fn log2(_: f64) -> f64;
+    fn strcpy(_: *mut libc::c_char, _: *const libc::c_char) -> *mut libc::c_char;
+    fn strcat(_: *mut libc::c_char, _: *const libc::c_char) -> *mut libc::c_char;
+    fn strlen(_: *const libc::c_char) -> libc::c_ulong;
+    fn log2(_: libc::c_double) -> libc::c_double;
 }
 #[no_mangle]
-pub extern "C" fn print_headings() {
-    print!("{:2}", "N\0");
-    print!(" {:10}", "Length\0");
-    print!(" {:-20}", "Entropy\0");
-    print!(" {:-40}", "Word\0");
-    print!("\n");
+pub unsafe extern "C" fn print_headings() {
+    printf(
+        b"%2s\0" as *const u8 as *const libc::c_char,
+        b"N\0" as *const u8 as *const libc::c_char,
+    );
+    printf(
+        b" %10s\0" as *const u8 as *const libc::c_char,
+        b"Length\0" as *const u8 as *const libc::c_char,
+    );
+    printf(
+        b" %-20s\0" as *const u8 as *const libc::c_char,
+        b"Entropy\0" as *const u8 as *const libc::c_char,
+    );
+    printf(
+        b" %-40s\0" as *const u8 as *const libc::c_char,
+        b"Word\0" as *const u8 as *const libc::c_char,
+    );
+    printf(b"\n\0" as *const u8 as *const libc::c_char);
 }
-
 #[no_mangle]
-pub extern "C" fn calculate_entropy(mut ones: i32, mut zeros: i32) -> f64 {
-    let mut result: f64 = 0 as f64;
-    let mut total: i32 = ones + zeros;
-    unsafe {
-        result -= ones as f64 / total as f64 * log2(ones as f64 / total as f64);
-        result -= zeros as f64 / total as f64 * log2(zeros as f64 / total as f64);
-    }
+pub unsafe extern "C" fn calculate_entropy(
+    mut ones: libc::c_int,
+    mut zeros: libc::c_int,
+) -> libc::c_double {
+    let mut result: libc::c_double = 0 as libc::c_int as libc::c_double;
+    let mut total: libc::c_int = ones + zeros;
+    result
+        -= ones as libc::c_double / total as libc::c_double
+            * log2(ones as libc::c_double / total as libc::c_double);
+    result
+        -= zeros as libc::c_double / total as libc::c_double
+            * log2(zeros as libc::c_double / total as libc::c_double);
     if result != result {
-        result = 0 as f64;
+        result = 0 as libc::c_int as libc::c_double;
     }
     return result;
 }
-
 #[no_mangle]
-pub extern "C" fn print_entropy(mut word: *mut i8) {
-    unsafe {
-        let mut ones: i32 = 0;
-        let mut zeros: i32 = 0;
-        let mut i: i32 = 0;
-        i = 0;
-        while *word.offset(i as isize) != 0 {
-            let mut c: i8 = *word.offset(i as isize);
-            match c as i32 {
-                48 => {
-                    zeros += 1;
-                    zeros;
-                }
-                49 => {
-                    ones += 1;
-                    ones;
-                }
-                _ => {}
+pub unsafe extern "C" fn print_entropy(mut word: *mut libc::c_char) {
+    let mut ones: libc::c_int = 0 as libc::c_int;
+    let mut zeros: libc::c_int = 0 as libc::c_int;
+    let mut i: libc::c_int = 0;
+    i = 0 as libc::c_int;
+    while *word.offset(i as isize) != 0 {
+        let mut c: libc::c_char = *word.offset(i as isize);
+        match c as libc::c_int {
+            48 => {
+                zeros += 1;
+                zeros;
             }
-            i += 1;
-            i;
+            49 => {
+                ones += 1;
+                ones;
+            }
+            _ => {}
         }
-        let mut entropy: f64 = calculate_entropy(ones, zeros);
-        print!(" {:-20.18}", entropy);
+        i += 1;
+        i;
     }
+    let mut entropy: libc::c_double = calculate_entropy(ones, zeros);
+    printf(b" %-20.18f\0" as *const u8 as *const libc::c_char, entropy);
 }
-
 #[no_mangle]
-pub extern "C" fn print_word(mut n: i32, mut word: *mut i8) {
-    unsafe {
-        print!("{:2}", n);
-        print!(" {:10}", strlen(word));
-        print_entropy(word);
-        if n < 10 {
-            print!(" {:-40}", build_str_from_raw_ptr(word as *mut u8));
-        } else {
-            print!(" {:-40}", "...\0");
-        }
-        print!("\n");
+pub unsafe extern "C" fn print_word(mut n: libc::c_int, mut word: *mut libc::c_char) {
+    printf(b"%2d\0" as *const u8 as *const libc::c_char, n);
+    printf(b" %10ld\0" as *const u8 as *const libc::c_char, strlen(word));
+    print_entropy(word);
+    if n < 10 as libc::c_int {
+        printf(b" %-40s\0" as *const u8 as *const libc::c_char, word);
+    } else {
+        printf(
+            b" %-40s\0" as *const u8 as *const libc::c_char,
+            b"...\0" as *const u8 as *const libc::c_char,
+        );
     }
+    printf(b"\n\0" as *const u8 as *const libc::c_char);
 }
-
-fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
-    unsafe {
-        print_headings();
-        let mut last_word: *mut i8 = malloc(2) as *mut i8;
-        strcpy(last_word, b"1\0" as *const u8 as *const i8);
-        let mut current_word: *mut i8 = malloc(2) as *mut i8;
-        strcpy(current_word, b"0\0" as *const u8 as *const i8);
-        print_word(1, last_word);
-        let mut i: i32 = 0;
-        i = 2;
-        while i <= 37 {
-            print_word(i, current_word);
-            let mut next_word: *mut i8 = malloc(
-                (strlen(current_word))
-                    .wrapping_add(strlen(last_word))
-                    .wrapping_add(1),
-            ) as *mut i8;
-            strcpy(next_word, current_word);
-            strcat(next_word, last_word);
-            free(last_word as *mut libc::c_void);
-            last_word = current_word;
-            current_word = next_word;
-            i += 1;
-            i;
-        }
+unsafe fn main_0(
+    mut argc: libc::c_int,
+    mut argv: *mut *mut libc::c_char,
+) -> libc::c_int {
+    print_headings();
+    let mut last_word: *mut libc::c_char = malloc(2 as libc::c_int as libc::c_ulong)
+        as *mut libc::c_char;
+    strcpy(last_word, b"1\0" as *const u8 as *const libc::c_char);
+    let mut current_word: *mut libc::c_char = malloc(2 as libc::c_int as libc::c_ulong)
+        as *mut libc::c_char;
+    strcpy(current_word, b"0\0" as *const u8 as *const libc::c_char);
+    print_word(1 as libc::c_int, last_word);
+    let mut i: libc::c_int = 0;
+    i = 2 as libc::c_int;
+    while i <= 37 as libc::c_int {
+        print_word(i, current_word);
+        let mut next_word: *mut libc::c_char = malloc(
+            (strlen(current_word))
+                .wrapping_add(strlen(last_word))
+                .wrapping_add(1 as libc::c_int as libc::c_ulong),
+        ) as *mut libc::c_char;
+        strcpy(next_word, current_word);
+        strcat(next_word, last_word);
         free(last_word as *mut libc::c_void);
-        free(current_word as *mut libc::c_void);
-        return 0;
+        last_word = current_word;
+        current_word = next_word;
+        i += 1;
+        i;
     }
+    free(last_word as *mut libc::c_void);
+    free(current_word as *mut libc::c_void);
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    let mut args: Vec<*mut i8> = Vec::new();
+    let mut args: Vec::<*mut libc::c_char> = Vec::new();
     for arg in ::std::env::args() {
         args.push(
             (::std::ffi::CString::new(arg))
@@ -134,5 +130,12 @@ pub fn main() {
         );
     }
     args.push(::core::ptr::null_mut());
-    ::std::process::exit(main_0((args.len() - 1) as i32, args.as_mut_ptr() as *mut *mut i8) as i32);
+    unsafe {
+        ::std::process::exit(
+            main_0(
+                (args.len() - 1) as libc::c_int,
+                args.as_mut_ptr() as *mut *mut libc::c_char,
+            ) as i32,
+        )
+    }
 }

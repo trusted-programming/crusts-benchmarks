@@ -1,44 +1,45 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-use c2rust_out::*;
-extern "C" {}
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
+extern "C" {
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+}
+pub type marker = libc::c_ulong;
 #[no_mangle]
-pub static mut one: u64 = 1;
+pub static mut one: marker = 1 as libc::c_int as marker;
 #[no_mangle]
-pub extern "C" fn comb(mut pool: i32, mut need: i32, mut chosen: u64, mut at: i32) {
+pub unsafe extern "C" fn comb(
+    mut pool: libc::c_int,
+    mut need: libc::c_int,
+    mut chosen: marker,
+    mut at: libc::c_int,
+) {
     if pool < need + at {
         return;
     }
-    unsafe {
-        if need == 0 {
-            at = 0;
-            while at < pool {
-                if chosen & one << at != 0 {
-                    print!("{} ", at);
-                }
-                at += 1;
-                at;
+    if need == 0 {
+        at = 0 as libc::c_int;
+        while at < pool {
+            if chosen & one << at != 0 {
+                printf(b"%d \0" as *const u8 as *const libc::c_char, at);
             }
-            print!("\n");
-            return;
+            at += 1;
+            at;
         }
-        comb(pool, need - 1, chosen | one << at, at + 1);
+        printf(b"\n\0" as *const u8 as *const libc::c_char);
+        return;
     }
-    comb(pool, need, chosen, at + 1);
+    comb(pool, need - 1 as libc::c_int, chosen | one << at, at + 1 as libc::c_int);
+    comb(pool, need, chosen, at + 1 as libc::c_int);
 }
-
-fn main_0() -> i32 {
-    comb(5, 3, 0, 0);
-    return 0;
+unsafe fn main_0() -> libc::c_int {
+    comb(
+        5 as libc::c_int,
+        3 as libc::c_int,
+        0 as libc::c_int as marker,
+        0 as libc::c_int,
+    );
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

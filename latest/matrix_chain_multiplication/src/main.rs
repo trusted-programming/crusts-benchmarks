@@ -1,148 +1,197 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-use c2rust_out::*;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
 extern "C" {
-    fn malloc(_: u64) -> *mut libc::c_void;
-    fn calloc(_: u64, _: u64) -> *mut libc::c_void;
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+    fn malloc(_: libc::c_ulong) -> *mut libc::c_void;
+    fn calloc(_: libc::c_ulong, _: libc::c_ulong) -> *mut libc::c_void;
     fn free(_: *mut libc::c_void);
 }
 #[no_mangle]
-pub static mut m: *mut *mut i32 = 0 as *const *mut i32 as *mut *mut i32;
+pub static mut m: *mut *mut libc::c_int = 0 as *const *mut libc::c_int
+    as *mut *mut libc::c_int;
 #[no_mangle]
-pub static mut s: *mut *mut i32 = 0 as *const *mut i32 as *mut *mut i32;
+pub static mut s: *mut *mut libc::c_int = 0 as *const *mut libc::c_int
+    as *mut *mut libc::c_int;
 #[no_mangle]
-pub extern "C" fn optimal_matrix_chain_order(mut dims: *mut i32, mut n: i32) {
-    unsafe {
-        let mut len: i32 = 0;
-        let mut i: i32 = 0;
-        let mut j: i32 = 0;
-        let mut k: i32 = 0;
-        let mut temp: i32 = 0;
-        let mut cost: i32 = 0;
-        n -= 1;
-        n;
-        m = malloc((n as u64).wrapping_mul(::core::mem::size_of::<*mut i32>() as u64))
-            as *mut *mut i32;
-        i = 0;
-        while i < n {
-            let ref mut fresh0 = *m.offset(i as isize);
-            *fresh0 = calloc(n as u64, ::core::mem::size_of::<i32>() as u64) as *mut i32;
+pub unsafe extern "C" fn optimal_matrix_chain_order(
+    mut dims: *mut libc::c_int,
+    mut n: libc::c_int,
+) {
+    let mut len: libc::c_int = 0;
+    let mut i: libc::c_int = 0;
+    let mut j: libc::c_int = 0;
+    let mut k: libc::c_int = 0;
+    let mut temp: libc::c_int = 0;
+    let mut cost: libc::c_int = 0;
+    n -= 1;
+    n;
+    m = malloc(
+        (n as libc::c_ulong)
+            .wrapping_mul(::core::mem::size_of::<*mut libc::c_int>() as libc::c_ulong),
+    ) as *mut *mut libc::c_int;
+    i = 0 as libc::c_int;
+    while i < n {
+        let ref mut fresh0 = *m.offset(i as isize);
+        *fresh0 = calloc(
+            n as libc::c_ulong,
+            ::core::mem::size_of::<libc::c_int>() as libc::c_ulong,
+        ) as *mut libc::c_int;
+        i += 1;
+        i;
+    }
+    s = malloc(
+        (n as libc::c_ulong)
+            .wrapping_mul(::core::mem::size_of::<*mut libc::c_int>() as libc::c_ulong),
+    ) as *mut *mut libc::c_int;
+    i = 0 as libc::c_int;
+    while i < n {
+        let ref mut fresh1 = *s.offset(i as isize);
+        *fresh1 = calloc(
+            n as libc::c_ulong,
+            ::core::mem::size_of::<libc::c_int>() as libc::c_ulong,
+        ) as *mut libc::c_int;
+        i += 1;
+        i;
+    }
+    len = 1 as libc::c_int;
+    while len < n {
+        i = 0 as libc::c_int;
+        while i < n - len {
+            j = i + len;
+            *(*m.offset(i as isize)).offset(j as isize) = 2147483647 as libc::c_int;
+            k = i;
+            while k < j {
+                temp = *dims.offset(i as isize)
+                    * *dims.offset((k + 1 as libc::c_int) as isize)
+                    * *dims.offset((j + 1 as libc::c_int) as isize);
+                cost = *(*m.offset(i as isize)).offset(k as isize)
+                    + *(*m.offset((k + 1 as libc::c_int) as isize)).offset(j as isize)
+                    + temp;
+                if cost < *(*m.offset(i as isize)).offset(j as isize) {
+                    *(*m.offset(i as isize)).offset(j as isize) = cost;
+                    *(*s.offset(i as isize)).offset(j as isize) = k;
+                }
+                k += 1;
+                k;
+            }
             i += 1;
             i;
         }
-        s = malloc((n as u64).wrapping_mul(::core::mem::size_of::<*mut i32>() as u64))
-            as *mut *mut i32;
-        i = 0;
-        while i < n {
-            let ref mut fresh1 = *s.offset(i as isize);
-            *fresh1 = calloc(n as u64, ::core::mem::size_of::<i32>() as u64) as *mut i32;
-            i += 1;
-            i;
-        }
-        len = 1;
-        while len < n {
-            i = 0;
-            while i < n - len {
-                j = i + len;
-                *(*m.offset(i as isize)).offset(j as isize) = 2147483647;
-                k = i;
-                while k < j {
-                    temp = *dims.offset(i as isize)
-                        * *dims.offset((k + 1i32) as isize)
-                        * *dims.offset((j + 1i32) as isize);
-                    cost = *(*m.offset(i as isize)).offset(k as isize)
-                        + *(*m.offset((k + 1i32) as isize)).offset(j as isize)
-                        + temp;
-                    if cost < *(*m.offset(i as isize)).offset(j as isize) {
-                        *(*m.offset(i as isize)).offset(j as isize) = cost;
-                        *(*s.offset(i as isize)).offset(j as isize) = k;
-                    }
-                    k += 1;
-                    k;
-                }
-                i += 1;
-                i;
-            }
-            len += 1;
-            len;
-        }
+        len += 1;
+        len;
     }
 }
-
 #[no_mangle]
-pub extern "C" fn print_optimal_chain_order(mut i: i32, mut j: i32) {
-    unsafe {
-        if i == j {
-            print!("{}", i + 65);
-        } else {
-            print!("(");
-            print_optimal_chain_order(i, *(*s.offset(i as isize)).offset(j as isize));
-            print_optimal_chain_order(*(*s.offset(i as isize)).offset(j as isize) + 1, j);
-            print!(")");
-        };
-    }
+pub unsafe extern "C" fn print_optimal_chain_order(
+    mut i: libc::c_int,
+    mut j: libc::c_int,
+) {
+    if i == j {
+        printf(b"%c\0" as *const u8 as *const libc::c_char, i + 65 as libc::c_int);
+    } else {
+        printf(b"(\0" as *const u8 as *const libc::c_char);
+        print_optimal_chain_order(i, *(*s.offset(i as isize)).offset(j as isize));
+        print_optimal_chain_order(
+            *(*s.offset(i as isize)).offset(j as isize) + 1 as libc::c_int,
+            j,
+        );
+        printf(b")\0" as *const u8 as *const libc::c_char);
+    };
 }
-
-fn main_0() -> i32 {
-    let mut i: i32 = 0;
-    let mut j: i32 = 0;
-    let mut n: i32 = 0;
-    let mut a1: [i32; 4] = [5, 6, 3, 1];
-    let mut a2: [i32; 13] = [1, 5, 25, 30, 100, 70, 2, 1, 100, 250, 1, 1000, 2];
-    let mut a3: [i32; 12] = [1000, 1, 500, 12, 1, 700, 2500, 3, 2, 5, 14, 10];
-    let mut dims_list: [*mut i32; 3] = [a1.as_mut_ptr(), a2.as_mut_ptr(), a3.as_mut_ptr()];
-    let mut sizes: [i32; 3] = [4, 13, 12];
-    i = 0;
-    unsafe {
-        while i < 3 {
-            print!("Dims  : [");
-            n = sizes[i as usize];
-            j = 0;
-            while j < n {
-                print!("{}", *(dims_list[i as usize]).offset(j as isize));
-                if j < n - 1 {
-                    print!(", ");
-                } else {
-                    print!("]\n");
-                }
-                j += 1;
-                j;
-            }
-            optimal_matrix_chain_order(dims_list[i as usize], n);
-            print!("Order : ");
-            print_optimal_chain_order(0, n - 2);
-            print!(
-                "\nCost  : {}\n\n",
-                *(*m.offset(0 as isize)).offset((n - 2i32) as isize)
+unsafe fn main_0() -> libc::c_int {
+    let mut i: libc::c_int = 0;
+    let mut j: libc::c_int = 0;
+    let mut n: libc::c_int = 0;
+    let mut a1: [libc::c_int; 4] = [
+        5 as libc::c_int,
+        6 as libc::c_int,
+        3 as libc::c_int,
+        1 as libc::c_int,
+    ];
+    let mut a2: [libc::c_int; 13] = [
+        1 as libc::c_int,
+        5 as libc::c_int,
+        25 as libc::c_int,
+        30 as libc::c_int,
+        100 as libc::c_int,
+        70 as libc::c_int,
+        2 as libc::c_int,
+        1 as libc::c_int,
+        100 as libc::c_int,
+        250 as libc::c_int,
+        1 as libc::c_int,
+        1000 as libc::c_int,
+        2 as libc::c_int,
+    ];
+    let mut a3: [libc::c_int; 12] = [
+        1000 as libc::c_int,
+        1 as libc::c_int,
+        500 as libc::c_int,
+        12 as libc::c_int,
+        1 as libc::c_int,
+        700 as libc::c_int,
+        2500 as libc::c_int,
+        3 as libc::c_int,
+        2 as libc::c_int,
+        5 as libc::c_int,
+        14 as libc::c_int,
+        10 as libc::c_int,
+    ];
+    let mut dims_list: [*mut libc::c_int; 3] = [
+        a1.as_mut_ptr(),
+        a2.as_mut_ptr(),
+        a3.as_mut_ptr(),
+    ];
+    let mut sizes: [libc::c_int; 3] = [
+        4 as libc::c_int,
+        13 as libc::c_int,
+        12 as libc::c_int,
+    ];
+    i = 0 as libc::c_int;
+    while i < 3 as libc::c_int {
+        printf(b"Dims  : [\0" as *const u8 as *const libc::c_char);
+        n = sizes[i as usize];
+        j = 0 as libc::c_int;
+        while j < n {
+            printf(
+                b"%d\0" as *const u8 as *const libc::c_char,
+                *(dims_list[i as usize]).offset(j as isize),
             );
-            j = 0;
-            while j <= n - 2 {
-                free(*m.offset(j as isize) as *mut libc::c_void);
-                j += 1;
-                j;
+            if j < n - 1 as libc::c_int {
+                printf(b", \0" as *const u8 as *const libc::c_char);
+            } else {
+                printf(b"]\n\0" as *const u8 as *const libc::c_char);
             }
-            free(m as *mut libc::c_void);
-            j = 0;
-            while j <= n - 2 {
-                free(*s.offset(j as isize) as *mut libc::c_void);
-                j += 1;
-                j;
-            }
-            free(s as *mut libc::c_void);
-            i += 1;
-            i;
+            j += 1;
+            j;
         }
+        optimal_matrix_chain_order(dims_list[i as usize], n);
+        printf(b"Order : \0" as *const u8 as *const libc::c_char);
+        print_optimal_chain_order(0 as libc::c_int, n - 2 as libc::c_int);
+        printf(
+            b"\nCost  : %d\n\n\0" as *const u8 as *const libc::c_char,
+            *(*m.offset(0 as libc::c_int as isize))
+                .offset((n - 2 as libc::c_int) as isize),
+        );
+        j = 0 as libc::c_int;
+        while j <= n - 2 as libc::c_int {
+            free(*m.offset(j as isize) as *mut libc::c_void);
+            j += 1;
+            j;
+        }
+        free(m as *mut libc::c_void);
+        j = 0 as libc::c_int;
+        while j <= n - 2 as libc::c_int {
+            free(*s.offset(j as isize) as *mut libc::c_void);
+            j += 1;
+            j;
+        }
+        free(s as *mut libc::c_void);
+        i += 1;
+        i;
     }
-    return 0;
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

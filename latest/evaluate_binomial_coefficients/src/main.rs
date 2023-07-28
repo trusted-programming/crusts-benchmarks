@@ -1,67 +1,68 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-use c2rust_out::*;
-extern "C" {}
-extern "C" fn gcd_ui(mut x: u64, mut y: u64) -> u64 {
-    let mut t: u64 = 0;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
+extern "C" {
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+}
+unsafe extern "C" fn gcd_ui(
+    mut x: libc::c_ulong,
+    mut y: libc::c_ulong,
+) -> libc::c_ulong {
+    let mut t: libc::c_ulong = 0;
     if y < x {
         t = x;
         x = y;
         y = t;
     }
-    while y > 0 {
+    while y > 0 as libc::c_int as libc::c_ulong {
         t = y;
         y = x.wrapping_rem(y);
         x = t;
     }
     return x;
 }
-
 #[no_mangle]
-pub extern "C" fn binomial(mut n: u64, mut k: u64) -> u64 {
-    let mut d: u64 = 0;
-    let mut g: u64 = 0;
-    let mut r: u64 = 1;
-    if k == 0 {
-        return 1;
+pub unsafe extern "C" fn binomial(
+    mut n: libc::c_ulong,
+    mut k: libc::c_ulong,
+) -> libc::c_ulong {
+    let mut d: libc::c_ulong = 0;
+    let mut g: libc::c_ulong = 0;
+    let mut r: libc::c_ulong = 1 as libc::c_int as libc::c_ulong;
+    if k == 0 as libc::c_int as libc::c_ulong {
+        return 1 as libc::c_int as libc::c_ulong;
     }
-    if k == 1 {
+    if k == 1 as libc::c_int as libc::c_ulong {
         return n;
     }
     if k >= n {
-        return (k == n) as u64;
+        return (k == n) as libc::c_int as libc::c_ulong;
     }
-    if k > n.wrapping_div(2) {
+    if k > n.wrapping_div(2 as libc::c_int as libc::c_ulong) {
         k = n.wrapping_sub(k);
     }
-    d = 1;
+    d = 1 as libc::c_int as libc::c_ulong;
     while d <= k {
-        if r >= 9223372036854775807u64
-            .wrapping_mul(2)
-            .wrapping_add(1)
-            .wrapping_div(n)
+        if r
+            >= (9223372036854775807 as libc::c_long as libc::c_ulong)
+                .wrapping_mul(2 as libc::c_ulong)
+                .wrapping_add(1 as libc::c_ulong)
+                .wrapping_div(n)
         {
-            let mut nr: u64 = 0;
-            let mut dr: u64 = 0;
+            let mut nr: libc::c_ulong = 0;
+            let mut dr: libc::c_ulong = 0;
             g = gcd_ui(n, d);
             nr = n.wrapping_div(g);
             dr = d.wrapping_div(g);
             g = gcd_ui(r, dr);
             r = r.wrapping_div(g);
             dr = dr.wrapping_div(g);
-            if r >= 9223372036854775807u64
-                .wrapping_mul(2)
-                .wrapping_add(1)
-                .wrapping_div(nr)
+            if r
+                >= (9223372036854775807 as libc::c_long as libc::c_ulong)
+                    .wrapping_mul(2 as libc::c_ulong)
+                    .wrapping_add(1 as libc::c_ulong)
+                    .wrapping_div(nr)
             {
-                return 0;
+                return 0 as libc::c_int as libc::c_ulong;
             }
             r = r.wrapping_mul(nr);
             r = r.wrapping_div(dr);
@@ -78,14 +79,21 @@ pub extern "C" fn binomial(mut n: u64, mut k: u64) -> u64 {
     }
     return r;
 }
-
-fn main_0() -> i32 {
-    print!("{}\n", binomial(5, 3));
-    print!("{}\n", binomial(40, 19));
-    print!("{}\n", binomial(67, 31));
-    return 0;
+unsafe fn main_0() -> libc::c_int {
+    printf(
+        b"%lu\n\0" as *const u8 as *const libc::c_char,
+        binomial(5 as libc::c_int as libc::c_ulong, 3 as libc::c_int as libc::c_ulong),
+    );
+    printf(
+        b"%lu\n\0" as *const u8 as *const libc::c_char,
+        binomial(40 as libc::c_int as libc::c_ulong, 19 as libc::c_int as libc::c_ulong),
+    );
+    printf(
+        b"%lu\n\0" as *const u8 as *const libc::c_char,
+        binomial(67 as libc::c_int as libc::c_ulong, 31 as libc::c_int as libc::c_ulong),
+    );
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

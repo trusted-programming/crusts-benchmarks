@@ -1,88 +1,94 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-use c2rust_out::*;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
 extern "C" {
-    fn atoi(__nptr: *const i8) -> i32;
-    fn exit(_: i32) -> !;
+    fn atoi(__nptr: *const libc::c_char) -> libc::c_int;
+    fn exit(_: libc::c_int) -> !;
     fn abort() -> !;
-    fn calloc(_: u64, _: u64) -> *mut libc::c_void;
+    fn calloc(_: libc::c_ulong, _: libc::c_ulong) -> *mut libc::c_void;
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
 }
-fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
-    unsafe {
-        if argc < 2 {
-            print!("usage: identitymatrix <number of rows>\n");
-            exit(1);
-        }
-        let mut rowsize: i32 = atoi(*argv.offset(1 as isize));
-        if rowsize < 0 {
-            print!("Dimensions of matrix cannot be negative\n");
-            exit(1);
-        }
-        let mut numElements: i32 = rowsize * rowsize;
-        if numElements < rowsize {
-            print!(
-                "Squaring {} caused result to overflow to {}.\n",
-                rowsize, numElements
-            );
-            abort();
-        }
-        let mut matrix: *mut *mut i32 = calloc(
-            numElements as u64,
-            ::core::mem::size_of::<*mut i32>() as u64,
-        ) as *mut *mut i32;
-        if matrix.is_null() {
-            print!(
-                "Failed to allocate {} elements of {} bytes each\n",
-                numElements,
-                ::core::mem::size_of::<*mut i32>() as u64
-            );
-            abort();
-        }
-        let mut row: u32 = 0;
-        while row < rowsize as u32 {
-            let ref mut fresh0 = *matrix.offset(row as isize);
-            *fresh0 = calloc(numElements as u64, ::core::mem::size_of::<i32>() as u64) as *mut i32;
-            if (*matrix.offset(row as isize)).is_null() {
-                print!(
-                    "Failed to allocate {} elements of {} bytes each\n",
-                    numElements,
-                    ::core::mem::size_of::<i32>() as u64
-                );
-                abort();
-            };
-            *(*matrix.offset(row as isize)).offset(row as isize) = 1;
-            row = row.wrapping_add(1);
-            row;
-        }
-        print!("Matrix is: \n");
-        let mut row_0: u32 = 0;
-        while row_0 < rowsize as u32 {
-            let mut column: u32 = 0;
-            while column < rowsize as u32 {
-                print!(
-                    "{} ",
-                    *(*matrix.offset(row_0 as isize)).offset(column as isize)
-                );
-                column = column.wrapping_add(1);
-                column;
-            }
-            print!("\n");
-            row_0 = row_0.wrapping_add(1);
-            row_0;
-        }
-        return 0;
+unsafe fn main_0(
+    mut argc: libc::c_int,
+    mut argv: *mut *mut libc::c_char,
+) -> libc::c_int {
+    if argc < 2 as libc::c_int {
+        printf(
+            b"usage: identitymatrix <number of rows>\n\0" as *const u8
+                as *const libc::c_char,
+        );
+        exit(1 as libc::c_int);
     }
+    let mut rowsize: libc::c_int = atoi(*argv.offset(1 as libc::c_int as isize));
+    if rowsize < 0 as libc::c_int {
+        printf(
+            b"Dimensions of matrix cannot be negative\n\0" as *const u8
+                as *const libc::c_char,
+        );
+        exit(1 as libc::c_int);
+    }
+    let mut numElements: libc::c_int = rowsize * rowsize;
+    if numElements < rowsize {
+        printf(
+            b"Squaring %d caused result to overflow to %d.\n\0" as *const u8
+                as *const libc::c_char,
+            rowsize,
+            numElements,
+        );
+        abort();
+    }
+    let mut matrix: *mut *mut libc::c_int = calloc(
+        numElements as libc::c_ulong,
+        ::core::mem::size_of::<*mut libc::c_int>() as libc::c_ulong,
+    ) as *mut *mut libc::c_int;
+    if matrix.is_null() {
+        printf(
+            b"Failed to allocate %d elements of %d bytes each\n\0" as *const u8
+                as *const libc::c_char,
+            numElements,
+            ::core::mem::size_of::<*mut libc::c_int>() as libc::c_ulong,
+        );
+        abort();
+    }
+    let mut row: libc::c_uint = 0 as libc::c_int as libc::c_uint;
+    while row < rowsize as libc::c_uint {
+        let ref mut fresh0 = *matrix.offset(row as isize);
+        *fresh0 = calloc(
+            numElements as libc::c_ulong,
+            ::core::mem::size_of::<libc::c_int>() as libc::c_ulong,
+        ) as *mut libc::c_int;
+        if (*matrix.offset(row as isize)).is_null() {
+            printf(
+                b"Failed to allocate %d elements of %d bytes each\n\0" as *const u8
+                    as *const libc::c_char,
+                numElements,
+                ::core::mem::size_of::<libc::c_int>() as libc::c_ulong,
+            );
+            abort();
+        }
+        *(*matrix.offset(row as isize)).offset(row as isize) = 1 as libc::c_int;
+        row = row.wrapping_add(1);
+        row;
+    }
+    printf(b"Matrix is: \n\0" as *const u8 as *const libc::c_char);
+    let mut row_0: libc::c_uint = 0 as libc::c_int as libc::c_uint;
+    while row_0 < rowsize as libc::c_uint {
+        let mut column: libc::c_uint = 0 as libc::c_int as libc::c_uint;
+        while column < rowsize as libc::c_uint {
+            printf(
+                b"%d \0" as *const u8 as *const libc::c_char,
+                *(*matrix.offset(row_0 as isize)).offset(column as isize),
+            );
+            column = column.wrapping_add(1);
+            column;
+        }
+        printf(b"\n\0" as *const u8 as *const libc::c_char);
+        row_0 = row_0.wrapping_add(1);
+        row_0;
+    }
+    return 0;
 }
-
 pub fn main() {
-    let mut args: Vec<*mut i8> = Vec::new();
+    let mut args: Vec::<*mut libc::c_char> = Vec::new();
     for arg in ::std::env::args() {
         args.push(
             (::std::ffi::CString::new(arg))
@@ -93,7 +99,10 @@ pub fn main() {
     args.push(::core::ptr::null_mut());
     unsafe {
         ::std::process::exit(
-            main_0((args.len() - 1) as i32, args.as_mut_ptr() as *mut *mut i8) as i32,
-        );
+            main_0(
+                (args.len() - 1) as libc::c_int,
+                args.as_mut_ptr() as *mut *mut libc::c_char,
+            ) as i32,
+        )
     }
 }

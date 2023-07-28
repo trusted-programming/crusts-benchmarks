@@ -1,62 +1,51 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-    unsafe {
-        let mut str_size: usize = 0;
-        while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size += 1;
-        }
-        return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
-            .to_owned();
-    }
-}
-
-use c2rust_out::*;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
 extern "C" {
-    fn sprintf(_: *mut i8, _: *const i8, _: ...) -> i32;
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+    fn sprintf(_: *mut libc::c_char, _: *const libc::c_char, _: ...) -> libc::c_int;
 }
-fn main_0() -> i32 {
-    let mut i: i32 = 0;
-    let mut j: i32 = 0;
-    let mut k: [i8; 4] = [0; 4];
-    i = 0;
-    unsafe {
-        while i < 16 {
-            j = 32 + i;
-            while j < 128 {
-                match j {
-                    32 => {
-                        sprintf(k.as_mut_ptr(), b"Spc\0" as *const u8 as *const i8);
-                    }
-                    127 => {
-                        sprintf(k.as_mut_ptr(), b"Del\0" as *const u8 as *const i8);
-                    }
-                    _ => {
-                        sprintf(k.as_mut_ptr(), b"%c\0" as *const u8 as *const i8, j);
-                    }
+unsafe fn main_0() -> libc::c_int {
+    let mut i: libc::c_int = 0;
+    let mut j: libc::c_int = 0;
+    let mut k: [libc::c_char; 4] = [0; 4];
+    i = 0 as libc::c_int;
+    while i < 16 as libc::c_int {
+        j = 32 as libc::c_int + i;
+        while j < 128 as libc::c_int {
+            match j {
+                32 => {
+                    sprintf(
+                        k.as_mut_ptr(),
+                        b"Spc\0" as *const u8 as *const libc::c_char,
+                    );
                 }
-                print!(
-                    "{:3} : {:-3}   ",
-                    j,
-                    build_str_from_raw_ptr(k.as_mut_ptr() as *mut u8)
-                );
-                j += 16;
+                127 => {
+                    sprintf(
+                        k.as_mut_ptr(),
+                        b"Del\0" as *const u8 as *const libc::c_char,
+                    );
+                }
+                _ => {
+                    sprintf(
+                        k.as_mut_ptr(),
+                        b"%c\0" as *const u8 as *const libc::c_char,
+                        j,
+                    );
+                }
             }
-            print!("\n");
-            i += 1;
-            i;
+            printf(
+                b"%3d : %-3s   \0" as *const u8 as *const libc::c_char,
+                j,
+                k.as_mut_ptr(),
+            );
+            j += 16 as libc::c_int;
         }
+        printf(b"\n\0" as *const u8 as *const libc::c_char);
+        i += 1;
+        i;
     }
-    return 0;
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

@@ -1,54 +1,161 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-use c2rust_out::*;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
 extern "C" {
-    fn puts(__s: *const i8) -> i32;
+    fn puts(__s: *const libc::c_char) -> libc::c_int;
 }
+pub type size_t = libc::c_ulong;
 #[no_mangle]
-pub extern "C" fn damm(mut input: *mut u8, mut length: u64) -> bool {
-    unsafe {
-        static mut table: [[u8; 10]; 10] = [
-            [0, 3, 1, 7, 5, 9, 8, 6, 4, 2],
-            [7, 0, 9, 2, 1, 5, 4, 8, 6, 3],
-            [4, 2, 0, 6, 8, 7, 1, 3, 5, 9],
-            [1, 7, 5, 0, 9, 8, 3, 4, 2, 6],
-            [6, 1, 2, 3, 0, 4, 5, 9, 7, 8],
-            [3, 6, 7, 4, 2, 0, 9, 5, 8, 1],
-            [5, 8, 6, 9, 7, 2, 0, 1, 3, 4],
-            [8, 9, 4, 5, 3, 6, 2, 0, 1, 7],
-            [9, 4, 3, 8, 6, 1, 7, 2, 0, 5],
-            [2, 5, 8, 1, 4, 3, 6, 7, 9, 0],
-        ];
-        let mut interim: u8 = 0;
-        let mut i: u64 = 0;
-        while i < length {
-            interim = table[interim as usize][*input.offset(i as isize) as usize];
-            i = i.wrapping_add(1);
-            i;
-        }
-        return interim as i32 == 0;
+pub unsafe extern "C" fn damm(
+    mut input: *mut libc::c_uchar,
+    mut length: size_t,
+) -> bool {
+    static mut table: [[libc::c_uchar; 10]; 10] = [
+        [
+            0 as libc::c_int as libc::c_uchar,
+            3 as libc::c_int as libc::c_uchar,
+            1 as libc::c_int as libc::c_uchar,
+            7 as libc::c_int as libc::c_uchar,
+            5 as libc::c_int as libc::c_uchar,
+            9 as libc::c_int as libc::c_uchar,
+            8 as libc::c_int as libc::c_uchar,
+            6 as libc::c_int as libc::c_uchar,
+            4 as libc::c_int as libc::c_uchar,
+            2 as libc::c_int as libc::c_uchar,
+        ],
+        [
+            7 as libc::c_int as libc::c_uchar,
+            0 as libc::c_int as libc::c_uchar,
+            9 as libc::c_int as libc::c_uchar,
+            2 as libc::c_int as libc::c_uchar,
+            1 as libc::c_int as libc::c_uchar,
+            5 as libc::c_int as libc::c_uchar,
+            4 as libc::c_int as libc::c_uchar,
+            8 as libc::c_int as libc::c_uchar,
+            6 as libc::c_int as libc::c_uchar,
+            3 as libc::c_int as libc::c_uchar,
+        ],
+        [
+            4 as libc::c_int as libc::c_uchar,
+            2 as libc::c_int as libc::c_uchar,
+            0 as libc::c_int as libc::c_uchar,
+            6 as libc::c_int as libc::c_uchar,
+            8 as libc::c_int as libc::c_uchar,
+            7 as libc::c_int as libc::c_uchar,
+            1 as libc::c_int as libc::c_uchar,
+            3 as libc::c_int as libc::c_uchar,
+            5 as libc::c_int as libc::c_uchar,
+            9 as libc::c_int as libc::c_uchar,
+        ],
+        [
+            1 as libc::c_int as libc::c_uchar,
+            7 as libc::c_int as libc::c_uchar,
+            5 as libc::c_int as libc::c_uchar,
+            0 as libc::c_int as libc::c_uchar,
+            9 as libc::c_int as libc::c_uchar,
+            8 as libc::c_int as libc::c_uchar,
+            3 as libc::c_int as libc::c_uchar,
+            4 as libc::c_int as libc::c_uchar,
+            2 as libc::c_int as libc::c_uchar,
+            6 as libc::c_int as libc::c_uchar,
+        ],
+        [
+            6 as libc::c_int as libc::c_uchar,
+            1 as libc::c_int as libc::c_uchar,
+            2 as libc::c_int as libc::c_uchar,
+            3 as libc::c_int as libc::c_uchar,
+            0 as libc::c_int as libc::c_uchar,
+            4 as libc::c_int as libc::c_uchar,
+            5 as libc::c_int as libc::c_uchar,
+            9 as libc::c_int as libc::c_uchar,
+            7 as libc::c_int as libc::c_uchar,
+            8 as libc::c_int as libc::c_uchar,
+        ],
+        [
+            3 as libc::c_int as libc::c_uchar,
+            6 as libc::c_int as libc::c_uchar,
+            7 as libc::c_int as libc::c_uchar,
+            4 as libc::c_int as libc::c_uchar,
+            2 as libc::c_int as libc::c_uchar,
+            0 as libc::c_int as libc::c_uchar,
+            9 as libc::c_int as libc::c_uchar,
+            5 as libc::c_int as libc::c_uchar,
+            8 as libc::c_int as libc::c_uchar,
+            1 as libc::c_int as libc::c_uchar,
+        ],
+        [
+            5 as libc::c_int as libc::c_uchar,
+            8 as libc::c_int as libc::c_uchar,
+            6 as libc::c_int as libc::c_uchar,
+            9 as libc::c_int as libc::c_uchar,
+            7 as libc::c_int as libc::c_uchar,
+            2 as libc::c_int as libc::c_uchar,
+            0 as libc::c_int as libc::c_uchar,
+            1 as libc::c_int as libc::c_uchar,
+            3 as libc::c_int as libc::c_uchar,
+            4 as libc::c_int as libc::c_uchar,
+        ],
+        [
+            8 as libc::c_int as libc::c_uchar,
+            9 as libc::c_int as libc::c_uchar,
+            4 as libc::c_int as libc::c_uchar,
+            5 as libc::c_int as libc::c_uchar,
+            3 as libc::c_int as libc::c_uchar,
+            6 as libc::c_int as libc::c_uchar,
+            2 as libc::c_int as libc::c_uchar,
+            0 as libc::c_int as libc::c_uchar,
+            1 as libc::c_int as libc::c_uchar,
+            7 as libc::c_int as libc::c_uchar,
+        ],
+        [
+            9 as libc::c_int as libc::c_uchar,
+            4 as libc::c_int as libc::c_uchar,
+            3 as libc::c_int as libc::c_uchar,
+            8 as libc::c_int as libc::c_uchar,
+            6 as libc::c_int as libc::c_uchar,
+            1 as libc::c_int as libc::c_uchar,
+            7 as libc::c_int as libc::c_uchar,
+            2 as libc::c_int as libc::c_uchar,
+            0 as libc::c_int as libc::c_uchar,
+            5 as libc::c_int as libc::c_uchar,
+        ],
+        [
+            2 as libc::c_int as libc::c_uchar,
+            5 as libc::c_int as libc::c_uchar,
+            8 as libc::c_int as libc::c_uchar,
+            1 as libc::c_int as libc::c_uchar,
+            4 as libc::c_int as libc::c_uchar,
+            3 as libc::c_int as libc::c_uchar,
+            6 as libc::c_int as libc::c_uchar,
+            7 as libc::c_int as libc::c_uchar,
+            9 as libc::c_int as libc::c_uchar,
+            0 as libc::c_int as libc::c_uchar,
+        ],
+    ];
+    let mut interim: libc::c_uchar = 0 as libc::c_int as libc::c_uchar;
+    let mut i: size_t = 0 as libc::c_int as size_t;
+    while i < length {
+        interim = table[interim as usize][*input.offset(i as isize) as usize];
+        i = i.wrapping_add(1);
+        i;
     }
+    return interim as libc::c_int == 0 as libc::c_int;
 }
-
-fn main_0() -> i32 {
-    let mut input: [u8; 4] = [5, 7, 2, 4];
-    unsafe {
-        puts(if damm(input.as_mut_ptr(), 4) as i32 != 0 {
-            b"Checksum correct\0" as *const u8 as *const i8
+unsafe fn main_0() -> libc::c_int {
+    let mut input: [libc::c_uchar; 4] = [
+        5 as libc::c_int as libc::c_uchar,
+        7 as libc::c_int as libc::c_uchar,
+        2 as libc::c_int as libc::c_uchar,
+        4 as libc::c_int as libc::c_uchar,
+    ];
+    puts(
+        if damm(input.as_mut_ptr(), 4 as libc::c_int as size_t) as libc::c_int != 0 {
+            b"Checksum correct\0" as *const u8 as *const libc::c_char
         } else {
-            b"Checksum incorrect\0" as *const u8 as *const i8
-        });
-    }
-    return 0;
+            b"Checksum incorrect\0" as *const u8 as *const libc::c_char
+        },
+    );
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

@@ -1,100 +1,96 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-    unsafe {
-        let mut str_size: usize = 0;
-        while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size += 1;
-        }
-        return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
-            .to_owned();
-    }
-}
-
-use c2rust_out::*;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
 extern "C" {
-    fn scanf(_: *const i8, _: ...) -> i32;
-    fn rand() -> i32;
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+    fn scanf(_: *const libc::c_char, _: ...) -> libc::c_int;
+    fn rand() -> libc::c_int;
 }
 #[no_mangle]
-pub extern "C" fn rand_idx(mut p: *mut f64, mut n: i32) -> i32 {
-    unsafe {
-        let mut s: f64 = rand() as f64 / (2147483647 as f64 + 1.0f64);
-        let mut i: i32 = 0;
-        i = 0;
-        while i < n - 1 && {
+pub unsafe extern "C" fn rand_idx(
+    mut p: *mut libc::c_double,
+    mut n: libc::c_int,
+) -> libc::c_int {
+    let mut s: libc::c_double = rand() as libc::c_double
+        / (2147483647 as libc::c_int as libc::c_double + 1.0f64);
+    let mut i: libc::c_int = 0;
+    i = 0 as libc::c_int;
+    while i < n - 1 as libc::c_int
+        && {
             s -= *p.offset(i as isize);
-            s >= 0 as f64
-        } {
-            i += 1;
-            i;
+            s >= 0 as libc::c_int as libc::c_double
         }
-        return i;
+    {
+        i += 1;
+        i;
     }
+    return i;
 }
-
-fn main_0() -> i32 {
-    let mut user_action: i32 = 0;
-    let mut my_action: i32 = 0;
-    let mut user_rec: [i32; 3] = [0; 3];
-    let mut names: [*const i8; 3] = [
-        b"Rock\0" as *const u8 as *const i8,
-        b"Paper\0" as *const u8 as *const i8,
-        b"Scissors\0" as *const u8 as *const i8,
+unsafe fn main_0() -> libc::c_int {
+    let mut user_action: libc::c_int = 0;
+    let mut my_action: libc::c_int = 0;
+    let mut user_rec: [libc::c_int; 3] = [
+        0 as libc::c_int,
+        0 as libc::c_int,
+        0 as libc::c_int,
     ];
-    let mut str: [i8; 2] = [0; 2];
-    let mut winner: [*const i8; 3] = [
-        b"We tied.\0" as *const u8 as *const i8,
-        b"Meself winned.\0" as *const u8 as *const i8,
-        b"You win.\0" as *const u8 as *const i8,
+    let mut names: [*const libc::c_char; 3] = [
+        b"Rock\0" as *const u8 as *const libc::c_char,
+        b"Paper\0" as *const u8 as *const libc::c_char,
+        b"Scissors\0" as *const u8 as *const libc::c_char,
     ];
-    let mut p: [f64; 3] = [1.0f64 / 3 as f64, 1.0f64 / 3 as f64, 1.0f64 / 3 as f64];
-    unsafe {
-        loop {
-            my_action = rand_idx(p.as_mut_ptr(), 3);
-            print!("\nYour choice [1-3]:\n  1. Rock\n  2. Paper\n  3. Scissors\n> ");
-            if scanf(
-                b"%d\0" as *const u8 as *const i8,
-                &mut user_action as *mut i32,
-            ) == 0
-            {
-                scanf(b"%1s\0" as *const u8 as *const i8, str.as_mut_ptr());
-                if *str.as_mut_ptr() as i32 == 'q' as i32 {
-                    print!(
-                        "Your choices [rock : {} , paper :  {} , scissors {}] ",
-                        user_rec[0 as usize], user_rec[1 as usize], user_rec[2 as usize]
-                    );
-                    return 0;
-                }
+    let mut str: [libc::c_char; 2] = [0; 2];
+    let mut winner: [*const libc::c_char; 3] = [
+        b"We tied.\0" as *const u8 as *const libc::c_char,
+        b"Meself winned.\0" as *const u8 as *const libc::c_char,
+        b"You win.\0" as *const u8 as *const libc::c_char,
+    ];
+    let mut p: [libc::c_double; 3] = [
+        1.0f64 / 3 as libc::c_int as libc::c_double,
+        1.0f64 / 3 as libc::c_int as libc::c_double,
+        1.0f64 / 3 as libc::c_int as libc::c_double,
+    ];
+    loop {
+        my_action = rand_idx(p.as_mut_ptr(), 3 as libc::c_int);
+        printf(
+            b"\nYour choice [1-3]:\n  1. Rock\n  2. Paper\n  3. Scissors\n> \0"
+                as *const u8 as *const libc::c_char,
+        );
+        if scanf(
+            b"%d\0" as *const u8 as *const libc::c_char,
+            &mut user_action as *mut libc::c_int,
+        ) == 0
+        {
+            scanf(b"%1s\0" as *const u8 as *const libc::c_char, str.as_mut_ptr());
+            if *str.as_mut_ptr() as libc::c_int == 'q' as i32 {
+                printf(
+                    b"Your choices [rock : %d , paper :  %d , scissors %d] \0"
+                        as *const u8 as *const libc::c_char,
+                    user_rec[0 as libc::c_int as usize],
+                    user_rec[1 as libc::c_int as usize],
+                    user_rec[2 as libc::c_int as usize],
+                );
+                return 0 as libc::c_int;
+            }
+        } else {
+            user_action -= 1;
+            user_action;
+            if user_action > 2 as libc::c_int || user_action < 0 as libc::c_int {
+                printf(b"invalid choice; again\n\0" as *const u8 as *const libc::c_char);
             } else {
-                user_action -= 1;
-                user_action;
-                if user_action > 2 || user_action < 0 {
-                    print!("invalid choice; again\n");
-                } else {
-                    print!(
-                        "You chose {}; I chose {}. {}\n",
-                        build_str_from_raw_ptr(names[user_action as usize] as *mut u8),
-                        build_str_from_raw_ptr(names[my_action as usize] as *mut u8),
-                        build_str_from_raw_ptr(
-                            winner[((my_action - user_action + 3i32) % 3i32) as usize] as *mut u8
-                        )
-                    );
-                    user_rec[user_action as usize] += 1;
-                    user_rec[user_action as usize];
-                }
+                printf(
+                    b"You chose %s; I chose %s. %s\n\0" as *const u8
+                        as *const libc::c_char,
+                    names[user_action as usize],
+                    names[my_action as usize],
+                    winner[((my_action - user_action + 3 as libc::c_int)
+                        % 3 as libc::c_int) as usize],
+                );
+                user_rec[user_action as usize] += 1;
+                user_rec[user_action as usize];
             }
         }
-    }
+    };
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

@@ -1,52 +1,37 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-use c2rust_out::*;
-extern "C" {}
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
+extern "C" {
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+}
 #[no_mangle]
-pub extern "C" fn t(mut n: i32) {
-    let mut i: i32 = 0;
-    let mut j: i32 = 0;
-    let mut c: i32 = 0;
-    let mut len: i32 = 0;
-    i = n * (n - 1) / 2;
-    c = 1;
+pub unsafe extern "C" fn t(mut n: libc::c_int) {
+    let mut i: libc::c_int = 0;
+    let mut j: libc::c_int = 0;
+    let mut c: libc::c_int = 0;
+    let mut len: libc::c_int = 0;
+    i = n * (n - 1 as libc::c_int) / 2 as libc::c_int;
+    c = 1 as libc::c_int;
     len = c;
     while c < i {
-        c *= 10;
+        c *= 10 as libc::c_int;
         len += 1;
         len;
     }
     c -= i;
-    let mut num: i32 = 0;
-    i = 1;
+    let mut num: libc::c_int = 0;
+    i = 1 as libc::c_int;
     num = i;
     while i <= n {
-        j = 1;
+        j = 1 as libc::c_int;
         while j <= i {
             let fresh0 = num;
             num = num + 1;
-            if i - j != 0 {
-                print!(
-                    "{1:0$}{2:}",
-                    (len - (j < c) as i32).abs() as usize,
-                    fresh0,
-                    ' ' as i32
-                )
-            } else {
-                print!(
-                    "{1:0$}{2:}",
-                    (len - (j < c) as i32).abs() as usize,
-                    fresh0,
-                    '\n' as i32
-                )
-            };
+            printf(
+                b"%*d%c\0" as *const u8 as *const libc::c_char,
+                len - (j < c) as libc::c_int,
+                fresh0,
+                if i - j != 0 { ' ' as i32 } else { '\n' as i32 },
+            );
             j += 1;
             j;
         }
@@ -54,13 +39,11 @@ pub extern "C" fn t(mut n: i32) {
         i;
     }
 }
-
-fn main_0() -> i32 {
-    t(5);
-    t(14);
-    return 0;
+unsafe fn main_0() -> libc::c_int {
+    t(5 as libc::c_int);
+    t(14 as libc::c_int);
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

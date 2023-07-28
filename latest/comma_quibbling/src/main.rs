@@ -1,105 +1,88 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-    unsafe {
-        let mut str_size: usize = 0;
-        while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size += 1;
-        }
-        return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
-            .to_owned();
-    }
-}
-
-use c2rust_out::*;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
 extern "C" {
-    fn perror(__s: *const i8);
-    fn strcpy(_: *mut i8, _: *const i8) -> *mut i8;
-    fn strcat(_: *mut i8, _: *const i8) -> *mut i8;
-    fn strlen(_: *const i8) -> u64;
-    fn malloc(_: u64) -> *mut libc::c_void;
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+    fn perror(__s: *const libc::c_char);
+    fn strcpy(_: *mut libc::c_char, _: *const libc::c_char) -> *mut libc::c_char;
+    fn strcat(_: *mut libc::c_char, _: *const libc::c_char) -> *mut libc::c_char;
+    fn strlen(_: *const libc::c_char) -> libc::c_ulong;
+    fn malloc(_: libc::c_ulong) -> *mut libc::c_void;
     fn free(_: *mut libc::c_void);
-    fn exit(_: i32) -> !;
+    fn exit(_: libc::c_int) -> !;
 }
+pub type size_t = libc::c_ulong;
 #[no_mangle]
-pub extern "C" fn quib(mut strs: *mut *const i8, mut size: u64) -> *mut i8 {
-    unsafe {
-        let mut len: u64 = 3u64.wrapping_add(
-            (if size > 1 {
-                2u64.wrapping_mul(size).wrapping_add(1)
+pub unsafe extern "C" fn quib(
+    mut strs: *mut *const libc::c_char,
+    mut size: size_t,
+) -> *mut libc::c_char {
+    let mut len: size_t = (3 as libc::c_int as libc::c_ulong)
+        .wrapping_add(
+            (if size > 1 as libc::c_int as libc::c_ulong {
+                (2 as libc::c_int as libc::c_ulong)
+                    .wrapping_mul(size)
+                    .wrapping_add(1 as libc::c_int as libc::c_ulong)
             } else {
-                0
+                0 as libc::c_int as libc::c_ulong
             }),
         );
-        let mut i: u64 = 0;
-        i = 0;
-        while i < size {
-            len = (len).wrapping_add(strlen(*strs.offset(i as isize))) as u64;
-            i = i.wrapping_add(1);
-            i;
+    let mut i: size_t = 0;
+    i = 0 as libc::c_int as size_t;
+    while i < size {
+        len = (len as libc::c_ulong).wrapping_add(strlen(*strs.offset(i as isize)))
+            as size_t as size_t;
+        i = i.wrapping_add(1);
+        i;
+    }
+    let mut s: *mut libc::c_char = malloc(
+        len.wrapping_mul(::core::mem::size_of::<libc::c_char>() as libc::c_ulong),
+    ) as *mut libc::c_char;
+    if s.is_null() {
+        perror(b"Can't allocate memory!\n\0" as *const u8 as *const libc::c_char);
+        exit(1 as libc::c_int);
+    }
+    strcpy(s, b"{\0" as *const u8 as *const libc::c_char);
+    match size {
+        0 => {}
+        1 => {
+            strcat(s, *strs.offset(0 as libc::c_int as isize));
         }
-        let mut s: *mut i8 =
-            malloc(len.wrapping_mul(::core::mem::size_of::<i8>() as u64)) as *mut i8;
-        if s.is_null() {
-            perror(b"Can't allocate memory!\n\0" as *const u8 as *const i8);
-            exit(1);
-        }
-        strcpy(s, b"{\0" as *const u8 as *const i8);
-        match size {
-            0 => {}
-            1 => {
-                strcat(s, *strs.offset(0 as isize));
-            }
-            _ => {
-                i = 0;
-                while i < size.wrapping_sub(1) {
-                    strcat(s, *strs.offset(i as isize));
-                    if i < size.wrapping_sub(2) {
-                        strcat(s, b", \0" as *const u8 as *const i8);
-                    } else {
-                        strcat(s, b" and \0" as *const u8 as *const i8);
-                    }
-                    i = i.wrapping_add(1);
-                    i;
-                }
+        _ => {
+            i = 0 as libc::c_int as size_t;
+            while i < size.wrapping_sub(1 as libc::c_int as libc::c_ulong) {
                 strcat(s, *strs.offset(i as isize));
+                if i < size.wrapping_sub(2 as libc::c_int as libc::c_ulong) {
+                    strcat(s, b", \0" as *const u8 as *const libc::c_char);
+                } else {
+                    strcat(s, b" and \0" as *const u8 as *const libc::c_char);
+                }
+                i = i.wrapping_add(1);
+                i;
             }
+            strcat(s, *strs.offset(i as isize));
         }
-        strcat(s, b"}\0" as *const u8 as *const i8);
-        return s;
     }
+    strcat(s, b"}\0" as *const u8 as *const libc::c_char);
+    return s;
 }
-
-fn main_0() -> i32 {
-    unsafe {
-        let mut test: [*const i8; 4] = [
-            b"ABC\0" as *const u8 as *const i8,
-            b"DEF\0" as *const u8 as *const i8,
-            b"G\0" as *const u8 as *const i8,
-            b"H\0" as *const u8 as *const i8,
-        ];
-        let mut s: *mut i8 = 0 as *mut i8;
-        let mut i: u64 = 0;
-        while i < 5 {
-            s = quib(test.as_mut_ptr(), i);
-            print!("{}\n", build_str_from_raw_ptr(s as *mut u8));
-            free(s as *mut libc::c_void);
-            i = i.wrapping_add(1);
-            i;
-        }
-        return 0;
+unsafe fn main_0() -> libc::c_int {
+    let mut test: [*const libc::c_char; 4] = [
+        b"ABC\0" as *const u8 as *const libc::c_char,
+        b"DEF\0" as *const u8 as *const libc::c_char,
+        b"G\0" as *const u8 as *const libc::c_char,
+        b"H\0" as *const u8 as *const libc::c_char,
+    ];
+    let mut s: *mut libc::c_char = 0 as *mut libc::c_char;
+    let mut i: size_t = 0 as libc::c_int as size_t;
+    while i < 5 as libc::c_int as libc::c_ulong {
+        s = quib(test.as_mut_ptr(), i);
+        printf(b"%s\n\0" as *const u8 as *const libc::c_char, s);
+        free(s as *mut libc::c_void);
+        i = i.wrapping_add(1);
+        i;
     }
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    unsafe {
-        ::std::process::exit(main_0() as i32);
-    }
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

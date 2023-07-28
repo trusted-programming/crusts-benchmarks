@@ -1,20 +1,13 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-use c2rust_out::*;
-extern "C" {}
-fn main_0() -> i32 {
-    print!("{}\n", 'a' as i32);
-    print!("{}\n", 97);
-    return 0;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
+extern "C" {
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
 }
-
+unsafe fn main_0() -> libc::c_int {
+    printf(b"%d\n\0" as *const u8 as *const libc::c_char, 'a' as i32);
+    printf(b"%c\n\0" as *const u8 as *const libc::c_char, 97 as libc::c_int);
+    return 0 as libc::c_int;
+}
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

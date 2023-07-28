@@ -1,49 +1,50 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-use c2rust_out::*;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
 extern "C" {
-    fn scanf(_: *const i8, _: ...) -> i32;
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+    fn scanf(_: *const libc::c_char, _: ...) -> libc::c_int;
 }
-fn main_0() -> i32 {
-    let mut bounds: [i32; 2] = [1, 100];
-    unsafe {
-        let mut input: [i8; 2] = *::core::mem::transmute::<&[u8; 2], &mut [i8; 2]>(b"  ");
-        let mut choice: i32 = (bounds[0 as usize] + bounds[1 as usize]) / 2;
-        print!(
-            "Choose a number between {} and {}.\n",
-            bounds[0 as usize], bounds[1 as usize]
+unsafe fn main_0() -> libc::c_int {
+    let mut bounds: [libc::c_int; 2] = [1 as libc::c_int, 100 as libc::c_int];
+    let mut input: [libc::c_char; 2] = *::core::mem::transmute::<
+        &[u8; 2],
+        &mut [libc::c_char; 2],
+    >(b"  ");
+    let mut choice: libc::c_int = (bounds[0 as libc::c_int as usize]
+        + bounds[1 as libc::c_int as usize]) / 2 as libc::c_int;
+    printf(
+        b"Choose a number between %d and %d.\n\0" as *const u8 as *const libc::c_char,
+        bounds[0 as libc::c_int as usize],
+        bounds[1 as libc::c_int as usize],
+    );
+    loop {
+        match input[0 as libc::c_int as usize] as libc::c_int {
+            72 => {
+                bounds[1 as libc::c_int as usize] = choice;
+            }
+            76 => {
+                bounds[0 as libc::c_int as usize] = choice;
+            }
+            89 => {
+                printf(b"\nAwwwright\n\0" as *const u8 as *const libc::c_char);
+                return 0 as libc::c_int;
+            }
+            _ => {}
+        }
+        choice = (bounds[0 as libc::c_int as usize] + bounds[1 as libc::c_int as usize])
+            / 2 as libc::c_int;
+        printf(
+            b"Is the number %d? (Y/H/L) \0" as *const u8 as *const libc::c_char,
+            choice,
         );
-        loop {
-            match input[0 as usize] as i32 {
-                72 => {
-                    bounds[1 as usize] = choice;
-                }
-                76 => {
-                    bounds[0 as usize] = choice;
-                }
-                89 => {
-                    print!("\nAwwwright\n");
-                    return 0;
-                }
-                _ => {}
-            }
-            choice = (bounds[0 as usize] + bounds[1 as usize]) / 2;
-            print!("Is the number {}? (Y/H/L) ", choice);
-            if !(scanf(b"%1s\0" as *const u8 as *const i8, input.as_mut_ptr()) == 1) {
-                break;
-            }
+        if !(scanf(b"%1s\0" as *const u8 as *const libc::c_char, input.as_mut_ptr())
+            == 1 as libc::c_int)
+        {
+            break;
         }
     }
-    return 0;
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

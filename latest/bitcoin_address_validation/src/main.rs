@@ -1,133 +1,122 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-    unsafe {
-        let mut str_size: usize = 0;
-        while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size += 1;
-        }
-        return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
-            .to_owned();
-    }
-}
-
-use c2rust_out::*;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
 extern "C" {
-    fn memset(_: *mut libc::c_void, _: i32, _: u64) -> *mut libc::c_void;
-    fn memcmp(_: *const libc::c_void, _: *const libc::c_void, _: u64) -> i32;
-    fn strchr(_: *const i8, _: i32) -> *mut i8;
-    fn SHA256(d: *const u8, n: u64, md: *mut u8) -> *mut u8;
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+    fn memset(
+        _: *mut libc::c_void,
+        _: libc::c_int,
+        _: libc::c_ulong,
+    ) -> *mut libc::c_void;
+    fn memcmp(
+        _: *const libc::c_void,
+        _: *const libc::c_void,
+        _: libc::c_ulong,
+    ) -> libc::c_int;
+    fn strchr(_: *const libc::c_char, _: libc::c_int) -> *mut libc::c_char;
+    fn SHA256(
+        d: *const libc::c_uchar,
+        n: size_t,
+        md: *mut libc::c_uchar,
+    ) -> *mut libc::c_uchar;
 }
+pub type size_t = libc::c_ulong;
 #[no_mangle]
-pub static mut coin_err: *const i8 = 0 as *const i8;
+pub static mut coin_err: *const libc::c_char = 0 as *const libc::c_char;
 #[no_mangle]
-pub extern "C" fn unbase58(mut s: *const i8, mut out: *mut u8) -> i32 {
-    unsafe {
-        static mut tmpl: *const i8 = b"123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz\0"
-            as *const u8 as *const i8;
-        let mut i: i32 = 0;
-        let mut j: i32 = 0;
-        let mut c: i32 = 0;
-        let mut p: *const i8 = 0 as *const i8;
-        memset(out as *mut libc::c_void, 0, 25);
-        i = 0;
-        while *s.offset(i as isize) != 0 {
-            p = strchr(tmpl, *s.offset(i as isize) as i32);
-            if p.is_null() {
-                coin_err = b"bad char\0" as *const u8 as *const i8;
-                return 0;
-            }
-            c = p.offset_from(tmpl) as i32;
-            j = 25;
-            loop {
-                let fresh0 = j;
-                j = j - 1;
-                if !(fresh0 != 0) {
-                    break;
-                }
-                c += 58 * *out.offset(j as isize) as i32;
-                *out.offset(j as isize) = (c % 256i32) as u8;
-                c /= 256;
-            }
-            if c != 0 {
-                coin_err = b"address too long\0" as *const u8 as *const i8;
-                return 0;
-            }
-            i += 1;
-            i;
+pub unsafe extern "C" fn unbase58(
+    mut s: *const libc::c_char,
+    mut out: *mut libc::c_uchar,
+) -> libc::c_int {
+    static mut tmpl: *const libc::c_char = b"123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz\0"
+        as *const u8 as *const libc::c_char;
+    let mut i: libc::c_int = 0;
+    let mut j: libc::c_int = 0;
+    let mut c: libc::c_int = 0;
+    let mut p: *const libc::c_char = 0 as *const libc::c_char;
+    memset(
+        out as *mut libc::c_void,
+        0 as libc::c_int,
+        25 as libc::c_int as libc::c_ulong,
+    );
+    i = 0 as libc::c_int;
+    while *s.offset(i as isize) != 0 {
+        p = strchr(tmpl, *s.offset(i as isize) as libc::c_int);
+        if p.is_null() {
+            coin_err = b"bad char\0" as *const u8 as *const libc::c_char;
+            return 0 as libc::c_int;
         }
-        return 1;
+        c = p.offset_from(tmpl) as libc::c_long as libc::c_int;
+        j = 25 as libc::c_int;
+        loop {
+            let fresh0 = j;
+            j = j - 1;
+            if !(fresh0 != 0) {
+                break;
+            }
+            c += 58 as libc::c_int * *out.offset(j as isize) as libc::c_int;
+            *out.offset(j as isize) = (c % 256 as libc::c_int) as libc::c_uchar;
+            c /= 256 as libc::c_int;
+        }
+        if c != 0 {
+            coin_err = b"address too long\0" as *const u8 as *const libc::c_char;
+            return 0 as libc::c_int;
+        }
+        i += 1;
+        i;
     }
+    return 1 as libc::c_int;
 }
-
 #[no_mangle]
-pub extern "C" fn valid(mut s: *const i8) -> i32 {
-    unsafe {
-        let mut dec: [u8; 32] = [0; 32];
-        let mut d1: [u8; 32] = [0; 32];
-        let mut d2: [u8; 32] = [0; 32];
-        coin_err = b"\0" as *const u8 as *const i8;
-        if unbase58(s, dec.as_mut_ptr()) == 0 {
-            return 0;
-        }
-        SHA256(
-            SHA256(dec.as_mut_ptr(), 21, d1.as_mut_ptr()),
-            32,
-            d2.as_mut_ptr(),
-        );
-        if memcmp(
-            dec.as_mut_ptr().offset(21 as isize) as *const libc::c_void,
-            d2.as_mut_ptr() as *const libc::c_void,
-            4,
-        ) != 0
-        {
-            coin_err = b"bad digest\0" as *const u8 as *const i8;
-            return 0;
-        }
-        return 1;
+pub unsafe extern "C" fn valid(mut s: *const libc::c_char) -> libc::c_int {
+    let mut dec: [libc::c_uchar; 32] = [0; 32];
+    let mut d1: [libc::c_uchar; 32] = [0; 32];
+    let mut d2: [libc::c_uchar; 32] = [0; 32];
+    coin_err = b"\0" as *const u8 as *const libc::c_char;
+    if unbase58(s, dec.as_mut_ptr()) == 0 {
+        return 0 as libc::c_int;
     }
+    SHA256(
+        SHA256(dec.as_mut_ptr(), 21 as libc::c_int as size_t, d1.as_mut_ptr()),
+        32 as libc::c_int as size_t,
+        d2.as_mut_ptr(),
+    );
+    if memcmp(
+        dec.as_mut_ptr().offset(21 as libc::c_int as isize) as *const libc::c_void,
+        d2.as_mut_ptr() as *const libc::c_void,
+        4 as libc::c_int as libc::c_ulong,
+    ) != 0
+    {
+        coin_err = b"bad digest\0" as *const u8 as *const libc::c_char;
+        return 0 as libc::c_int;
+    }
+    return 1 as libc::c_int;
 }
-
-fn main_0() -> i32 {
-    let mut s: [*const i8; 5] = [
-        b"1Q1pE5vPGEEMqRcVRMbtBK842Y6Pzo6nK9\0" as *const u8 as *const i8,
-        b"1AGNa15ZQXAZUgFiqJ2i7Z2DPU2J6hW62i\0" as *const u8 as *const i8,
-        b"1Q1pE5vPGEEMqRcVRMbtBK842Y6Pzo6nJ9\0" as *const u8 as *const i8,
-        b"1AGNa15ZQXAZUgFiqJ2i7Z2DPU2J6hW62I\0" as *const u8 as *const i8,
-        0 as *const i8,
+unsafe fn main_0() -> libc::c_int {
+    let mut s: [*const libc::c_char; 5] = [
+        b"1Q1pE5vPGEEMqRcVRMbtBK842Y6Pzo6nK9\0" as *const u8 as *const libc::c_char,
+        b"1AGNa15ZQXAZUgFiqJ2i7Z2DPU2J6hW62i\0" as *const u8 as *const libc::c_char,
+        b"1Q1pE5vPGEEMqRcVRMbtBK842Y6Pzo6nJ9\0" as *const u8 as *const libc::c_char,
+        b"1AGNa15ZQXAZUgFiqJ2i7Z2DPU2J6hW62I\0" as *const u8 as *const libc::c_char,
+        0 as *const libc::c_char,
     ];
-    let mut i: i32 = 0;
-    i = 0;
-    unsafe {
-        while !(s[i as usize]).is_null() {
-            let mut status: i32 = valid(s[i as usize]);
+    let mut i: libc::c_int = 0;
+    i = 0 as libc::c_int;
+    while !(s[i as usize]).is_null() {
+        let mut status: libc::c_int = valid(s[i as usize]);
+        printf(
+            b"%s: %s\n\0" as *const u8 as *const libc::c_char,
+            s[i as usize],
             if status != 0 {
-                print!(
-                    "{}: {}\n",
-                    build_str_from_raw_ptr(s[i as usize] as *mut u8),
-                    "Ok\0"
-                )
+                b"Ok\0" as *const u8 as *const libc::c_char
             } else {
-                print!(
-                    "{}: {}\n",
-                    build_str_from_raw_ptr(s[i as usize] as *mut u8),
-                    build_str_from_raw_ptr(coin_err as *mut u8)
-                )
-            };
-            i += 1;
-            i;
-        }
+                coin_err
+            },
+        );
+        i += 1;
+        i;
     }
-    return 0;
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

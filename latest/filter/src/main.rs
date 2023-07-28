@@ -1,106 +1,107 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-use c2rust_out::*;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
 extern "C" {
-    fn malloc(_: u64) -> *mut libc::c_void;
-    fn realloc(_: *mut libc::c_void, _: u64) -> *mut libc::c_void;
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+    fn malloc(_: libc::c_ulong) -> *mut libc::c_void;
+    fn realloc(_: *mut libc::c_void, _: libc::c_ulong) -> *mut libc::c_void;
 }
 #[no_mangle]
-pub extern "C" fn even_sel(mut x: i32) -> i32 {
-    return (x & 1 == 0) as i32;
+pub unsafe extern "C" fn even_sel(mut x: libc::c_int) -> libc::c_int {
+    return (x & 1 as libc::c_int == 0) as libc::c_int;
 }
-
 #[no_mangle]
-pub extern "C" fn tri_sel(mut x: i32) -> i32 {
-    return x % 3;
+pub unsafe extern "C" fn tri_sel(mut x: libc::c_int) -> libc::c_int {
+    return x % 3 as libc::c_int;
 }
-
 #[no_mangle]
-pub extern "C" fn grep(
-    mut in_0: *mut i32,
-    mut len: i32,
-    mut outlen: *mut i32,
-    mut sel: Option<unsafe extern "C" fn(i32) -> i32>,
-    mut inplace: i32,
-) -> *mut i32 {
-    unsafe {
-        let mut i: i32 = 0;
-        let mut j: i32 = 0;
-        let mut out: *mut i32 = 0 as *mut i32;
-        if inplace != 0 {
-            out = in_0;
-        } else {
-            out =
-                malloc((::core::mem::size_of::<i32>() as u64).wrapping_mul(len as u64)) as *mut i32;
-        }
-        j = 0;
-        i = j;
-        while i < len {
-            if sel.expect("non-null function pointer")(*in_0.offset(i as isize)) != 0 {
-                let fresh0 = j;
-                j = j + 1;
-                *out.offset(fresh0 as isize) = *in_0.offset(i as isize);
-            }
-            i += 1;
-            i;
-        }
-        if inplace == 0 && j < len {
-            out = realloc(
-                out as *mut libc::c_void,
-                (::core::mem::size_of::<i32>() as u64).wrapping_mul(j as u64),
-            ) as *mut i32;
-        }
-        *outlen = j;
-        return out;
+pub unsafe extern "C" fn grep(
+    mut in_0: *mut libc::c_int,
+    mut len: libc::c_int,
+    mut outlen: *mut libc::c_int,
+    mut sel: Option::<unsafe extern "C" fn(libc::c_int) -> libc::c_int>,
+    mut inplace: libc::c_int,
+) -> *mut libc::c_int {
+    let mut i: libc::c_int = 0;
+    let mut j: libc::c_int = 0;
+    let mut out: *mut libc::c_int = 0 as *mut libc::c_int;
+    if inplace != 0 {
+        out = in_0;
+    } else {
+        out = malloc(
+            (::core::mem::size_of::<libc::c_int>() as libc::c_ulong)
+                .wrapping_mul(len as libc::c_ulong),
+        ) as *mut libc::c_int;
     }
-}
-
-fn main_0() -> i32 {
-    unsafe {
-        let mut in_0: [i32; 10] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        let mut i: i32 = 0;
-        let mut len: i32 = 0;
-        let mut even: *mut i32 = grep(
-            in_0.as_mut_ptr(),
-            10,
-            &mut len,
-            Some(even_sel as unsafe extern "C" fn(i32) -> i32),
-            0,
-        );
-        print!("Filtered even:");
-        i = 0;
-        while i < len {
-            print!(" {}", *even.offset(i as isize));
-            i += 1;
-            i;
+    j = 0 as libc::c_int;
+    i = j;
+    while i < len {
+        if sel.expect("non-null function pointer")(*in_0.offset(i as isize)) != 0 {
+            let fresh0 = j;
+            j = j + 1;
+            *out.offset(fresh0 as isize) = *in_0.offset(i as isize);
         }
-        print!("\n");
-        grep(
-            in_0.as_mut_ptr(),
-            8,
-            &mut len,
-            Some(tri_sel as unsafe extern "C" fn(i32) -> i32),
-            1,
-        );
-        print!("In-place filtered not multiple of 3:");
-        i = 0;
-        while i < len {
-            print!(" {}", in_0[i as usize]);
-            i += 1;
-            i;
-        }
-        print!("\n");
-        return 0;
+        i += 1;
+        i;
     }
+    if inplace == 0 && j < len {
+        out = realloc(
+            out as *mut libc::c_void,
+            (::core::mem::size_of::<libc::c_int>() as libc::c_ulong)
+                .wrapping_mul(j as libc::c_ulong),
+        ) as *mut libc::c_int;
+    }
+    *outlen = j;
+    return out;
 }
-
+unsafe fn main_0() -> libc::c_int {
+    let mut in_0: [libc::c_int; 10] = [
+        1 as libc::c_int,
+        2 as libc::c_int,
+        3 as libc::c_int,
+        4 as libc::c_int,
+        5 as libc::c_int,
+        6 as libc::c_int,
+        7 as libc::c_int,
+        8 as libc::c_int,
+        9 as libc::c_int,
+        10 as libc::c_int,
+    ];
+    let mut i: libc::c_int = 0;
+    let mut len: libc::c_int = 0;
+    let mut even: *mut libc::c_int = grep(
+        in_0.as_mut_ptr(),
+        10 as libc::c_int,
+        &mut len,
+        Some(even_sel as unsafe extern "C" fn(libc::c_int) -> libc::c_int),
+        0 as libc::c_int,
+    );
+    printf(b"Filtered even:\0" as *const u8 as *const libc::c_char);
+    i = 0 as libc::c_int;
+    while i < len {
+        printf(b" %d\0" as *const u8 as *const libc::c_char, *even.offset(i as isize));
+        i += 1;
+        i;
+    }
+    printf(b"\n\0" as *const u8 as *const libc::c_char);
+    grep(
+        in_0.as_mut_ptr(),
+        8 as libc::c_int,
+        &mut len,
+        Some(tri_sel as unsafe extern "C" fn(libc::c_int) -> libc::c_int),
+        1 as libc::c_int,
+    );
+    printf(
+        b"In-place filtered not multiple of 3:\0" as *const u8 as *const libc::c_char,
+    );
+    i = 0 as libc::c_int;
+    while i < len {
+        printf(b" %d\0" as *const u8 as *const libc::c_char, in_0[i as usize]);
+        i += 1;
+        i;
+    }
+    printf(b"\n\0" as *const u8 as *const libc::c_char);
+    return 0 as libc::c_int;
+}
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

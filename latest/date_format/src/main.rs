@@ -1,108 +1,83 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-    unsafe {
-        let mut str_size: usize = 0;
-        while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size += 1;
-        }
-        return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
-            .to_owned();
-    }
-}
-
-use std::time::SystemTime;
-pub fn rust_time(ref_result: Option<&mut i64>) -> i64 {
-    let result = match SystemTime::now().duration_since(SystemTime::UNIX_EPOCH) {
-        Ok(n) => n.as_secs(),
-        Err(_) => panic!("SystemTime before UNIX EPOCH!"),
-    };
-    match ref_result {
-        Some(r) => *r = result,
-        None => {}
-    }
-    return result as i64;
-}
-
-use c2rust_out::*;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
 extern "C" {
-    fn strftime(__s: *mut i8, __maxsize: u64, __format: *const i8, __tp: *const tm) -> u64;
-    fn localtime(__timer: *const i64) -> *mut tm;
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+    fn time(__timer: *mut time_t) -> time_t;
+    fn strftime(
+        __s: *mut libc::c_char,
+        __maxsize: size_t,
+        __format: *const libc::c_char,
+        __tp: *const tm,
+    ) -> size_t;
+    fn localtime(__timer: *const time_t) -> *mut tm;
 }
+pub type size_t = libc::c_ulong;
+pub type __time_t = libc::c_long;
+pub type time_t = __time_t;
 #[derive(Copy, Clone)]
 #[repr(C)]
 pub struct tm {
-    pub tm_sec: i32,
-    pub tm_min: i32,
-    pub tm_hour: i32,
-    pub tm_mday: i32,
-    pub tm_mon: i32,
-    pub tm_year: i32,
-    pub tm_wday: i32,
-    pub tm_yday: i32,
-    pub tm_isdst: i32,
-    pub tm_gmtoff: i64,
-    pub tm_zone: *const i8,
+    pub tm_sec: libc::c_int,
+    pub tm_min: libc::c_int,
+    pub tm_hour: libc::c_int,
+    pub tm_mday: libc::c_int,
+    pub tm_mon: libc::c_int,
+    pub tm_year: libc::c_int,
+    pub tm_wday: libc::c_int,
+    pub tm_yday: libc::c_int,
+    pub tm_isdst: libc::c_int,
+    pub tm_gmtoff: libc::c_long,
+    pub tm_zone: *const libc::c_char,
 }
-fn main_0() -> i32 {
-    unsafe {
-        let mut buf: [i8; 50] = [0; 50];
-        let mut seconds: i64 = rust_time(None);
-        let mut now: *mut tm = localtime(&mut seconds);
-        let mut months: [*const i8; 12] = [
-            b"January\0" as *const u8 as *const i8,
-            b"February\0" as *const u8 as *const i8,
-            b"March\0" as *const u8 as *const i8,
-            b"April\0" as *const u8 as *const i8,
-            b"May\0" as *const u8 as *const i8,
-            b"June\0" as *const u8 as *const i8,
-            b"July\0" as *const u8 as *const i8,
-            b"August\0" as *const u8 as *const i8,
-            b"September\0" as *const u8 as *const i8,
-            b"October\0" as *const u8 as *const i8,
-            b"November\0" as *const u8 as *const i8,
-            b"December\0" as *const u8 as *const i8,
-        ];
-        let mut days: [*const i8; 7] = [
-            b"Sunday\0" as *const u8 as *const i8,
-            b"Monday\0" as *const u8 as *const i8,
-            b"Tuesday\0" as *const u8 as *const i8,
-            b"Wednesday\0" as *const u8 as *const i8,
-            b"Thursday\0" as *const u8 as *const i8,
-            b"Friday\0" as *const u8 as *const i8,
-            b"Saturday\0" as *const u8 as *const i8,
-        ];
-        print!(
-            "{}-{}-{}\n",
-            (*now).tm_year + 1900,
-            (*now).tm_mon + 1,
-            (*now).tm_mday
-        );
-        print!(
-            "{}, {} {}, {}\n",
-            build_str_from_raw_ptr(days[(*now).tm_wday as usize] as *mut u8),
-            build_str_from_raw_ptr(months[(*now).tm_mon as usize] as *mut u8),
-            (*now).tm_mday,
-            (*now).tm_year + 1900
-        );
-        strftime(
-            buf.as_mut_ptr(),
-            50,
-            b"%A, %B %e, %Y\0" as *const u8 as *const i8,
-            now,
-        );
-        print!("{}\n", build_str_from_raw_ptr(buf.as_mut_ptr() as *mut u8));
-        return 0;
-    }
+unsafe fn main_0() -> libc::c_int {
+    let mut buf: [libc::c_char; 50] = [0; 50];
+    let mut seconds: time_t = time(0 as *mut time_t);
+    let mut now: *mut tm = localtime(&mut seconds);
+    let mut months: [*const libc::c_char; 12] = [
+        b"January\0" as *const u8 as *const libc::c_char,
+        b"February\0" as *const u8 as *const libc::c_char,
+        b"March\0" as *const u8 as *const libc::c_char,
+        b"April\0" as *const u8 as *const libc::c_char,
+        b"May\0" as *const u8 as *const libc::c_char,
+        b"June\0" as *const u8 as *const libc::c_char,
+        b"July\0" as *const u8 as *const libc::c_char,
+        b"August\0" as *const u8 as *const libc::c_char,
+        b"September\0" as *const u8 as *const libc::c_char,
+        b"October\0" as *const u8 as *const libc::c_char,
+        b"November\0" as *const u8 as *const libc::c_char,
+        b"December\0" as *const u8 as *const libc::c_char,
+    ];
+    let mut days: [*const libc::c_char; 7] = [
+        b"Sunday\0" as *const u8 as *const libc::c_char,
+        b"Monday\0" as *const u8 as *const libc::c_char,
+        b"Tuesday\0" as *const u8 as *const libc::c_char,
+        b"Wednesday\0" as *const u8 as *const libc::c_char,
+        b"Thursday\0" as *const u8 as *const libc::c_char,
+        b"Friday\0" as *const u8 as *const libc::c_char,
+        b"Saturday\0" as *const u8 as *const libc::c_char,
+    ];
+    printf(
+        b"%d-%d-%d\n\0" as *const u8 as *const libc::c_char,
+        (*now).tm_year + 1900 as libc::c_int,
+        (*now).tm_mon + 1 as libc::c_int,
+        (*now).tm_mday,
+    );
+    printf(
+        b"%s, %s %d, %d\n\0" as *const u8 as *const libc::c_char,
+        days[(*now).tm_wday as usize],
+        months[(*now).tm_mon as usize],
+        (*now).tm_mday,
+        (*now).tm_year + 1900 as libc::c_int,
+    );
+    strftime(
+        buf.as_mut_ptr(),
+        50 as libc::c_int as size_t,
+        b"%A, %B %e, %Y\0" as *const u8 as *const libc::c_char,
+        now,
+    );
+    printf(b"%s\n\0" as *const u8 as *const libc::c_char, buf.as_mut_ptr());
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

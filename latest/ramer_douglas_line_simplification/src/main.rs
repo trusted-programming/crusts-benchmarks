@@ -1,232 +1,263 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
 #![feature(label_break_value)]
-use c2rust_out::*;
+use ::c2rust_out::*;
 extern "C" {
     fn __assert_fail(
-        __assertion: *const i8,
-        __file: *const i8,
-        __line: u32,
-        __function: *const i8,
+        __assertion: *const libc::c_char,
+        __file: *const libc::c_char,
+        __line: libc::c_uint,
+        __function: *const libc::c_char,
     ) -> !;
-    fn sqrt(_: f64) -> f64;
-    fn fabs(_: f64) -> f64;
+    fn sqrt(_: libc::c_double) -> libc::c_double;
+    fn fabs(_: libc::c_double) -> libc::c_double;
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
 }
+pub type size_t = libc::c_ulong;
 #[derive(Copy, Clone)]
 #[repr(C)]
 pub struct point_tag {
-    pub x: f64,
-    pub y: f64,
+    pub x: libc::c_double,
+    pub y: libc::c_double,
 }
 pub type point_t = point_tag;
 #[no_mangle]
-pub extern "C" fn perpendicular_distance(mut p: point_t, mut p1: point_t, mut p2: point_t) -> f64 {
-    let mut dx: f64 = p2.x - p1.x;
-    let mut dy: f64 = p2.y - p1.y;
-    unsafe {
-        let mut d: f64 = sqrt(dx * dx + dy * dy);
-        return fabs(p.x * dy - p.y * dx + p2.x * p1.y - p2.y * p1.x) / d;
-    }
+pub unsafe extern "C" fn perpendicular_distance(
+    mut p: point_t,
+    mut p1: point_t,
+    mut p2: point_t,
+) -> libc::c_double {
+    let mut dx: libc::c_double = p2.x - p1.x;
+    let mut dy: libc::c_double = p2.y - p1.y;
+    let mut d: libc::c_double = sqrt(dx * dx + dy * dy);
+    return fabs(p.x * dy - p.y * dx + p2.x * p1.y - p2.y * p1.x) / d;
 }
-
 #[no_mangle]
-pub extern "C" fn douglas_peucker(
+pub unsafe extern "C" fn douglas_peucker(
     mut points: *const point_t,
-    mut n: u64,
-    mut epsilon: f64,
+    mut n: size_t,
+    mut epsilon: libc::c_double,
     mut dest: *mut point_t,
-    mut destlen: u64,
-) -> u64 {
-    unsafe {
-        if n >= 2 {
-        } else {
-            __assert_fail(
-                b"n >= 2\0" as *const u8 as *const i8,
-                b"main.c\0" as *const u8 as *const i8,
-                22,
-                (*::core::mem::transmute::<&[u8; 75], &[i8; 75]>(
-                    b"size_t douglas_peucker(const point_t *, size_t, double, point_t *, size_t)\0",
-                ))
+    mut destlen: size_t,
+) -> size_t {
+    if n >= 2 as libc::c_int as libc::c_ulong {} else {
+        __assert_fail(
+            b"n >= 2\0" as *const u8 as *const libc::c_char,
+            b"main.c\0" as *const u8 as *const libc::c_char,
+            22 as libc::c_int as libc::c_uint,
+            (*::core::mem::transmute::<
+                &[u8; 75],
+                &[libc::c_char; 75],
+            >(
+                b"size_t douglas_peucker(const point_t *, size_t, double, point_t *, size_t)\0",
+            ))
                 .as_ptr(),
-            );
-        }
-        'c_2158: {
-            if n >= 2 {
-            } else {
-                __assert_fail (b"n >= 2\0" as * const u8 as * const i8, b"main.c\0" as * const u8 as * const i8, 22, (* :: core :: mem :: transmute :: < & [u8; 75], & [i8; 75] > (
-                  b"size_t douglas_peucker(const point_t *, size_t, double, point_t *, size_t)\0",)).as_ptr (),);
-            }
-        };
-        if epsilon >= 0 as f64 {
-        } else {
-            __assert_fail(
-                b"epsilon >= 0\0" as *const u8 as *const i8,
-                b"main.c\0" as *const u8 as *const i8,
-                23,
-                (*::core::mem::transmute::<&[u8; 75], &[i8; 75]>(
-                    b"size_t douglas_peucker(const point_t *, size_t, double, point_t *, size_t)\0",
-                ))
-                .as_ptr(),
-            );
-        }
-        'c_2115: {
-            if epsilon >= 0 as f64 {
-            } else {
-                __assert_fail (b"epsilon >= 0\0" as * const u8 as * const i8, b"main.c\0" as * const u8 as * const i8, 23, (* :: core :: mem :: transmute :: < & [u8; 75], & [i8; 75] > (
-                  b"size_t douglas_peucker(const point_t *, size_t, double, point_t *, size_t)\0",)).as_ptr (),);
-            }
-        };
-        let mut max_dist: f64 = 0 as f64;
-        let mut index: u64 = 0;
-        let mut i: u64 = 1;
-        while i.wrapping_add(1) < n {
-            let mut dist: f64 = perpendicular_distance(
-                *points.offset(i as isize),
-                *points.offset(0 as isize),
-                *points.offset(n.wrapping_sub(1) as isize),
-            );
-            if dist > max_dist {
-                max_dist = dist;
-                index = i;
-            }
-            i = i.wrapping_add(1);
-            i;
-        }
-        if max_dist > epsilon {
-            let mut n1: u64 =
-                douglas_peucker(points, index.wrapping_add(1), epsilon, dest, destlen);
-            if destlen >= n1.wrapping_sub(1) {
-                destlen = (destlen as u64).wrapping_sub(n1.wrapping_sub(1)) as u64;
-                dest = dest.offset(n1.wrapping_sub(1) as isize);
-            } else {
-                destlen = 0;
-            }
-            let mut n2: u64 = douglas_peucker(
-                points.offset(index as isize),
-                n.wrapping_sub(index),
-                epsilon,
-                dest,
-                destlen,
-            );
-            return n1.wrapping_add(n2).wrapping_sub(1);
-        }
-        if destlen >= 2 {
-            *dest.offset(0 as isize) = *points.offset(0 as isize);
-            *dest.offset(1 as isize) = *points.offset(n.wrapping_sub(1) as isize);
-        }
-        return 2;
+        );
     }
+    'c_2158: {
+        if n >= 2 as libc::c_int as libc::c_ulong {} else {
+            __assert_fail(
+                b"n >= 2\0" as *const u8 as *const libc::c_char,
+                b"main.c\0" as *const u8 as *const libc::c_char,
+                22 as libc::c_int as libc::c_uint,
+                (*::core::mem::transmute::<
+                    &[u8; 75],
+                    &[libc::c_char; 75],
+                >(
+                    b"size_t douglas_peucker(const point_t *, size_t, double, point_t *, size_t)\0",
+                ))
+                    .as_ptr(),
+            );
+        }
+    };
+    if epsilon >= 0 as libc::c_int as libc::c_double {} else {
+        __assert_fail(
+            b"epsilon >= 0\0" as *const u8 as *const libc::c_char,
+            b"main.c\0" as *const u8 as *const libc::c_char,
+            23 as libc::c_int as libc::c_uint,
+            (*::core::mem::transmute::<
+                &[u8; 75],
+                &[libc::c_char; 75],
+            >(
+                b"size_t douglas_peucker(const point_t *, size_t, double, point_t *, size_t)\0",
+            ))
+                .as_ptr(),
+        );
+    }
+    'c_2115: {
+        if epsilon >= 0 as libc::c_int as libc::c_double {} else {
+            __assert_fail(
+                b"epsilon >= 0\0" as *const u8 as *const libc::c_char,
+                b"main.c\0" as *const u8 as *const libc::c_char,
+                23 as libc::c_int as libc::c_uint,
+                (*::core::mem::transmute::<
+                    &[u8; 75],
+                    &[libc::c_char; 75],
+                >(
+                    b"size_t douglas_peucker(const point_t *, size_t, double, point_t *, size_t)\0",
+                ))
+                    .as_ptr(),
+            );
+        }
+    };
+    let mut max_dist: libc::c_double = 0 as libc::c_int as libc::c_double;
+    let mut index: size_t = 0 as libc::c_int as size_t;
+    let mut i: size_t = 1 as libc::c_int as size_t;
+    while i.wrapping_add(1 as libc::c_int as libc::c_ulong) < n {
+        let mut dist: libc::c_double = perpendicular_distance(
+            *points.offset(i as isize),
+            *points.offset(0 as libc::c_int as isize),
+            *points.offset(n.wrapping_sub(1 as libc::c_int as libc::c_ulong) as isize),
+        );
+        if dist > max_dist {
+            max_dist = dist;
+            index = i;
+        }
+        i = i.wrapping_add(1);
+        i;
+    }
+    if max_dist > epsilon {
+        let mut n1: size_t = douglas_peucker(
+            points,
+            index.wrapping_add(1 as libc::c_int as libc::c_ulong),
+            epsilon,
+            dest,
+            destlen,
+        );
+        if destlen >= n1.wrapping_sub(1 as libc::c_int as libc::c_ulong) {
+            destlen = (destlen as libc::c_ulong)
+                .wrapping_sub(n1.wrapping_sub(1 as libc::c_int as libc::c_ulong))
+                as size_t as size_t;
+            dest = dest
+                .offset(n1.wrapping_sub(1 as libc::c_int as libc::c_ulong) as isize);
+        } else {
+            destlen = 0 as libc::c_int as size_t;
+        }
+        let mut n2: size_t = douglas_peucker(
+            points.offset(index as isize),
+            n.wrapping_sub(index),
+            epsilon,
+            dest,
+            destlen,
+        );
+        return n1.wrapping_add(n2).wrapping_sub(1 as libc::c_int as libc::c_ulong);
+    }
+    if destlen >= 2 as libc::c_int as libc::c_ulong {
+        *dest
+            .offset(
+                0 as libc::c_int as isize,
+            ) = *points.offset(0 as libc::c_int as isize);
+        *dest
+            .offset(
+                1 as libc::c_int as isize,
+            ) = *points
+            .offset(n.wrapping_sub(1 as libc::c_int as libc::c_ulong) as isize);
+    }
+    return 2 as libc::c_int as size_t;
 }
-
 #[no_mangle]
-pub extern "C" fn print_points(mut points: *const point_t, mut n: u64) {
-    unsafe {
-        let mut i: u64 = 0;
-        while i < n {
-            if i > 0 {
-                print!(" ");
-            }
-            print!(
-                "({}, {})",
-                (*points.offset(i as isize)).x,
-                (*points.offset(i as isize)).y
-            );
-            i = i.wrapping_add(1);
-            i;
+pub unsafe extern "C" fn print_points(mut points: *const point_t, mut n: size_t) {
+    let mut i: size_t = 0 as libc::c_int as size_t;
+    while i < n {
+        if i > 0 as libc::c_int as libc::c_ulong {
+            printf(b" \0" as *const u8 as *const libc::c_char);
         }
-        print!("\n");
+        printf(
+            b"(%g, %g)\0" as *const u8 as *const libc::c_char,
+            (*points.offset(i as isize)).x,
+            (*points.offset(i as isize)).y,
+        );
+        i = i.wrapping_add(1);
+        i;
     }
+    printf(b"\n\0" as *const u8 as *const libc::c_char);
 }
-
-fn main_0() -> i32 {
+unsafe fn main_0() -> libc::c_int {
     let mut points: [point_t; 10] = [
         {
             let mut init = point_tag {
-                x: 0 as f64,
-                y: 0 as f64,
+                x: 0 as libc::c_int as libc::c_double,
+                y: 0 as libc::c_int as libc::c_double,
             };
             init
         },
         {
             let mut init = point_tag {
-                x: 1 as f64,
+                x: 1 as libc::c_int as libc::c_double,
                 y: 0.1f64,
             };
             init
         },
         {
             let mut init = point_tag {
-                x: 2 as f64,
+                x: 2 as libc::c_int as libc::c_double,
                 y: -0.1f64,
             };
             init
         },
         {
             let mut init = point_tag {
-                x: 3 as f64,
-                y: 5 as f64,
+                x: 3 as libc::c_int as libc::c_double,
+                y: 5 as libc::c_int as libc::c_double,
             };
             init
         },
         {
             let mut init = point_tag {
-                x: 4 as f64,
-                y: 6 as f64,
+                x: 4 as libc::c_int as libc::c_double,
+                y: 6 as libc::c_int as libc::c_double,
             };
             init
         },
         {
             let mut init = point_tag {
-                x: 5 as f64,
-                y: 7 as f64,
+                x: 5 as libc::c_int as libc::c_double,
+                y: 7 as libc::c_int as libc::c_double,
             };
             init
         },
         {
             let mut init = point_tag {
-                x: 6 as f64,
+                x: 6 as libc::c_int as libc::c_double,
                 y: 8.1f64,
             };
             init
         },
         {
             let mut init = point_tag {
-                x: 7 as f64,
-                y: 9 as f64,
+                x: 7 as libc::c_int as libc::c_double,
+                y: 9 as libc::c_int as libc::c_double,
             };
             init
         },
         {
             let mut init = point_tag {
-                x: 8 as f64,
-                y: 9 as f64,
+                x: 8 as libc::c_int as libc::c_double,
+                y: 9 as libc::c_int as libc::c_double,
             };
             init
         },
         {
             let mut init = point_tag {
-                x: 9 as f64,
-                y: 9 as f64,
+                x: 9 as libc::c_int as libc::c_double,
+                y: 9 as libc::c_int as libc::c_double,
             };
             init
         },
     ];
-    let len: u64 = (::core::mem::size_of::<[point_t; 10]>() as u64)
-        .wrapping_div(::core::mem::size_of::<point_t>() as u64);
+    let len: size_t = (::core::mem::size_of::<[point_t; 10]>() as libc::c_ulong)
+        .wrapping_div(::core::mem::size_of::<point_t>() as libc::c_ulong);
     let vla = len as usize;
-    let mut out: Vec<point_t> = ::std::vec::from_elem(point_t { x: 0., y: 0. }, vla);
-    let mut n: u64 = douglas_peucker(points.as_mut_ptr(), len, 1.0f64, out.as_mut_ptr(), len);
+    let mut out: Vec::<point_t> = ::std::vec::from_elem(point_t { x: 0., y: 0. }, vla);
+    let mut n: size_t = douglas_peucker(
+        points.as_mut_ptr(),
+        len,
+        1.0f64,
+        out.as_mut_ptr(),
+        len,
+    );
     print_points(out.as_mut_ptr(), n);
-    return 0;
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

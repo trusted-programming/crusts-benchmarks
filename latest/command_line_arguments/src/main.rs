@@ -1,48 +1,31 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-    unsafe {
-        let mut str_size: usize = 0;
-        while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size += 1;
-        }
-        return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
-            .to_owned();
-    }
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
+extern "C" {
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
 }
-
-use c2rust_out::*;
-extern "C" {}
-fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
-    unsafe {
-        let mut i: i32 = 0;
-        print!(
-            "This program is named {}.\n",
-            build_str_from_raw_ptr(*argv.offset(0 as isize) as *mut u8)
+unsafe fn main_0(
+    mut argc: libc::c_int,
+    mut argv: *mut *mut libc::c_char,
+) -> libc::c_int {
+    let mut i: libc::c_int = 0;
+    printf(
+        b"This program is named %s.\n\0" as *const u8 as *const libc::c_char,
+        *argv.offset(0 as libc::c_int as isize),
+    );
+    i = 1 as libc::c_int;
+    while i < argc {
+        printf(
+            b"the argument #%d is %s\n\0" as *const u8 as *const libc::c_char,
+            i,
+            *argv.offset(i as isize),
         );
-        i = 1;
-        while i < argc {
-            print!(
-                "the argument #{} is {}\n",
-                i,
-                build_str_from_raw_ptr(*argv.offset(i as isize) as *mut u8)
-            );
-            i += 1;
-            i;
-        }
-        return 0;
+        i += 1;
+        i;
     }
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    let mut args: Vec<*mut i8> = Vec::new();
+    let mut args: Vec::<*mut libc::c_char> = Vec::new();
     for arg in ::std::env::args() {
         args.push(
             (::std::ffi::CString::new(arg))
@@ -51,5 +34,12 @@ pub fn main() {
         );
     }
     args.push(::core::ptr::null_mut());
-    ::std::process::exit(main_0((args.len() - 1) as i32, args.as_mut_ptr() as *mut *mut i8) as i32);
+    unsafe {
+        ::std::process::exit(
+            main_0(
+                (args.len() - 1) as libc::c_int,
+                args.as_mut_ptr() as *mut *mut libc::c_char,
+            ) as i32,
+        )
+    }
 }

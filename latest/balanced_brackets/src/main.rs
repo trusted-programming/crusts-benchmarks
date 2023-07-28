@@ -1,118 +1,90 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-    unsafe {
-        let mut str_size: usize = 0;
-        while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size += 1;
-        }
-        return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
-            .to_owned();
-    }
-}
-
-use c2rust_out::*;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
 extern "C" {
-    fn rand() -> i32;
-    fn memset(_: *mut libc::c_void, _: i32, _: u64) -> *mut libc::c_void;
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+    fn rand() -> libc::c_int;
+    fn memset(
+        _: *mut libc::c_void,
+        _: libc::c_int,
+        _: libc::c_ulong,
+    ) -> *mut libc::c_void;
 }
 #[no_mangle]
-pub extern "C" fn isBal(mut s: *const i8, mut l: i32) -> i32 {
-    unsafe {
-        let mut c: i32 = 0;
-        loop {
-            let fresh0 = l;
-            l = l - 1;
-            if !(fresh0 != 0) {
+pub unsafe extern "C" fn isBal(
+    mut s: *const libc::c_char,
+    mut l: libc::c_int,
+) -> libc::c_int {
+    let mut c: libc::c_int = 0 as libc::c_int;
+    loop {
+        let fresh0 = l;
+        l = l - 1;
+        if !(fresh0 != 0) {
+            break;
+        }
+        if *s.offset(l as isize) as libc::c_int == ']' as i32 {
+            c += 1;
+            c;
+        } else {
+            if !(*s.offset(l as isize) as libc::c_int == '[' as i32) {
+                continue;
+            }
+            c -= 1;
+            if c < 0 as libc::c_int {
                 break;
             }
-            if *s.offset(l as isize) as i32 == ']' as i32 {
-                c += 1;
-                c;
-            } else {
-                if !(*s.offset(l as isize) as i32 == '[' as i32) {
-                    continue;
-                }
-                c -= 1;
-                if c < 0 {
-                    break;
-                }
-            }
-        }
-        return (c == 0) as i32;
-    }
-}
-
-#[no_mangle]
-pub extern "C" fn shuffle(mut s: *mut i8, mut h: i32) {
-    unsafe {
-        let mut x: i32 = 0;
-        let mut t: i32 = 0;
-        let mut i: i32 = h;
-        loop {
-            let fresh1 = i;
-            i = i - 1;
-            if !(fresh1 != 0) {
-                break;
-            }
-            x = rand() % h;
-            t = *s.offset(x as isize) as i32;
-            *s.offset(x as isize) = *s.offset(i as isize);
-            *s.offset(i as isize) = t as i8;
         }
     }
+    return (c == 0) as libc::c_int;
 }
-
 #[no_mangle]
-pub extern "C" fn genSeq(mut s: *mut i8, mut n: i32) {
-    unsafe {
-        if n != 0 {
-            memset(s as *mut libc::c_void, '[' as i32, n as u64);
-            memset(
-                s.offset(n as isize) as *mut libc::c_void,
-                ']' as i32,
-                n as u64,
-            );
-            shuffle(s, n * 2);
-        };
-        *s.offset((n * 2i32) as isize) = 0;
-    }
-}
-
-#[no_mangle]
-pub extern "C" fn doSeq(mut n: i32) {
-    unsafe {
-        let mut s: [i8; 64] = [0; 64];
-        let mut o: *const i8 = b"False\0" as *const u8 as *const i8;
-        genSeq(s.as_mut_ptr(), n);
-        if isBal(s.as_mut_ptr(), n * 2) != 0 {
-            o = b"True\0" as *const u8 as *const i8;
+pub unsafe extern "C" fn shuffle(mut s: *mut libc::c_char, mut h: libc::c_int) {
+    let mut x: libc::c_int = 0;
+    let mut t: libc::c_int = 0;
+    let mut i: libc::c_int = h;
+    loop {
+        let fresh1 = i;
+        i = i - 1;
+        if !(fresh1 != 0) {
+            break;
         }
-        print!(
-            "{}: {}\n",
-            build_str_from_raw_ptr(s.as_mut_ptr() as *mut u8),
-            build_str_from_raw_ptr(o as *mut u8)
+        x = rand() % h;
+        t = *s.offset(x as isize) as libc::c_int;
+        *s.offset(x as isize) = *s.offset(i as isize);
+        *s.offset(i as isize) = t as libc::c_char;
+    };
+}
+#[no_mangle]
+pub unsafe extern "C" fn genSeq(mut s: *mut libc::c_char, mut n: libc::c_int) {
+    if n != 0 {
+        memset(s as *mut libc::c_void, '[' as i32, n as libc::c_ulong);
+        memset(
+            s.offset(n as isize) as *mut libc::c_void,
+            ']' as i32,
+            n as libc::c_ulong,
         );
+        shuffle(s, n * 2 as libc::c_int);
     }
+    *s.offset((n * 2 as libc::c_int) as isize) = 0 as libc::c_int as libc::c_char;
 }
-
-fn main_0() -> i32 {
-    let mut n: i32 = 0;
-    while n < 9 {
+#[no_mangle]
+pub unsafe extern "C" fn doSeq(mut n: libc::c_int) {
+    let mut s: [libc::c_char; 64] = [0; 64];
+    let mut o: *const libc::c_char = b"False\0" as *const u8 as *const libc::c_char;
+    genSeq(s.as_mut_ptr(), n);
+    if isBal(s.as_mut_ptr(), n * 2 as libc::c_int) != 0 {
+        o = b"True\0" as *const u8 as *const libc::c_char;
+    }
+    printf(b"'%s': %s\n\0" as *const u8 as *const libc::c_char, s.as_mut_ptr(), o);
+}
+unsafe fn main_0() -> libc::c_int {
+    let mut n: libc::c_int = 0 as libc::c_int;
+    while n < 9 as libc::c_int {
         let fresh2 = n;
         n = n + 1;
         doSeq(fresh2);
     }
-    return 0;
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

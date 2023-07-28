@@ -1,30 +1,25 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-use c2rust_out::*;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
 #[no_mangle]
-pub extern "C" fn agm(in1: i32, in2: i32, mut out1: i32, mut out2: i32) {}
-
-fn main_0() -> i32 {
-    mpf_set_default_prec(300000);
-    let mut n: i32 = 1;
-    let mut i: i32 = 0;
-    i = 0;
-    while i < 8 {
+pub unsafe extern "C" fn agm(
+    in1: libc::c_int,
+    in2: libc::c_int,
+    mut out1: libc::c_int,
+    mut out2: libc::c_int,
+) {}
+unsafe fn main_0() -> libc::c_int {
+    mpf_set_default_prec(300000 as libc::c_int);
+    let mut n: libc::c_int = 1 as libc::c_int;
+    let mut i: libc::c_int = 0;
+    i = 0 as libc::c_int;
+    while i < 8 as libc::c_int {
         n += n;
         n += n;
         i += 1;
         i;
     }
-    return 0;
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

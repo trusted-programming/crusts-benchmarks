@@ -1,38 +1,28 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-use c2rust_out::*;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
 extern "C" {
-    fn rand() -> i32;
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+    fn rand() -> libc::c_int;
 }
 #[no_mangle]
-pub extern "C" fn irand(mut n: i32) -> i32 {
-    let mut r: i32 = 0;
-    let mut randmax: i32 = 2147483647 / n * n;
-    unsafe {
-        loop {
-            r = rand();
-            if !(r >= randmax) {
-                break;
-            }
+pub unsafe extern "C" fn irand(mut n: libc::c_int) -> libc::c_int {
+    let mut r: libc::c_int = 0;
+    let mut randmax: libc::c_int = 2147483647 as libc::c_int / n * n;
+    loop {
+        r = rand();
+        if !(r >= randmax) {
+            break;
         }
     }
     return r / (randmax / n);
 }
-
 #[no_mangle]
-pub extern "C" fn one_of_n(mut n: i32) -> i32 {
-    let mut i: i32 = 0;
-    let mut r: i32 = 0;
-    i = 1;
+pub unsafe extern "C" fn one_of_n(mut n: libc::c_int) -> libc::c_int {
+    let mut i: libc::c_int = 0;
+    let mut r: libc::c_int = 0 as libc::c_int;
+    i = 1 as libc::c_int;
     while i < n {
-        if irand(i + 1) == 0 {
+        if irand(i + 1 as libc::c_int) == 0 {
             r = i;
         }
         i += 1;
@@ -40,30 +30,28 @@ pub extern "C" fn one_of_n(mut n: i32) -> i32 {
     }
     return r;
 }
-
-fn main_0() -> i32 {
-    let mut i: i32 = 0;
-    let mut r: [i32; 10] = [0; 10];
-    i = 0;
-    while i < 1000000 {
+unsafe fn main_0() -> libc::c_int {
+    let mut i: libc::c_int = 0;
+    let mut r: [libc::c_int; 10] = [0 as libc::c_int, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    i = 0 as libc::c_int;
+    while i < 1000000 as libc::c_int {
         i += 1;
         i;
-        r[one_of_n(10) as usize] += 1;
-        r[one_of_n(10) as usize];
+        r[one_of_n(10 as libc::c_int) as usize] += 1;
+        r[one_of_n(10 as libc::c_int) as usize];
     }
-    i = 0;
-    while i < 10 {
-        if i == 9 {
-            print!("{}{}", r[i as usize], '\n' as i32)
-        } else {
-            print!("{}{}", r[i as usize], ' ' as i32)
-        };
+    i = 0 as libc::c_int;
+    while i < 10 as libc::c_int {
+        printf(
+            b"%d%c\0" as *const u8 as *const libc::c_char,
+            r[i as usize],
+            if i == 9 as libc::c_int { '\n' as i32 } else { ' ' as i32 },
+        );
         i += 1;
         i;
     }
-    return 0;
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

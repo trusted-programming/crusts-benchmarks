@@ -1,77 +1,65 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-    unsafe {
-        let mut str_size: usize = 0;
-        while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size += 1;
-        }
-        return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
-            .to_owned();
-    }
-}
-
-use c2rust_out::*;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
 extern "C" {
-    fn sprintf(_: *mut i8, _: *const i8, _: ...) -> i32;
-    fn strlen(_: *const i8) -> u64;
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+    fn sprintf(_: *mut libc::c_char, _: *const libc::c_char, _: ...) -> libc::c_int;
+    fn strlen(_: *const libc::c_char) -> libc::c_ulong;
 }
 #[no_mangle]
-pub extern "C" fn mid3(mut n: i32) -> *mut i8 {
-    unsafe {
-        static mut buf: [i8; 32] = [0; 32];
-        let mut l: i32 = 0;
-        sprintf(
-            buf.as_mut_ptr(),
-            b"%d\0" as *const u8 as *const i8,
-            if n > 0 { n } else { -n },
-        );
-        l = strlen(buf.as_mut_ptr()) as i32;
-        if l < 3 || l & 1 == 0 {
-            return 0 as *mut i8;
-        }
-        l = l / 2 - 1;
-        buf[(l + 3i32) as usize] = 0;
-        return buf.as_mut_ptr().offset(l as isize);
+pub unsafe extern "C" fn mid3(mut n: libc::c_int) -> *mut libc::c_char {
+    static mut buf: [libc::c_char; 32] = [0; 32];
+    let mut l: libc::c_int = 0;
+    sprintf(
+        buf.as_mut_ptr(),
+        b"%d\0" as *const u8 as *const libc::c_char,
+        if n > 0 as libc::c_int { n } else { -n },
+    );
+    l = strlen(buf.as_mut_ptr()) as libc::c_int;
+    if l < 3 as libc::c_int || l & 1 as libc::c_int == 0 {
+        return 0 as *mut libc::c_char;
     }
+    l = l / 2 as libc::c_int - 1 as libc::c_int;
+    buf[(l + 3 as libc::c_int) as usize] = 0 as libc::c_int as libc::c_char;
+    return buf.as_mut_ptr().offset(l as isize);
 }
-
-fn main_0() -> i32 {
-    unsafe {
-        let mut x: [i32; 18] = [
-            123, 12345, 1234567, 987654321, 10001, -10001, -123, -100, 100, -12345, 1, 2, -1, -10,
-            2002, -2002, 0, 1234567890,
-        ];
-        let mut i: i32 = 0;
-        let mut m: *mut i8 = 0 as *mut i8;
-        i = 0;
-        while (i as u64)
-            < (::core::mem::size_of::<[i32; 18]>() as u64)
-                .wrapping_div(::core::mem::size_of::<i32>() as u64)
-        {
-            m = mid3(x[i as usize]);
-            if m.is_null() {
-                m = b"error\0" as *const u8 as *const i8 as *mut i8;
-            }
-            print!(
-                "{}: {}\n",
-                x[i as usize],
-                build_str_from_raw_ptr(m as *mut u8)
-            );
-            i += 1;
-            i;
+unsafe fn main_0() -> libc::c_int {
+    let mut x: [libc::c_int; 18] = [
+        123 as libc::c_int,
+        12345 as libc::c_int,
+        1234567 as libc::c_int,
+        987654321 as libc::c_int,
+        10001 as libc::c_int,
+        -(10001 as libc::c_int),
+        -(123 as libc::c_int),
+        -(100 as libc::c_int),
+        100 as libc::c_int,
+        -(12345 as libc::c_int),
+        1 as libc::c_int,
+        2 as libc::c_int,
+        -(1 as libc::c_int),
+        -(10 as libc::c_int),
+        2002 as libc::c_int,
+        -(2002 as libc::c_int),
+        0 as libc::c_int,
+        1234567890 as libc::c_int,
+    ];
+    let mut i: libc::c_int = 0;
+    let mut m: *mut libc::c_char = 0 as *mut libc::c_char;
+    i = 0 as libc::c_int;
+    while (i as libc::c_ulong)
+        < (::core::mem::size_of::<[libc::c_int; 18]>() as libc::c_ulong)
+            .wrapping_div(::core::mem::size_of::<libc::c_int>() as libc::c_ulong)
+    {
+        m = mid3(x[i as usize]);
+        if m.is_null() {
+            m = b"error\0" as *const u8 as *const libc::c_char as *mut libc::c_char;
         }
-        return 0;
+        printf(b"%d: %s\n\0" as *const u8 as *const libc::c_char, x[i as usize], m);
+        i += 1;
+        i;
     }
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

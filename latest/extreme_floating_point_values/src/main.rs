@@ -1,43 +1,45 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-use c2rust_out::*;
-extern "C" {}
-fn main_0() -> i32 {
-    let mut inf: f64 = 1 as f64 / 0.0f64;
-    let mut minus_inf: f64 = -1i32 as f64 / 0.0f64;
-    let mut minus_zero: f64 = -1i32 as f64 / inf;
-    let mut nan: f64 = 0.0f64 / 0.0f64;
-    print!("positive infinity: {}\n", inf);
-    print!("negative infinity: {}\n", minus_inf);
-    print!("negative zero: {}\n", minus_zero);
-    print!("not a number: {}\n", nan);
-    print!("+inf + 2.0 = {}\n", inf + 2.0f64);
-    print!("+inf - 10.1 = {}\n", inf - 10.1f64);
-    print!("+inf + -inf = {}\n", inf + minus_inf);
-    print!("0.0 * +inf = {}\n", 0.0f64 * inf);
-    print!("1.0/-0.0 = {}\n", 1.0f64 / minus_zero);
-    print!("NaN + 1.0 = {}\n", nan + 1.0f64);
-    print!("NaN + NaN = {}\n", nan + nan);
-    if nan == nan {
-        print!("NaN == NaN = {}\n", "true\0")
-    } else {
-        print!("NaN == NaN = {}\n", "false\0")
-    };
-    if 0.0f64 == minus_zero {
-        print!("0.0 == -0.0 = {}\n", "true\0")
-    } else {
-        print!("0.0 == -0.0 = {}\n", "false\0")
-    };
-    return 0;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
+extern "C" {
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
 }
-
+unsafe fn main_0() -> libc::c_int {
+    let mut inf: libc::c_double = 1 as libc::c_int as libc::c_double / 0.0f64;
+    let mut minus_inf: libc::c_double = -(1 as libc::c_int) as libc::c_double / 0.0f64;
+    let mut minus_zero: libc::c_double = -(1 as libc::c_int) as libc::c_double / inf;
+    let mut nan: libc::c_double = 0.0f64 / 0.0f64;
+    printf(b"positive infinity: %f\n\0" as *const u8 as *const libc::c_char, inf);
+    printf(b"negative infinity: %f\n\0" as *const u8 as *const libc::c_char, minus_inf);
+    printf(b"negative zero: %f\n\0" as *const u8 as *const libc::c_char, minus_zero);
+    printf(b"not a number: %f\n\0" as *const u8 as *const libc::c_char, nan);
+    printf(b"+inf + 2.0 = %f\n\0" as *const u8 as *const libc::c_char, inf + 2.0f64);
+    printf(b"+inf - 10.1 = %f\n\0" as *const u8 as *const libc::c_char, inf - 10.1f64);
+    printf(b"+inf + -inf = %f\n\0" as *const u8 as *const libc::c_char, inf + minus_inf);
+    printf(b"0.0 * +inf = %f\n\0" as *const u8 as *const libc::c_char, 0.0f64 * inf);
+    printf(
+        b"1.0/-0.0 = %f\n\0" as *const u8 as *const libc::c_char,
+        1.0f64 / minus_zero,
+    );
+    printf(b"NaN + 1.0 = %f\n\0" as *const u8 as *const libc::c_char, nan + 1.0f64);
+    printf(b"NaN + NaN = %f\n\0" as *const u8 as *const libc::c_char, nan + nan);
+    printf(
+        b"NaN == NaN = %s\n\0" as *const u8 as *const libc::c_char,
+        if nan == nan {
+            b"true\0" as *const u8 as *const libc::c_char
+        } else {
+            b"false\0" as *const u8 as *const libc::c_char
+        },
+    );
+    printf(
+        b"0.0 == -0.0 = %s\n\0" as *const u8 as *const libc::c_char,
+        if 0.0f64 == minus_zero {
+            b"true\0" as *const u8 as *const libc::c_char
+        } else {
+            b"false\0" as *const u8 as *const libc::c_char
+        },
+    );
+    return 0 as libc::c_int;
+}
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

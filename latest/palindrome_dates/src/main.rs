@@ -1,107 +1,83 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-    unsafe {
-        let mut str_size: usize = 0;
-        while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size += 1;
-        }
-        return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
-            .to_owned();
-    }
-}
-
-use std::time::SystemTime;
-pub fn rust_time(ref_result: Option<&mut i64>) -> i64 {
-    let result = match SystemTime::now().duration_since(SystemTime::UNIX_EPOCH) {
-        Ok(n) => n.as_secs(),
-        Err(_) => panic!("SystemTime before UNIX EPOCH!"),
-    };
-    match ref_result {
-        Some(r) => *r = result,
-        None => {}
-    }
-    return result as i64;
-}
-
-use c2rust_out::*;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
 extern "C" {
-    fn strlen(_: *const i8) -> u64;
-    fn strftime(__s: *mut i8, __maxsize: u64, __format: *const i8, __tp: *const tm) -> u64;
-    fn gmtime(__timer: *const i64) -> *mut tm;
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+    fn strlen(_: *const libc::c_char) -> libc::c_ulong;
+    fn time(__timer: *mut time_t) -> time_t;
+    fn strftime(
+        __s: *mut libc::c_char,
+        __maxsize: size_t,
+        __format: *const libc::c_char,
+        __tp: *const tm,
+    ) -> size_t;
+    fn gmtime(__timer: *const time_t) -> *mut tm;
 }
+pub type size_t = libc::c_ulong;
+pub type __time_t = libc::c_long;
+pub type time_t = __time_t;
 #[derive(Copy, Clone)]
 #[repr(C)]
 pub struct tm {
-    pub tm_sec: i32,
-    pub tm_min: i32,
-    pub tm_hour: i32,
-    pub tm_mday: i32,
-    pub tm_mon: i32,
-    pub tm_year: i32,
-    pub tm_wday: i32,
-    pub tm_yday: i32,
-    pub tm_isdst: i32,
-    pub tm_gmtoff: i64,
-    pub tm_zone: *const i8,
+    pub tm_sec: libc::c_int,
+    pub tm_min: libc::c_int,
+    pub tm_hour: libc::c_int,
+    pub tm_mday: libc::c_int,
+    pub tm_mon: libc::c_int,
+    pub tm_year: libc::c_int,
+    pub tm_wday: libc::c_int,
+    pub tm_yday: libc::c_int,
+    pub tm_isdst: libc::c_int,
+    pub tm_gmtoff: libc::c_long,
+    pub tm_zone: *const libc::c_char,
 }
 #[no_mangle]
-pub extern "C" fn is_palindrome(mut str: *const i8) -> bool {
-    unsafe {
-        let mut n: u64 = strlen(str);
-        let mut i: u64 = 0;
-        while i.wrapping_add(1) < n {
-            if *str.offset(i as isize) as i32 != *str.offset(n.wrapping_sub(1) as isize) as i32 {
-                return 0 != 0;
-            }
-            i = i.wrapping_add(1);
-            i;
-            n = n.wrapping_sub(1);
-            n;
+pub unsafe extern "C" fn is_palindrome(mut str: *const libc::c_char) -> bool {
+    let mut n: size_t = strlen(str);
+    let mut i: size_t = 0 as libc::c_int as size_t;
+    while i.wrapping_add(1 as libc::c_int as libc::c_ulong) < n {
+        if *str.offset(i as isize) as libc::c_int
+            != *str.offset(n.wrapping_sub(1 as libc::c_int as libc::c_ulong) as isize)
+                as libc::c_int
+        {
+            return 0 as libc::c_int != 0;
         }
-        return 1 != 0;
+        i = i.wrapping_add(1);
+        i;
+        n = n.wrapping_sub(1);
+        n;
     }
+    return 1 as libc::c_int != 0;
 }
-
-fn main_0() -> i32 {
-    unsafe {
-        let mut timestamp: i64 = rust_time(None);
-        let seconds_per_day: i32 = 24 * 60 * 60;
-        let mut count: i32 = 15;
-        let mut str: [i8; 32] = [0; 32];
-        print!("Next {} palindrome dates:\n", count);
-        while count > 0 {
-            let mut ptr: *mut tm = gmtime(&mut timestamp);
+unsafe fn main_0() -> libc::c_int {
+    let mut timestamp: time_t = time(0 as *mut time_t);
+    let seconds_per_day: libc::c_int = 24 as libc::c_int * 60 as libc::c_int
+        * 60 as libc::c_int;
+    let mut count: libc::c_int = 15 as libc::c_int;
+    let mut str: [libc::c_char; 32] = [0; 32];
+    printf(b"Next %d palindrome dates:\n\0" as *const u8 as *const libc::c_char, count);
+    while count > 0 as libc::c_int {
+        let mut ptr: *mut tm = gmtime(&mut timestamp);
+        strftime(
+            str.as_mut_ptr(),
+            ::core::mem::size_of::<[libc::c_char; 32]>() as libc::c_ulong,
+            b"%Y%m%d\0" as *const u8 as *const libc::c_char,
+            ptr,
+        );
+        if is_palindrome(str.as_mut_ptr()) {
             strftime(
                 str.as_mut_ptr(),
-                ::core::mem::size_of::<[i8; 32]>() as u64,
-                b"%Y%m%d\0" as *const u8 as *const i8,
+                ::core::mem::size_of::<[libc::c_char; 32]>() as libc::c_ulong,
+                b"%F\0" as *const u8 as *const libc::c_char,
                 ptr,
             );
-            if is_palindrome(str.as_mut_ptr()) {
-                strftime(
-                    str.as_mut_ptr(),
-                    ::core::mem::size_of::<[i8; 32]>() as u64,
-                    b"%F\0" as *const u8 as *const i8,
-                    ptr,
-                );
-                print!("{}\n", build_str_from_raw_ptr(str.as_mut_ptr() as *mut u8));
-                count -= 1;
-                count;
-            }
-            timestamp += seconds_per_day as i64;
+            printf(b"%s\n\0" as *const u8 as *const libc::c_char, str.as_mut_ptr());
+            count -= 1;
+            count;
         }
-        return 0;
+        timestamp += seconds_per_day as libc::c_long;
     }
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

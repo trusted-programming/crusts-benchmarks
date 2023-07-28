@@ -1,51 +1,41 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-use c2rust_out::*;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
 extern "C" {
-    fn sqrt(_: f64) -> f64;
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+    fn sqrt(_: libc::c_double) -> libc::c_double;
 }
 #[no_mangle]
-pub extern "C" fn perfect(mut n: i32) -> i32 {
-    unsafe {
-        let mut max: i32 = sqrt(n as f64) as i32 + 1;
-        let mut tot: i32 = 1;
-        let mut i: i32 = 0;
-        i = 2;
-        while i < max {
-            if n % i == 0 {
-                tot += i;
-                let mut q: i32 = n / i;
-                if q > i {
-                    tot += q;
-                }
+pub unsafe extern "C" fn perfect(mut n: libc::c_int) -> libc::c_int {
+    let mut max: libc::c_int = sqrt(n as libc::c_double) as libc::c_int
+        + 1 as libc::c_int;
+    let mut tot: libc::c_int = 1 as libc::c_int;
+    let mut i: libc::c_int = 0;
+    i = 2 as libc::c_int;
+    while i < max {
+        if n % i == 0 as libc::c_int {
+            tot += i;
+            let mut q: libc::c_int = n / i;
+            if q > i {
+                tot += q;
             }
-            i += 1;
-            i;
         }
-        return (tot == n) as i32;
+        i += 1;
+        i;
     }
+    return (tot == n) as libc::c_int;
 }
-
-fn main_0() -> i32 {
-    let mut n: i32 = 0;
-    n = 2;
-    while n < 200 {
+unsafe fn main_0() -> libc::c_int {
+    let mut n: libc::c_int = 0;
+    n = 2 as libc::c_int;
+    while n < 200 as libc::c_int {
         if perfect(n) != 0 {
-            print!("{}\n", n);
+            printf(b"%d\n\0" as *const u8 as *const libc::c_char, n);
         }
         n += 1;
         n;
     }
-    return 0;
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

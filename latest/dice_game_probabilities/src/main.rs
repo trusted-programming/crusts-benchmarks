@@ -1,106 +1,125 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-use c2rust_out::*;
-extern "C" {}
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
+extern "C" {
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+}
+pub type __uint32_t = libc::c_uint;
+pub type __uint64_t = libc::c_ulong;
+pub type uint32_t = __uint32_t;
+pub type uint64_t = __uint64_t;
+pub type uint = uint32_t;
+pub type ulong = uint64_t;
 #[no_mangle]
-pub extern "C" fn ipow(x: u32, y: u32) -> u64 {
-    let mut result: u64 = 1;
-    let mut i: u32 = 1;
+pub unsafe extern "C" fn ipow(x: uint, y: uint) -> ulong {
+    let mut result: ulong = 1 as libc::c_int as ulong;
+    let mut i: uint = 1 as libc::c_int as uint;
     while i <= y {
-        result = (result).wrapping_mul(x as u64) as u64;
+        result = (result as libc::c_ulong).wrapping_mul(x as libc::c_ulong) as ulong
+            as ulong;
         i = i.wrapping_add(1);
         i;
     }
     return result;
 }
-
 #[no_mangle]
-pub extern "C" fn min(x: u32, y: u32) -> u32 {
+pub unsafe extern "C" fn min(x: uint, y: uint) -> uint {
     return if x < y { x } else { y };
 }
-
 #[no_mangle]
-pub extern "C" fn throw_die(n_sides: u32, n_dice: u32, s: u32, mut counts: *mut u32) {
-    unsafe {
-        if n_dice == 0 {
-            let ref mut fresh0 = *counts.offset(s as isize);
-            *fresh0 = (*fresh0).wrapping_add(1);
-            *fresh0;
-            return;
-        }
-        let mut i: u32 = 1;
-        while i < n_sides.wrapping_add(1) {
-            throw_die(n_sides, n_dice.wrapping_sub(1), s.wrapping_add(i), counts);
-            i = i.wrapping_add(1);
-            i;
-        }
+pub unsafe extern "C" fn throw_die(
+    n_sides: uint,
+    n_dice: uint,
+    s: uint,
+    mut counts: *mut uint,
+) {
+    if n_dice == 0 as libc::c_int as libc::c_uint {
+        let ref mut fresh0 = *counts.offset(s as isize);
+        *fresh0 = (*fresh0).wrapping_add(1);
+        *fresh0;
+        return;
+    }
+    let mut i: uint = 1 as libc::c_int as uint;
+    while i < n_sides.wrapping_add(1 as libc::c_int as libc::c_uint) {
+        throw_die(
+            n_sides,
+            n_dice.wrapping_sub(1 as libc::c_int as libc::c_uint),
+            s.wrapping_add(i),
+            counts,
+        );
+        i = i.wrapping_add(1);
+        i;
     }
 }
-
 #[no_mangle]
-pub extern "C" fn beating_probability(
-    n_sides1: u32,
-    n_dice1: u32,
-    n_sides2: u32,
-    n_dice2: u32,
-) -> f64 {
-    let len1: u32 = n_sides1.wrapping_add(1).wrapping_mul(n_dice1);
+pub unsafe extern "C" fn beating_probability(
+    n_sides1: uint,
+    n_dice1: uint,
+    n_sides2: uint,
+    n_dice2: uint,
+) -> libc::c_double {
+    let len1: uint = n_sides1
+        .wrapping_add(1 as libc::c_int as libc::c_uint)
+        .wrapping_mul(n_dice1);
     let vla = len1 as usize;
-    let mut C1: Vec<u32> = ::std::vec::from_elem(0, vla);
-    let mut i: u32 = 0;
-    unsafe {
-        while i < len1 {
-            *C1.as_mut_ptr().offset(i as isize) = 0;
-            i = i.wrapping_add(1);
-            i;
-        }
+    let mut C1: Vec::<uint> = ::std::vec::from_elem(0, vla);
+    let mut i: uint = 0 as libc::c_int as uint;
+    while i < len1 {
+        *C1.as_mut_ptr().offset(i as isize) = 0 as libc::c_int as uint;
+        i = i.wrapping_add(1);
+        i;
     }
-    throw_die(n_sides1, n_dice1, 0, C1.as_mut_ptr());
-    let len2: u32 = n_sides2.wrapping_add(1).wrapping_mul(n_dice2);
+    throw_die(n_sides1, n_dice1, 0 as libc::c_int as uint, C1.as_mut_ptr());
+    let len2: uint = n_sides2
+        .wrapping_add(1 as libc::c_int as libc::c_uint)
+        .wrapping_mul(n_dice2);
     let vla_0 = len2 as usize;
-    let mut C2: Vec<u32> = ::std::vec::from_elem(0, vla_0);
-    let mut j: u32 = 0;
-    unsafe {
-        while j < len2 {
-            *C2.as_mut_ptr().offset(j as isize) = 0;
-            j = j.wrapping_add(1);
-            j;
-        }
+    let mut C2: Vec::<uint> = ::std::vec::from_elem(0, vla_0);
+    let mut j: uint = 0 as libc::c_int as uint;
+    while j < len2 {
+        *C2.as_mut_ptr().offset(j as isize) = 0 as libc::c_int as uint;
+        j = j.wrapping_add(1);
+        j;
     }
-    throw_die(n_sides2, n_dice2, 0, C2.as_mut_ptr());
-    let p12: f64 = (ipow(n_sides1, n_dice1)).wrapping_mul(ipow(n_sides2, n_dice2)) as f64;
-    let mut tot: f64 = 0 as f64;
-    let mut i_0: u32 = 0;
-    unsafe {
-        while i_0 < len1 {
-            let mut j_0: u32 = 0;
-            while j_0 < min(i_0, len2) {
-                tot += *C1.as_mut_ptr().offset(i_0 as isize) as f64
-                    * *C2.as_mut_ptr().offset(j_0 as isize) as f64
-                    / p12;
-                j_0 = j_0.wrapping_add(1);
-                j_0;
-            }
-            i_0 = i_0.wrapping_add(1);
-            i_0;
+    throw_die(n_sides2, n_dice2, 0 as libc::c_int as uint, C2.as_mut_ptr());
+    let p12: libc::c_double = (ipow(n_sides1, n_dice1))
+        .wrapping_mul(ipow(n_sides2, n_dice2)) as libc::c_double;
+    let mut tot: libc::c_double = 0 as libc::c_int as libc::c_double;
+    let mut i_0: uint = 0 as libc::c_int as uint;
+    while i_0 < len1 {
+        let mut j_0: uint = 0 as libc::c_int as uint;
+        while j_0 < min(i_0, len2) {
+            tot
+                += *C1.as_mut_ptr().offset(i_0 as isize) as libc::c_double
+                    * *C2.as_mut_ptr().offset(j_0 as isize) as libc::c_double / p12;
+            j_0 = j_0.wrapping_add(1);
+            j_0;
         }
+        i_0 = i_0.wrapping_add(1);
+        i_0;
     }
     return tot;
 }
-
-fn main_0() -> i32 {
-    print!("{:1.16}\n", beating_probability(4, 9, 6, 6));
-    print!("{:1.16}\n", beating_probability(10, 5, 7, 6));
-    return 0;
+unsafe fn main_0() -> libc::c_int {
+    printf(
+        b"%1.16f\n\0" as *const u8 as *const libc::c_char,
+        beating_probability(
+            4 as libc::c_int as uint,
+            9 as libc::c_int as uint,
+            6 as libc::c_int as uint,
+            6 as libc::c_int as uint,
+        ),
+    );
+    printf(
+        b"%1.16f\n\0" as *const u8 as *const libc::c_char,
+        beating_probability(
+            10 as libc::c_int as uint,
+            5 as libc::c_int as uint,
+            7 as libc::c_int as uint,
+            6 as libc::c_int as uint,
+        ),
+    );
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

@@ -1,18 +1,11 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-use c2rust_out::*;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
 extern "C" {
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
     fn abort() -> !;
 }
 #[no_mangle]
-pub static mut table: [[f64; 2]; 21] = [
+pub static mut table: [[libc::c_double; 2]; 21] = [
     [0.06f64, 0.10f64],
     [0.11f64, 0.18f64],
     [0.16f64, 0.26f64],
@@ -33,39 +26,37 @@ pub static mut table: [[f64; 2]; 21] = [
     [0.91f64, 0.94f64],
     [0.96f64, 0.98f64],
     [1.01f64, 1.00f64],
-    [-1i32 as f64, 0 as f64],
+    [-(1 as libc::c_int) as libc::c_double, 0 as libc::c_int as libc::c_double],
 ];
 #[no_mangle]
-pub extern "C" fn price_fix(mut x: f64) -> f64 {
-    let mut i: i32 = 0;
-    i = 0;
-    unsafe {
-        while table[i as usize][0 as usize] > 0 as f64 {
-            if x < table[i as usize][0 as usize] {
-                return table[i as usize][1 as usize];
-            }
-            i += 1;
-            i;
+pub unsafe extern "C" fn price_fix(mut x: libc::c_double) -> libc::c_double {
+    let mut i: libc::c_int = 0;
+    i = 0 as libc::c_int;
+    while table[i as usize][0 as libc::c_int as usize]
+        > 0 as libc::c_int as libc::c_double
+    {
+        if x < table[i as usize][0 as libc::c_int as usize] {
+            return table[i as usize][1 as libc::c_int as usize];
         }
-        abort();
+        i += 1;
+        i;
     }
+    abort();
 }
-
-fn main_0() -> i32 {
-    let mut i: i32 = 0;
-    i = 0;
-    while i <= 100 {
-        print!(
-            "{:.2} {:.2}\n",
-            i as f64 / 100.0f64,
-            price_fix(i as f64 / 100.0f64)
+unsafe fn main_0() -> libc::c_int {
+    let mut i: libc::c_int = 0;
+    i = 0 as libc::c_int;
+    while i <= 100 as libc::c_int {
+        printf(
+            b"%.2f %.2f\n\0" as *const u8 as *const libc::c_char,
+            i as libc::c_double / 100.0f64,
+            price_fix(i as libc::c_double / 100.0f64),
         );
         i += 1;
         i;
     }
-    return 0;
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

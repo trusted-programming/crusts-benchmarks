@@ -5,9 +5,8 @@
 #![allow(non_upper_case_globals)]
 #![allow(unused_assignments)]
 #![allow(unused_mut)]
-extern crate f128;
 
-#[macro_use]
+
+extern crate f128;#[macro_use]
 extern crate num_traits;
-
 extern crate libc;

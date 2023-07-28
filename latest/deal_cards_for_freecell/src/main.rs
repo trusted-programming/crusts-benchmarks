@@ -1,107 +1,103 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-use c2rust_out::*;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
 extern "C" {
-    fn atoi(__nptr: *const i8) -> i32;
-    fn setlocale(__category: i32, __locale: *const i8) -> *mut i8;
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+    fn putchar(__c: libc::c_int) -> libc::c_int;
+    fn atoi(__nptr: *const libc::c_char) -> libc::c_int;
+    fn setlocale(
+        __category: libc::c_int,
+        __locale: *const libc::c_char,
+    ) -> *mut libc::c_char;
 }
+pub type wchar_t = libc::c_int;
 #[no_mangle]
-pub static mut s_suits: [i32; 5] = unsafe {
-    *::core::mem::transmute::<&[u8; 20], &mut [i32; 5]>(b"c&\0\0f&\0\0e&\0\0`&\0\0\0\0\0\0")
+pub static mut s_suits: [wchar_t; 5] = unsafe {
+    *::core::mem::transmute::<
+        &[u8; 20],
+        &mut [wchar_t; 5],
+    >(b"c&\0\0f&\0\0e&\0\0`&\0\0\0\0\0\0")
 };
 #[no_mangle]
-pub static mut s_nums: [i32; 14] = unsafe {
-    * :: core :: mem :: transmute :: < & [u8; 56], & mut [i32; 14], > (b"A\0\0\x002\0\0\x003\0\0\x004\0\0\x005\0\0\x006\0\0\x007\0\0\08\0\0\09\0\0\0T\0\0\0J\0\0\0Q\0\0\0K\0\0\0\0\0\0\0",)
+pub static mut s_nums: [wchar_t; 14] = unsafe {
+    *::core::mem::transmute::<
+        &[u8; 56],
+        &mut [wchar_t; 14],
+    >(
+        b"A\0\0\x002\0\0\x003\0\0\x004\0\0\x005\0\0\x006\0\0\x007\0\0\08\0\0\09\0\0\0T\0\0\0J\0\0\0Q\0\0\0K\0\0\0\0\0\0\0",
+    )
 };
-static mut seed: i32 = 1;
+static mut seed: libc::c_int = 1 as libc::c_int;
 #[no_mangle]
-pub extern "C" fn rnd() -> i32 {
-    unsafe {
-        seed = ((seed * 214013 + 2531011i32) as u32 & (1u32 << 31i32).wrapping_sub(1)) as i32;
-        return seed >> 16;
-    }
+pub unsafe extern "C" fn rnd() -> libc::c_int {
+    seed = ((seed * 214013 as libc::c_int + 2531011 as libc::c_int) as libc::c_uint
+        & ((1 as libc::c_uint) << 31 as libc::c_int)
+            .wrapping_sub(1 as libc::c_int as libc::c_uint)) as libc::c_int;
+    return seed >> 16 as libc::c_int;
 }
-
 #[no_mangle]
-pub extern "C" fn srnd(mut x: i32) {
-    unsafe {
-        seed = x;
-    }
+pub unsafe extern "C" fn srnd(mut x: libc::c_int) {
+    seed = x;
 }
-
 #[no_mangle]
-pub extern "C" fn show(mut c: *const i32) {
-    unsafe {
-        let mut i: i32 = 0;
-        i = 0;
-        while i < 52 {
-            print!(
-                "  \x1B[{}m{}\x1B[m{}",
-                32 - (1 + *c) % 4 / 2,
-                s_suits[(*c % 4i32) as usize],
-                s_nums[(*c / 4i32) as usize]
-            );
-            i += 1;
-            if i % 8 == 0 || i == 52 {
-                print!("{}", '\n' as i32);
-            }
-            c = c.offset(1);
-            c;
+pub unsafe extern "C" fn show(mut c: *const libc::c_int) {
+    let mut i: libc::c_int = 0;
+    i = 0 as libc::c_int;
+    while i < 52 as libc::c_int {
+        printf(
+            b"  \x1B[%dm%lc\x1B[m%lc\0" as *const u8 as *const libc::c_char,
+            32 as libc::c_int
+                - (1 as libc::c_int + *c) % 4 as libc::c_int / 2 as libc::c_int,
+            s_suits[(*c % 4 as libc::c_int) as usize],
+            s_nums[(*c / 4 as libc::c_int) as usize],
+        );
+        i += 1;
+        if i % 8 as libc::c_int == 0 || i == 52 as libc::c_int {
+            putchar('\n' as i32);
         }
+        c = c.offset(1);
+        c;
     }
 }
-
 #[no_mangle]
-pub extern "C" fn deal(mut s: i32, mut t: *mut i32) {
-    unsafe {
-        let mut i: i32 = 0;
-        let mut j: i32 = 0;
-        srnd(s);
-        i = 0;
-        while i < 52 {
-            *t.offset(i as isize) = 51 - i;
-            i += 1;
-            i;
-        }
-        i = 0;
-        while i < 51 {
-            j = 51 - rnd() % (52 - i);
-            s = *t.offset(i as isize);
-            *t.offset(i as isize) = *t.offset(j as isize);
-            *t.offset(j as isize) = s;
-            i += 1;
-            i;
-        }
+pub unsafe extern "C" fn deal(mut s: libc::c_int, mut t: *mut libc::c_int) {
+    let mut i: libc::c_int = 0;
+    let mut j: libc::c_int = 0;
+    srnd(s);
+    i = 0 as libc::c_int;
+    while i < 52 as libc::c_int {
+        *t.offset(i as isize) = 51 as libc::c_int - i;
+        i += 1;
+        i;
+    }
+    i = 0 as libc::c_int;
+    while i < 51 as libc::c_int {
+        j = 51 as libc::c_int - rnd() % (52 as libc::c_int - i);
+        s = *t.offset(i as isize);
+        *t.offset(i as isize) = *t.offset(j as isize);
+        *t.offset(j as isize) = s;
+        i += 1;
+        i;
     }
 }
-
-fn main_0(mut c: i32, mut v: *mut *mut i8) -> i32 {
-    unsafe {
-        let mut s: i32 = 0;
-        let mut card: [i32; 52] = [0; 52];
-        if c < 2 || {
-            s = atoi(*v.offset(1 as isize));
-            s <= 0
-        } {
-            s = 11982;
+unsafe fn main_0(mut c: libc::c_int, mut v: *mut *mut libc::c_char) -> libc::c_int {
+    let mut s: libc::c_int = 0;
+    let mut card: [libc::c_int; 52] = [0; 52];
+    if c < 2 as libc::c_int
+        || {
+            s = atoi(*v.offset(1 as libc::c_int as isize));
+            s <= 0 as libc::c_int
         }
-        setlocale(6, b"\0" as *const u8 as *const i8);
-        deal(s, card.as_mut_ptr());
-        print!("Hand {}\n", s);
-        show(card.as_mut_ptr());
-        return 0;
+    {
+        s = 11982 as libc::c_int;
     }
+    setlocale(6 as libc::c_int, b"\0" as *const u8 as *const libc::c_char);
+    deal(s, card.as_mut_ptr());
+    printf(b"Hand %d\n\0" as *const u8 as *const libc::c_char, s);
+    show(card.as_mut_ptr());
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    let mut args: Vec<*mut i8> = Vec::new();
+    let mut args: Vec::<*mut libc::c_char> = Vec::new();
     for arg in ::std::env::args() {
         args.push(
             (::std::ffi::CString::new(arg))
@@ -110,5 +106,12 @@ pub fn main() {
         );
     }
     args.push(::core::ptr::null_mut());
-    ::std::process::exit(main_0((args.len() - 1) as i32, args.as_mut_ptr() as *mut *mut i8) as i32);
+    unsafe {
+        ::std::process::exit(
+            main_0(
+                (args.len() - 1) as libc::c_int,
+                args.as_mut_ptr() as *mut *mut libc::c_char,
+            ) as i32,
+        )
+    }
 }

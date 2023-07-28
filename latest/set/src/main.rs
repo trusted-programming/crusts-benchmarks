@@ -1,98 +1,87 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-    unsafe {
-        let mut str_size: usize = 0;
-        while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size += 1;
-        }
-        return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
-            .to_owned();
-    }
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
+extern "C" {
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+    fn putchar(__c: libc::c_int) -> libc::c_int;
 }
-
-use c2rust_out::*;
-extern "C" {}
+pub type set_t = libc::c_uint;
 #[no_mangle]
-pub extern "C" fn show_set(mut x: u32, mut name: *const i8) {
-    unsafe {
-        let mut i: i32 = 0;
-        print!("{} is:", build_str_from_raw_ptr(name as *mut u8));
-        i = 0;
-        while 1 << i <= x {
-            if x & 1 << i != 0 {
-                print!(" {}", i);
-            }
-            i += 1;
-            i;
+pub unsafe extern "C" fn show_set(mut x: set_t, mut name: *const libc::c_char) {
+    let mut i: libc::c_int = 0;
+    printf(b"%s is:\0" as *const u8 as *const libc::c_char, name);
+    i = 0 as libc::c_int;
+    while (1 as libc::c_uint) << i <= x {
+        if x & (1 as libc::c_uint) << i != 0 {
+            printf(b" %d\0" as *const u8 as *const libc::c_char, i);
         }
-        print!("{}", '\n' as i32);
+        i += 1;
+        i;
     }
+    putchar('\n' as i32);
 }
-
-fn main_0() -> i32 {
-    let mut i: i32 = 0;
-    let mut a: u32 = 0;
-    let mut b: u32 = 0;
-    let mut c: u32 = 0;
-    a = 0;
-    i = 0;
-    while i < 10 {
-        a |= 1 << i;
-        i += 3;
+unsafe fn main_0() -> libc::c_int {
+    let mut i: libc::c_int = 0;
+    let mut a: set_t = 0;
+    let mut b: set_t = 0;
+    let mut c: set_t = 0;
+    a = 0 as libc::c_int as set_t;
+    i = 0 as libc::c_int;
+    while i < 10 as libc::c_int {
+        a |= (1 as libc::c_uint) << i;
+        i += 3 as libc::c_int;
     }
-    show_set(a, b"a\0" as *const u8 as *const i8);
-    i = 0;
-    while i < 5 {
-        if a & 1 << i != 0 {
-            print!("	{}{} in set a\n", i, "\0")
-        } else {
-            print!("	{}{} in set a\n", i, " not\0")
-        };
+    show_set(a, b"a\0" as *const u8 as *const libc::c_char);
+    i = 0 as libc::c_int;
+    while i < 5 as libc::c_int {
+        printf(
+            b"\t%d%s in set a\n\0" as *const u8 as *const libc::c_char,
+            i,
+            if a & (1 as libc::c_uint) << i != 0 {
+                b"\0" as *const u8 as *const libc::c_char
+            } else {
+                b" not\0" as *const u8 as *const libc::c_char
+            },
+        );
         i += 1;
         i;
     }
     b = a;
-    b |= 1 << 5;
-    b |= 1 << 10;
-    b &= !(1 << 0);
-    show_set(b, b"b\0" as *const u8 as *const i8);
-    show_set(a | b, b"union(a, b)\0" as *const u8 as *const i8);
+    b |= (1 as libc::c_uint) << 5 as libc::c_int;
+    b |= (1 as libc::c_uint) << 10 as libc::c_int;
+    b &= !((1 as libc::c_uint) << 0 as libc::c_int);
+    show_set(b, b"b\0" as *const u8 as *const libc::c_char);
+    show_set(a | b, b"union(a, b)\0" as *const u8 as *const libc::c_char);
     c = a & b;
-    show_set(c, b"c = common(a, b)\0" as *const u8 as *const i8);
-    show_set(a & !b, b"a - b\0" as *const u8 as *const i8);
-    show_set(b & !a, b"b - a\0" as *const u8 as *const i8);
-    if b & !a == 0 {
-        print!("b is{} a subset of a\n", "\0")
-    } else {
-        print!("b is{} a subset of a\n", " not\0")
-    };
-    if c & !a == 0 {
-        print!("c is{} a subset of a\n", "\0")
-    } else {
-        print!("c is{} a subset of a\n", " not\0")
-    };
-    if (a | b) & !(a & b) == a & !b | b & !a {
-        print!(
-            "union(a, b) - common(a, b) {} union(a - b, b - a)\n",
-            "equals\0"
-        )
-    } else {
-        print!(
-            "union(a, b) - common(a, b) {} union(a - b, b - a)\n",
-            "does not equal\0"
-        )
-    };
-    return 0;
+    show_set(c, b"c = common(a, b)\0" as *const u8 as *const libc::c_char);
+    show_set(a & !b, b"a - b\0" as *const u8 as *const libc::c_char);
+    show_set(b & !a, b"b - a\0" as *const u8 as *const libc::c_char);
+    printf(
+        b"b is%s a subset of a\n\0" as *const u8 as *const libc::c_char,
+        if b & !a == 0 {
+            b"\0" as *const u8 as *const libc::c_char
+        } else {
+            b" not\0" as *const u8 as *const libc::c_char
+        },
+    );
+    printf(
+        b"c is%s a subset of a\n\0" as *const u8 as *const libc::c_char,
+        if c & !a == 0 {
+            b"\0" as *const u8 as *const libc::c_char
+        } else {
+            b" not\0" as *const u8 as *const libc::c_char
+        },
+    );
+    printf(
+        b"union(a, b) - common(a, b) %s union(a - b, b - a)\n\0" as *const u8
+            as *const libc::c_char,
+        if (a | b) & !(a & b) == a & !b | b & !a {
+            b"equals\0" as *const u8 as *const libc::c_char
+        } else {
+            b"does not equal\0" as *const u8 as *const libc::c_char
+        },
+    );
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

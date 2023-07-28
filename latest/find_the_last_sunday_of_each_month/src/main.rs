@@ -1,43 +1,61 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-use c2rust_out::*;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
 extern "C" {
-    fn atoi(__nptr: *const i8) -> i32;
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+    fn atoi(__nptr: *const libc::c_char) -> libc::c_int;
 }
-fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
-    unsafe {
-        let mut days: [i32; 12] = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-        let mut m: i32 = 0;
-        let mut y: i32 = 0;
-        let mut w: i32 = 0;
-        if argc < 2 || {
-            y = atoi(*argv.offset(1 as isize));
-            y <= 1752
-        } {
-            return 1;
+unsafe fn main_0(
+    mut argc: libc::c_int,
+    mut argv: *mut *mut libc::c_char,
+) -> libc::c_int {
+    let mut days: [libc::c_int; 12] = [
+        31 as libc::c_int,
+        29 as libc::c_int,
+        31 as libc::c_int,
+        30 as libc::c_int,
+        31 as libc::c_int,
+        30 as libc::c_int,
+        31 as libc::c_int,
+        31 as libc::c_int,
+        30 as libc::c_int,
+        31 as libc::c_int,
+        30 as libc::c_int,
+        31 as libc::c_int,
+    ];
+    let mut m: libc::c_int = 0;
+    let mut y: libc::c_int = 0;
+    let mut w: libc::c_int = 0;
+    if argc < 2 as libc::c_int
+        || {
+            y = atoi(*argv.offset(1 as libc::c_int as isize));
+            y <= 1752 as libc::c_int
         }
-        days[1 as usize] -= (y % 4 != 0 || y % 100 == 0 && y % 400 != 0) as i32;
-        w = y * 365 + 97 * (y - 1) / 400 + 4;
-        m = 0;
-        while m < 12 {
-            w = (w + days[m as usize]) % 7;
-            print!("{}-{:02}-{}\n", y, m + 1, days[m as usize] - w);
-            m += 1;
-            m;
-        }
-        return 0;
+    {
+        return 1 as libc::c_int;
     }
+    days[1 as libc::c_int as usize]
+        -= (y % 4 as libc::c_int != 0
+            || y % 100 as libc::c_int == 0 && y % 400 as libc::c_int != 0)
+            as libc::c_int;
+    w = y * 365 as libc::c_int
+        + 97 as libc::c_int * (y - 1 as libc::c_int) / 400 as libc::c_int
+        + 4 as libc::c_int;
+    m = 0 as libc::c_int;
+    while m < 12 as libc::c_int {
+        w = (w + days[m as usize]) % 7 as libc::c_int;
+        printf(
+            b"%d-%02d-%d\n\0" as *const u8 as *const libc::c_char,
+            y,
+            m + 1 as libc::c_int,
+            days[m as usize] - w,
+        );
+        m += 1;
+        m;
+    }
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    let mut args: Vec<*mut i8> = Vec::new();
+    let mut args: Vec::<*mut libc::c_char> = Vec::new();
     for arg in ::std::env::args() {
         args.push(
             (::std::ffi::CString::new(arg))
@@ -46,5 +64,12 @@ pub fn main() {
         );
     }
     args.push(::core::ptr::null_mut());
-    ::std::process::exit(main_0((args.len() - 1) as i32, args.as_mut_ptr() as *mut *mut i8) as i32);
+    unsafe {
+        ::std::process::exit(
+            main_0(
+                (args.len() - 1) as libc::c_int,
+                args.as_mut_ptr() as *mut *mut libc::c_char,
+            ) as i32,
+        )
+    }
 }

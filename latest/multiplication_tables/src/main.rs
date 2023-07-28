@@ -1,57 +1,55 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-use c2rust_out::*;
-extern "C" {}
-fn main_0() -> i32 {
-    let mut i: i32 = 0;
-    let mut j: i32 = 0;
-    let mut n: i32 = 12;
-    j = 1;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
+extern "C" {
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+}
+unsafe fn main_0() -> libc::c_int {
+    let mut i: libc::c_int = 0;
+    let mut j: libc::c_int = 0;
+    let mut n: libc::c_int = 12 as libc::c_int;
+    j = 1 as libc::c_int;
     while j <= n {
-        if j != n {
-            print!("{:3}{}", j, ' ' as i32)
-        } else {
-            print!("{:3}{}", j, '\n' as i32)
-        };
+        printf(
+            b"%3d%c\0" as *const u8 as *const libc::c_char,
+            j,
+            if j != n { ' ' as i32 } else { '\n' as i32 },
+        );
         j += 1;
         j;
     }
-    j = 0;
+    j = 0 as libc::c_int;
     while j <= n {
-        if j != n {
-            print!("----")
-        } else {
-            print!("+\n")
-        };
-        j += 1;
-        j;
-    }
-    i = 1;
-    while i <= n {
-        j = 1;
-        while j <= n {
-            if j < i {
-                print!("    ")
+        printf(
+            if j != n {
+                b"----\0" as *const u8 as *const libc::c_char
             } else {
-                print!("{:3} ", i * j)
-            };
+                b"+\n\0" as *const u8 as *const libc::c_char
+            },
+        );
+        j += 1;
+        j;
+    }
+    i = 1 as libc::c_int;
+    while i <= n {
+        j = 1 as libc::c_int;
+        while j <= n {
+            printf(
+                if j < i {
+                    b"    \0" as *const u8 as *const libc::c_char
+                } else {
+                    b"%3d \0" as *const u8 as *const libc::c_char
+                },
+                i * j,
+            );
             j += 1;
             j;
         }
-        print!("| {}\n", i);
+        printf(b"| %d\n\0" as *const u8 as *const libc::c_char, i);
         i += 1;
         i;
     }
-    return 0;
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

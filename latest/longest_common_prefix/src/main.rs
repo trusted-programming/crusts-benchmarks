@@ -1,62 +1,52 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
 #![feature(c_variadic)]
-fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-    unsafe {
-        let mut str_size: usize = 0;
-        while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size += 1;
-        }
-        return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
-            .to_owned();
-    }
-}
-
-use c2rust_out::*;
+use ::c2rust_out::*;
 extern "C" {
-    fn strcpy(_: *mut i8, _: *const i8) -> *mut i8;
-    fn strncpy(_: *mut i8, _: *const i8, _: u64) -> *mut i8;
-    fn strlen(_: *const i8) -> u64;
-    fn malloc(_: u64) -> *mut libc::c_void;
+    fn strcpy(_: *mut libc::c_char, _: *const libc::c_char) -> *mut libc::c_char;
+    fn strncpy(
+        _: *mut libc::c_char,
+        _: *const libc::c_char,
+        _: libc::c_ulong,
+    ) -> *mut libc::c_char;
+    fn strlen(_: *const libc::c_char) -> libc::c_ulong;
+    fn malloc(_: libc::c_ulong) -> *mut libc::c_void;
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
 }
 pub type __builtin_va_list = [__va_list_tag; 1];
 #[derive(Copy, Clone)]
 #[repr(C)]
 pub struct __va_list_tag {
-    pub gp_offset: u32,
-    pub fp_offset: u32,
+    pub gp_offset: libc::c_uint,
+    pub fp_offset: libc::c_uint,
     pub overflow_arg_area: *mut libc::c_void,
     pub reg_save_area: *mut libc::c_void,
 }
 pub type va_list = __builtin_va_list;
 #[no_mangle]
-pub unsafe extern "C" fn lcp(mut num: i32, mut args: ...) -> *mut i8 {
+pub unsafe extern "C" fn lcp(mut num: libc::c_int, mut args: ...) -> *mut libc::c_char {
     let mut vaList: ::core::ffi::VaListImpl;
     let mut vaList2: ::core::ffi::VaListImpl;
-    let mut i: i32 = 0;
-    let mut j: i32 = 0;
-    let mut len: i32 = 0;
-    let mut min: i32 = 0;
-    let mut dest: *mut i8 = 0 as *mut i8;
-    let mut strings: *mut *mut i8 =
-        malloc((num as u64).wrapping_mul(::core::mem::size_of::<*mut i8>() as u64)) as *mut *mut i8;
+    let mut i: libc::c_int = 0;
+    let mut j: libc::c_int = 0;
+    let mut len: libc::c_int = 0;
+    let mut min: libc::c_int = 0;
+    let mut dest: *mut libc::c_char = 0 as *mut libc::c_char;
+    let mut strings: *mut *mut libc::c_char = malloc(
+        (num as libc::c_ulong)
+            .wrapping_mul(::core::mem::size_of::<*mut libc::c_char>() as libc::c_ulong),
+    ) as *mut *mut libc::c_char;
     vaList = args.clone();
     vaList2 = args.clone();
-    i = 0;
+    i = 0 as libc::c_int;
     while i < num {
-        len = strlen(vaList.arg::<*mut i8>()) as i32;
+        len = strlen(vaList.arg::<*mut libc::c_char>()) as libc::c_int;
         let ref mut fresh0 = *strings.offset(i as isize);
-        *fresh0 = malloc(((len + 1i32) as u64).wrapping_mul(::core::mem::size_of::<i8>() as u64))
-            as *mut i8;
-        strcpy(*strings.offset(i as isize), vaList2.arg::<*mut i8>());
-        if i == 0 {
+        *fresh0 = malloc(
+            ((len + 1 as libc::c_int) as libc::c_ulong)
+                .wrapping_mul(::core::mem::size_of::<libc::c_char>() as libc::c_ulong),
+        ) as *mut libc::c_char;
+        strcpy(*strings.offset(i as isize), vaList2.arg::<*mut libc::c_char>());
+        if i == 0 as libc::c_int {
             min = len;
         } else if len < min {
             min = len;
@@ -64,22 +54,31 @@ pub unsafe extern "C" fn lcp(mut num: i32, mut args: ...) -> *mut i8 {
         i += 1;
         i;
     }
-    if min == 0 {
-        return b"\0" as *const u8 as *const i8 as *mut i8;
+    if min == 0 as libc::c_int {
+        return b"\0" as *const u8 as *const libc::c_char as *mut libc::c_char;
     }
-    i = 0;
+    i = 0 as libc::c_int;
     while i < min {
-        j = 1;
+        j = 1 as libc::c_int;
         while j < num {
-            if *(*strings.offset(j as isize)).offset(i as isize) as i32
-                != *(*strings.offset(0 as isize)).offset(i as isize) as i32
+            if *(*strings.offset(j as isize)).offset(i as isize) as libc::c_int
+                != *(*strings.offset(0 as libc::c_int as isize)).offset(i as isize)
+                    as libc::c_int
             {
-                if i == 0 {
-                    return b"\0" as *const u8 as *const i8 as *mut i8;
+                if i == 0 as libc::c_int {
+                    return b"\0" as *const u8 as *const libc::c_char as *mut libc::c_char
                 } else {
-                    dest = malloc((i as u64).wrapping_mul(::core::mem::size_of::<i8>() as u64))
-                        as *mut i8;
-                    strncpy(dest, *strings.offset(0 as isize), (i - 1i32) as u64);
+                    dest = malloc(
+                        (i as libc::c_ulong)
+                            .wrapping_mul(
+                                ::core::mem::size_of::<libc::c_char>() as libc::c_ulong,
+                            ),
+                    ) as *mut libc::c_char;
+                    strncpy(
+                        dest,
+                        *strings.offset(0 as libc::c_int as isize),
+                        (i - 1 as libc::c_int) as libc::c_ulong,
+                    );
                     return dest;
                 }
             }
@@ -89,56 +88,78 @@ pub unsafe extern "C" fn lcp(mut num: i32, mut args: ...) -> *mut i8 {
         i += 1;
         i;
     }
-    dest =
-        malloc(((min + 1i32) as u64).wrapping_mul(::core::mem::size_of::<i8>() as u64)) as *mut i8;
-    strncpy(dest, *strings.offset(0 as isize), min as u64);
+    dest = malloc(
+        ((min + 1 as libc::c_int) as libc::c_ulong)
+            .wrapping_mul(::core::mem::size_of::<libc::c_char>() as libc::c_ulong),
+    ) as *mut libc::c_char;
+    strncpy(dest, *strings.offset(0 as libc::c_int as isize), min as libc::c_ulong);
     return dest;
 }
-
-fn main_0() -> i32 {
-    unsafe {
-        print!(
-            "\nLongest common prefix : {}",
-            build_str_from_raw_ptr(
-                lcp(3, "interspecies\0", "interstellar\0", "interstate\0",) as *mut u8
-            )
-        );
-        print!(
-            "\nLongest common prefix : {}",
-            build_str_from_raw_ptr(lcp(2, "throne\0", "throne\0",) as *mut u8)
-        );
-        print!(
-            "\nLongest common prefix : {}",
-            build_str_from_raw_ptr(lcp(2, "throne\0", "dungeon\0",) as *mut u8)
-        );
-        print!(
-            "\nLongest common prefix : {}",
-            build_str_from_raw_ptr(lcp(3, "throne\0", "\0", "throne\0",) as *mut u8)
-        );
-        print!(
-            "\nLongest common prefix : {}",
-            build_str_from_raw_ptr(lcp(1, "cheese\0") as *mut u8)
-        );
-        print!(
-            "\nLongest common prefix : {}",
-            build_str_from_raw_ptr(lcp(1, "\0") as *mut u8)
-        );
-        print!(
-            "\nLongest common prefix : {}",
-            build_str_from_raw_ptr(lcp(0, 0 as *mut libc::c_void) as *mut u8)
-        );
-        print!(
-            "\nLongest common prefix : {}",
-            build_str_from_raw_ptr(lcp(2, "prefix\0", "suffix\0",) as *mut u8)
-        );
-        print!(
-            "\nLongest common prefix : {}",
-            build_str_from_raw_ptr(lcp(2, "foo\0", "foobar\0",) as *mut u8)
-        );
-    }
-    return 0;
+unsafe fn main_0() -> libc::c_int {
+    printf(
+        b"\nLongest common prefix : %s\0" as *const u8 as *const libc::c_char,
+        lcp(
+            3 as libc::c_int,
+            b"interspecies\0" as *const u8 as *const libc::c_char,
+            b"interstellar\0" as *const u8 as *const libc::c_char,
+            b"interstate\0" as *const u8 as *const libc::c_char,
+        ),
+    );
+    printf(
+        b"\nLongest common prefix : %s\0" as *const u8 as *const libc::c_char,
+        lcp(
+            2 as libc::c_int,
+            b"throne\0" as *const u8 as *const libc::c_char,
+            b"throne\0" as *const u8 as *const libc::c_char,
+        ),
+    );
+    printf(
+        b"\nLongest common prefix : %s\0" as *const u8 as *const libc::c_char,
+        lcp(
+            2 as libc::c_int,
+            b"throne\0" as *const u8 as *const libc::c_char,
+            b"dungeon\0" as *const u8 as *const libc::c_char,
+        ),
+    );
+    printf(
+        b"\nLongest common prefix : %s\0" as *const u8 as *const libc::c_char,
+        lcp(
+            3 as libc::c_int,
+            b"throne\0" as *const u8 as *const libc::c_char,
+            b"\0" as *const u8 as *const libc::c_char,
+            b"throne\0" as *const u8 as *const libc::c_char,
+        ),
+    );
+    printf(
+        b"\nLongest common prefix : %s\0" as *const u8 as *const libc::c_char,
+        lcp(1 as libc::c_int, b"cheese\0" as *const u8 as *const libc::c_char),
+    );
+    printf(
+        b"\nLongest common prefix : %s\0" as *const u8 as *const libc::c_char,
+        lcp(1 as libc::c_int, b"\0" as *const u8 as *const libc::c_char),
+    );
+    printf(
+        b"\nLongest common prefix : %s\0" as *const u8 as *const libc::c_char,
+        lcp(0 as libc::c_int, 0 as *mut libc::c_void),
+    );
+    printf(
+        b"\nLongest common prefix : %s\0" as *const u8 as *const libc::c_char,
+        lcp(
+            2 as libc::c_int,
+            b"prefix\0" as *const u8 as *const libc::c_char,
+            b"suffix\0" as *const u8 as *const libc::c_char,
+        ),
+    );
+    printf(
+        b"\nLongest common prefix : %s\0" as *const u8 as *const libc::c_char,
+        lcp(
+            2 as libc::c_int,
+            b"foo\0" as *const u8 as *const libc::c_char,
+            b"foobar\0" as *const u8 as *const libc::c_char,
+        ),
+    );
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

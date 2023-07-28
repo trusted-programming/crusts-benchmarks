@@ -1,76 +1,71 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-use c2rust_out::*;
-extern "C" {}
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
+extern "C" {
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+}
 #[no_mangle]
-pub extern "C" fn proper_divisors(n: i32, mut print_flag: bool) -> i32 {
-    let mut count: i32 = 0;
-    let mut i: i32 = 1;
+pub unsafe extern "C" fn proper_divisors(
+    n: libc::c_int,
+    mut print_flag: bool,
+) -> libc::c_int {
+    let mut count: libc::c_int = 0 as libc::c_int;
+    let mut i: libc::c_int = 1 as libc::c_int;
     while i < n {
-        if n % i == 0 {
+        if n % i == 0 as libc::c_int {
             count += 1;
             count;
             if print_flag {
-                print!("{} ", i);
+                printf(b"%d \0" as *const u8 as *const libc::c_char, i);
             }
         }
         i += 1;
         i;
     }
     if print_flag {
-        print!("\n");
+        printf(b"\n\0" as *const u8 as *const libc::c_char);
     }
     return count;
 }
-
 #[no_mangle]
-pub extern "C" fn countProperDivisors(mut n: i32) -> i32 {
-    let mut prod: i32 = 1;
-    let mut i: i32 = 0;
-    let mut count: i32 = 0;
-    while n % 2 == 0 {
+pub unsafe extern "C" fn countProperDivisors(mut n: libc::c_int) -> libc::c_int {
+    let mut prod: libc::c_int = 1 as libc::c_int;
+    let mut i: libc::c_int = 0;
+    let mut count: libc::c_int = 0 as libc::c_int;
+    while n % 2 as libc::c_int == 0 as libc::c_int {
         count += 1;
         count;
-        n /= 2;
+        n /= 2 as libc::c_int;
     }
-    prod *= 1 + count;
-    i = 3;
+    prod *= 1 as libc::c_int + count;
+    i = 3 as libc::c_int;
     while i * i <= n {
-        count = 0;
-        while n % i == 0 {
+        count = 0 as libc::c_int;
+        while n % i == 0 as libc::c_int {
             count += 1;
             count;
             n /= i;
         }
-        prod *= 1 + count;
-        i += 2;
+        prod *= 1 as libc::c_int + count;
+        i += 2 as libc::c_int;
     }
-    if n > 2 {
-        prod *= 2;
+    if n > 2 as libc::c_int {
+        prod *= 2 as libc::c_int;
     }
-    return prod - 1;
+    return prod - 1 as libc::c_int;
 }
-
-fn main_0() -> i32 {
-    let mut i: i32 = 1;
-    while i <= 10 {
-        print!("{}: ", i);
-        proper_divisors(i, 1 != 0);
+unsafe fn main_0() -> libc::c_int {
+    let mut i: libc::c_int = 1 as libc::c_int;
+    while i <= 10 as libc::c_int {
+        printf(b"%d: \0" as *const u8 as *const libc::c_char, i);
+        proper_divisors(i, 1 as libc::c_int != 0);
         i += 1;
         i;
     }
-    let mut max: i32 = 0;
-    let mut max_i: i32 = 1;
-    let mut i_0: i32 = 1;
-    while i_0 <= 20000 {
-        let mut v: i32 = countProperDivisors(i_0);
+    let mut max: libc::c_int = 0 as libc::c_int;
+    let mut max_i: libc::c_int = 1 as libc::c_int;
+    let mut i_0: libc::c_int = 1 as libc::c_int;
+    while i_0 <= 20000 as libc::c_int {
+        let mut v: libc::c_int = countProperDivisors(i_0);
         if v >= max {
             max = v;
             max_i = i_0;
@@ -78,10 +73,9 @@ fn main_0() -> i32 {
         i_0 += 1;
         i_0;
     }
-    print!("{} with {} divisors\n", max_i, max);
-    return 0;
+    printf(b"%d with %d divisors\n\0" as *const u8 as *const libc::c_char, max_i, max);
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

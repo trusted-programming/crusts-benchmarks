@@ -6,7 +6,7 @@
 #![allow(unused_assignments)]
 #![allow(unused_mut)]
 #![feature(extern_types)]
+
 #[macro_use]
 extern crate c2rust_bitfields;
-
 extern crate libc;

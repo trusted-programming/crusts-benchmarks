@@ -1,156 +1,157 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-use c2rust_out::*;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
 extern "C" {
-    fn malloc(_: u64) -> *mut libc::c_void;
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+    fn putchar(__c: libc::c_int) -> libc::c_int;
+    fn malloc(_: libc::c_ulong) -> *mut libc::c_void;
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
 pub struct matrix_t {
-    pub h: i32,
-    pub w: i32,
-    pub x: *mut f64,
+    pub h: libc::c_int,
+    pub w: libc::c_int,
+    pub x: *mut libc::c_double,
 }
 pub type matrix = *mut matrix_t;
 #[no_mangle]
-pub extern "C" fn dot(mut a: *mut f64, mut b: *mut f64, mut len: i32, mut step: i32) -> f64 {
-    unsafe {
-        let mut r: f64 = 0 as f64;
-        loop {
-            let fresh0 = len;
-            len = len - 1;
-            if !(fresh0 != 0) {
-                break;
-            }
-            let fresh1 = a;
-            a = a.offset(1);
-            r += *fresh1 * *b;
-            b = b.offset(step as isize);
+pub unsafe extern "C" fn dot(
+    mut a: *mut libc::c_double,
+    mut b: *mut libc::c_double,
+    mut len: libc::c_int,
+    mut step: libc::c_int,
+) -> libc::c_double {
+    let mut r: libc::c_double = 0 as libc::c_int as libc::c_double;
+    loop {
+        let fresh0 = len;
+        len = len - 1;
+        if !(fresh0 != 0) {
+            break;
         }
-        return r;
+        let fresh1 = a;
+        a = a.offset(1);
+        r += *fresh1 * *b;
+        b = b.offset(step as isize);
     }
+    return r;
 }
-
 #[no_mangle]
-pub extern "C" fn mat_new(mut h: i32, mut w: i32) -> matrix {
-    unsafe {
-        let mut r: matrix = malloc(
-            (::core::mem::size_of::<matrix_t>() as u64).wrapping_add(
-                (::core::mem::size_of::<f64>() as u64)
-                    .wrapping_mul(w as u64)
-                    .wrapping_mul(h as u64),
+pub unsafe extern "C" fn mat_new(mut h: libc::c_int, mut w: libc::c_int) -> matrix {
+    let mut r: matrix = malloc(
+        (::core::mem::size_of::<matrix_t>() as libc::c_ulong)
+            .wrapping_add(
+                (::core::mem::size_of::<libc::c_double>() as libc::c_ulong)
+                    .wrapping_mul(w as libc::c_ulong)
+                    .wrapping_mul(h as libc::c_ulong),
             ),
-        ) as matrix;
-        (*r).h = h;
-        (*r).w = w;
-        (*r).x = r.offset(1 as isize) as *mut f64;
-        return r;
-    }
+    ) as matrix;
+    (*r).h = h;
+    (*r).w = w;
+    (*r).x = r.offset(1 as libc::c_int as isize) as *mut libc::c_double;
+    return r;
 }
-
 #[no_mangle]
-pub extern "C" fn mat_mul(mut a: matrix, mut b: matrix) -> matrix {
-    unsafe {
-        let mut r: matrix = 0 as *mut matrix_t;
-        let mut p: *mut f64 = 0 as *mut f64;
-        let mut pa: *mut f64 = 0 as *mut f64;
-        let mut i: i32 = 0;
-        let mut j: i32 = 0;
-        if (*a).w != (*b).h {
-            return 0 as matrix;
-        }
-        r = mat_new((*a).h, (*b).w);
-        p = (*r).x;
-        pa = (*a).x;
-        i = 0;
-        while i < (*a).h {
-            j = 0;
-            while j < (*b).w {
-                let fresh2 = p;
-                p = p.offset(1);
-                *fresh2 = dot(pa, ((*b).x).offset(j as isize), (*a).w, (*b).w);
-                j += 1;
-                j;
-            }
-            i += 1;
-            i;
-            pa = pa.offset((*a).w as isize);
-        }
-        return r;
+pub unsafe extern "C" fn mat_mul(mut a: matrix, mut b: matrix) -> matrix {
+    let mut r: matrix = 0 as *mut matrix_t;
+    let mut p: *mut libc::c_double = 0 as *mut libc::c_double;
+    let mut pa: *mut libc::c_double = 0 as *mut libc::c_double;
+    let mut i: libc::c_int = 0;
+    let mut j: libc::c_int = 0;
+    if (*a).w != (*b).h {
+        return 0 as matrix;
     }
+    r = mat_new((*a).h, (*b).w);
+    p = (*r).x;
+    pa = (*a).x;
+    i = 0 as libc::c_int;
+    while i < (*a).h {
+        j = 0 as libc::c_int;
+        while j < (*b).w {
+            let fresh2 = p;
+            p = p.offset(1);
+            *fresh2 = dot(pa, ((*b).x).offset(j as isize), (*a).w, (*b).w);
+            j += 1;
+            j;
+        }
+        i += 1;
+        i;
+        pa = pa.offset((*a).w as isize);
+    }
+    return r;
 }
-
 #[no_mangle]
-pub extern "C" fn mat_show(mut a: matrix) {
-    unsafe {
-        let mut i: i32 = 0;
-        let mut j: i32 = 0;
-        let mut p: *mut f64 = (*a).x;
-        i = 0;
-        while i < (*a).h {
-            j = 0;
-            while j < (*a).w {
-                let fresh3 = p;
-                p = p.offset(1);
-                print!("	{:7.3}", *fresh3);
-                j += 1;
-                j;
-            }
-            i += 1;
-            i;
-            print!("{}", '\n' as i32);
+pub unsafe extern "C" fn mat_show(mut a: matrix) {
+    let mut i: libc::c_int = 0;
+    let mut j: libc::c_int = 0;
+    let mut p: *mut libc::c_double = (*a).x;
+    i = 0 as libc::c_int;
+    while i < (*a).h {
+        j = 0 as libc::c_int;
+        while j < (*a).w {
+            let fresh3 = p;
+            p = p.offset(1);
+            printf(b"\t%7.3f\0" as *const u8 as *const libc::c_char, *fresh3);
+            j += 1;
+            j;
         }
-        print!("{}", '\n' as i32);
+        i += 1;
+        i;
+        putchar('\n' as i32);
     }
+    putchar('\n' as i32);
 }
-
-fn main_0() -> i32 {
-    let mut da: [f64; 16] = [
-        1 as f64, 1 as f64, 1 as f64, 1 as f64, 2 as f64, 4 as f64, 8 as f64, 16 as f64, 3 as f64,
-        9 as f64, 27 as f64, 81 as f64, 4 as f64, 16 as f64, 64 as f64, 256 as f64,
+unsafe fn main_0() -> libc::c_int {
+    let mut da: [libc::c_double; 16] = [
+        1 as libc::c_int as libc::c_double,
+        1 as libc::c_int as libc::c_double,
+        1 as libc::c_int as libc::c_double,
+        1 as libc::c_int as libc::c_double,
+        2 as libc::c_int as libc::c_double,
+        4 as libc::c_int as libc::c_double,
+        8 as libc::c_int as libc::c_double,
+        16 as libc::c_int as libc::c_double,
+        3 as libc::c_int as libc::c_double,
+        9 as libc::c_int as libc::c_double,
+        27 as libc::c_int as libc::c_double,
+        81 as libc::c_int as libc::c_double,
+        4 as libc::c_int as libc::c_double,
+        16 as libc::c_int as libc::c_double,
+        64 as libc::c_int as libc::c_double,
+        256 as libc::c_int as libc::c_double,
     ];
-    let mut db: [f64; 12] = [
+    let mut db: [libc::c_double; 12] = [
         4.0f64,
         -3.0f64,
-        4.0f64 / 3 as f64,
-        -13.0f64 / 3 as f64,
-        19.0f64 / 4 as f64,
-        -7.0f64 / 3 as f64,
-        3.0f64 / 2 as f64,
+        4.0f64 / 3 as libc::c_int as libc::c_double,
+        -13.0f64 / 3 as libc::c_int as libc::c_double,
+        19.0f64 / 4 as libc::c_int as libc::c_double,
+        -7.0f64 / 3 as libc::c_int as libc::c_double,
+        3.0f64 / 2 as libc::c_int as libc::c_double,
         -2.0f64,
-        7.0f64 / 6 as f64,
-        -1.0f64 / 6 as f64,
-        1.0f64 / 4 as f64,
-        -1.0f64 / 6 as f64,
+        7.0f64 / 6 as libc::c_int as libc::c_double,
+        -1.0f64 / 6 as libc::c_int as libc::c_double,
+        1.0f64 / 4 as libc::c_int as libc::c_double,
+        -1.0f64 / 6 as libc::c_int as libc::c_double,
     ];
     let mut a: matrix_t = {
         let mut init = matrix_t {
-            h: 4,
-            w: 4,
+            h: 4 as libc::c_int,
+            w: 4 as libc::c_int,
             x: da.as_mut_ptr(),
         };
         init
     };
     let mut b: matrix_t = {
         let mut init = matrix_t {
-            h: 4,
-            w: 3,
+            h: 4 as libc::c_int,
+            w: 3 as libc::c_int,
             x: db.as_mut_ptr(),
         };
         init
     };
     let mut c: matrix = mat_mul(&mut a, &mut b);
     mat_show(c);
-    return 0;
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

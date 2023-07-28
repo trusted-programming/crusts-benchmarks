@@ -1,42 +1,41 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-use c2rust_out::*;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
 extern "C" {
-    fn asin(_: f64) -> f64;
-    fn cos(_: f64) -> f64;
-    fn sin(_: f64) -> f64;
-    fn sqrt(_: f64) -> f64;
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+    fn asin(_: libc::c_double) -> libc::c_double;
+    fn cos(_: libc::c_double) -> libc::c_double;
+    fn sin(_: libc::c_double) -> libc::c_double;
+    fn sqrt(_: libc::c_double) -> libc::c_double;
 }
 #[no_mangle]
-pub extern "C" fn dist(mut th1: f64, mut ph1: f64, mut th2: f64, mut ph2: f64) -> f64 {
-    let mut dx: f64 = 0.;
-    let mut dy: f64 = 0.;
-    let mut dz: f64 = 0.;
+pub unsafe extern "C" fn dist(
+    mut th1: libc::c_double,
+    mut ph1: libc::c_double,
+    mut th2: libc::c_double,
+    mut ph2: libc::c_double,
+) -> libc::c_double {
+    let mut dx: libc::c_double = 0.;
+    let mut dy: libc::c_double = 0.;
+    let mut dz: libc::c_double = 0.;
     ph1 -= ph2;
-    ph1 *= 3.1415926536f64 / 180 as f64;
-    th1 *= 3.1415926536f64 / 180 as f64;
-    th2 *= 3.1415926536f64 / 180 as f64;
-    unsafe {
-        dz = sin(th1) - sin(th2);
-        dx = cos(ph1) * cos(th1) - cos(th2);
-        dy = sin(ph1) * cos(th1);
-        return asin(sqrt(dx * dx + dy * dy + dz * dz) / 2 as f64) * 2 as f64 * 6371 as f64;
-    }
+    ph1 *= 3.1415926536f64 / 180 as libc::c_int as libc::c_double;
+    th1 *= 3.1415926536f64 / 180 as libc::c_int as libc::c_double;
+    th2 *= 3.1415926536f64 / 180 as libc::c_int as libc::c_double;
+    dz = sin(th1) - sin(th2);
+    dx = cos(ph1) * cos(th1) - cos(th2);
+    dy = sin(ph1) * cos(th1);
+    return asin(sqrt(dx * dx + dy * dy + dz * dz) / 2 as libc::c_int as libc::c_double)
+        * 2 as libc::c_int as libc::c_double * 6371 as libc::c_int as libc::c_double;
 }
-
-fn main_0() -> i32 {
-    let mut d: f64 = dist(36.12f64, -86.67f64, 33.94f64, -118.4f64);
-    print!("dist: {:.1} km ({:.1} mi.)\n", d, d / 1.609344f64);
-    return 0;
+unsafe fn main_0() -> libc::c_int {
+    let mut d: libc::c_double = dist(36.12f64, -86.67f64, 33.94f64, -118.4f64);
+    printf(
+        b"dist: %.1f km (%.1f mi.)\n\0" as *const u8 as *const libc::c_char,
+        d,
+        d / 1.609344f64,
+    );
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

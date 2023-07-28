@@ -1,65 +1,57 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-    unsafe {
-        let mut str_size: usize = 0;
-        while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size += 1;
-        }
-        return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
-            .to_owned();
-    }
-}
-
-use c2rust_out::*;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
 extern "C" {
-    fn mktime(__tp: *mut tm) -> i64;
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+    fn mktime(__tp: *mut tm) -> time_t;
 }
+pub type __time_t = libc::c_long;
+pub type time_t = __time_t;
 #[derive(Copy, Clone)]
 #[repr(C)]
 pub struct tm {
-    pub tm_sec: i32,
-    pub tm_min: i32,
-    pub tm_hour: i32,
-    pub tm_mday: i32,
-    pub tm_mon: i32,
-    pub tm_year: i32,
-    pub tm_wday: i32,
-    pub tm_yday: i32,
-    pub tm_isdst: i32,
-    pub tm_gmtoff: i64,
-    pub tm_zone: *const i8,
+    pub tm_sec: libc::c_int,
+    pub tm_min: libc::c_int,
+    pub tm_hour: libc::c_int,
+    pub tm_mday: libc::c_int,
+    pub tm_mon: libc::c_int,
+    pub tm_year: libc::c_int,
+    pub tm_wday: libc::c_int,
+    pub tm_yday: libc::c_int,
+    pub tm_isdst: libc::c_int,
+    pub tm_gmtoff: libc::c_long,
+    pub tm_zone: *const libc::c_char,
 }
-static mut months: [*const i8; 12] = [
-    b"January\0" as *const u8 as *const i8,
-    b"February\0" as *const u8 as *const i8,
-    b"March\0" as *const u8 as *const i8,
-    b"April\0" as *const u8 as *const i8,
-    b"May\0" as *const u8 as *const i8,
-    b"June\0" as *const u8 as *const i8,
-    b"July\0" as *const u8 as *const i8,
-    b"August\0" as *const u8 as *const i8,
-    b"September\0" as *const u8 as *const i8,
-    b"October\0" as *const u8 as *const i8,
-    b"November\0" as *const u8 as *const i8,
-    b"December\0" as *const u8 as *const i8,
+static mut months: [*const libc::c_char; 12] = [
+    b"January\0" as *const u8 as *const libc::c_char,
+    b"February\0" as *const u8 as *const libc::c_char,
+    b"March\0" as *const u8 as *const libc::c_char,
+    b"April\0" as *const u8 as *const libc::c_char,
+    b"May\0" as *const u8 as *const libc::c_char,
+    b"June\0" as *const u8 as *const libc::c_char,
+    b"July\0" as *const u8 as *const libc::c_char,
+    b"August\0" as *const u8 as *const libc::c_char,
+    b"September\0" as *const u8 as *const libc::c_char,
+    b"October\0" as *const u8 as *const libc::c_char,
+    b"November\0" as *const u8 as *const libc::c_char,
+    b"December\0" as *const u8 as *const libc::c_char,
 ];
-static mut long_months: [i32; 7] = [0, 2, 4, 6, 7, 9, 11];
-fn main_0() -> i32 {
-    let mut n: i32 = 0;
-    let mut y: i32 = 0;
-    let mut i: i32 = 0;
-    let mut m: i32 = 0;
+static mut long_months: [libc::c_int; 7] = [
+    0 as libc::c_int,
+    2 as libc::c_int,
+    4 as libc::c_int,
+    6 as libc::c_int,
+    7 as libc::c_int,
+    9 as libc::c_int,
+    11 as libc::c_int,
+];
+unsafe fn main_0() -> libc::c_int {
+    let mut n: libc::c_int = 0 as libc::c_int;
+    let mut y: libc::c_int = 0;
+    let mut i: libc::c_int = 0;
+    let mut m: libc::c_int = 0;
     let mut t: tm = {
         let mut init = tm {
-            tm_sec: 0,
+            tm_sec: 0 as libc::c_int,
             tm_min: 0,
             tm_hour: 0,
             tm_mday: 0,
@@ -69,46 +61,43 @@ fn main_0() -> i32 {
             tm_yday: 0,
             tm_isdst: 0,
             tm_gmtoff: 0,
-            tm_zone: 0 as *const i8,
+            tm_zone: 0 as *const libc::c_char,
         };
         init
     };
-    print!("Months with five weekends:\n");
-    y = 1900;
-    unsafe {
-        while y <= 2100 {
-            i = 0;
-            while i < 7 {
-                m = long_months[i as usize];
-                t.tm_year = y - 1900;
-                t.tm_mon = m;
-                t.tm_mday = 1;
-                if mktime(&mut t) == -1 as i64 {
-                    print!(
-                        "Error: {} {}\n",
-                        y,
-                        build_str_from_raw_ptr(months[m as usize] as *mut u8)
-                    );
-                } else if t.tm_wday == 5 {
-                    print!(
-                        "  {} {}\n",
-                        y,
-                        build_str_from_raw_ptr(months[m as usize] as *mut u8)
-                    );
-                    n += 1;
-                    n;
-                }
-                i += 1;
-                i;
+    printf(b"Months with five weekends:\n\0" as *const u8 as *const libc::c_char);
+    y = 1900 as libc::c_int;
+    while y <= 2100 as libc::c_int {
+        i = 0 as libc::c_int;
+        while i < 7 as libc::c_int {
+            m = long_months[i as usize];
+            t.tm_year = y - 1900 as libc::c_int;
+            t.tm_mon = m;
+            t.tm_mday = 1 as libc::c_int;
+            if mktime(&mut t) == -(1 as libc::c_int) as libc::c_long {
+                printf(
+                    b"Error: %d %s\n\0" as *const u8 as *const libc::c_char,
+                    y,
+                    months[m as usize],
+                );
+            } else if t.tm_wday == 5 as libc::c_int {
+                printf(
+                    b"  %d %s\n\0" as *const u8 as *const libc::c_char,
+                    y,
+                    months[m as usize],
+                );
+                n += 1;
+                n;
             }
-            y += 1;
-            y;
+            i += 1;
+            i;
         }
+        y += 1;
+        y;
     }
-    print!("{} total\n", n);
-    return 0;
+    printf(b"%d total\n\0" as *const u8 as *const libc::c_char, n);
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

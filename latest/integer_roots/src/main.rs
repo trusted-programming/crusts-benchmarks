@@ -1,79 +1,76 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
 #[macro_use]
 extern crate num_traits;
-
-use c2rust_out::*;
+use ::c2rust_out::*;
 use num_traits::ToPrimitive;
 extern "C" {
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
     fn powl(_: f128::f128, _: f128::f128) -> f128::f128;
 }
+pub type ulong = libc::c_ulonglong;
 #[no_mangle]
-pub extern "C" fn root(mut base: u64, mut n: u64) -> u64 {
-    let mut n1: u64 = 0;
-    let mut n2: u64 = 0;
-    let mut n3: u64 = 0;
-    let mut c: u64 = 0;
-    let mut d: u64 = 0;
-    let mut e: u64 = 0;
-    if base < 2 {
+pub unsafe extern "C" fn root(mut base: ulong, mut n: ulong) -> ulong {
+    let mut n1: ulong = 0;
+    let mut n2: ulong = 0;
+    let mut n3: ulong = 0;
+    let mut c: ulong = 0;
+    let mut d: ulong = 0;
+    let mut e: ulong = 0;
+    if base < 2 as libc::c_int as libc::c_ulonglong {
         return base;
     }
-    if n == 0 {
-        return 1;
+    if n == 0 as libc::c_int as libc::c_ulonglong {
+        return 1 as libc::c_int as ulong;
     }
-    n1 = n.wrapping_sub(1);
+    n1 = n.wrapping_sub(1 as libc::c_int as libc::c_ulonglong);
     n2 = n;
     n3 = n1;
-    c = 1;
+    c = 1 as libc::c_int as ulong;
     d = n3.wrapping_add(base).wrapping_div(n2);
-    unsafe {
-        e = n3
-            .wrapping_mul(d)
-            .wrapping_add(
-                base.wrapping_div(
-                    (powl(f128::f128::new(d), f128::f128::new(n1)))
-                        .to_u64()
-                        .unwrap(),
+    e = n3
+        .wrapping_mul(d)
+        .wrapping_add(
+            base
+                .wrapping_div(
+                    (powl(f128::f128::new(d), f128::f128::new(n1))).to_u64().unwrap(),
                 ),
+        )
+        .wrapping_div(n2);
+    while c != d && c != e {
+        c = d;
+        d = e;
+        e = n3
+            .wrapping_mul(e)
+            .wrapping_add(
+                base
+                    .wrapping_div(
+                        (powl(f128::f128::new(e), f128::f128::new(n1))).to_u64().unwrap(),
+                    ),
             )
             .wrapping_div(n2);
-        while c != d && c != e {
-            c = d;
-            d = e;
-            e = n3
-                .wrapping_mul(e)
-                .wrapping_add(
-                    base.wrapping_div(
-                        (powl(f128::f128::new(e), f128::f128::new(n1)))
-                            .to_u64()
-                            .unwrap(),
-                    ),
-                )
-                .wrapping_div(n2);
-        }
     }
     if d < e {
         return d;
     }
     return e;
 }
-
-fn main_0() -> i32 {
-    let mut b: u64 = 2e18f64 as u64;
-    print!("3rd root of 8 = {}\n", root(8, 3));
-    print!("3rd root of 9 = {}\n", root(9, 3));
-    print!("2nd root of {} = {}\n", b, root(b, 2));
-    return 0;
+unsafe fn main_0() -> libc::c_int {
+    let mut b: ulong = 2e18f64 as ulong;
+    printf(
+        b"3rd root of 8 = %lld\n\0" as *const u8 as *const libc::c_char,
+        root(8 as libc::c_int as ulong, 3 as libc::c_int as ulong),
+    );
+    printf(
+        b"3rd root of 9 = %lld\n\0" as *const u8 as *const libc::c_char,
+        root(9 as libc::c_int as ulong, 3 as libc::c_int as ulong),
+    );
+    printf(
+        b"2nd root of %lld = %lld\n\0" as *const u8 as *const libc::c_char,
+        b,
+        root(b, 2 as libc::c_int as ulong),
+    );
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

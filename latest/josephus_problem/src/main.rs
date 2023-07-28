@@ -1,18 +1,18 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-use c2rust_out::*;
-extern "C" {}
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
+extern "C" {
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+    fn putchar(__c: libc::c_int) -> libc::c_int;
+}
+pub type xint = libc::c_ulonglong;
 #[no_mangle]
-pub extern "C" fn jos(mut n: i32, mut k: i32, mut m: i32) -> i32 {
-    let mut a: i32 = 0;
-    a = m + 1;
+pub unsafe extern "C" fn jos(
+    mut n: libc::c_int,
+    mut k: libc::c_int,
+    mut m: libc::c_int,
+) -> libc::c_int {
+    let mut a: libc::c_int = 0;
+    a = m + 1 as libc::c_int;
     while a <= n {
         m = (m + k) % a;
         a += 1;
@@ -20,58 +20,60 @@ pub extern "C" fn jos(mut n: i32, mut k: i32, mut m: i32) -> i32 {
     }
     return m;
 }
-
 #[no_mangle]
-pub extern "C" fn jos_large(mut n: u64, mut k: u64, mut m: u64) -> u64 {
-    if k <= 1 {
-        return n.wrapping_sub(m).wrapping_sub(1);
+pub unsafe extern "C" fn jos_large(mut n: xint, mut k: xint, mut m: xint) -> xint {
+    if k <= 1 as libc::c_int as libc::c_ulonglong {
+        return n.wrapping_sub(m).wrapping_sub(1 as libc::c_int as libc::c_ulonglong);
     }
-    let mut a: u64 = m;
+    let mut a: xint = m;
     while a < n {
-        let mut q: u64 = a
+        let mut q: xint = a
             .wrapping_sub(m)
             .wrapping_add(k)
-            .wrapping_sub(2)
-            .wrapping_div(k.wrapping_sub(1));
+            .wrapping_sub(2 as libc::c_int as libc::c_ulonglong)
+            .wrapping_div(k.wrapping_sub(1 as libc::c_int as libc::c_ulonglong));
         if a.wrapping_add(q) > n {
             q = n.wrapping_sub(a);
         } else if q == 0 {
-            q = 1;
+            q = 1 as libc::c_int as xint;
         }
-        a = (a).wrapping_add(q) as u64;
+        a = (a as libc::c_ulonglong).wrapping_add(q) as xint as xint;
         m = m.wrapping_add(q.wrapping_mul(k)).wrapping_rem(a);
     }
     return m;
 }
-
-fn main_0() -> i32 {
-    let mut n: u64 = 0;
-    let mut k: u64 = 0;
-    let mut i: u64 = 0;
-    n = 41;
-    k = 3;
-    print!(
-        "n = {}, k = {}, final survivor: {}\n",
+unsafe fn main_0() -> libc::c_int {
+    let mut n: xint = 0;
+    let mut k: xint = 0;
+    let mut i: xint = 0;
+    n = 41 as libc::c_int as xint;
+    k = 3 as libc::c_int as xint;
+    printf(
+        b"n = %llu, k = %llu, final survivor: %d\n\0" as *const u8
+            as *const libc::c_char,
         n,
         k,
-        jos(n as i32, k as i32, 0)
+        jos(n as libc::c_int, k as libc::c_int, 0 as libc::c_int),
     );
-    n = 9876543210987654321;
-    k = 12031;
-    print!("n = {}, k = {}, three survivors:", n, k);
-    i = 3;
+    n = 9876543210987654321 as libc::c_ulonglong;
+    k = 12031 as libc::c_int as xint;
+    printf(
+        b"n = %llu, k = %llu, three survivors:\0" as *const u8 as *const libc::c_char,
+        n,
+        k,
+    );
+    i = 3 as libc::c_int as xint;
     loop {
         let fresh0 = i;
         i = i.wrapping_sub(1);
         if !(fresh0 != 0) {
             break;
         }
-        print!(" {}", jos_large(n, k, i));
+        printf(b" %llu\0" as *const u8 as *const libc::c_char, jos_large(n, k, i));
     }
-    print!("{}", '\n' as i32);
-    return 0;
+    putchar('\n' as i32);
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

@@ -1,84 +1,73 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-    unsafe {
-        let mut str_size: usize = 0;
-        while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size += 1;
-        }
-        return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
-            .to_owned();
-    }
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
+extern "C" {
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
 }
-
-use c2rust_out::*;
-extern "C" {}
-static mut animals: [*const i8; 8] = [
-    b"fly\0" as *const u8 as *const i8,
-    b"spider\0" as *const u8 as *const i8,
-    b"bird\0" as *const u8 as *const i8,
-    b"cat\0" as *const u8 as *const i8,
-    b"dog\0" as *const u8 as *const i8,
-    b"goat\0" as *const u8 as *const i8,
-    b"cow\0" as *const u8 as *const i8,
-    b"horse\0" as *const u8 as *const i8,
+pub type size_t = libc::c_ulong;
+static mut animals: [*const libc::c_char; 8] = [
+    b"fly\0" as *const u8 as *const libc::c_char,
+    b"spider\0" as *const u8 as *const libc::c_char,
+    b"bird\0" as *const u8 as *const libc::c_char,
+    b"cat\0" as *const u8 as *const libc::c_char,
+    b"dog\0" as *const u8 as *const libc::c_char,
+    b"goat\0" as *const u8 as *const libc::c_char,
+    b"cow\0" as *const u8 as *const libc::c_char,
+    b"horse\0" as *const u8 as *const libc::c_char,
 ];
-static mut verses: [*const i8; 8] = [
-    b"I don't know why she swallowed that fly.\nPerhaps she'll die\n\0" as *const u8 as *const i8,
-    b"That wiggled and jiggled and tickled inside her\0" as *const u8 as *const i8,
-    b"How absurd, to swallow a bird\0" as *const u8 as *const i8,
-    b"Imagine that. She swallowed a cat\0" as *const u8 as *const i8,
-    b"What a hog to swallow a dog\0" as *const u8 as *const i8,
-    b"She just opened her throat and swallowed that goat\0" as *const u8 as *const i8,
-    b"I don't know how she swallowed that cow\0" as *const u8 as *const i8,
-    b"She's dead of course\0" as *const u8 as *const i8,
+static mut verses: [*const libc::c_char; 8] = [
+    b"I don't know why she swallowed that fly.\nPerhaps she'll die\n\0" as *const u8
+        as *const libc::c_char,
+    b"That wiggled and jiggled and tickled inside her\0" as *const u8
+        as *const libc::c_char,
+    b"How absurd, to swallow a bird\0" as *const u8 as *const libc::c_char,
+    b"Imagine that. She swallowed a cat\0" as *const u8 as *const libc::c_char,
+    b"What a hog to swallow a dog\0" as *const u8 as *const libc::c_char,
+    b"She just opened her throat and swallowed that goat\0" as *const u8
+        as *const libc::c_char,
+    b"I don't know how she swallowed that cow\0" as *const u8 as *const libc::c_char,
+    b"She's dead of course\0" as *const u8 as *const libc::c_char,
 ];
-fn main_0() -> i32 {
-    let mut i: u64 = 0;
-    unsafe {
-        while i
-            < (::core::mem::size_of::<[*const i8; 8]>() as u64)
-                .wrapping_div(::core::mem::size_of::<*const i8>() as u64)
+unsafe fn main_0() -> libc::c_int {
+    let mut i: size_t = 0 as libc::c_int as size_t;
+    while i
+        < (::core::mem::size_of::<[*const libc::c_char; 8]>() as libc::c_ulong)
+            .wrapping_div(::core::mem::size_of::<*const libc::c_char>() as libc::c_ulong)
+    {
+        printf(
+            b"There was an old lady who swallowed a %s\n%s\n\0" as *const u8
+                as *const libc::c_char,
+            animals[i as usize],
+            verses[i as usize],
+        );
+        let mut j: size_t = i;
+        while j > 0 as libc::c_int as libc::c_ulong
+            && i
+                < (::core::mem::size_of::<[*const libc::c_char; 8]>() as libc::c_ulong)
+                    .wrapping_div(
+                        ::core::mem::size_of::<*const libc::c_char>() as libc::c_ulong,
+                    )
+                    .wrapping_sub(1 as libc::c_int as libc::c_ulong)
         {
-            print!(
-                "There was an old lady who swallowed a {}\n{}\n",
-                build_str_from_raw_ptr(animals[i as usize] as *mut u8),
-                build_str_from_raw_ptr(verses[i as usize] as *mut u8)
+            printf(
+                b"She swallowed the %s to catch the %s\n\0" as *const u8
+                    as *const libc::c_char,
+                animals[j as usize],
+                animals[j.wrapping_sub(1 as libc::c_int as libc::c_ulong) as usize],
             );
-            let mut j: u64 = i;
-            while j > 0
-                && i < (::core::mem::size_of::<[*const i8; 8]>() as u64)
-                    .wrapping_div(::core::mem::size_of::<*const i8>() as u64)
-                    .wrapping_sub(1)
-            {
-                print!(
-                    "She swallowed the {} to catch the {}\n",
-                    build_str_from_raw_ptr(animals[j as usize] as *mut u8),
-                    build_str_from_raw_ptr(animals[j.wrapping_sub(1) as usize] as *mut u8)
+            if j == 1 as libc::c_int as libc::c_ulong {
+                printf(
+                    b"%s\n\0" as *const u8 as *const libc::c_char,
+                    verses[0 as libc::c_int as usize],
                 );
-                if j == 1 {
-                    print!(
-                        "{}\n",
-                        build_str_from_raw_ptr(verses[0 as usize] as *mut u8)
-                    );
-                }
-                j = j.wrapping_sub(1);
-                j;
             }
-            i = i.wrapping_add(1);
-            i;
+            j = j.wrapping_sub(1);
+            j;
         }
+        i = i.wrapping_add(1);
+        i;
     }
     return 0;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

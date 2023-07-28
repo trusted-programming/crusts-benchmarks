@@ -1,185 +1,207 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
 #![feature(extern_types)]
-use c2rust_out::*;
+use ::c2rust_out::*;
 extern "C" {
     pub type _IO_wide_data;
     pub type _IO_codecvt;
     pub type _IO_marker;
     static mut stderr: *mut FILE;
-    fn fprintf(_: *mut FILE, _: *const i8, _: ...) -> i32;
-    fn malloc(_: u64) -> *mut libc::c_void;
-    fn realloc(_: *mut libc::c_void, _: u64) -> *mut libc::c_void;
+    fn fprintf(_: *mut FILE, _: *const libc::c_char, _: ...) -> libc::c_int;
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+    fn malloc(_: libc::c_ulong) -> *mut libc::c_void;
+    fn realloc(_: *mut libc::c_void, _: libc::c_ulong) -> *mut libc::c_void;
     fn free(_: *mut libc::c_void);
-    fn exit(_: i32) -> !;
+    fn exit(_: libc::c_int) -> !;
 }
+pub type __uint32_t = libc::c_uint;
+pub type __off_t = libc::c_long;
+pub type __off64_t = libc::c_long;
+pub type uint32_t = __uint32_t;
+pub type size_t = libc::c_ulong;
 #[derive(Copy, Clone)]
 #[repr(C)]
 pub struct _IO_FILE {
-    pub _flags: i32,
-    pub _IO_read_ptr: *mut i8,
-    pub _IO_read_end: *mut i8,
-    pub _IO_read_base: *mut i8,
-    pub _IO_write_base: *mut i8,
-    pub _IO_write_ptr: *mut i8,
-    pub _IO_write_end: *mut i8,
-    pub _IO_buf_base: *mut i8,
-    pub _IO_buf_end: *mut i8,
-    pub _IO_save_base: *mut i8,
-    pub _IO_backup_base: *mut i8,
-    pub _IO_save_end: *mut i8,
+    pub _flags: libc::c_int,
+    pub _IO_read_ptr: *mut libc::c_char,
+    pub _IO_read_end: *mut libc::c_char,
+    pub _IO_read_base: *mut libc::c_char,
+    pub _IO_write_base: *mut libc::c_char,
+    pub _IO_write_ptr: *mut libc::c_char,
+    pub _IO_write_end: *mut libc::c_char,
+    pub _IO_buf_base: *mut libc::c_char,
+    pub _IO_buf_end: *mut libc::c_char,
+    pub _IO_save_base: *mut libc::c_char,
+    pub _IO_backup_base: *mut libc::c_char,
+    pub _IO_save_end: *mut libc::c_char,
     pub _markers: *mut _IO_marker,
     pub _chain: *mut _IO_FILE,
-    pub _fileno: i32,
-    pub _flags2: i32,
-    pub _old_offset: i64,
-    pub _cur_column: u16,
-    pub _vtable_offset: i8,
-    pub _shortbuf: [i8; 1],
+    pub _fileno: libc::c_int,
+    pub _flags2: libc::c_int,
+    pub _old_offset: __off_t,
+    pub _cur_column: libc::c_ushort,
+    pub _vtable_offset: libc::c_schar,
+    pub _shortbuf: [libc::c_char; 1],
     pub _lock: *mut libc::c_void,
-    pub _offset: i64,
+    pub _offset: __off64_t,
     pub _codecvt: *mut _IO_codecvt,
     pub _wide_data: *mut _IO_wide_data,
     pub _freeres_list: *mut _IO_FILE,
     pub _freeres_buf: *mut libc::c_void,
-    pub __pad5: u64,
-    pub _mode: i32,
-    pub _unused2: [i8; 20],
+    pub __pad5: size_t,
+    pub _mode: libc::c_int,
+    pub _unused2: [libc::c_char; 20],
 }
 pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 #[no_mangle]
-pub extern "C" fn xmalloc(mut n: u64) -> *mut libc::c_void {
-    unsafe {
-        let mut ptr: *mut libc::c_void = malloc(n);
-        if ptr.is_null() {
-            fprintf(stderr, b"Out of memory\n\0" as *const u8 as *const i8);
-            exit(1);
-        }
-        return ptr;
+pub unsafe extern "C" fn xmalloc(mut n: size_t) -> *mut libc::c_void {
+    let mut ptr: *mut libc::c_void = malloc(n);
+    if ptr.is_null() {
+        fprintf(stderr, b"Out of memory\n\0" as *const u8 as *const libc::c_char);
+        exit(1 as libc::c_int);
     }
+    return ptr;
 }
-
 #[no_mangle]
-pub extern "C" fn xrealloc(mut p: *mut libc::c_void, mut n: u64) -> *mut libc::c_void {
-    unsafe {
-        let mut ptr: *mut libc::c_void = realloc(p, n);
-        if ptr.is_null() {
-            fprintf(stderr, b"Out of memory\n\0" as *const u8 as *const i8);
-            exit(1);
-        }
-        return ptr;
+pub unsafe extern "C" fn xrealloc(
+    mut p: *mut libc::c_void,
+    mut n: size_t,
+) -> *mut libc::c_void {
+    let mut ptr: *mut libc::c_void = realloc(p, n);
+    if ptr.is_null() {
+        fprintf(stderr, b"Out of memory\n\0" as *const u8 as *const libc::c_char);
+        exit(1 as libc::c_int);
     }
+    return ptr;
 }
-
 #[no_mangle]
-pub extern "C" fn is_prime(mut n: u32) -> bool {
-    if n == 2 {
-        return 1 != 0;
+pub unsafe extern "C" fn is_prime(mut n: uint32_t) -> bool {
+    if n == 2 as libc::c_int as libc::c_uint {
+        return 1 as libc::c_int != 0;
     }
-    if n < 2 || n.wrapping_rem(2) == 0 {
-        return 0 != 0;
+    if n < 2 as libc::c_int as libc::c_uint
+        || n.wrapping_rem(2 as libc::c_int as libc::c_uint)
+            == 0 as libc::c_int as libc::c_uint
+    {
+        return 0 as libc::c_int != 0;
     }
-    let mut p: u32 = 3;
+    let mut p: uint32_t = 3 as libc::c_int as uint32_t;
     while p.wrapping_mul(p) <= n {
-        if n.wrapping_rem(p) == 0 {
-            return 0 != 0;
+        if n.wrapping_rem(p) == 0 as libc::c_int as libc::c_uint {
+            return 0 as libc::c_int != 0;
         }
-        p = (p).wrapping_add(2) as u32;
+        p = (p as libc::c_uint).wrapping_add(2 as libc::c_int as libc::c_uint)
+            as uint32_t as uint32_t;
     }
-    return 1 != 0;
+    return 1 as libc::c_int != 0;
 }
-
 #[no_mangle]
-pub extern "C" fn find_primes(mut from: u32, mut to: u32, mut primes: *mut *mut u32) -> u32 {
-    unsafe {
-        let mut count: u32 = 0;
-        let mut buffer_length: u32 = 16;
-        let mut buffer: *mut u32 =
-            xmalloc((::core::mem::size_of::<u32>() as u64).wrapping_mul(buffer_length as u64))
-                as *mut u32;
-        let mut p: u32 = from;
-        while p <= to {
-            if is_prime(p) {
-                if count >= buffer_length {
-                    let mut new_length: u32 = buffer_length.wrapping_mul(2);
-                    if new_length < count.wrapping_add(1) {
-                        new_length = count.wrapping_add(1);
-                    }
-                    buffer = xrealloc(
-                        buffer as *mut libc::c_void,
-                        (::core::mem::size_of::<u32>() as u64).wrapping_mul(new_length as u64),
-                    ) as *mut u32;
-                    buffer_length = new_length;
+pub unsafe extern "C" fn find_primes(
+    mut from: uint32_t,
+    mut to: uint32_t,
+    mut primes: *mut *mut uint32_t,
+) -> uint32_t {
+    let mut count: uint32_t = 0 as libc::c_int as uint32_t;
+    let mut buffer_length: uint32_t = 16 as libc::c_int as uint32_t;
+    let mut buffer: *mut uint32_t = xmalloc(
+        (::core::mem::size_of::<uint32_t>() as libc::c_ulong)
+            .wrapping_mul(buffer_length as libc::c_ulong),
+    ) as *mut uint32_t;
+    let mut p: uint32_t = from;
+    while p <= to {
+        if is_prime(p) {
+            if count >= buffer_length {
+                let mut new_length: uint32_t = buffer_length
+                    .wrapping_mul(2 as libc::c_int as libc::c_uint);
+                if new_length < count.wrapping_add(1 as libc::c_int as libc::c_uint) {
+                    new_length = count.wrapping_add(1 as libc::c_int as libc::c_uint);
                 }
-                let fresh0 = count;
-                count = count.wrapping_add(1);
-                *buffer.offset(fresh0 as isize) = p;
+                buffer = xrealloc(
+                    buffer as *mut libc::c_void,
+                    (::core::mem::size_of::<uint32_t>() as libc::c_ulong)
+                        .wrapping_mul(new_length as libc::c_ulong),
+                ) as *mut uint32_t;
+                buffer_length = new_length;
             }
-            p = p.wrapping_add(1);
-            p;
+            let fresh0 = count;
+            count = count.wrapping_add(1);
+            *buffer.offset(fresh0 as isize) = p;
         }
-        *primes = buffer;
-        return count;
+        p = p.wrapping_add(1);
+        p;
     }
+    *primes = buffer;
+    return count;
 }
-
 #[no_mangle]
-pub extern "C" fn free_numbers(mut numbers: *mut i32, mut count: u64) {}
-
+pub unsafe extern "C" fn free_numbers(mut numbers: *mut libc::c_int, mut count: size_t) {}
 #[no_mangle]
-pub extern "C" fn print_nsmooth_numbers(mut n: u32, mut begin: u32, mut count: u32) {
-    let mut num: u32 = begin.wrapping_add(count);
-    print!("{}: ", n);
-    let mut i: u32 = 1;
+pub unsafe extern "C" fn print_nsmooth_numbers(
+    mut n: uint32_t,
+    mut begin: uint32_t,
+    mut count: uint32_t,
+) {
+    let mut num: uint32_t = begin.wrapping_add(count);
+    printf(b"%u: \0" as *const u8 as *const libc::c_char, n);
+    let mut i: uint32_t = 1 as libc::c_int as uint32_t;
     while i < count {
-        print!(", ");
+        printf(b", \0" as *const u8 as *const libc::c_char);
         i = i.wrapping_add(1);
         i;
     }
-    print!("\n");
+    printf(b"\n\0" as *const u8 as *const libc::c_char);
 }
-
-fn main_0() -> i32 {
-    print!("First 25 n-smooth numbers for n = 2 -> 29:\n");
-    let mut n: u32 = 2;
-    while n <= 29 {
+unsafe fn main_0() -> libc::c_int {
+    printf(
+        b"First 25 n-smooth numbers for n = 2 -> 29:\n\0" as *const u8
+            as *const libc::c_char,
+    );
+    let mut n: uint32_t = 2 as libc::c_int as uint32_t;
+    while n <= 29 as libc::c_int as libc::c_uint {
         if is_prime(n) {
-            print_nsmooth_numbers(n, 0, 25);
+            print_nsmooth_numbers(
+                n,
+                0 as libc::c_int as uint32_t,
+                25 as libc::c_int as uint32_t,
+            );
         }
         n = n.wrapping_add(1);
         n;
     }
-    print!("\n3 n-smooth numbers starting from 3000th for n = 3 -> 29:\n");
-    let mut n_0: u32 = 3;
-    while n_0 <= 29 {
+    printf(
+        b"\n3 n-smooth numbers starting from 3000th for n = 3 -> 29:\n\0" as *const u8
+            as *const libc::c_char,
+    );
+    let mut n_0: uint32_t = 3 as libc::c_int as uint32_t;
+    while n_0 <= 29 as libc::c_int as libc::c_uint {
         if is_prime(n_0) {
-            print_nsmooth_numbers(n_0, 2999, 3);
+            print_nsmooth_numbers(
+                n_0,
+                2999 as libc::c_int as uint32_t,
+                3 as libc::c_int as uint32_t,
+            );
         }
         n_0 = n_0.wrapping_add(1);
         n_0;
     }
-    print!("\n20 n-smooth numbers starting from 30,000th for n = 503 -> 521:\n");
-    let mut n_1: u32 = 503;
-    while n_1 <= 521 {
+    printf(
+        b"\n20 n-smooth numbers starting from 30,000th for n = 503 -> 521:\n\0"
+            as *const u8 as *const libc::c_char,
+    );
+    let mut n_1: uint32_t = 503 as libc::c_int as uint32_t;
+    while n_1 <= 521 as libc::c_int as libc::c_uint {
         if is_prime(n_1) {
-            print_nsmooth_numbers(n_1, 29999, 20);
+            print_nsmooth_numbers(
+                n_1,
+                29999 as libc::c_int as uint32_t,
+                20 as libc::c_int as uint32_t,
+            );
         }
         n_1 = n_1.wrapping_add(1);
         n_1;
     }
-    return 0;
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    unsafe {
-        ::std::process::exit(main_0() as i32);
-    }
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

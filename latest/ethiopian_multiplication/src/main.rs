@@ -1,47 +1,51 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-use c2rust_out::*;
-extern "C" {}
-#[no_mangle]
-pub extern "C" fn halve(mut x: *mut i32) {
-    unsafe {
-        *x >>= 1;
-    }
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
+extern "C" {
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
 }
-
 #[no_mangle]
-pub extern "C" fn doublit(mut x: *mut i32) {
-    unsafe {
-        *x <<= 1;
-    }
+pub unsafe extern "C" fn halve(mut x: *mut libc::c_int) {
+    *x >>= 1 as libc::c_int;
 }
-
 #[no_mangle]
-pub extern "C" fn iseven(x: i32) -> bool {
-    return x & 1 == 0;
+pub unsafe extern "C" fn doublit(mut x: *mut libc::c_int) {
+    *x <<= 1 as libc::c_int;
 }
-
 #[no_mangle]
-pub extern "C" fn ethiopian(mut plier: i32, mut plicand: i32, tutor: bool) -> i32 {
-    let mut result: i32 = 0;
+pub unsafe extern "C" fn iseven(x: libc::c_int) -> bool {
+    return x & 1 as libc::c_int == 0 as libc::c_int;
+}
+#[no_mangle]
+pub unsafe extern "C" fn ethiopian(
+    mut plier: libc::c_int,
+    mut plicand: libc::c_int,
+    tutor: bool,
+) -> libc::c_int {
+    let mut result: libc::c_int = 0 as libc::c_int;
     if tutor {
-        print!("ethiopian multiplication of {} by {}\n", plier, plicand);
+        printf(
+            b"ethiopian multiplication of %d by %d\n\0" as *const u8
+                as *const libc::c_char,
+            plier,
+            plicand,
+        );
     }
-    while plier >= 1 {
+    while plier >= 1 as libc::c_int {
         if iseven(plier) {
             if tutor {
-                print!("{:4} {:6} struck\n", plier, plicand);
+                printf(
+                    b"%4d %6d struck\n\0" as *const u8 as *const libc::c_char,
+                    plier,
+                    plicand,
+                );
             }
         } else {
             if tutor {
-                print!("{:4} {:6} kept\n", plier, plicand);
+                printf(
+                    b"%4d %6d kept\n\0" as *const u8 as *const libc::c_char,
+                    plier,
+                    plicand,
+                );
             }
             result += plicand;
         }
@@ -50,12 +54,13 @@ pub extern "C" fn ethiopian(mut plier: i32, mut plicand: i32, tutor: bool) -> i3
     }
     return result;
 }
-
-fn main_0() -> i32 {
-    print!("{}\n", ethiopian(17, 34, 1 != 0));
-    return 0;
+unsafe fn main_0() -> libc::c_int {
+    printf(
+        b"%d\n\0" as *const u8 as *const libc::c_char,
+        ethiopian(17 as libc::c_int, 34 as libc::c_int, 1 as libc::c_int != 0),
+    );
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

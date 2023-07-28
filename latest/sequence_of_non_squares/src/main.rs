@@ -1,71 +1,64 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
 #![feature(label_break_value)]
-use c2rust_out::*;
+use ::c2rust_out::*;
 extern "C" {
-    fn sqrt(_: f64) -> f64;
-    fn floor(_: f64) -> f64;
+    fn sqrt(_: libc::c_double) -> libc::c_double;
+    fn floor(_: libc::c_double) -> libc::c_double;
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
     fn __assert_fail(
-        __assertion: *const i8,
-        __file: *const i8,
-        __line: u32,
-        __function: *const i8,
+        __assertion: *const libc::c_char,
+        __file: *const libc::c_char,
+        __line: libc::c_uint,
+        __function: *const libc::c_char,
     ) -> !;
 }
 #[no_mangle]
-pub extern "C" fn nonsqr(mut n: i32) -> i32 {
-    unsafe {
-        return n + (0.5f64 + sqrt(n as f64)) as i32;
-    }
+pub unsafe extern "C" fn nonsqr(mut n: libc::c_int) -> libc::c_int {
+    return n + (0.5f64 + sqrt(n as libc::c_double)) as libc::c_int;
 }
-
-fn main_0() -> i32 {
-    let mut i: i32 = 0;
-    i = 1;
-    while i < 23 {
-        print!("{} ", nonsqr(i));
+unsafe fn main_0() -> libc::c_int {
+    let mut i: libc::c_int = 0;
+    i = 1 as libc::c_int;
+    while i < 23 as libc::c_int {
+        printf(b"%d \0" as *const u8 as *const libc::c_char, nonsqr(i));
         i += 1;
         i;
     }
-    print!("\n");
-    i = 1;
-    unsafe {
-        while i < 1000000 {
-            let mut j: f64 = sqrt(nonsqr(i) as f64);
-            if j != floor(j) {
-            } else {
+    printf(b"\n\0" as *const u8 as *const libc::c_char);
+    i = 1 as libc::c_int;
+    while i < 1000000 as libc::c_int {
+        let mut j: libc::c_double = sqrt(nonsqr(i) as libc::c_double);
+        if j != floor(j) {} else {
+            __assert_fail(
+                b"j != floor(j)\0" as *const u8 as *const libc::c_char,
+                b"main.c\0" as *const u8 as *const libc::c_char,
+                21 as libc::c_int as libc::c_uint,
+                (*::core::mem::transmute::<
+                    &[u8; 11],
+                    &[libc::c_char; 11],
+                >(b"int main()\0"))
+                    .as_ptr(),
+            );
+        }
+        'c_1861: {
+            if j != floor(j) {} else {
                 __assert_fail(
-                    b"j != floor(j)\0" as *const u8 as *const i8,
-                    b"main.c\0" as *const u8 as *const i8,
-                    21,
-                    (*::core::mem::transmute::<&[u8; 11], &[i8; 11]>(b"int main()\0")).as_ptr(),
+                    b"j != floor(j)\0" as *const u8 as *const libc::c_char,
+                    b"main.c\0" as *const u8 as *const libc::c_char,
+                    21 as libc::c_int as libc::c_uint,
+                    (*::core::mem::transmute::<
+                        &[u8; 11],
+                        &[libc::c_char; 11],
+                    >(b"int main()\0"))
+                        .as_ptr(),
                 );
             }
-            'c_1861: {
-                if j != floor(j) {
-                } else {
-                    __assert_fail(
-                        b"j != floor(j)\0" as *const u8 as *const i8,
-                        b"main.c\0" as *const u8 as *const i8,
-                        21,
-                        (*::core::mem::transmute::<&[u8; 11], &[i8; 11]>(b"int main()\0")).as_ptr(),
-                    );
-                }
-            };
-            i += 1;
-            i;
-        }
+        };
+        i += 1;
+        i;
     }
-    return 0;
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

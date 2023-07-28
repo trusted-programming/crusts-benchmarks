@@ -1,62 +1,64 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-use c2rust_out::*;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
 extern "C" {
-    fn printf(_: *const i8, _: ...) -> i32;
-    fn strcpy(_: *mut i8, _: *const i8) -> *mut i8;
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+    fn strcpy(_: *mut libc::c_char, _: *const libc::c_char) -> *mut libc::c_char;
 }
 #[no_mangle]
-pub static mut trans: [i8; 9] =
-    unsafe { *::core::mem::transmute::<&[u8; 9], &mut [i8; 9]>(b"___#_##_\0") };
+pub static mut trans: [libc::c_char; 9] = unsafe {
+    *::core::mem::transmute::<&[u8; 9], &mut [libc::c_char; 9]>(b"___#_##_\0")
+};
 #[no_mangle]
-pub extern "C" fn evolve(mut cell: *mut i8, mut backup: *mut i8, mut len: i32) -> i32 {
-    unsafe {
-        let mut i: i32 = 0;
-        let mut diff: i32 = 0;
-        i = 0;
-        while i < len {
-            *backup.offset(i as isize) =
-                trans[((*cell.offset((i - 1i32) as isize) as i32 != '_' as i32) as i32 * 4
-                    + (*cell.offset(i as isize) as i32 != '_' as i32) as i32 * 2
-                    + (*cell.offset((i + 1i32) as isize) as i32 != '_' as i32) as i32)
-                    as usize];
-            diff += (*backup.offset(i as isize) as i32 != *cell.offset(i as isize) as i32) as i32;
-            i += 1;
-            i;
-        }
-        strcpy(cell, backup as *const i8);
-        return diff;
+pub unsafe extern "C" fn evolve(
+    mut cell: *mut libc::c_char,
+    mut backup: *mut libc::c_char,
+    mut len: libc::c_int,
+) -> libc::c_int {
+    let mut i: libc::c_int = 0;
+    let mut diff: libc::c_int = 0 as libc::c_int;
+    i = 0 as libc::c_int;
+    while i < len {
+        *backup
+            .offset(
+                i as isize,
+            ) = trans[((*cell.offset((i - 1 as libc::c_int) as isize) as libc::c_int
+            != '_' as i32) as libc::c_int * 4 as libc::c_int
+            + (*cell.offset(i as isize) as libc::c_int != '_' as i32) as libc::c_int
+                * 2 as libc::c_int
+            + (*cell.offset((i + 1 as libc::c_int) as isize) as libc::c_int
+                != '_' as i32) as libc::c_int) as usize];
+        diff
+            += (*backup.offset(i as isize) as libc::c_int
+                != *cell.offset(i as isize) as libc::c_int) as libc::c_int;
+        i += 1;
+        i;
     }
+    strcpy(cell, backup as *const libc::c_char);
+    return diff;
 }
-
-fn main_0() -> i32 {
-    unsafe {
-        let mut c: [i8; 22] =
-            *::core::mem::transmute::<&[u8; 22], &mut [i8; 22]>(b"_###_##_#_#_#_#__#__\n\0");
-        let mut b: [i8; 22] =
-            *::core::mem::transmute::<&[u8; 22], &mut [i8; 22]>(b"____________________\n\0");
-        loop {
-            printf(c.as_mut_ptr().offset(1 as isize));
-            if !(evolve(
-                c.as_mut_ptr().offset(1 as isize),
-                b.as_mut_ptr().offset(1 as isize),
-                (::core::mem::size_of::<[i8; 22]>() as u64).wrapping_sub(3) as i32,
-            ) != 0)
-            {
-                break;
-            }
+unsafe fn main_0() -> libc::c_int {
+    let mut c: [libc::c_char; 22] = *::core::mem::transmute::<
+        &[u8; 22],
+        &mut [libc::c_char; 22],
+    >(b"_###_##_#_#_#_#__#__\n\0");
+    let mut b: [libc::c_char; 22] = *::core::mem::transmute::<
+        &[u8; 22],
+        &mut [libc::c_char; 22],
+    >(b"____________________\n\0");
+    loop {
+        printf(c.as_mut_ptr().offset(1 as libc::c_int as isize));
+        if !(evolve(
+            c.as_mut_ptr().offset(1 as libc::c_int as isize),
+            b.as_mut_ptr().offset(1 as libc::c_int as isize),
+            (::core::mem::size_of::<[libc::c_char; 22]>() as libc::c_ulong)
+                .wrapping_sub(3 as libc::c_int as libc::c_ulong) as libc::c_int,
+        ) != 0)
+        {
+            break;
         }
     }
-    return 0;
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

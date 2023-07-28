@@ -1,93 +1,104 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-use c2rust_out::*;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
 extern "C" {
-    fn log(_: f64) -> f64;
-    fn sqrt(_: f64) -> f64;
-    fn calloc(_: u64, _: u64) -> *mut libc::c_void;
+    fn log(_: libc::c_double) -> libc::c_double;
+    fn sqrt(_: libc::c_double) -> libc::c_double;
+    fn calloc(_: libc::c_ulong, _: libc::c_ulong) -> *mut libc::c_void;
     fn free(_: *mut libc::c_void);
-    fn strlen(_: *const i8) -> u64;
+    fn strlen(_: *const libc::c_char) -> libc::c_ulong;
+}
+pub type __uint32_t = libc::c_uint;
+pub type __uint64_t = libc::c_ulong;
+pub type uint32_t = __uint32_t;
+pub type uint64_t = __uint64_t;
+pub type size_t = libc::c_ulong;
+#[no_mangle]
+pub unsafe extern "C" fn es_check(
+    mut sieve: *mut uint32_t,
+    mut n: uint64_t,
+) -> libc::c_int {
+    if n != 2 as libc::c_int as libc::c_ulong
+        && n & 1 as libc::c_int as libc::c_ulong == 0
+        || n < 2 as libc::c_int as libc::c_ulong
+    {
+        return 0 as libc::c_int
+    } else {
+        return (*sieve.offset((n >> 6 as libc::c_int) as isize)
+            & ((1 as libc::c_int)
+                << (n >> 1 as libc::c_int & 31 as libc::c_int as libc::c_ulong))
+                as libc::c_uint == 0) as libc::c_int
+    };
 }
 #[no_mangle]
-pub extern "C" fn es_check(mut sieve: *mut u32, mut n: u64) -> i32 {
-    unsafe {
-        if n != 2 && n & 1 == 0 || n < 2 {
-            return 0;
-        } else {
-            return (*sieve.offset((n >> 6i32) as isize) & (1i32 << (n >> 1 & 31u64)) as u32 == 0)
-                as i32;
-        };
-    }
-}
-
-#[no_mangle]
-pub extern "C" fn es_sieve(nth: u64, mut es_size: *mut u64) -> *mut u32 {
-    unsafe {
-        *es_size = (nth as f64 * log(nth as f64)
-            + nth as f64 * (log(log(nth as f64)) - 0.9385f32 as f64)
-            + 1 as f64) as u64;
-        let mut sieve: *mut u32 = calloc(
-            (*es_size >> 6i32).wrapping_add(1),
-            ::core::mem::size_of::<u32>() as u64,
-        ) as *mut u32;
-        let mut i: u64 = 3;
-        while (i as f64) < sqrt(*es_size as f64) + 1 as f64 {
-            if *sieve.offset((i >> 6i32) as isize) & (1i32 << (i >> 1 & 31)) as u32 == 0 {
-                let mut j: u64 = i.wrapping_mul(i);
-                while j < *es_size {
-                    let ref mut fresh0 = *sieve.offset((j >> 6i32) as isize);
-                    *fresh0 |= (1i32 << (j >> 1 & 31)) as u32;
-                    j = (j).wrapping_add(i << 1) as u64;
-                }
+pub unsafe extern "C" fn es_sieve(
+    nth: uint64_t,
+    mut es_size: *mut uint64_t,
+) -> *mut uint32_t {
+    *es_size = (nth as libc::c_double * log(nth as libc::c_double)
+        + nth as libc::c_double
+            * (log(log(nth as libc::c_double)) - 0.9385f32 as libc::c_double)
+        + 1 as libc::c_int as libc::c_double) as uint64_t;
+    let mut sieve: *mut uint32_t = calloc(
+        (*es_size >> 6 as libc::c_int).wrapping_add(1 as libc::c_int as libc::c_ulong),
+        ::core::mem::size_of::<uint32_t>() as libc::c_ulong,
+    ) as *mut uint32_t;
+    let mut i: uint64_t = 3 as libc::c_int as uint64_t;
+    while (i as libc::c_double)
+        < sqrt(*es_size as libc::c_double) + 1 as libc::c_int as libc::c_double
+    {
+        if *sieve.offset((i >> 6 as libc::c_int) as isize)
+            & ((1 as libc::c_int)
+                << (i >> 1 as libc::c_int & 31 as libc::c_int as libc::c_ulong))
+                as libc::c_uint == 0
+        {
+            let mut j: uint64_t = i.wrapping_mul(i);
+            while j < *es_size {
+                let ref mut fresh0 = *sieve.offset((j >> 6 as libc::c_int) as isize);
+                *fresh0
+                    |= ((1 as libc::c_int)
+                        << (j >> 1 as libc::c_int & 31 as libc::c_int as libc::c_ulong))
+                        as libc::c_uint;
+                j = (j as libc::c_ulong).wrapping_add(i << 1 as libc::c_int) as uint64_t
+                    as uint64_t;
             }
-            i = (i).wrapping_add(2) as u64;
         }
-        return sieve;
+        i = (i as libc::c_ulong).wrapping_add(2 as libc::c_int as libc::c_ulong)
+            as uint64_t as uint64_t;
     }
+    return sieve;
 }
-
 #[no_mangle]
-pub extern "C" fn mpz_number_of_digits(op: i32) -> u64 {
-    unsafe {
-        let mut opstr: *mut i8 = 0 as *mut i8;
-        let oplen: u64 = strlen(opstr);
-        free(opstr as *mut libc::c_void);
-        return oplen;
-    }
+pub unsafe extern "C" fn mpz_number_of_digits(op: libc::c_int) -> size_t {
+    let mut opstr: *mut libc::c_char = 0 as *mut libc::c_char;
+    let oplen: size_t = strlen(opstr);
+    free(opstr as *mut libc::c_void);
+    return oplen;
 }
-
-fn main_0() -> i32 {
-    unsafe {
-        let mut sieve_size: u64 = 0;
-        let mut sieve: *mut u32 = es_sieve(100000, &mut sieve_size);
-        let mut prime_count: u64 = 0;
-        let mut print: i32 = 1;
-        let mut unused: f64 = 0.;
-        let mut i: u64 = 2;
-        while i < sieve_size && prime_count <= 100000 {
-            if print != 0 {
-                print = 0;
-            }
-            if es_check(sieve, i) != 0 {
-                prime_count = prime_count.wrapping_add(1);
-                prime_count;
-                print = 1;
-            }
-            i = i.wrapping_add(1);
-            i;
+unsafe fn main_0() -> libc::c_int {
+    let mut sieve_size: uint64_t = 0;
+    let mut sieve: *mut uint32_t = es_sieve(
+        100000 as libc::c_int as uint64_t,
+        &mut sieve_size,
+    );
+    let mut prime_count: uint64_t = 0 as libc::c_int as uint64_t;
+    let mut print: libc::c_int = 1 as libc::c_int;
+    let mut unused: libc::c_double = 0.;
+    let mut i: uint64_t = 2 as libc::c_int as uint64_t;
+    while i < sieve_size && prime_count <= 100000 as libc::c_int as libc::c_ulong {
+        if print != 0 {
+            print = 0 as libc::c_int;
         }
-        free(sieve as *mut libc::c_void);
-        return 0;
+        if es_check(sieve, i) != 0 {
+            prime_count = prime_count.wrapping_add(1);
+            prime_count;
+            print = 1 as libc::c_int;
+        }
+        i = i.wrapping_add(1);
+        i;
     }
+    free(sieve as *mut libc::c_void);
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

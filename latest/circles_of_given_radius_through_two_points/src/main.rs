@@ -1,62 +1,85 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-use c2rust_out::*;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
 extern "C" {
-    fn pow(_: f64, _: f64) -> f64;
-    fn sqrt(_: f64) -> f64;
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+    fn pow(_: libc::c_double, _: libc::c_double) -> libc::c_double;
+    fn sqrt(_: libc::c_double) -> libc::c_double;
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
 pub struct point {
-    pub x: f64,
-    pub y: f64,
+    pub x: libc::c_double,
+    pub y: libc::c_double,
 }
 #[no_mangle]
-pub extern "C" fn distance(mut p1: point, mut p2: point) -> f64 {
-    unsafe {
-        return sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y));
-    }
+pub unsafe extern "C" fn distance(mut p1: point, mut p2: point) -> libc::c_double {
+    return sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y));
 }
-
 #[no_mangle]
-pub extern "C" fn findCircles(mut p1: point, mut p2: point, mut radius: f64) {
-    let mut separation: f64 = distance(p1, p2);
-    let mut mirrorDistance: f64 = 0.;
-    unsafe {
-        if separation == 0.0f64 {
-            if radius == 0.0f64 {
-                print!(
-                    "\nNo circles can be drawn through ({:.4},{:.4})",
-                    p1.x, p1.y
-                );
-            } else {
-                print!(
-                    "\nInfinitely many circles can be drawn through ({:.4},{:.4})",
-                    p1.x, p1.y
-                );
-            };
-        } else if separation == 2 as f64 * radius {
-            print! ("\nGiven points are opposite ends of a diameter of the circle with center ({:.4},{:.4}) and radius {:.4}", (p1.x + p2.x) / 2 as f64, (p1.y + p2.y) / 2 as f64, radius);
-        } else if separation > 2 as f64 * radius {
-            print! ("\nGiven points are farther away from each other than a diameter of a circle with radius {:.4}", radius);
+pub unsafe extern "C" fn findCircles(
+    mut p1: point,
+    mut p2: point,
+    mut radius: libc::c_double,
+) {
+    let mut separation: libc::c_double = distance(p1, p2);
+    let mut mirrorDistance: libc::c_double = 0.;
+    if separation == 0.0f64 {
+        if radius == 0.0f64 {
+            printf(
+                b"\nNo circles can be drawn through (%.4f,%.4f)\0" as *const u8
+                    as *const libc::c_char,
+                p1.x,
+                p1.y,
+            );
         } else {
-            mirrorDistance = sqrt(pow(radius, 2 as f64) - pow(separation / 2 as f64, 2 as f64));
-            print!("\nTwo circles are possible.");
-            print! ("\nCircle C1 with center ({:.4},{:.4}), radius {:.4} and Circle C2 with center ({:.4},{:.4}), radius {:.4}", (p1.x + p2.x) / 2 as f64 + mirrorDistance * (p1.y - p2.y) / separation, (p1.y + p2.y) / 2 as f64 + mirrorDistance * (p2.x - p1
-              .x) / separation, radius, (p1.x + p2.x) / 2 as f64 - mirrorDistance * (p1.y - p2.y) / separation, (p1.y + p2.y) / 2 as f64 - mirrorDistance * (p2.x - p1.x) / separation, radius);
+            printf(
+                b"\nInfinitely many circles can be drawn through (%.4f,%.4f)\0"
+                    as *const u8 as *const libc::c_char,
+                p1.x,
+                p1.y,
+            );
         };
-    }
+    } else if separation == 2 as libc::c_int as libc::c_double * radius {
+        printf(
+            b"\nGiven points are opposite ends of a diameter of the circle with center (%.4f,%.4f) and radius %.4f\0"
+                as *const u8 as *const libc::c_char,
+            (p1.x + p2.x) / 2 as libc::c_int as libc::c_double,
+            (p1.y + p2.y) / 2 as libc::c_int as libc::c_double,
+            radius,
+        );
+    } else if separation > 2 as libc::c_int as libc::c_double * radius {
+        printf(
+            b"\nGiven points are farther away from each other than a diameter of a circle with radius %.4f\0"
+                as *const u8 as *const libc::c_char,
+            radius,
+        );
+    } else {
+        mirrorDistance = sqrt(
+            pow(radius, 2 as libc::c_int as libc::c_double)
+                - pow(
+                    separation / 2 as libc::c_int as libc::c_double,
+                    2 as libc::c_int as libc::c_double,
+                ),
+        );
+        printf(b"\nTwo circles are possible.\0" as *const u8 as *const libc::c_char);
+        printf(
+            b"\nCircle C1 with center (%.4f,%.4f), radius %.4f and Circle C2 with center (%.4f,%.4f), radius %.4f\0"
+                as *const u8 as *const libc::c_char,
+            (p1.x + p2.x) / 2 as libc::c_int as libc::c_double
+                + mirrorDistance * (p1.y - p2.y) / separation,
+            (p1.y + p2.y) / 2 as libc::c_int as libc::c_double
+                + mirrorDistance * (p2.x - p1.x) / separation,
+            radius,
+            (p1.x + p2.x) / 2 as libc::c_int as libc::c_double
+                - mirrorDistance * (p1.y - p2.y) / separation,
+            (p1.y + p2.y) / 2 as libc::c_int as libc::c_double
+                - mirrorDistance * (p2.x - p1.x) / separation,
+            radius,
+        );
+    };
 }
-
-fn main_0() -> i32 {
-    let mut i: i32 = 0;
+unsafe fn main_0() -> libc::c_int {
+    let mut i: libc::c_int = 0;
     let mut cases: [point; 10] = [
         {
             let mut init = point {
@@ -129,21 +152,23 @@ fn main_0() -> i32 {
             init
         },
     ];
-    let mut radii: [f64; 5] = [2.0f64, 1.0f64, 2.0f64, 0.5f64, 0.0f64];
-    i = 0;
-    while i < 5 {
-        print!("\nCase {})", i + 1);
+    let mut radii: [libc::c_double; 5] = [2.0f64, 1.0f64, 2.0f64, 0.5f64, 0.0f64];
+    i = 0 as libc::c_int;
+    while i < 5 as libc::c_int {
+        printf(
+            b"\nCase %d)\0" as *const u8 as *const libc::c_char,
+            i + 1 as libc::c_int,
+        );
         findCircles(
-            cases[(2 * i) as usize],
-            cases[(2 * i + 1i32) as usize],
+            cases[(2 as libc::c_int * i) as usize],
+            cases[(2 as libc::c_int * i + 1 as libc::c_int) as usize],
             radii[i as usize],
         );
         i += 1;
         i;
     }
-    return 0;
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }

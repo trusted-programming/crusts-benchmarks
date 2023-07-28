@@ -9,10 +9,10 @@ for d in */; do
     echo "Started directory: ${d}"
 
     # RUN CRUSTS
-    (cd "${d}" && crusts) >>crusts.log 2>&1
+    (cd "${d}" && crusts -t) >>crusts.log 2>&1
 
-    # RUN CLIPPY
-    (cd "${d}" && cargo +nightly-2023-06-29 check) >>clippy_fix.log 2>&1
+    # RUN CLIPPY FIX
+    (cd "${d}" && cargo +nightly-2023-06-29 check)
 
     # FILTER OUT NON COMPILING
     if [ $? -eq 0 ]; then

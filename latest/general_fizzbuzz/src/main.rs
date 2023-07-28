@@ -1,115 +1,104 @@
-#![allow(
-    dead_code,
-    mutable_transmutes,
-    non_camel_case_types,
-    non_snake_case,
-    non_upper_case_globals,
-    unused_assignments,
-    unused_mut
-)]
-fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-    unsafe {
-        let mut str_size: usize = 0;
-        while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size += 1;
-        }
-        return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
-            .to_owned();
-    }
-}
-
-use c2rust_out::*;
+#![allow(dead_code, mutable_transmutes, non_camel_case_types, non_snake_case, non_upper_case_globals, unused_assignments, unused_mut)]
+use ::c2rust_out::*;
 extern "C" {
-    fn qsort(__base: *mut libc::c_void, __nmemb: u64, __size: u64, __compar: __compar_fn_t);
+    fn printf(_: *const libc::c_char, _: ...) -> libc::c_int;
+    fn qsort(
+        __base: *mut libc::c_void,
+        __nmemb: size_t,
+        __size: size_t,
+        __compar: __compar_fn_t,
+    );
 }
-pub type __compar_fn_t =
-    Option<unsafe extern "C" fn(*const libc::c_void, *const libc::c_void) -> i32>;
+pub type size_t = libc::c_ulong;
+pub type __compar_fn_t = Option::<
+    unsafe extern "C" fn(*const libc::c_void, *const libc::c_void) -> libc::c_int,
+>;
 #[derive(Copy, Clone)]
 #[repr(C)]
 pub struct replace_info {
-    pub n: i32,
-    pub text: *mut i8,
+    pub n: libc::c_int,
+    pub text: *mut libc::c_char,
 }
 #[no_mangle]
-pub extern "C" fn compare(mut a: *const libc::c_void, mut b: *const libc::c_void) -> i32 {
-    unsafe {
-        let mut x: *mut replace_info = a as *mut replace_info;
-        let mut y: *mut replace_info = b as *mut replace_info;
-        return (*x).n - (*y).n;
-    }
+pub unsafe extern "C" fn compare(
+    mut a: *const libc::c_void,
+    mut b: *const libc::c_void,
+) -> libc::c_int {
+    let mut x: *mut replace_info = a as *mut replace_info;
+    let mut y: *mut replace_info = b as *mut replace_info;
+    return (*x).n - (*y).n;
 }
-
 #[no_mangle]
-pub extern "C" fn generic_fizz_buzz(
-    mut max: i32,
+pub unsafe extern "C" fn generic_fizz_buzz(
+    mut max: libc::c_int,
     mut info: *mut replace_info,
-    mut info_length: i32,
+    mut info_length: libc::c_int,
 ) {
-    unsafe {
-        let mut i: i32 = 0;
-        let mut it: i32 = 0;
-        let mut found_word: i32 = 0;
-        i = 1;
-        while i < max {
-            found_word = 0;
-            it = 0;
-            while it < info_length {
-                if 0 == i % (*info.offset(it as isize)).n {
-                    print!(
-                        "{}",
-                        build_str_from_raw_ptr((*info.offset(it as isize)).text as *mut u8)
-                    );
-                    found_word = 1;
-                }
-                it += 1;
-                it;
+    let mut i: libc::c_int = 0;
+    let mut it: libc::c_int = 0;
+    let mut found_word: libc::c_int = 0;
+    i = 1 as libc::c_int;
+    while i < max {
+        found_word = 0 as libc::c_int;
+        it = 0 as libc::c_int;
+        while it < info_length {
+            if 0 as libc::c_int == i % (*info.offset(it as isize)).n {
+                printf(
+                    b"%s\0" as *const u8 as *const libc::c_char,
+                    (*info.offset(it as isize)).text,
+                );
+                found_word = 1 as libc::c_int;
             }
-            if 0 == found_word {
-                print!("{}", i);
-            }
-            print!("\n");
-            i += 1;
-            i;
+            it += 1;
+            it;
         }
+        if 0 as libc::c_int == found_word {
+            printf(b"%d\0" as *const u8 as *const libc::c_char, i);
+        }
+        printf(b"\n\0" as *const u8 as *const libc::c_char);
+        i += 1;
+        i;
     }
 }
-
-fn main_0() -> i32 {
+unsafe fn main_0() -> libc::c_int {
     let mut info: [replace_info; 3] = [
         {
             let mut init = replace_info {
-                n: 5,
-                text: b"Buzz\0" as *const u8 as *const i8 as *mut i8,
+                n: 5 as libc::c_int,
+                text: b"Buzz\0" as *const u8 as *const libc::c_char as *mut libc::c_char,
             };
             init
         },
         {
             let mut init = replace_info {
-                n: 7,
-                text: b"Baxx\0" as *const u8 as *const i8 as *mut i8,
+                n: 7 as libc::c_int,
+                text: b"Baxx\0" as *const u8 as *const libc::c_char as *mut libc::c_char,
             };
             init
         },
         {
             let mut init = replace_info {
-                n: 3,
-                text: b"Fizz\0" as *const u8 as *const i8 as *mut i8,
+                n: 3 as libc::c_int,
+                text: b"Fizz\0" as *const u8 as *const libc::c_char as *mut libc::c_char,
             };
             init
         },
     ];
-    unsafe {
-        qsort(
-            info.as_mut_ptr() as *mut libc::c_void,
-            3,
-            ::core::mem::size_of::<replace_info>() as u64,
-            Some(compare as unsafe extern "C" fn(*const libc::c_void, *const libc::c_void) -> i32),
-        );
-    }
-    generic_fizz_buzz(20, info.as_mut_ptr(), 3);
-    return 0;
+    qsort(
+        info.as_mut_ptr() as *mut libc::c_void,
+        3 as libc::c_int as size_t,
+        ::core::mem::size_of::<replace_info>() as libc::c_ulong,
+        Some(
+            compare
+                as unsafe extern "C" fn(
+                    *const libc::c_void,
+                    *const libc::c_void,
+                ) -> libc::c_int,
+        ),
+    );
+    generic_fizz_buzz(20 as libc::c_int, info.as_mut_ptr(), 3 as libc::c_int);
+    return 0 as libc::c_int;
 }
-
 pub fn main() {
-    ::std::process::exit(main_0() as i32);
+    unsafe { ::std::process::exit(main_0() as i32) }
 }
