@@ -9,18 +9,17 @@
 )]
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
-        while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+        while *raw_ptr.offset(str_size as isize) != 0 {
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
     }
 }
 
-
+use c2rust_out::*;
 extern "C" {
     pub type _IO_wide_data;
     pub type _IO_codecvt;
@@ -36,7 +35,6 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -71,40 +69,38 @@ pub struct _IO_FILE {
 pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut input: u64 = 0;
-        let mut a: *mut i8 = std::ptr::null_mut::<i8>();
-        if argc < 2_i32 {
-            println!(
-                "usage: {} #seconds",
-                build_str_from_raw_ptr((*argv.offset(0_isize)).cast::<u8>())
+        let mut a: *mut i8 = 0 as *mut i8;
+        if argc < 2 {
+            print!(
+                "usage: {} #seconds\n",
+                build_str_from_raw_ptr(*argv.offset(0 as isize) as *mut u8)
             );
-            return 1_i32;
+            return 1;
         }
-        input = strtoumax(*argv.offset(1_isize), std::ptr::null_mut::<*mut i8>(), 10);
+        input = strtoumax(*argv.offset(1 as isize), 0 as *mut *mut i8, 10);
         if input < 1 {
-            println!(
-                "Bad input: {}",
-                build_str_from_raw_ptr((*argv.offset(1_isize)).cast::<u8>())
+            print!(
+                "Bad input: {}\n",
+                build_str_from_raw_ptr(*argv.offset(1 as isize) as *mut u8)
             );
-            println!(
-                "usage: {} #seconds",
-                build_str_from_raw_ptr((*argv.offset(0_isize)).cast::<u8>())
+            print!(
+                "usage: {} #seconds\n",
+                build_str_from_raw_ptr(*argv.offset(0 as isize) as *mut u8)
             );
-            return 1_i32;
+            return 1;
         }
-        println!("Number entered: {}", input);
+        print!("Number entered: {}\n", input);
         a = format_sec(input);
         printf(a);
-        free(a.cast::<libc::c_void>());
-        0_i32
+        free(a as *mut libc::c_void);
+        return 0;
     }
 }
 
 #[no_mangle]
 pub extern "C" fn format_sec(mut input: u64) -> *mut i8 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut first: bool = false;
@@ -112,17 +108,17 @@ pub extern "C" fn format_sec(mut input: u64) -> *mut i8 {
         let mut days: u64 = 0;
         let mut hours: u64 = 0;
         let mut mins: u64 = 0;
-        let mut retval: *mut i8 = std::ptr::null_mut::<i8>();
-        let mut stream: *mut FILE = std::ptr::null_mut::<FILE>();
+        let mut retval: *mut i8 = 0 as *mut i8;
+        let mut stream: *mut FILE = 0 as *mut FILE;
         let mut size: u64 = 0;
         let mut traverse: [*mut u64; 5] =
             [&mut weeks, &mut days, &mut hours, &mut mins, &mut input];
         let mut labels: [*mut i8; 5] = [
-            (b"wk\0" as *const u8).cast::<i8>() as *mut i8,
-            (b"d\0" as *const u8).cast::<i8>() as *mut i8,
-            (b"hr\0" as *const u8).cast::<i8>() as *mut i8,
-            (b"min\0" as *const u8).cast::<i8>() as *mut i8,
-            (b"sec\0" as *const u8).cast::<i8>() as *mut i8,
+            b"wk\0" as *const u8 as *const i8 as *mut i8,
+            b"d\0" as *const u8 as *const i8 as *mut i8,
+            b"hr\0" as *const u8 as *const i8 as *mut i8,
+            b"min\0" as *const u8 as *const i8 as *mut i8,
+            b"sec\0" as *const u8 as *const i8 as *mut i8,
         ];
         weeks = sec_to_week(input);
         input = input.wrapping_sub(week_to_sec(weeks));
@@ -136,79 +132,79 @@ pub extern "C" fn format_sec(mut input: u64) -> *mut i8 {
         if stream.is_null() {
             fprintf(
                 stderr,
-                (b"Unable to allocate memory\0" as *const u8).cast::<i8>(),
+                b"Unable to allocate memory\0" as *const u8 as *const i8,
             );
-            return std::ptr::null_mut::<i8>();
+            return 0 as *mut i8;
         }
-        first = 1_i32 != 0_i32;
-        i = 0_i32;
-        while i < 5_i32 {
+        first = 1 != 0;
+        i = 0;
+        while i < 5 {
             if *traverse[i as usize] != 0 {
                 if !first {
                     fprintf(
                         stream,
-                        (b", %lu %s\0" as *const u8).cast::<i8>(),
+                        b", %lu %s\0" as *const u8 as *const i8,
                         *traverse[i as usize],
                         labels[i as usize],
                     );
                 } else {
                     fprintf(
                         stream,
-                        (b"%lu %s\0" as *const u8).cast::<i8>(),
+                        b"%lu %s\0" as *const u8 as *const i8,
                         *traverse[i as usize],
                         labels[i as usize],
                     );
                 }
                 fflush(stream);
-                first = 0_i32 != 0_i32;
+                first = 0 != 0;
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
-        fprintf(stream, (b"\n\0" as *const u8).cast::<i8>());
+        fprintf(stream, b"\n\0" as *const u8 as *const i8);
         fclose(stream);
-        retval
+        return retval;
     }
 }
 
 #[no_mangle]
 pub extern "C" fn sec_to_week(mut seconds: u64) -> u64 {
-    (sec_to_day(seconds)).wrapping_div(7)
+    return (sec_to_day(seconds)).wrapping_div(7);
 }
 
 #[no_mangle]
 pub extern "C" fn sec_to_day(mut seconds: u64) -> u64 {
-    (sec_to_hour(seconds)).wrapping_div(24)
+    return (sec_to_hour(seconds)).wrapping_div(24);
 }
 
 #[no_mangle]
 pub extern "C" fn sec_to_hour(mut seconds: u64) -> u64 {
-    (sec_to_min(seconds)).wrapping_div(60)
+    return (sec_to_min(seconds)).wrapping_div(60);
 }
 
 #[no_mangle]
 pub extern "C" fn sec_to_min(mut seconds: u64) -> u64 {
-    seconds.wrapping_div(60)
+    return seconds.wrapping_div(60);
 }
 
 #[no_mangle]
 pub extern "C" fn week_to_sec(mut weeks: u64) -> u64 {
-    day_to_sec(weeks.wrapping_mul(7))
+    return day_to_sec(weeks.wrapping_mul(7));
 }
 
 #[no_mangle]
 pub extern "C" fn day_to_sec(mut days: u64) -> u64 {
-    hour_to_sec(days.wrapping_mul(24))
+    return hour_to_sec(days.wrapping_mul(24));
 }
 
 #[no_mangle]
 pub extern "C" fn hour_to_sec(mut hours: u64) -> u64 {
-    min_to_sec(hours.wrapping_mul(60))
+    return min_to_sec(hours.wrapping_mul(60));
 }
 
 #[no_mangle]
 pub extern "C" fn min_to_sec(mut minutes: u64) -> u64 {
-    minutes.wrapping_mul(60)
+    return minutes.wrapping_mul(60);
 }
 
 pub fn main() {
@@ -221,5 +217,5 @@ pub fn main() {
         );
     }
     args.push(::core::ptr::null_mut());
-    ::std::process::exit(main_0((args.len() - 1) as i32, args.as_mut_ptr()));
+    ::std::process::exit(main_0((args.len() - 1) as i32, args.as_mut_ptr() as *mut *mut i8) as i32);
 }

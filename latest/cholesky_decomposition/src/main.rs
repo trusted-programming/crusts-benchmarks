@@ -7,7 +7,7 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {
     fn calloc(_: u64, _: u64) -> *mut libc::c_void;
     fn free(_: *mut libc::c_void);
@@ -16,97 +16,89 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn cholesky(mut A: *mut f64, mut n: i32) -> *mut f64 {
-// SAFETY: machine generated unsafe code
     unsafe {
-        let mut L: *mut f64 = calloc(
-            (n.wrapping_mul(n)) as u64,
-            ::core::mem::size_of::<f64>() as u64,
-        ).cast::<f64>();
+        let mut L: *mut f64 =
+            calloc((n * n) as u64, ::core::mem::size_of::<f64>() as u64) as *mut f64;
         if L.is_null() {
             exit(1);
         }
         let mut i: i32 = 0;
         while i < n {
             let mut j: i32 = 0;
-            while j < i.wrapping_add(1) {
-                let mut s: f64 = f64::from(0_i32);
+            while j < i + 1 {
+                let mut s: f64 = 0 as f64;
                 let mut k: i32 = 0;
                 while k < j {
-                    s += *L.offset((i * n.wrapping_add(k)) as isize)
-                        * *L.offset((j * n.wrapping_add(k)) as isize);
-                    k = k.wrapping_add(1);
+                    s += *L.offset((i * n + k) as isize) * *L.offset((j * n + k) as isize);
+                    k += 1;
                     k;
                 }
-                *L.offset((i * n.wrapping_add(j)) as isize) = if i == j {
-                    sqrt(*A.offset((i * n.wrapping_add(i)) as isize) - s)
+                *L.offset((i * n + j) as isize) = if i == j {
+                    sqrt(*A.offset((i * n + i) as isize) - s)
                 } else {
-                    1.0f64 / *L.offset((j * n.wrapping_add(j)) as isize)
-                        * (*A.offset((i * n.wrapping_add(j)) as isize) - s)
+                    1.0f64 / *L.offset((j * n + j) as isize) * (*A.offset((i * n + j) as isize) - s)
                 };
-                j = j.wrapping_add(1);
+                j += 1;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
-        L
+        return L;
     }
 }
 
 #[no_mangle]
 pub extern "C" fn show_matrix(mut A: *mut f64, mut n: i32) {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         while i < n {
             let mut j: i32 = 0;
             while j < n {
                 print!("{:2.5} ", *A.offset((i * n + j) as isize));
-                j = j.wrapping_add(1);
+                j += 1;
                 j;
             }
-            println!();
-            i = i.wrapping_add(1);
+            print!("\n");
+            i += 1;
             i;
         }
     }
 }
 
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut n: i32 = 3;
         let mut m1: [f64; 9] = [
-            25_f64,
-            15_f64,
-            -5_f64,
-            15_f64,
-            18_f64,
-            f64::from(0_i32),
-            -5_f64,
-            f64::from(0_i32),
-            11_f64,
+            25 as f64,
+            15 as f64,
+            -5i32 as f64,
+            15 as f64,
+            18 as f64,
+            0 as f64,
+            -5i32 as f64,
+            0 as f64,
+            11 as f64,
         ];
         let mut c1: *mut f64 = cholesky(m1.as_mut_ptr(), n);
         show_matrix(c1, n);
-        println!();
-        free(c1.cast::<libc::c_void>());
-        n = 4_i32;
+        print!("\n");
+        free(c1 as *mut libc::c_void);
+        n = 4;
         let mut m2: [f64; 16] = [
-            18_f64, 22_f64, 54_f64, 42_f64, 22_f64, 70_f64, 86_f64, 62_f64,
-            54_f64, 86_f64, 174_f64, 134_f64, 42_f64, 62_f64, 134_f64,
-            106_f64,
+            18 as f64, 22 as f64, 54 as f64, 42 as f64, 22 as f64, 70 as f64, 86 as f64, 62 as f64,
+            54 as f64, 86 as f64, 174 as f64, 134 as f64, 42 as f64, 62 as f64, 134 as f64,
+            106 as f64,
         ];
         let mut c2: *mut f64 = cholesky(m2.as_mut_ptr(), n);
         show_matrix(c2, n);
-        free(c2.cast::<libc::c_void>());
-        0_i32
+        free(c2 as *mut libc::c_void);
+        return 0;
     }
 }
 
 pub fn main() {
-// SAFETY: machine generated unsafe code
     unsafe {
-        ::std::process::exit(main_0());
+        ::std::process::exit(main_0() as i32);
     }
 }

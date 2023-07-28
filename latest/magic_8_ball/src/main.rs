@@ -9,11 +9,10 @@
 )]
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -46,7 +45,6 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -81,7 +79,6 @@ pub struct _IO_FILE {
 pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut question: *mut i8 = 0 as *mut i8;
         let mut len: u64 = 0;

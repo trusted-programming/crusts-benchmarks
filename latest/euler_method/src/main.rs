@@ -7,87 +7,78 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {
     fn exp(_: f64) -> f64;
 }
-// SAFETY: machine generated unsafe code
 pub type deriv_f = Option<unsafe extern "C" fn(f64, f64) -> f64>;
 #[no_mangle]
 pub extern "C" fn ivp_euler(mut f: deriv_f, mut y: f64, mut step: i32, mut end_t: i32) {
     let mut t: i32 = 0;
     print!(" Step {:2}: ", step);
-// SAFETY: machine generated unsafe code
     unsafe {
         loop {
-            if t % 10_i32 == 0_i32 {
+            if t % 10 == 0 {
                 print!(" {:7.3}", y);
             }
-            match f {
-                Some(f_m) => y += f64::from(step) * f_m(f64::from(t), y),
-                None => panic!("non-null function pointer"),
-            }
-            t = t.wrapping_add(step);
-            if t > end_t {
+            y += step as f64 * f.expect("non-null function pointer")(t as f64, y);
+            t += step;
+            if !(t <= end_t) {
                 break;
             }
         }
     }
-    println!();
+    print!("\n");
 }
 
 #[no_mangle]
 pub extern "C" fn analytic() {
     let mut t: f64 = 0.;
     print!("    Time: ");
-    t = f64::from(0_i32);
-    while t <= 100_f64 {
+    t = 0 as f64;
+    while t <= 100 as f64 {
         print!(" {:7}", t);
-        t += 10_f64;
+        t += 10 as f64;
     }
     print!("\nAnalytic: ");
-    t = f64::from(0_i32);
-// SAFETY: machine generated unsafe code
+    t = 0 as f64;
     unsafe {
-        while t <= 100_f64 {
-            print!(" {:7.3}", 80_f64.mul_add(exp(-0.07f64 * t), 20_f64));
-            t += 10_f64;
+        while t <= 100 as f64 {
+            print!(" {:7.3}", 20 as f64 + 80 as f64 * exp(-0.07f64 * t));
+            t += 10 as f64;
         }
     }
-    println!();
+    print!("\n");
 }
 
 #[no_mangle]
-pub extern "C" fn cooling(mut _t: f64, mut temp: f64) -> f64 {
-    -0.07f64 * (temp - 20_f64)
+pub extern "C" fn cooling(mut t: f64, mut temp: f64) -> f64 {
+    return -0.07f64 * (temp - 20 as f64);
 }
 
 fn main_0() -> i32 {
     analytic();
     ivp_euler(
-// SAFETY: machine generated unsafe code
         Some(cooling as unsafe extern "C" fn(f64, f64) -> f64),
-        100_f64,
+        100 as f64,
         2,
         100,
     );
     ivp_euler(
-// SAFETY: machine generated unsafe code
         Some(cooling as unsafe extern "C" fn(f64, f64) -> f64),
-        100_f64,
+        100 as f64,
         5,
         100,
     );
     ivp_euler(
-// SAFETY: machine generated unsafe code
         Some(cooling as unsafe extern "C" fn(f64, f64) -> f64),
-        100_f64,
+        100 as f64,
         10,
         100,
     );
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

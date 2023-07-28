@@ -7,11 +7,11 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 fn main_0() -> i32 {
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

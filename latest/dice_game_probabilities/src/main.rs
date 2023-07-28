@@ -7,31 +7,30 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {}
 #[no_mangle]
 pub extern "C" fn ipow(x: u32, y: u32) -> u64 {
     let mut result: u64 = 1;
     let mut i: u32 = 1;
     while i <= y {
-        result = (result).wrapping_mul(u64::from(x));
+        result = (result).wrapping_mul(x as u64) as u64;
         i = i.wrapping_add(1);
         i;
     }
-    result
+    return result;
 }
 
 #[no_mangle]
 pub extern "C" fn min(x: u32, y: u32) -> u32 {
-    if x < y { x } else { y }
+    return if x < y { x } else { y };
 }
 
 #[no_mangle]
 pub extern "C" fn throw_die(n_sides: u32, n_dice: u32, s: u32, mut counts: *mut u32) {
-// SAFETY: machine generated unsafe code
     unsafe {
         if n_dice == 0 {
-            let fresh0 = &mut (*counts.offset(s as isize));
+            let ref mut fresh0 = *counts.offset(s as isize);
             *fresh0 = (*fresh0).wrapping_add(1);
             *fresh0;
             return;
@@ -56,7 +55,6 @@ pub extern "C" fn beating_probability(
     let vla = len1 as usize;
     let mut C1: Vec<u32> = ::std::vec::from_elem(0, vla);
     let mut i: u32 = 0;
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < len1 {
             *C1.as_mut_ptr().offset(i as isize) = 0;
@@ -69,7 +67,6 @@ pub extern "C" fn beating_probability(
     let vla_0 = len2 as usize;
     let mut C2: Vec<u32> = ::std::vec::from_elem(0, vla_0);
     let mut j: u32 = 0;
-// SAFETY: machine generated unsafe code
     unsafe {
         while j < len2 {
             *C2.as_mut_ptr().offset(j as isize) = 0;
@@ -79,15 +76,14 @@ pub extern "C" fn beating_probability(
     }
     throw_die(n_sides2, n_dice2, 0, C2.as_mut_ptr());
     let p12: f64 = (ipow(n_sides1, n_dice1)).wrapping_mul(ipow(n_sides2, n_dice2)) as f64;
-    let mut tot: f64 = f64::from(0_i32);
+    let mut tot: f64 = 0 as f64;
     let mut i_0: u32 = 0;
-// SAFETY: machine generated unsafe code
     unsafe {
         while i_0 < len1 {
             let mut j_0: u32 = 0;
             while j_0 < min(i_0, len2) {
-                tot += f64::from(*C1.as_mut_ptr().offset(i_0 as isize))
-                    * f64::from(*C2.as_mut_ptr().offset(j_0 as isize))
+                tot += *C1.as_mut_ptr().offset(i_0 as isize) as f64
+                    * *C2.as_mut_ptr().offset(j_0 as isize) as f64
                     / p12;
                 j_0 = j_0.wrapping_add(1);
                 j_0;
@@ -96,15 +92,15 @@ pub extern "C" fn beating_probability(
             i_0;
         }
     }
-    tot
+    return tot;
 }
 
 fn main_0() -> i32 {
-    println!("{:1.16}", beating_probability(4, 9, 6, 6));
-    println!("{:1.16}", beating_probability(10, 5, 7, 6));
-    0_i32
+    print!("{:1.16}\n", beating_probability(4, 9, 6, 6));
+    print!("{:1.16}\n", beating_probability(10, 5, 7, 6));
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

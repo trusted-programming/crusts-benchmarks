@@ -8,11 +8,10 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -39,7 +38,6 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct tm {
     pub tm_sec: i32,
     pub tm_min: i32,
@@ -54,7 +52,6 @@ pub struct tm {
     pub tm_zone: *const i8,
 }
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut buf: [i8; 50] = [0; 50];
         let mut seconds: i64 = rust_time(None);

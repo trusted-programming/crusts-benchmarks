@@ -7,7 +7,7 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {
     fn sqrt(_: f64) -> f64;
 }
@@ -16,21 +16,19 @@ pub extern "C" fn sum_proper_divisors(n: u32) -> u32 {
     let mut sum: u32 = 1;
     let mut i: u32 = 3;
     let mut j: u32 = 0;
-// SAFETY: machine generated unsafe code
     unsafe {
-        while f64::from(i) < sqrt(f64::from(n)) + 1_f64 {
+        while (i as f64) < sqrt(n as f64) + 1 as f64 {
             if n.wrapping_rem(i) == 0 {
                 j = n.wrapping_div(i);
-                sum = sum.wrapping_add(i.wrapping_add(if i == j { 0 } else { j }));
+                sum = sum.wrapping_add(i.wrapping_add((if i == j { 0 } else { j })));
             }
             i = i.wrapping_add(2);
         }
     }
-    sum
+    return sum;
 }
 
-fn main_0(mut _argc: i32, mut _argv: *mut *const i8) -> i32 {
-// SAFETY: machine generated unsafe code
+fn main_0(mut argc: i32, mut argv: *mut *const i8) -> i32 {
     unsafe {
         let mut n: u32 = 0;
         let mut c: u32 = 0;
@@ -39,7 +37,7 @@ fn main_0(mut _argc: i32, mut _argv: *mut *const i8) -> i32 {
         while c < 25 {
             if n < sum_proper_divisors(n) {
                 c = c.wrapping_add(1);
-                println!("{}: {}", c, n);
+                print!("{}: {}\n", c, n);
             }
             n = n.wrapping_add(2);
         }
@@ -52,14 +50,14 @@ fn main_0(mut _argc: i32, mut _argv: *mut *const i8) -> i32 {
         }
         print!("\nThe one thousandth abundant odd number is: {}\n", n);
         n = 1000000001;
-        while n >= sum_proper_divisors(n) {
+        while !(n < sum_proper_divisors(n)) {
             n = n.wrapping_add(2);
         }
-        println!(
-            "The first abundant odd number above one billion is: {}",
+        print!(
+            "The first abundant odd number above one billion is: {}\n",
             n
         );
-        0_i32
+        return 0;
     }
 }
 
@@ -74,6 +72,6 @@ pub fn main() {
     }
     args.push(::core::ptr::null_mut());
     ::std::process::exit(
-        main_0((args.len() - 1) as i32, args.as_mut_ptr().cast::<*const i8>()),
+        main_0((args.len() - 1) as i32, args.as_mut_ptr() as *mut *const i8) as i32,
     );
 }

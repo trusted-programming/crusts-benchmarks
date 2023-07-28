@@ -7,40 +7,38 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {
     fn sqrt(_: f64) -> f64;
     fn fabs(_: f64) -> f64;
 }
 #[no_mangle]
 pub extern "C" fn approxEquals(mut value: f64, mut other: f64, mut epsilon: f64) -> bool {
-// SAFETY: machine generated unsafe code
     unsafe {
-        fabs(value - other) < epsilon
+        return fabs(value - other) < epsilon;
     }
 }
 
 #[no_mangle]
 pub extern "C" fn test(mut a: f64, mut b: f64) {
     let mut epsilon: f64 = 1e-18f64;
-    println!("{}, {} => {}", a, b, i32::from(approxEquals(a, b, epsilon)));
+    print!("{}, {} => {}\n", a, b, approxEquals(a, b, epsilon) as i32);
 }
 
 fn main_0() -> i32 {
-    test(100000000000000.01f64, 100_000_000_000_000.02_f64);
+    test(100000000000000.01f64, 100000000000000.011f64);
     test(100.01f64, 100.011f64);
-    test(10000000000000.001f64 / 10000.0f64, 1_000_000_000.000_000_1_f64);
+    test(10000000000000.001f64 / 10000.0f64, 1000000000.0000001000f64);
     test(0.001f64, 0.0010000001f64);
     test(0.000000000000000000000101f64, 0.0f64);
-// SAFETY: machine generated unsafe code
     unsafe {
         test(sqrt(2.0f64) * sqrt(2.0f64), 2.0f64);
         test(-sqrt(2.0f64) * sqrt(2.0f64), -2.0f64);
     }
-    test(3.141_592_653_589_793_f64, 3.141_592_653_589_793_f64);
-    0_i32
+    test(3.14159265358979323846f64, 3.14159265358979324f64);
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

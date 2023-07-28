@@ -7,16 +7,14 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {
     fn qsort(__base: *mut libc::c_void, __nmemb: u64, __size: u64, __compar: __compar_fn_t);
 }
 pub type __compar_fn_t =
-// SAFETY: machine generated unsafe code
     Option<unsafe extern "C" fn(*const libc::c_void, *const libc::c_void) -> i32>;
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct floatList {
     pub list: *mut libc::c_float,
     pub size: i32,
@@ -24,31 +22,28 @@ pub struct floatList {
 pub type FloatList = *mut floatList;
 #[no_mangle]
 pub extern "C" fn floatcmp(mut a: *const libc::c_void, mut b: *const libc::c_void) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
-        if *a.cast::<f32>() < *b.cast::<f32>() {
-            -1_i32
+        if *(a as *const libc::c_float) < *(b as *const libc::c_float) {
+            return -1;
         } else {
-            i32::from(*a.cast::<f32>() > *b.cast::<f32>())
-        }
+            return (*(a as *const libc::c_float) > *(b as *const libc::c_float)) as i32;
+        };
     }
 }
 
 #[no_mangle]
 pub extern "C" fn median(mut fl: FloatList) -> libc::c_float {
-// SAFETY: machine generated unsafe code
     unsafe {
         qsort(
-            (*fl).list.cast::<libc::c_void>(),
+            (*fl).list as *mut libc::c_void,
             (*fl).size as u64,
             ::core::mem::size_of::<libc::c_float>() as u64,
-// SAFETY: machine generated unsafe code
             Some(floatcmp as unsafe extern "C" fn(*const libc::c_void, *const libc::c_void) -> i32),
         );
-        (0.5f64
-            * f64::from(*((*fl).list).offset(((*fl).size / 2i32) as isize)
-                + *((*fl).list).offset((((*fl).size - 1i32) / 2i32) as isize)))
-            as libc::c_float
+        return (0.5f64
+            * (*((*fl).list).offset(((*fl).size / 2i32) as isize)
+                + *((*fl).list).offset((((*fl).size - 1i32) / 2i32) as isize)) as f64)
+            as libc::c_float;
     }
 }
 
@@ -62,13 +57,13 @@ fn main_0() -> i32 {
         4.1f64 as libc::c_float,
     ];
     let mut flist1: floatList = {
-        
-        floatList {
+        let mut init = floatList {
             list: floats1.as_mut_ptr(),
             size: (::core::mem::size_of::<[libc::c_float; 6]>() as u64)
                 .wrapping_div(::core::mem::size_of::<libc::c_float>() as u64)
                 as i32,
-        }
+        };
+        init
     };
     let mut floats2: [libc::c_float; 5] = [
         5.1f64 as libc::c_float,
@@ -78,19 +73,19 @@ fn main_0() -> i32 {
         4.1f64 as libc::c_float,
     ];
     let mut flist2: floatList = {
-        
-        floatList {
+        let mut init = floatList {
             list: floats2.as_mut_ptr(),
             size: (::core::mem::size_of::<[libc::c_float; 5]>() as u64)
                 .wrapping_div(::core::mem::size_of::<libc::c_float>() as u64)
                 as i32,
-        }
+        };
+        init
     };
-    println!("flist1 median is {:7.2}", f64::from(median(&mut flist1)));
-    println!("flist2 median is {:7.2}", f64::from(median(&mut flist2)));
-    0_i32
+    print!("flist1 median is {:7.2}\n", median(&mut flist1) as f64);
+    print!("flist2 median is {:7.2}\n", median(&mut flist2) as f64);
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

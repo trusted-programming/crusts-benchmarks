@@ -7,7 +7,7 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {}
 #[no_mangle]
 pub extern "C" fn evolve(mut state: u64, mut rule: i32) {
@@ -15,25 +15,25 @@ pub extern "C" fn evolve(mut state: u64, mut rule: i32) {
     let mut p: i32 = 0;
     let mut q: i32 = 0;
     let mut b: i32 = 0;
-    p = 0_i32;
-    while p < 10_i32 {
-        b = 0_i32;
-        q = 8_i32;
+    p = 0;
+    while p < 10 {
+        b = 0;
+        q = 8;
         loop {
             let fresh0 = q;
-            q = q.wrapping_sub(1);
-            if fresh0 == 0_i32 {
+            q = q - 1;
+            if !(fresh0 != 0) {
                 break;
             }
             let mut st: u64 = state;
             b = (b as u64 | (st & 1u64) << q) as i32;
-            i = 0_i32;
+            i = 0;
             state = i as u64;
             while (i as u64) < (::core::mem::size_of::<u64>() as u64).wrapping_mul(8) {
                 if rule as u64
                     & 1u64
                         << (7
-                            & (st >> (i - 1_i32)
+                            & (st >> i - 1
                                 | st << (::core::mem::size_of::<u64>() as u64)
                                     .wrapping_mul(8)
                                     .wrapping_add(1)
@@ -42,12 +42,12 @@ pub extern "C" fn evolve(mut state: u64, mut rule: i32) {
                 {
                     state |= 1 << i;
                 }
-                i = i.wrapping_add(1);
+                i += 1;
                 i;
             }
         }
         print!(" {}", b);
-        p = p.wrapping_add(1);
+        p += 1;
         p;
     }
     print!("{}", '\n' as i32);
@@ -55,9 +55,9 @@ pub extern "C" fn evolve(mut state: u64, mut rule: i32) {
 
 fn main_0() -> i32 {
     evolve(1, 30);
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

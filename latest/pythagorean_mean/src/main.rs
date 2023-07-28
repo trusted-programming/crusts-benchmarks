@@ -13,7 +13,6 @@ extern "C" {
     fn pow(_: f64, _: f64) -> f64;
 }
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut count: i32 = 0;
@@ -24,12 +23,12 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
         i = 1;
         while i < argc {
             f = atof(*argv.offset(i as isize));
-            count = count.wrapping_add(1);
+            count += 1;
             count;
-            sum = sum.wrapping_add(f);
+            sum += f;
             prod *= f;
             resum += 1.0f64 / f;
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
         print!("Arithmetic mean = {}\n", sum / count as f64);

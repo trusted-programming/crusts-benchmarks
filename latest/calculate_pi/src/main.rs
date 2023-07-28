@@ -17,9 +17,9 @@ fn main_0() -> i32 {
     let mut i: i32 = 0;
     i = 0;
     while i < 8 {
-        n = n.wrapping_add(n);
-        n = n.wrapping_add(n);
-        i = i.wrapping_add(1);
+        n += n;
+        n += n;
+        i += 1;
         i;
     }
     return 0;

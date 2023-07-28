@@ -7,24 +7,24 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {}
 fn main_0() -> i32 {
     let mut i: i32 = 0;
-    i = 1_i32;
-    while i <= 10_i32 {
+    i = 1;
+    while i <= 10 {
         print!("{}", i);
-        if i == 10_i32 {
-            println!()
+        if i == 10 {
+            print!("\n")
         } else {
             print!(", ")
         };
-        i = i.wrapping_add(1);
+        i += 1;
         i;
     }
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

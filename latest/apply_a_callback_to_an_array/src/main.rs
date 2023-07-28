@@ -7,29 +7,24 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {}
 extern "C" fn callbackFunction(mut location: i32, mut value: i32) {
-    println!("array[{}] = {}", location, value);
+    print!("array[{}] = {}\n", location, value);
 }
 
 #[no_mangle]
 pub extern "C" fn map(
     mut array: *mut i32,
     mut len: i32,
-// SAFETY: machine generated unsafe code
     mut callback: Option<unsafe extern "C" fn(i32, i32) -> ()>,
 ) {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
-        i = 0_i32;
+        i = 0;
         while i < len {
-            match callback {
-                Some(callback_m) => callback_m(i, *array.offset(i as isize)),
-                None => panic!("non-null function pointer"),
-            }
-            i = i.wrapping_add(1);
+            callback.expect("non-null function pointer")(i, *array.offset(i as isize));
+            i += 1;
             i;
         }
     }
@@ -40,12 +35,11 @@ fn main_0() -> i32 {
     map(
         array.as_mut_ptr(),
         4,
-// SAFETY: machine generated unsafe code
         Some(callbackFunction as unsafe extern "C" fn(i32, i32) -> ()),
     );
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

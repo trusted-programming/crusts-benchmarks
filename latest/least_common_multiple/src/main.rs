@@ -7,29 +7,29 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {}
 #[no_mangle]
 pub extern "C" fn gcd(mut m: i32, mut n: i32) -> i32 {
     let mut tmp: i32 = 0;
-    while m != 0_i32 {
+    while m != 0 {
         tmp = m;
-        m = n.wrapping_rem(m);
+        m = n % m;
         n = tmp;
     }
-    n
+    return n;
 }
 
 #[no_mangle]
 pub extern "C" fn lcm(mut m: i32, mut n: i32) -> i32 {
-    m / gcd(m, n) * n
+    return m / gcd(m, n) * n;
 }
 
 fn main_0() -> i32 {
-    println!("lcm(35, 21) = {}", lcm(21, 35));
-    0_i32
+    print!("lcm(35, 21) = {}\n", lcm(21, 35));
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

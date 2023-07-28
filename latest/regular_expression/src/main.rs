@@ -9,11 +9,10 @@
 )]
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
-        while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+        while *raw_ptr.offset(str_size as isize) != 0 {
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -23,7 +22,7 @@ fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
 #[macro_use]
 extern crate c2rust_bitfields;
 
-
+use c2rust_out::*;
 extern "C" {
     pub type re_dfa_t;
     fn malloc(_: u64) -> *mut libc::c_void;
@@ -42,7 +41,6 @@ extern "C" {
 }
 #[derive(Copy, Clone, BitfieldStruct)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct re_pattern_buffer {
     pub __buffer: *mut re_dfa_t,
     pub __allocated: u64,
@@ -66,106 +64,109 @@ pub struct re_pattern_buffer {
 pub type regex_t = re_pattern_buffer;
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct regmatch_t {
     pub rm_so: i32,
     pub rm_eo: i32,
 }
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut preg : regex_t = regex_t {
-            __buffer : std::ptr::null_mut::<re_dfa_t>(),
+            __buffer : 0 as * mut re_dfa_t,
             __allocated : 0,
             __used : 0,
             __syntax : 0,
-            __fastmap : std::ptr::null_mut::<i8>(),
-            __translate : std::ptr::null_mut::<u8>(),
+            __fastmap : 0 as * mut i8,
+            __translate : 0 as * mut u8,
             re_nsub : 0,
             __can_be_null___regs_allocated___fastmap_accurate___no_sub___not_bol___not_eol___newline_anchor : [0; 1],
             c2rust_padding : [0; 7],
         };
         let mut substmatch: [regmatch_t; 1] = [regmatch_t { rm_so: 0, rm_eo: 0 }; 1];
-        let mut tp: *const i8 = (b"string$\0" as *const u8).cast::<i8>();
-        let mut t1: *const i8 = (b"this is a matching string\0" as *const u8).cast::<i8>();
-        let mut t2: *const i8 = (b"this is not a matching string!\0" as *const u8).cast::<i8>();
-        let mut ss: *const i8 = (b"istyfied\0" as *const u8).cast::<i8>();
-        regcomp(&mut preg, (b"string$\0" as *const u8).cast::<i8>(), 1);
-        if regexec(&mut preg, t1, 0, std::ptr::null_mut::<regmatch_t>(), 0) == 0_i32 {
-            println!(
-                "{} \0matched with {}",
+        let mut tp: *const i8 = b"string$\0" as *const u8 as *const i8;
+        let mut t1: *const i8 = b"this is a matching string\0" as *const u8 as *const i8;
+        let mut t2: *const i8 = b"this is not a matching string!\0" as *const u8 as *const i8;
+        let mut ss: *const i8 = b"istyfied\0" as *const u8 as *const i8;
+        regcomp(&mut preg, b"string$\0" as *const u8 as *const i8, 1);
+        if regexec(&mut preg, t1, 0, 0 as *mut regmatch_t, 0) == 0 {
+            print!(
+                "{} {}matched with {}\n",
                 build_str_from_raw_ptr(t1 as *mut u8),
+                "\0",
                 build_str_from_raw_ptr(tp as *mut u8)
             )
         } else {
-            println!(
-                "{} did not \0matched with {}",
+            print!(
+                "{} {}matched with {}\n",
                 build_str_from_raw_ptr(t1 as *mut u8),
+                "did not \0",
                 build_str_from_raw_ptr(tp as *mut u8)
             )
         };
-        if regexec(&mut preg, t2, 0, std::ptr::null_mut::<regmatch_t>(), 0) == 0_i32 {
-            println!(
-                "{} \0matched with {}",
+        if regexec(&mut preg, t2, 0, 0 as *mut regmatch_t, 0) == 0 {
+            print!(
+                "{} {}matched with {}\n",
                 build_str_from_raw_ptr(t2 as *mut u8),
+                "\0",
                 build_str_from_raw_ptr(tp as *mut u8)
             )
         } else {
-            println!(
-                "{} did not \0matched with {}",
+            print!(
+                "{} {}matched with {}\n",
                 build_str_from_raw_ptr(t2 as *mut u8),
+                "did not \0",
                 build_str_from_raw_ptr(tp as *mut u8)
             )
         };
         regfree(&mut preg);
-        regcomp(&mut preg, (b"a[a-z]+\0" as *const u8).cast::<i8>(), 1);
-        if regexec(&mut preg, t1, 1, substmatch.as_mut_ptr(), 0) == 0_i32 {
+        regcomp(&mut preg, b"a[a-z]+\0" as *const u8 as *const i8, 1);
+        if regexec(&mut preg, t1, 1, substmatch.as_mut_ptr(), 0) == 0 {
             let mut ns: *mut i8 = malloc(
-                ((substmatch[0_usize].rm_so + 1i32) as u64)
+                ((substmatch[0 as usize].rm_so + 1i32) as u64)
                     .wrapping_add(strlen(ss))
-                    .wrapping_add((strlen(t1)).wrapping_sub(substmatch[0_usize].rm_eo as u64))
+                    .wrapping_add((strlen(t1)).wrapping_sub(substmatch[0 as usize].rm_eo as u64))
                     .wrapping_add(2),
-            ).cast::<i8>();
+            ) as *mut i8;
             memcpy(
-                ns.cast::<libc::c_void>(),
-                t1.cast::<libc::c_void>(),
-                (substmatch[0_usize].rm_so + 1i32) as u64,
+                ns as *mut libc::c_void,
+                t1 as *const libc::c_void,
+                (substmatch[0 as usize].rm_so + 1i32) as u64,
             );
             memcpy(
-                (&mut *ns.offset((*substmatch.as_mut_ptr().offset(0_isize)).rm_so as isize) as *mut i8).cast::<libc::c_void>(),
-                ss.cast::<libc::c_void>(),
+                &mut *ns.offset((*substmatch.as_mut_ptr().offset(0 as isize)).rm_so as isize)
+                    as *mut i8 as *mut libc::c_void,
+                ss as *const libc::c_void,
                 strlen(ss),
             );
             memcpy(
-                (&mut *ns.offset(
-                    ((*substmatch.as_mut_ptr().offset(0_isize)).rm_so as u64)
-// SAFETY: machine generated unsafe code
+                &mut *ns.offset(
+                    ((*substmatch.as_mut_ptr().offset(0 as isize)).rm_so as u64)
                         .wrapping_add((strlen as unsafe extern "C" fn(*const i8) -> u64)(ss))
                         as isize,
-                ) as *mut i8).cast::<libc::c_void>(),
-                (&*t1.offset((*substmatch.as_mut_ptr().offset(0_isize)).rm_eo as isize) as *const i8).cast::<libc::c_void>(),
-                strlen(&*t1.offset((*substmatch.as_mut_ptr().offset(0_isize)).rm_eo as isize)),
+                ) as *mut i8 as *mut libc::c_void,
+                &*t1.offset((*substmatch.as_mut_ptr().offset(0 as isize)).rm_eo as isize)
+                    as *const i8 as *const libc::c_void,
+                strlen(&*t1.offset((*substmatch.as_mut_ptr().offset(0 as isize)).rm_eo as isize)),
             );
             *ns.offset(
-                (substmatch[0_usize].rm_so as u64)
+                (substmatch[0 as usize].rm_so as u64)
                     .wrapping_add(strlen(ss))
                     .wrapping_add(strlen(
-                        &*t1.offset((*substmatch.as_mut_ptr().offset(0_isize)).rm_eo as isize),
+                        &*t1.offset((*substmatch.as_mut_ptr().offset(0 as isize)).rm_eo as isize),
                     )) as isize,
             ) = 0;
-            println!("mod string: {}", build_str_from_raw_ptr(ns.cast::<u8>()));
-            free(ns.cast::<libc::c_void>());
+            print!("mod string: {}\n", build_str_from_raw_ptr(ns as *mut u8));
+            free(ns as *mut libc::c_void);
         } else {
-            println!(
-                "the string {} is the same: no matching!",
+            print!(
+                "the string {} is the same: no matching!\n",
                 build_str_from_raw_ptr(t1 as *mut u8)
             );
         }
         regfree(&mut preg);
-        0_i32
+        return 0;
     }
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

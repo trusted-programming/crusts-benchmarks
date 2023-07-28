@@ -7,11 +7,11 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {}
 #[no_mangle]
 pub extern "C" fn hpo2(mut n: u32) -> u32 {
-    n & n.wrapping_neg()
+    return n & n.wrapping_neg();
 }
 
 #[no_mangle]
@@ -19,16 +19,16 @@ pub extern "C" fn lhpo2(mut n: u32) -> u32 {
     let mut q: u32 = 0;
     let mut m: u32 = hpo2(n);
     while m.wrapping_rem(2) == 0 {
-        m >>= 1_i32;
+        m >>= 1;
         q = q.wrapping_add(1);
         q;
     }
-    q
+    return q;
 }
 
 #[no_mangle]
 pub extern "C" fn nimsum(mut x: u32, mut y: u32) -> u32 {
-    x ^ y
+    return x ^ y;
 }
 
 #[no_mangle]
@@ -50,20 +50,19 @@ pub extern "C" fn nimprod(mut x: u32, mut y: u32) -> u32 {
         return x.wrapping_mul(y);
     }
     h = hpo2(comp);
-    nimprod(
+    return nimprod(
         nimprod(x >> h, y >> h),
         (3i32 << h.wrapping_sub(1u32)) as u32,
-    )
+    );
 }
 
 #[no_mangle]
 pub extern "C" fn print_table(
     mut n: u32,
     mut op: i8,
-// SAFETY: machine generated unsafe code
     mut func: Option<unsafe extern "C" fn(u32, u32) -> u32>,
 ) {
-    print!(" {} |", i32::from(op));
+    print!(" {} |", op as i32);
     let mut a: u32 = 0;
     while a <= n {
         print!("{:3}", a);
@@ -77,22 +76,18 @@ pub extern "C" fn print_table(
         a_0 = a_0.wrapping_add(1);
         a_0;
     }
-    println!();
+    print!("\n");
     let mut b: u32 = 0;
-// SAFETY: machine generated unsafe code
     unsafe {
         while b <= n {
             print!("{:2} |", b);
             let mut a_1: u32 = 0;
             while a_1 <= n {
-                match func {
-                    Some(temp_m) => print!("{:3}", temp_m(a_1, b)),
-                    None => panic!("non-null function pointer"),
-                }
+                print!("{:3}", func.expect("non-null function pointer")(a_1, b));
                 a_1 = a_1.wrapping_add(1);
                 a_1;
             }
-            println!();
+            print!("\n");
             b = b.wrapping_add(1);
             b;
         }
@@ -103,23 +98,21 @@ fn main_0() -> i32 {
     print_table(
         15,
         '+' as i8,
-// SAFETY: machine generated unsafe code
         Some(nimsum as unsafe extern "C" fn(u32, u32) -> u32),
     );
-    println!();
+    print!("\n");
     print_table(
         15,
         '*' as i8,
-// SAFETY: machine generated unsafe code
         Some(nimprod as unsafe extern "C" fn(u32, u32) -> u32),
     );
     let a: u32 = 21508;
     let b: u32 = 42689;
     print!("\n{} + {} = {}\n", a, b, nimsum(a, b));
-    println!("{} * {} = {}", a, b, nimprod(a, b));
-    0_i32
+    print!("{} * {} = {}\n", a, b, nimprod(a, b));
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

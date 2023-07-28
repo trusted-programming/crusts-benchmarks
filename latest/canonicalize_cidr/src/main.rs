@@ -9,18 +9,17 @@
 )]
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
-        while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+        while *raw_ptr.offset(str_size as isize) != 0 {
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
     }
 }
 
-
+use c2rust_out::*;
 extern "C" {
     pub type _IO_wide_data;
     pub type _IO_codecvt;
@@ -32,7 +31,6 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -68,7 +66,6 @@ pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct cidr_tag {
     pub address: u32,
     pub mask_length: u32,
@@ -76,7 +73,6 @@ pub struct cidr_tag {
 pub type cidr_t = cidr_tag;
 #[no_mangle]
 pub extern "C" fn cidr_parse(mut str: *const i8, mut cidr: *mut cidr_t) -> bool {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut a: i32 = 0;
         let mut b: i32 = 0;
@@ -85,49 +81,53 @@ pub extern "C" fn cidr_parse(mut str: *const i8, mut cidr: *mut cidr_t) -> bool 
         let mut m: i32 = 0;
         if sscanf(
             str,
-            (b"%d.%d.%d.%d/%d\0" as *const u8).cast::<i8>(),
+            b"%d.%d.%d.%d/%d\0" as *const u8 as *const i8,
             &mut a as *mut i32,
             &mut b as *mut i32,
             &mut c as *mut i32,
             &mut d as *mut i32,
             &mut m as *mut i32,
-        ) != 5_i32
+        ) != 5
         {
-            return 0_i32 != 0_i32;
+            return 0 != 0;
         }
-        if !(1_i32..=32_i32).contains(&m)
-            || !(0_i32..=255_i32).contains(&a)
-            || !(0_i32..=255_i32).contains(&b)
-            || !(0_i32..=255_i32).contains(&c)
-            || !(0_i32..=255_i32).contains(&d)
+        if m < 1
+            || m > 32
+            || a < 0
+            || a > 255
+            || b < 0
+            || b > 255
+            || c < 0
+            || c > 255
+            || d < 0
+            || d > 255
         {
-            return 0_i32 != 0_i32;
+            return 0 != 0;
         }
-        let mut mask: u32 = !((1i32 << (32 - m)) - 1) as u32;
+        let mut mask: u32 = !((1i32 << 32 - m) - 1) as u32;
         let mut address: u32 = ((a << 24i32) + (b << 16) + (c << 8) + d) as u32;
         address &= mask;
         (*cidr).address = address;
         (*cidr).mask_length = m as u32;
-        1_i32 != 0_i32
+        return 1 != 0;
     }
 }
 
 #[no_mangle]
 pub extern "C" fn cidr_format(mut cidr: *const cidr_t, mut str: *mut i8, mut size: u64) {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut address: u32 = (*cidr).address;
         let mut d: u32 = address & 255;
-        address >>= 8_i32;
+        address >>= 8;
         let mut c: u32 = address & 255;
-        address >>= 8_i32;
+        address >>= 8;
         let mut b: u32 = address & 255;
-        address >>= 8_i32;
+        address >>= 8;
         let mut a: u32 = address & 255;
         snprintf(
             str,
             size,
-            (b"%u.%u.%u.%u/%u\0" as *const u8).cast::<i8>(),
+            b"%u.%u.%u.%u/%u\0" as *const u8 as *const i8,
             a,
             b,
             c,
@@ -137,16 +137,15 @@ pub extern "C" fn cidr_format(mut cidr: *const cidr_t, mut str: *mut i8, mut siz
     }
 }
 
-fn main_0(mut _argc: i32, mut _argv: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
+fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
     unsafe {
         let mut tests: [*const i8; 6] = [
-            (b"87.70.141.1/22\0" as *const u8).cast::<i8>(),
-            (b"36.18.154.103/12\0" as *const u8).cast::<i8>(),
-            (b"62.62.197.11/29\0" as *const u8).cast::<i8>(),
-            (b"67.137.119.181/4\0" as *const u8).cast::<i8>(),
-            (b"161.214.74.21/24\0" as *const u8).cast::<i8>(),
-            (b"184.232.176.184/18\0" as *const u8).cast::<i8>(),
+            b"87.70.141.1/22\0" as *const u8 as *const i8,
+            b"36.18.154.103/12\0" as *const u8 as *const i8,
+            b"62.62.197.11/29\0" as *const u8 as *const i8,
+            b"67.137.119.181/4\0" as *const u8 as *const i8,
+            b"161.214.74.21/24\0" as *const u8 as *const i8,
+            b"184.232.176.184/18\0" as *const u8 as *const i8,
         ];
         let mut i: i32 = 0;
         while (i as u64)
@@ -164,22 +163,22 @@ fn main_0(mut _argc: i32, mut _argv: *mut *mut i8) -> i32 {
                     out.as_mut_ptr(),
                     ::core::mem::size_of::<[i8; 32]>() as u64,
                 );
-                println!(
-                    "{:-18} -> {}",
+                print!(
+                    "{:-18} -> {}\n",
                     build_str_from_raw_ptr(tests[i as usize] as *mut u8),
-                    build_str_from_raw_ptr(out.as_mut_ptr().cast::<u8>())
+                    build_str_from_raw_ptr(out.as_mut_ptr() as *mut u8)
                 );
             } else {
                 fprintf(
                     stderr,
-                    (b"%s: invalid CIDR\n\0" as *const u8).cast::<i8>(),
+                    b"%s: invalid CIDR\n\0" as *const u8 as *const i8,
                     tests[i as usize],
                 );
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
-        0_i32
+        return 0;
     }
 }
 
@@ -193,5 +192,5 @@ pub fn main() {
         );
     }
     args.push(::core::ptr::null_mut());
-    ::std::process::exit(main_0((args.len() - 1) as i32, args.as_mut_ptr()));
+    ::std::process::exit(main_0((args.len() - 1) as i32, args.as_mut_ptr() as *mut *mut i8) as i32);
 }

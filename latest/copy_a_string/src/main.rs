@@ -9,18 +9,17 @@
 )]
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
-        while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+        while *raw_ptr.offset(str_size as isize) != 0 {
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
     }
 }
 
-
+use c2rust_out::*;
 extern "C" {
     pub type _IO_wide_data;
     pub type _IO_codecvt;
@@ -38,7 +37,6 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -73,57 +71,55 @@ pub struct _IO_FILE {
 pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut len: u64 = 0;
         let mut src: [i8; 6] = *::core::mem::transmute::<&[u8; 6], &mut [i8; 6]>(b"Hello\0");
         let mut dst1: [i8; 80] = [0; 80];
         let mut dst2: [i8; 80] = [0; 80];
-        let mut dst3: *mut i8 = std::ptr::null_mut::<i8>();
-        let mut ref_0: *mut i8 = std::ptr::null_mut::<i8>();
+        let mut dst3: *mut i8 = 0 as *mut i8;
+        let mut ref_0: *mut i8 = 0 as *mut i8;
         strcpy(dst1.as_mut_ptr(), src.as_mut_ptr());
         len = strlen(src.as_mut_ptr());
         if len >= ::core::mem::size_of::<[i8; 80]>() as u64 {
             fputs(
-                (b"The buffer is too small!\n\0" as *const u8).cast::<i8>(),
+                b"The buffer is too small!\n\0" as *const u8 as *const i8,
                 stderr,
             );
             exit(1);
         }
         memcpy(
-            dst2.as_mut_ptr().cast::<libc::c_void>(),
+            dst2.as_mut_ptr() as *mut libc::c_void,
             src.as_mut_ptr() as *const libc::c_void,
             len.wrapping_add(1),
         );
         dst3 = strdup(src.as_mut_ptr());
         if dst3.is_null() {
-            perror((b"strdup\0" as *const u8).cast::<i8>());
+            perror(b"strdup\0" as *const u8 as *const i8);
             exit(1);
         }
         ref_0 = src.as_mut_ptr();
-        memset(src.as_mut_ptr().cast::<libc::c_void>(), '-' as i32, 5);
-        println!(
-            " src: {}",
-            build_str_from_raw_ptr(src.as_mut_ptr().cast::<u8>())
+        memset(src.as_mut_ptr() as *mut libc::c_void, '-' as i32, 5);
+        print!(
+            " src: {}\n",
+            build_str_from_raw_ptr(src.as_mut_ptr() as *mut u8)
         );
-        println!(
-            "dst1: {}",
-            build_str_from_raw_ptr(dst1.as_mut_ptr().cast::<u8>())
+        print!(
+            "dst1: {}\n",
+            build_str_from_raw_ptr(dst1.as_mut_ptr() as *mut u8)
         );
-        println!(
-            "dst2: {}",
-            build_str_from_raw_ptr(dst2.as_mut_ptr().cast::<u8>())
+        print!(
+            "dst2: {}\n",
+            build_str_from_raw_ptr(dst2.as_mut_ptr() as *mut u8)
         );
-        println!("dst3: {}", build_str_from_raw_ptr(dst3.cast::<u8>()));
-        println!(" ref: {}", build_str_from_raw_ptr(ref_0.cast::<u8>()));
-        free(dst3.cast::<libc::c_void>());
-        0_i32
+        print!("dst3: {}\n", build_str_from_raw_ptr(dst3 as *mut u8));
+        print!(" ref: {}\n", build_str_from_raw_ptr(ref_0 as *mut u8));
+        free(dst3 as *mut libc::c_void);
+        return 0;
     }
 }
 
 pub fn main() {
-// SAFETY: machine generated unsafe code
     unsafe {
-        ::std::process::exit(main_0());
+        ::std::process::exit(main_0() as i32);
     }
 }

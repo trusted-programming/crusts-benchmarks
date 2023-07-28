@@ -8,11 +8,10 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -26,18 +25,15 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn rand_idx(mut p: *mut f64, mut n: i32) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut s: f64 = rand() as f64 / (2147483647 as f64 + 1.0f64);
         let mut i: i32 = 0;
         i = 0;
-        while i < n - 1
-            & &{
-                s -= *p.offset(i as isize);
-                s >= 0 as f64
-            }
-        {
-            i = i.wrapping_add(1);
+        while i < n - 1 && {
+            s -= *p.offset(i as isize);
+            s >= 0 as f64
+        } {
+            i += 1;
             i;
         }
         return i;
@@ -60,7 +56,6 @@ fn main_0() -> i32 {
         b"You win.\0" as *const u8 as *const i8,
     ];
     let mut p: [f64; 3] = [1.0f64 / 3 as f64, 1.0f64 / 3 as f64, 1.0f64 / 3 as f64];
-// SAFETY: machine generated unsafe code
     unsafe {
         loop {
             my_action = rand_idx(p.as_mut_ptr(), 3);
@@ -79,7 +74,7 @@ fn main_0() -> i32 {
                     return 0;
                 }
             } else {
-                user_action = user_action.wrapping_sub(1);
+                user_action -= 1;
                 user_action;
                 if user_action > 2 || user_action < 0 {
                     print!("invalid choice; again\n");

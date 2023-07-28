@@ -7,7 +7,7 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {
     fn rand() -> i32;
     fn cos(_: f64) -> f64;
@@ -16,33 +16,31 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn drand() -> f64 {
-// SAFETY: machine generated unsafe code
     unsafe {
-        (f64::from(rand()) + 1.0f64) / (2147483647_f64 + 1.0f64)
+        return (rand() as f64 + 1.0f64) / (2147483647 as f64 + 1.0f64);
     }
 }
 
 #[no_mangle]
 pub extern "C" fn random_normal() -> f64 {
-// SAFETY: machine generated unsafe code
     unsafe {
-        sqrt(-2_f64 * log(drand()))
-            * cos(2_f64 * 3.141_592_653_589_793_f64 * drand())
+        return sqrt(-2i32 as f64 * log(drand()))
+            * cos(2 as f64 * 3.14159265358979323846f64 * drand());
     }
 }
 
 fn main_0() -> i32 {
     let mut i: i32 = 0;
     let mut rands: [f64; 1000] = [0.; 1000];
-    i = 0_i32;
-    while i < 1_000_i32 {
-        rands[i as usize] = 0.5f64.mul_add(random_normal(), 1.0f64);
-        i = i.wrapping_add(1);
+    i = 0;
+    while i < 1000 {
+        rands[i as usize] = 1.0f64 + 0.5f64 * random_normal();
+        i += 1;
         i;
     }
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

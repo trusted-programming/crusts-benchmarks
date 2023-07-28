@@ -8,7 +8,7 @@
     unused_mut
 )]
 #![feature(extern_types)]
-
+use c2rust_out::*;
 extern "C" {
     pub type _IO_wide_data;
     pub type _IO_codecvt;
@@ -24,7 +24,6 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -60,7 +59,6 @@ pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct PrimeArray {
     pub ptr: *mut i64,
     pub size: u64,
@@ -69,31 +67,29 @@ pub struct PrimeArray {
 #[no_mangle]
 pub extern "C" fn allocate() -> PrimeArray {
     let mut primes: PrimeArray = PrimeArray {
-        ptr: std::ptr::null_mut::<i64>(),
+        ptr: 0 as *mut i64,
         size: 0,
         capacity: 0,
     };
     primes.size = 0;
     primes.capacity = 10;
-// SAFETY: machine generated unsafe code
     unsafe {
-        primes.ptr = malloc((primes.capacity).wrapping_mul(::core::mem::size_of::<i64>() as u64)).cast::<i64>();
+        primes.ptr = malloc((primes.capacity).wrapping_mul(::core::mem::size_of::<i64>() as u64))
+            as *mut i64;
     }
-    primes
+    return primes;
 }
 
 #[no_mangle]
 pub extern "C" fn deallocate(mut primes: *mut PrimeArray) {
-// SAFETY: machine generated unsafe code
     unsafe {
-        free((*primes).ptr.cast::<libc::c_void>());
-        (*primes).ptr = std::ptr::null_mut::<i64>();
+        free((*primes).ptr as *mut libc::c_void);
+        (*primes).ptr = 0 as *mut i64;
     }
 }
 
 #[no_mangle]
 pub extern "C" fn push_back(mut primes: *mut PrimeArray, mut p: i64) {
-// SAFETY: machine generated unsafe code
     unsafe {
         if (*primes).size >= (*primes).capacity {
             let mut new_capacity: u64 = 3u64
@@ -101,13 +97,13 @@ pub extern "C" fn push_back(mut primes: *mut PrimeArray, mut p: i64) {
                 .wrapping_div(2)
                 .wrapping_add(1);
             let mut temp: *mut i64 = realloc(
-                (*primes).ptr.cast::<libc::c_void>(),
+                (*primes).ptr as *mut libc::c_void,
                 new_capacity.wrapping_mul(::core::mem::size_of::<i64>() as u64),
-            ).cast::<i64>();
+            ) as *mut i64;
             if temp.is_null() {
                 fprintf(
                     stderr,
-                    (b"Failed to reallocate the prime array.\0" as *const u8).cast::<i8>(),
+                    b"Failed to reallocate the prime array.\0" as *const u8 as *const i8,
                 );
                 exit(1);
             } else {
@@ -134,14 +130,13 @@ fn main_0() -> i32 {
     let mut i: i64 = 0;
     push_back(&mut primes, 3);
     push_back(&mut primes, 5);
-    println!("The first {} cuban primes:", cutOff);
+    print!("The first {} cuban primes:\n", cutOff);
     i = 1;
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < 9223372036854775807 {
             let mut found: bool = 0 != 0;
-            u = u.wrapping_add(6);
-            v = v.wrapping_add(u);
+            u += 6;
+            v += u;
             let mut mx: i64 = ceil(sqrt(v as f64)) as i64;
             let mut j: i64 = 0;
             j = 0;
@@ -150,19 +145,19 @@ fn main_0() -> i32 {
                     break;
                 }
                 if v % *(primes.ptr).offset(j as isize) == 0 {
-                    found = 1_i32 != 0_i32;
+                    found = 1 != 0;
                     break;
                 } else {
-                    j = j.wrapping_add(1);
+                    j += 1;
                     j;
                 }
             }
             if !found {
-                c = c.wrapping_add(1);
+                c += 1;
                 if showEach {
                     let mut z: i64 = 0;
                     z = *(primes.ptr).offset((primes.size).wrapping_sub(1) as isize) + 2;
-                    while z <= v.wrapping_sub(2) {
+                    while z <= v - 2 {
                         let mut fnd: bool = 0 != 0;
                         j = 0;
                         while (j as u64) < primes.size as u64 {
@@ -170,47 +165,46 @@ fn main_0() -> i32 {
                                 break;
                             }
                             if z % *(primes.ptr).offset(j as isize) == 0 {
-                                fnd = 1_i32 != 0_i32;
+                                fnd = 1 != 0;
                                 break;
                             } else {
-                                j = j.wrapping_add(1);
+                                j += 1;
                                 j;
                             }
                         }
                         if !fnd {
                             push_back(&mut primes, z);
                         }
-                        z = z.wrapping_add(2);
+                        z += 2;
                     }
                     push_back(&mut primes, v);
                     print!("{:11}", v);
-                    if c % 10_i32 == 0_i32 {
-                        println!();
+                    if c % 10 == 0 {
+                        print!("\n");
                     }
                     if c == cutOff {
-                        showEach = 0_i32 != 0_i32;
+                        showEach = 0 != 0;
                         print!("\nProgress to the {}th cuban prime: ", bigUn);
                     }
                 }
-                if c % little == 0_i32 {
+                if c % little == 0 {
                     print!(".");
                     if c == bigUn {
                         break;
                     }
                 }
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }
     print!("\nThe {}th cuban prime is {}\n", c, v);
     deallocate(&mut primes);
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-// SAFETY: machine generated unsafe code
     unsafe {
-        ::std::process::exit(main_0());
+        ::std::process::exit(main_0() as i32);
     }
 }

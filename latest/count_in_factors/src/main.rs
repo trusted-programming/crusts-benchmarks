@@ -7,13 +7,12 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {
     fn realloc(_: *mut libc::c_void, _: u64) -> *mut libc::c_void;
 }
 #[no_mangle]
 pub extern "C" fn get_prime(mut idx: i32) -> u64 {
-// SAFETY: machine generated unsafe code
     unsafe {
         static mut n_primes: i64 = 0;
         static mut alloc: i64 = 0;
@@ -21,41 +20,41 @@ pub extern "C" fn get_prime(mut idx: i32) -> u64 {
         let mut last: u64 = 0;
         let mut p: u64 = 0;
         let mut i: i32 = 0;
-        if i64::from(idx) >= n_primes {
+        if idx as i64 >= n_primes {
             if n_primes >= alloc {
-                alloc = alloc.wrapping_add(16);
+                alloc += 16;
                 primes = realloc(
-                    primes.cast::<libc::c_void>(),
+                    primes as *mut libc::c_void,
                     (::core::mem::size_of::<u64>() as u64).wrapping_mul(alloc as u64),
-                ).cast::<u64>();
+                ) as *mut u64;
             }
             if n_primes == 0 {
-                *primes.offset(0_isize) = 2;
-                *primes.offset(1_isize) = 3;
+                *primes.offset(0 as isize) = 2;
+                *primes.offset(1 as isize) = 3;
                 n_primes = 2;
             }
-            last = *primes.offset((n_primes.wrapping_sub(1i64)) as isize);
-            while i64::from(idx) >= n_primes {
-                last = (last).wrapping_add(2);
-                i = 0_i32;
-                while i64::from(i) < n_primes {
+            last = *primes.offset((n_primes - 1i64) as isize);
+            while idx as i64 >= n_primes {
+                last = (last).wrapping_add(2) as u64;
+                i = 0;
+                while (i as i64) < n_primes {
                     p = *primes.offset(i as isize);
                     if p.wrapping_mul(p) > last {
                         let fresh0 = n_primes;
-                        n_primes = n_primes.wrapping_add(1);
+                        n_primes = n_primes + 1;
                         *primes.offset(fresh0 as isize) = last;
                         break;
                     } else {
                         if last.wrapping_rem(p) == 0 {
                             break;
                         }
-                        i = i.wrapping_add(1);
+                        i += 1;
                         i;
                     }
                 }
             }
         }
-        *primes.offset(idx as isize)
+        return *primes.offset(idx as isize);
     }
 }
 
@@ -69,37 +68,37 @@ fn main_0() -> i32 {
     while x < 1000 {
         n = x;
         print!("{} = ", n);
-        i = 0_i32;
-        first = 1_i32;
+        i = 0;
+        first = 1;
         loop {
             p = get_prime(i);
             while n.wrapping_rem(p) == 0 {
-                n = (n).wrapping_div(p);
-                if first == 0_i32 {
+                n = (n).wrapping_div(p) as u64;
+                if first == 0 {
                     print!(" x ");
                 }
-                first = 0_i32;
+                first = 0;
                 print!("{}", p);
             }
             if n <= p.wrapping_mul(p) {
                 break;
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
-        if first != 0_i32 {
-            println!("{}", n);
+        if first != 0 {
+            print!("{}\n", n);
         } else if n > 1 {
-            println!(" x {}", n);
+            print!(" x {}\n", n);
         } else {
-            println!();
+            print!("\n");
         }
         x = x.wrapping_add(1);
         x;
     }
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

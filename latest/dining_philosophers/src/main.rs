@@ -8,7 +8,7 @@
     unused_mut
 )]
 #![feature(c_variadic, extern_types)]
-
+use c2rust_out::*;
 extern "C" {
     pub type _IO_wide_data;
     pub type _IO_codecvt;
@@ -16,7 +16,6 @@ extern "C" {
     fn pthread_create(
         __newthread: *mut u64,
         __attr: *const pthread_attr_t,
-// SAFETY: machine generated unsafe code
         __start_routine: Option<unsafe extern "C" fn(*mut libc::c_void) -> *mut libc::c_void>,
         __arg: *mut libc::c_void,
     ) -> i32;
@@ -38,7 +37,6 @@ extern "C" {
 pub type __builtin_va_list = [__va_list_tag; 1];
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct __va_list_tag {
     pub gp_offset: u32,
     pub fp_offset: u32,
@@ -47,7 +45,6 @@ pub struct __va_list_tag {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct __pthread_internal_list {
     pub __prev: *mut __pthread_internal_list,
     pub __next: *mut __pthread_internal_list,
@@ -55,7 +52,6 @@ pub struct __pthread_internal_list {
 pub type __pthread_list_t = __pthread_internal_list;
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct __pthread_mutex_s {
     pub __lock: i32,
     pub __count: u32,
@@ -96,7 +92,6 @@ pub const PTHREAD_MUTEX_TIMED_NP: u32 = 0;
 pub type va_list = __builtin_va_list;
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -132,11 +127,11 @@ pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 #[no_mangle]
 pub static mut names: [*const i8; 5] = [
-    (b"Aristotle\0" as *const u8).cast::<i8>(),
-    (b"Kant\0" as *const u8).cast::<i8>(),
-    (b"Spinoza\0" as *const u8).cast::<i8>(),
-    (b"Marx\0" as *const u8).cast::<i8>(),
-    (b"Russell\0" as *const u8).cast::<i8>(),
+    b"Aristotle\0" as *const u8 as *const i8,
+    b"Kant\0" as *const u8 as *const i8,
+    b"Spinoza\0" as *const u8 as *const i8,
+    b"Marx\0" as *const u8 as *const i8,
+    b"Russell\0" as *const u8 as *const i8,
 ];
 #[no_mangle]
 pub static mut forks: [pthread_mutex_t; 5] = [pthread_mutex_t {
@@ -156,19 +151,17 @@ pub static mut forks: [pthread_mutex_t; 5] = [pthread_mutex_t {
 }; 5];
 #[no_mangle]
 pub static mut topic: [*const i8; 5] = [
-    (b"Spaghetti!\0" as *const u8).cast::<i8>(),
-    (b"Life\0" as *const u8).cast::<i8>(),
-    (b"Universe\0" as *const u8).cast::<i8>(),
-    (b"Everything\0" as *const u8).cast::<i8>(),
-    (b"Bathroom\0" as *const u8).cast::<i8>(),
+    b"Spaghetti!\0" as *const u8 as *const i8,
+    b"Life\0" as *const u8 as *const i8,
+    b"Universe\0" as *const u8 as *const i8,
+    b"Everything\0" as *const u8 as *const i8,
+    b"Bathroom\0" as *const u8 as *const i8,
 ];
 #[no_mangle]
-// SAFETY: machine generated unsafe code
 pub unsafe extern "C" fn print(mut y: i32, mut x: i32, mut fmt: *const i8, mut args: ...) {
     static mut screen: pthread_mutex_t = pthread_mutex_t {
         __data: {
-            
-            __pthread_mutex_s {
+            let mut init = __pthread_mutex_s {
                 __lock: 0,
                 __count: 0,
                 __owner: 0,
@@ -177,21 +170,22 @@ pub unsafe extern "C" fn print(mut y: i32, mut x: i32, mut fmt: *const i8, mut a
                 __spins: 0,
                 __elision: 0,
                 __list: {
-                    
-                    __pthread_internal_list {
+                    let mut init = __pthread_internal_list {
                         __prev: 0 as *const __pthread_internal_list as *mut __pthread_internal_list,
                         __next: 0 as *const __pthread_internal_list as *mut __pthread_internal_list,
-                    }
+                    };
+                    init
                 },
-            }
+            };
+            init
         },
     };
     let mut ap: ::core::ffi::VaListImpl;
     ap = args.clone();
     pthread_mutex_lock(&mut screen);
-    print!("\x1B[{};{}H", y + 1_i32, x);
+    print!("\x1B[{};{}H", y + 1, x);
     vprintf(fmt, ap.as_va_list());
-    print!("\x1B[{};{}H", 5_i32 + 1_i32, 1_i32);
+    print!("\x1B[{};{}H", 5 + 1, 1);
     fflush(stdout);
     pthread_mutex_unlock(&mut screen);
 }
@@ -201,58 +195,50 @@ pub extern "C" fn eat(mut id: i32) {
     let mut f: [i32; 2] = [0; 2];
     let mut ration: i32 = 0;
     let mut i: i32 = 0;
-    f[1_usize] = id;
-    f[0_usize] = f[1_usize];
-    f[(id & 1i32) as usize] = (id.wrapping_add(1)) % 5_i32;
-// SAFETY: machine generated unsafe code
+    f[1 as usize] = id;
+    f[0 as usize] = f[1 as usize];
+    f[(id & 1i32) as usize] = (id + 1) % 5;
     unsafe {
-        print(id, 12, (b"\x1B[K\0" as *const u8).cast::<i8>());
+        print(id, 12, b"\x1B[K\0" as *const u8 as *const i8);
         print(
             id,
             12,
-            (b"..oO (forks, need forks)\0" as *const u8).cast::<i8>(),
+            b"..oO (forks, need forks)\0" as *const u8 as *const i8,
         );
     }
-    i = 0_i32;
-// SAFETY: machine generated unsafe code
+    i = 0;
     unsafe {
-        while i < 2_i32 {
+        while i < 2 {
             pthread_mutex_lock(forks.as_mut_ptr().offset(f[i as usize] as isize));
-            if i == 0_i32 {
-                print(id, 12, (b"\x1B[K\0" as *const u8).cast::<i8>());
+            if i == 0 {
+                print(id, 12, b"\x1B[K\0" as *const u8 as *const i8);
             }
             print(
                 id,
-                12 + i32::from(f[i as usize] != id) * 6,
-                (b"fork%d\0" as *const u8).cast::<i8>(),
+                12 + (f[i as usize] != id) as i32 * 6,
+                b"fork%d\0" as *const u8 as *const i8,
                 f[i as usize],
             );
             sleep(1);
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }
-    i = 0_i32;
-// SAFETY: machine generated unsafe code
+    i = 0;
     unsafe {
-        ration = 3_i32 + rand() % 8_i32;
+        ration = 3 + rand() % 8;
         while i < ration {
-            print(
-                id,
-                24 + i.wrapping_mul(4),
-                (b"nom\0" as *const u8).cast::<i8>(),
-            );
+            print(id, 24 + i * 4, b"nom\0" as *const u8 as *const i8);
             sleep(1);
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }
-    i = 0_i32;
-// SAFETY: machine generated unsafe code
+    i = 0;
     unsafe {
-        while i < 2_i32 {
+        while i < 2 {
             pthread_mutex_unlock(forks.as_mut_ptr().offset(f[i as usize] as isize));
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }
@@ -263,32 +249,31 @@ pub extern "C" fn think(mut id: i32) {
     let mut i: i32 = 0;
     let mut t: i32 = 0;
     let mut buf: [i8; 64] = [0; 64];
-// SAFETY: machine generated unsafe code
     unsafe {
         loop {
-            print(id, 12, (b"\x1B[K\0" as *const u8).cast::<i8>());
-            t = rand() % 5_i32;
+            print(id, 12, b"\x1B[K\0" as *const u8 as *const i8);
+            t = rand() % 5;
             sprintf(
                 buf.as_mut_ptr(),
-                (b"..oO (%s)\0" as *const u8).cast::<i8>(),
+                b"..oO (%s)\0" as *const u8 as *const i8,
                 topic[t as usize],
             );
-            i = 0_i32;
+            i = 0;
             while buf[i as usize] != 0 {
                 print(
                     id,
-                    i.wrapping_add(12),
-                    (b"%c\0" as *const u8).cast::<i8>(),
-                    i32::from(buf[i as usize]),
+                    i + 12,
+                    b"%c\0" as *const u8 as *const i8,
+                    buf[i as usize] as i32,
                 );
-                if i < 5_i32 {
+                if i < 5 {
                     usleep(200000);
                 }
-                i = i.wrapping_add(1);
+                i += 1;
                 i;
             }
             usleep((500000 + rand() % 1000000i32) as u32);
-            if t == 0_i32 {
+            if !(t != 0) {
                 break;
             }
         }
@@ -297,13 +282,12 @@ pub extern "C" fn think(mut id: i32) {
 
 #[no_mangle]
 pub extern "C" fn philosophize(mut a: *mut libc::c_void) -> *mut libc::c_void {
-// SAFETY: machine generated unsafe code
     unsafe {
-        let mut id: i32 = *a.cast::<i32>();
+        let mut id: i32 = *(a as *mut i32);
         print(
             id,
             1,
-            (b"%10s\0" as *const u8).cast::<i8>(),
+            b"%10s\0" as *const u8 as *const i8,
             names[id as usize],
         );
         loop {
@@ -317,37 +301,34 @@ fn main_0() -> i32 {
     let mut i: i32 = 0;
     let mut id: [i32; 5] = [0; 5];
     let mut tid: [u64; 5] = [0; 5];
-    i = 0_i32;
-// SAFETY: machine generated unsafe code
+    i = 0;
     unsafe {
-        while i < 5_i32 {
+        while i < 5 {
             id[i as usize] = i;
             pthread_mutex_init(
                 forks.as_mut_ptr().offset(id[i as usize] as isize),
-                std::ptr::null::<pthread_mutexattr_t>(),
+                0 as *const pthread_mutexattr_t,
             );
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }
-    i = 0_i32;
-// SAFETY: machine generated unsafe code
+    i = 0;
     unsafe {
-        while i < 5_i32 {
+        while i < 5 {
             pthread_create(
                 tid.as_mut_ptr().offset(i as isize),
-                std::ptr::null::<pthread_attr_t>(),
-// SAFETY: machine generated unsafe code
+                0 as *const pthread_attr_t,
                 Some(philosophize as unsafe extern "C" fn(*mut libc::c_void) -> *mut libc::c_void),
-                id.as_mut_ptr().offset(i as isize).cast::<libc::c_void>(),
+                id.as_mut_ptr().offset(i as isize) as *mut libc::c_void,
             );
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
-        pthread_join(tid[0_usize], std::ptr::null_mut::<*mut libc::c_void>())
+        return pthread_join(tid[0 as usize], 0 as *mut *mut libc::c_void);
     }
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

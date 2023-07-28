@@ -9,18 +9,17 @@
 )]
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
-        while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+        while *raw_ptr.offset(str_size as isize) != 0 {
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
     }
 }
 
-
+use c2rust_out::*;
 extern "C" {
     pub type _IO_wide_data;
     pub type _IO_codecvt;
@@ -31,7 +30,6 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -67,11 +65,10 @@ pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 #[no_mangle]
 pub extern "C" fn roman(mut s: *mut i8, mut n: u32) {
-// SAFETY: machine generated unsafe code
     unsafe {
         if n == 0 {
             fputs(
-                (b"Roman numeral for zero requested.\0" as *const u8).cast::<i8>(),
+                b"Roman numeral for zero requested.\0" as *const u8 as *const i8,
                 stderr,
             );
             exit(1);
@@ -180,25 +177,23 @@ fn main_0() -> i32 {
     let mut buffer: [i8; 16] = [0; 16];
     let mut i: u32 = 0;
     i = 1;
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < 4000 {
             roman(buffer.as_mut_ptr(), i);
-            println!(
-                "{:4}: {}",
+            print!(
+                "{:4}: {}\n",
                 i,
-                build_str_from_raw_ptr(buffer.as_mut_ptr().cast::<u8>())
+                build_str_from_raw_ptr(buffer.as_mut_ptr() as *mut u8)
             );
             i = i.wrapping_add(1);
             i;
         }
     }
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-// SAFETY: machine generated unsafe code
     unsafe {
-        ::std::process::exit(main_0());
+        ::std::process::exit(main_0() as i32);
     }
 }

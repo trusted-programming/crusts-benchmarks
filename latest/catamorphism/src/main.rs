@@ -7,76 +7,68 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {}
-// SAFETY: machine generated unsafe code
 pub type intFn = Option<unsafe extern "C" fn(i32, i32) -> i32>;
 #[no_mangle]
 pub extern "C" fn reduce(mut fn_0: intFn, mut size: i32, mut elms: *mut i32) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut val: i32 = *elms;
-        i = 1_i32;
+        i = 1;
         while i < size {
-            match fn_0 {
-                Some(fn_0_m) => val = fn_0_m(val, *elms.offset(i as isize)),
-                None => panic!("non-null function pointer"),
-            }
-            i = i.wrapping_add(1);
+            val = fn_0.expect("non-null function pointer")(val, *elms.offset(i as isize));
+            i += 1;
             i;
         }
-        val
+        return val;
     }
 }
 
 #[no_mangle]
 pub extern "C" fn add(mut a: i32, mut b: i32) -> i32 {
-    a.wrapping_add(b)
+    return a + b;
 }
 
 #[no_mangle]
 pub extern "C" fn sub(mut a: i32, mut b: i32) -> i32 {
-    a - b
+    return a - b;
 }
 
 #[no_mangle]
 pub extern "C" fn mul(mut a: i32, mut b: i32) -> i32 {
-    a.wrapping_mul(b)
+    return a * b;
 }
 
 fn main_0() -> i32 {
     let mut nums: [i32; 5] = [1, 2, 3, 4, 5];
-    println!(
-        "{}",
+    print!(
+        "{}\n",
         reduce(
-// SAFETY: machine generated unsafe code
             Some(add as unsafe extern "C" fn(i32, i32) -> i32),
             5,
             nums.as_mut_ptr(),
         )
     );
-    println!(
-        "{}",
+    print!(
+        "{}\n",
         reduce(
-// SAFETY: machine generated unsafe code
             Some(sub as unsafe extern "C" fn(i32, i32) -> i32),
             5,
             nums.as_mut_ptr(),
         )
     );
-    println!(
-        "{}",
+    print!(
+        "{}\n",
         reduce(
-// SAFETY: machine generated unsafe code
             Some(mul as unsafe extern "C" fn(i32, i32) -> i32),
             5,
             nums.as_mut_ptr(),
         )
     );
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

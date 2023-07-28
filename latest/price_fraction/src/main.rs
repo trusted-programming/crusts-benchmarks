@@ -7,7 +7,7 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {
     fn abort() -> !;
 }
@@ -33,19 +33,18 @@ pub static mut table: [[f64; 2]; 21] = [
     [0.91f64, 0.94f64],
     [0.96f64, 0.98f64],
     [1.01f64, 1.00f64],
-    [-1_f64, 0_i32 as f64],
+    [-1i32 as f64, 0 as f64],
 ];
 #[no_mangle]
 pub extern "C" fn price_fix(mut x: f64) -> f64 {
     let mut i: i32 = 0;
-    i = 0_i32;
-// SAFETY: machine generated unsafe code
+    i = 0;
     unsafe {
-        while table[i as usize][0_usize] > f64::from(0_i32) {
-            if x < table[i as usize][0_usize] {
-                return table[i as usize][1_usize];
+        while table[i as usize][0 as usize] > 0 as f64 {
+            if x < table[i as usize][0 as usize] {
+                return table[i as usize][1 as usize];
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
         abort();
@@ -54,19 +53,19 @@ pub extern "C" fn price_fix(mut x: f64) -> f64 {
 
 fn main_0() -> i32 {
     let mut i: i32 = 0;
-    i = 0_i32;
-    while i <= 100_i32 {
-        println!(
-            "{:.2} {:.2}",
-            f64::from(i) / 100.0f64,
-            price_fix(f64::from(i) / 100.0f64)
+    i = 0;
+    while i <= 100 {
+        print!(
+            "{:.2} {:.2}\n",
+            i as f64 / 100.0f64,
+            price_fix(i as f64 / 100.0f64)
         );
-        i = i.wrapping_add(1);
+        i += 1;
         i;
     }
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

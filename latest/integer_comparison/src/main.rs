@@ -7,33 +7,32 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {
     fn scanf(_: *const i8, _: ...) -> i32;
 }
 fn main_0() -> i32 {
     let mut a: i32 = 0;
     let mut b: i32 = 0;
-// SAFETY: machine generated unsafe code
     unsafe {
         scanf(
-            (b"%d %d\0" as *const u8).cast::<i8>(),
+            b"%d %d\0" as *const u8 as *const i8,
             &mut a as *mut i32,
             &mut b as *mut i32,
         );
     }
     if a < b {
-        println!("{} is less than {}", a, b);
+        print!("{} is less than {}\n", a, b);
     }
     if a == b {
-        println!("{} is equal to {}", a, b);
+        print!("{} is equal to {}\n", a, b);
     }
     if a > b {
-        println!("{} is greater than {}", a, b);
+        print!("{} is greater than {}\n", a, b);
     }
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

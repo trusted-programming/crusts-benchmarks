@@ -7,7 +7,7 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {
     fn scanf(_: *const i8, _: ...) -> i32;
     fn calloc(_: u64, _: u64) -> *mut libc::c_void;
@@ -16,71 +16,69 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn makehist(mut S: *mut i8, mut hist: *mut i32, mut len: i32) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut wherechar: [i32; 256] = [0; 256];
         let mut i: i32 = 0;
         let mut histlen: i32 = 0;
-        histlen = 0_i32;
-        i = 0_i32;
-        while i < 256_i32 {
-            wherechar[i as usize] = -1_i32;
-            i = i.wrapping_add(1);
+        histlen = 0;
+        i = 0;
+        while i < 256 {
+            wherechar[i as usize] = -1;
+            i += 1;
             i;
         }
-        i = 0_i32;
+        i = 0;
         while i < len {
-            if wherechar[i32::from(*S.offset(i as isize)) as usize] == -1_i32 {
-                wherechar[i32::from(*S.offset(i as isize)) as usize] = histlen;
-                histlen = histlen.wrapping_add(1);
+            if wherechar[*S.offset(i as isize) as i32 as usize] == -1 {
+                wherechar[*S.offset(i as isize) as i32 as usize] = histlen;
+                histlen += 1;
                 histlen;
             }
-            let fresh0 = &mut (*hist.offset(wherechar[i32::from(*S.offset(i as isize)) as usize] as isize));
-            *fresh0 += 1_i32;
+            let ref mut fresh0 =
+                *hist.offset(wherechar[*S.offset(i as isize) as i32 as usize] as isize);
+            *fresh0 += 1;
             *fresh0;
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
-        histlen
+        return histlen;
     }
 }
 
 #[no_mangle]
 pub extern "C" fn entropy(mut hist: *mut i32, mut histlen: i32, mut len: i32) -> f64 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut H: f64 = 0.;
-        H = f64::from(0_i32);
-        i = 0_i32;
+        H = 0 as f64;
+        i = 0;
         while i < histlen {
-            H -= f64::from(*hist.offset(i as isize)) / f64::from(len)
-                * log2(f64::from(*hist.offset(i as isize)) / f64::from(len));
-            i = i.wrapping_add(1);
+            H -= *hist.offset(i as isize) as f64 / len as f64
+                * log2(*hist.offset(i as isize) as f64 / len as f64);
+            i += 1;
             i;
         }
-        H
+        return H;
     }
 }
 
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut S: [i8; 100] = [0; 100];
         let mut len: i32 = 0;
-        let mut hist: *mut i32 = std::ptr::null_mut::<i32>();
+        let mut hist: *mut i32 = 0 as *mut i32;
         let mut histlen: i32 = 0;
         let mut H: f64 = 0.;
-        scanf((b"%[^\n]\0" as *const u8).cast::<i8>(), S.as_mut_ptr());
+        scanf(b"%[^\n]\0" as *const u8 as *const i8, S.as_mut_ptr());
         len = strlen(S.as_mut_ptr()) as i32;
-        hist = calloc(len as u64, ::core::mem::size_of::<i32>() as u64).cast::<i32>();
+        hist = calloc(len as u64, ::core::mem::size_of::<i32>() as u64) as *mut i32;
         histlen = makehist(S.as_mut_ptr(), hist, len);
         H = entropy(hist, histlen, len);
-        println!("{}", H);
-        0_i32
+        print!("{}\n", H);
+        return 0;
     }
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

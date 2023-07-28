@@ -7,24 +7,24 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {}
 #[no_mangle]
 pub extern "C" fn is89(mut x: i32) -> i32 {
     loop {
         let mut s: i32 = 0;
         loop {
-            s += x % 10_i32 * (x % 10_i32);
-            x = x.wrapping_div(10);
-            if x == 0_i32 {
+            s += x % 10 * (x % 10);
+            x /= 10;
+            if !(x != 0) {
                 break;
             }
         }
-        if s == 89_i32 {
-            return 1_i32;
+        if s == 89 {
+            return 1;
         }
-        if s == 1_i32 {
-            return 0_i32;
+        if s == 1 {
+            return 0;
         }
         x = s;
     }
@@ -122,41 +122,41 @@ fn main_0() -> i32 {
     ];
     let mut n: i32 = 1;
     loop {
-        let mut i: i32 = n.wrapping_mul(81);
-        while i != 0_i32 {
+        let mut i: i32 = n * 81;
+        while i != 0 {
             let mut j: i32 = 1;
-            while j < 10_i32 {
-                let mut s: i32 = j.wrapping_mul(j);
+            while j < 10 {
+                let mut s: i32 = j * j;
                 if s > i {
                     break;
                 }
                 sums[i as usize] =
-                    sums[i as usize].wrapping_add(sums[(i - s) as usize]);
-                j = j.wrapping_add(1);
+                    (sums[i as usize] as u64).wrapping_add(sums[(i - s) as usize]) as u64;
+                j += 1;
                 j;
             }
-            i = i.wrapping_sub(1);
+            i -= 1;
             i;
         }
         let mut count89: u64 = 0;
         let mut i_0: i32 = 1;
-        while i_0 < n * 81_i32 + 1_i32 {
-            if is89(i_0) != 0_i32 {
+        while i_0 < n * 81 + 1 {
+            if !(is89(i_0) == 0) {
                 if sums[i_0 as usize] > (!0u64).wrapping_sub(count89) {
-                    println!("counter overflow for 10^{}", n);
-                    return 0_i32;
+                    print!("counter overflow for 10^{}\n", n);
+                    return 0;
                 }
-                count89 = (count89).wrapping_add(sums[i_0 as usize]);
+                count89 = (count89).wrapping_add(sums[i_0 as usize]) as u64;
             }
-            i_0 = i_0.wrapping_add(1);
+            i_0 += 1;
             i_0;
         }
-        println!("1->10^{}: {}", n, count89);
-        n = n.wrapping_add(1);
+        print!("1->10^{}: {}\n", n, count89);
+        n += 1;
         n;
     }
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

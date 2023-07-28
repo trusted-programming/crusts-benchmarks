@@ -8,24 +8,22 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
-        while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+        while *raw_ptr.offset(str_size as isize) != 0 {
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
     }
 }
 
-
+use c2rust_out::*;
 extern "C" {
     fn mktime(__tp: *mut tm) -> i64;
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct tm {
     pub tm_sec: i32,
     pub tm_min: i32,
@@ -40,28 +38,27 @@ pub struct tm {
     pub tm_zone: *const i8,
 }
 static mut months: [*const i8; 12] = [
-    (b"January\0" as *const u8).cast::<i8>(),
-    (b"February\0" as *const u8).cast::<i8>(),
-    (b"March\0" as *const u8).cast::<i8>(),
-    (b"April\0" as *const u8).cast::<i8>(),
-    (b"May\0" as *const u8).cast::<i8>(),
-    (b"June\0" as *const u8).cast::<i8>(),
-    (b"July\0" as *const u8).cast::<i8>(),
-    (b"August\0" as *const u8).cast::<i8>(),
-    (b"September\0" as *const u8).cast::<i8>(),
-    (b"October\0" as *const u8).cast::<i8>(),
-    (b"November\0" as *const u8).cast::<i8>(),
-    (b"December\0" as *const u8).cast::<i8>(),
+    b"January\0" as *const u8 as *const i8,
+    b"February\0" as *const u8 as *const i8,
+    b"March\0" as *const u8 as *const i8,
+    b"April\0" as *const u8 as *const i8,
+    b"May\0" as *const u8 as *const i8,
+    b"June\0" as *const u8 as *const i8,
+    b"July\0" as *const u8 as *const i8,
+    b"August\0" as *const u8 as *const i8,
+    b"September\0" as *const u8 as *const i8,
+    b"October\0" as *const u8 as *const i8,
+    b"November\0" as *const u8 as *const i8,
+    b"December\0" as *const u8 as *const i8,
 ];
-static mut long_months: [i32; 7] = [0_i32, 2_i32, 4_i32, 6_i32, 7_i32, 9_i32, 11_i32];
+static mut long_months: [i32; 7] = [0, 2, 4, 6, 7, 9, 11];
 fn main_0() -> i32 {
     let mut n: i32 = 0;
     let mut y: i32 = 0;
     let mut i: i32 = 0;
     let mut m: i32 = 0;
     let mut t: tm = {
-        
-        tm {
+        let mut init = tm {
             tm_sec: 0,
             tm_min: 0,
             tm_hour: 0,
@@ -72,46 +69,46 @@ fn main_0() -> i32 {
             tm_yday: 0,
             tm_isdst: 0,
             tm_gmtoff: 0,
-            tm_zone: std::ptr::null::<i8>(),
-        }
+            tm_zone: 0 as *const i8,
+        };
+        init
     };
-    println!("Months with five weekends:");
-    y = 1_900_i32;
-// SAFETY: machine generated unsafe code
+    print!("Months with five weekends:\n");
+    y = 1900;
     unsafe {
-        while y <= 2_100_i32 {
-            i = 0_i32;
-            while i < 7_i32 {
+        while y <= 2100 {
+            i = 0;
+            while i < 7 {
                 m = long_months[i as usize];
-                t.tm_year = y.wrapping_sub(1900);
+                t.tm_year = y - 1900;
                 t.tm_mon = m;
-                t.tm_mday = 1_i32;
-                if mktime(&mut t) == -1_i64 {
-                    println!(
-                        "Error: {} {}",
+                t.tm_mday = 1;
+                if mktime(&mut t) == -1 as i64 {
+                    print!(
+                        "Error: {} {}\n",
                         y,
                         build_str_from_raw_ptr(months[m as usize] as *mut u8)
                     );
-                } else if t.tm_wday == 5_i32 {
-                    println!(
-                        "  {} {}",
+                } else if t.tm_wday == 5 {
+                    print!(
+                        "  {} {}\n",
                         y,
                         build_str_from_raw_ptr(months[m as usize] as *mut u8)
                     );
-                    n = n.wrapping_add(1);
+                    n += 1;
                     n;
                 }
-                i = i.wrapping_add(1);
+                i += 1;
                 i;
             }
-            y = y.wrapping_add(1);
+            y += 1;
             y;
         }
     }
-    println!("{} total", n);
-    0_i32
+    print!("{} total\n", n);
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

@@ -8,11 +8,10 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -39,7 +38,6 @@ pub const _ISlower: u32 = 512;
 pub const _ISupper: u32 = 256;
 #[no_mangle]
 pub extern "C" fn get_list(mut s: *const i8, mut e: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut x: i32 = 0;
         loop {
@@ -47,12 +45,10 @@ pub extern "C" fn get_list(mut s: *const i8, mut e: *mut *mut i8) -> i32 {
                 s = s.offset(1);
                 s;
             }
-            if get_rnge(s, e)
-                == 0 & &{
-                    x = strtol(s, e, 10) as i32;
-                    !(*e != s as *mut i8)
-                }
-            {
+            if get_rnge(s, e) == 0 && {
+                x = strtol(s, e, 10) as i32;
+                !(*e != s as *mut i8)
+            } {
                 break;
             }
             s = *e;
@@ -82,7 +78,6 @@ pub extern "C" fn get_list(mut s: *const i8, mut e: *mut *mut i8) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn get_rnge(mut s: *const i8, mut e: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut x: i32 = 0;
         let mut y: i32 = 0;
@@ -123,14 +118,13 @@ pub extern "C" fn add_range(mut x: i32, mut y: i32) -> i32 {
     }
     while x <= y {
         let fresh2 = x;
-        x = x.wrapping_add(1);
+        x = x + 1;
         print!("{} ", fresh2);
     }
     return 1;
 }
 
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut end: *mut i8 = 0 as *mut i8;
         if get_list(

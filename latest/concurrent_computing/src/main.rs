@@ -13,7 +13,6 @@ extern "C" {
     fn pthread_create(
         __newthread: *mut u64,
         __attr: *const pthread_attr_t,
-// SAFETY: machine generated unsafe code
         __start_routine: Option<unsafe extern "C" fn(*mut libc::c_void) -> *mut libc::c_void>,
         __arg: *mut libc::c_void,
     ) -> i32;
@@ -32,14 +31,12 @@ pub union __atomic_wide_counter {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct C2RustUnnamed {
     pub __low: u32,
     pub __high: u32,
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct __pthread_internal_list {
     pub __prev: *mut __pthread_internal_list,
     pub __next: *mut __pthread_internal_list,
@@ -47,7 +44,6 @@ pub struct __pthread_internal_list {
 pub type __pthread_list_t = __pthread_internal_list;
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct __pthread_mutex_s {
     pub __lock: i32,
     pub __count: u32,
@@ -60,7 +56,6 @@ pub struct __pthread_mutex_s {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct __pthread_cond_s {
     pub __wseq: __atomic_wide_counter,
     pub __g1_start: __atomic_wide_counter,
@@ -98,7 +93,6 @@ pub const PTHREAD_MUTEX_ADAPTIVE_NP: u32 = 3;
 pub const PTHREAD_MUTEX_ERRORCHECK_NP: u32 = 2;
 pub const PTHREAD_MUTEX_RECURSIVE_NP: u32 = 1;
 pub const PTHREAD_MUTEX_TIMED_NP: u32 = 0;
-// SAFETY: machine generated unsafe code
 pub type threadfunc = Option<unsafe extern "C" fn(*mut libc::c_void) -> *mut libc::c_void>;
 #[no_mangle]
 pub static mut condm: pthread_mutex_t = pthread_mutex_t {
@@ -141,7 +135,6 @@ pub static mut cond: pthread_cond_t = pthread_cond_t {
 pub static mut bang: i32 = 0;
 #[no_mangle]
 pub extern "C" fn t_enjoy(mut p: *mut libc::c_void) -> *mut libc::c_void {
-// SAFETY: machine generated unsafe code
     unsafe {
         pthread_mutex_lock(&mut condm);
         while bang == 0 {
@@ -155,7 +148,6 @@ pub extern "C" fn t_enjoy(mut p: *mut libc::c_void) -> *mut libc::c_void {
 
 #[no_mangle]
 pub extern "C" fn t_rosetta(mut p: *mut libc::c_void) -> *mut libc::c_void {
-// SAFETY: machine generated unsafe code
     unsafe {
         pthread_mutex_lock(&mut condm);
         while bang == 0 {
@@ -169,7 +161,6 @@ pub extern "C" fn t_rosetta(mut p: *mut libc::c_void) -> *mut libc::c_void {
 
 #[no_mangle]
 pub extern "C" fn t_code(mut p: *mut libc::c_void) -> *mut libc::c_void {
-// SAFETY: machine generated unsafe code
     unsafe {
         pthread_mutex_lock(&mut condm);
         while bang == 0 {
@@ -184,14 +175,10 @@ pub extern "C" fn t_code(mut p: *mut libc::c_void) -> *mut libc::c_void {
 fn main_0() -> i32 {
     let mut i: i32 = 0;
     let mut a: [u64; 3] = [0; 3];
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut p: [threadfunc; 3] = [
-// SAFETY: machine generated unsafe code
             Some(t_enjoy as unsafe extern "C" fn(*mut libc::c_void) -> *mut libc::c_void),
-// SAFETY: machine generated unsafe code
             Some(t_rosetta as unsafe extern "C" fn(*mut libc::c_void) -> *mut libc::c_void),
-// SAFETY: machine generated unsafe code
             Some(t_code as unsafe extern "C" fn(*mut libc::c_void) -> *mut libc::c_void),
         ];
         i = 0;
@@ -202,7 +189,7 @@ fn main_0() -> i32 {
                 p[i as usize],
                 0 as *mut libc::c_void,
             );
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
         sleep(1);
@@ -210,11 +197,10 @@ fn main_0() -> i32 {
         pthread_cond_broadcast(&mut cond);
     }
     i = 0;
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < 3 {
             pthread_join(a[i as usize], 0 as *mut *mut libc::c_void);
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }

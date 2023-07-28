@@ -7,7 +7,7 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {
     fn pow(_: f64, _: f64) -> f64;
 }
@@ -17,18 +17,17 @@ fn main_0() -> i32 {
     let mut c1: i32 = 0;
     let mut c2: i32 = 0;
     let mut k: i32 = 0;
-    k = 1_i32;
-// SAFETY: machine generated unsafe code
+    k = 1;
     unsafe {
-        while f64::from(k) < pow(f64::from(base), f64::from(N)) {
-            c1 = c1.wrapping_add(1);
+        while (k as f64) < pow(base as f64, N as f64) {
+            c1 += 1;
             c1;
-            if k % (base.wrapping_sub(1)) == k * k % (base.wrapping_sub(1)) {
-                c2 = c2.wrapping_add(1);
+            if k % (base - 1) == k * k % (base - 1) {
+                c2 += 1;
                 c2;
                 print!("{} ", k);
             }
-            k = k.wrapping_add(1);
+            k += 1;
             k;
         }
     }
@@ -36,11 +35,11 @@ fn main_0() -> i32 {
         "\nTring {} numbers instead of {} numbers saves {}%\n",
         c2,
         c1,
-        100.0f64 - 100.0f64 * f64::from(c2) / f64::from(c1)
+        100.0f64 - 100.0f64 * c2 as f64 / c1 as f64
     );
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

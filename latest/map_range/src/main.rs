@@ -7,34 +7,33 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {
     fn puts(__s: *const i8) -> i32;
 }
 #[no_mangle]
 pub extern "C" fn mapRange(mut a1: f64, mut a2: f64, mut b1: f64, mut b2: f64, mut s: f64) -> f64 {
-    b1 + (s - a1) * (b2 - b1) / (a2 - a1)
+    return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
 }
 
 fn main_0() -> i32 {
     let mut i: i32 = 0;
-// SAFETY: machine generated unsafe code
     unsafe {
-        puts((b"Mapping [0,10] to [-1,0] at intervals of 1:\0" as *const u8).cast::<i8>());
+        puts(b"Mapping [0,10] to [-1,0] at intervals of 1:\0" as *const u8 as *const i8);
     }
-    i = 0_i32;
-    while i <= 10_i32 {
-        println!(
-            "f({}) = {}",
+    i = 0;
+    while i <= 10 {
+        print!(
+            "f({}) = {}\n",
             i,
-            mapRange(f64::from(0_i32), 10_f64, -1_f64, f64::from(0_i32), f64::from(i))
+            mapRange(0 as f64, 10 as f64, -1i32 as f64, 0 as f64, i as f64)
         );
-        i = i.wrapping_add(1);
+        i += 1;
         i;
     }
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

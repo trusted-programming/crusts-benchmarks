@@ -7,28 +7,28 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {}
 #[no_mangle]
 pub extern "C" fn fusc(mut n: i32) -> i32 {
-    if n == 0_i32 || n == 1_i32 {
-        n
-    } else if n % 2_i32 == 0_i32 {
-        return fusc(n.wrapping_div(2));
+    if n == 0 || n == 1 {
+        return n;
+    } else if n % 2 == 0 {
+        return fusc(n / 2);
     } else {
-        return fusc((n.wrapping_sub(1)) / 2) + fusc((n.wrapping_add(1)) / 2);
-    }
+        return fusc((n - 1) / 2) + fusc((n + 1) / 2);
+    };
 }
 
 #[no_mangle]
 pub extern "C" fn numLen(mut n: i32) -> i32 {
     let mut sum: i32 = 1;
-    while n > 9_i32 {
-        n = n.wrapping_add(10);
-        sum = sum.wrapping_add(1);
+    while n > 9 {
+        n = n / 10;
+        sum += 1;
         sum;
     }
-    sum
+    return sum;
 }
 
 #[no_mangle]
@@ -41,7 +41,7 @@ pub extern "C" fn printLargeFuscs(mut limit: i32) {
         "\n\nPrinting all largest Fusc numbers upto {} \nIndex-------Value",
         limit
     );
-    i = 0_i32;
+    i = 0;
     while i <= limit {
         f = fusc(i);
         len = numLen(f);
@@ -49,7 +49,7 @@ pub extern "C" fn printLargeFuscs(mut limit: i32) {
             maxLen = len;
             print!("\n{:5}{:12}", i, f);
         }
-        i = i.wrapping_add(1);
+        i += 1;
         i;
     }
 }
@@ -57,15 +57,15 @@ pub extern "C" fn printLargeFuscs(mut limit: i32) {
 fn main_0() -> i32 {
     let mut i: i32 = 0;
     print!("Index-------Value");
-    i = 0_i32;
-    while i < 61_i32 {
+    i = 0;
+    while i < 61 {
         print!("\n{:5}{:12}", i, fusc(i));
-        i = i.wrapping_add(1);
+        i += 1;
         i;
     }
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

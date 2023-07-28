@@ -9,18 +9,17 @@
 )]
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
-        while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+        while *raw_ptr.offset(str_size as isize) != 0 {
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
     }
 }
 
-
+use c2rust_out::*;
 extern "C" {
     pub type _IO_wide_data;
     pub type _IO_codecvt;
@@ -39,7 +38,6 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -75,70 +73,68 @@ pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct vector {
     pub values: *mut libc::c_float,
     pub size: i32,
 }
 #[no_mangle]
 pub extern "C" fn extractVector(mut str: *mut i8) -> vector {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut coeff: vector = vector {
-            values: std::ptr::null_mut::<libc::c_float>(),
+            values: 0 as *mut libc::c_float,
             size: 0,
         };
         let mut i: i32 = 0;
         let mut count: i32 = 1;
-        let mut token: *mut i8 = std::ptr::null_mut::<i8>();
-        while i32::from(*str.offset(i as isize)) != 0_i32 {
+        let mut token: *mut i8 = 0 as *mut i8;
+        while *str.offset(i as isize) as i32 != 0 {
             let fresh0 = i;
-            i = i.wrapping_add(1);
-            if i32::from(*str.offset(fresh0 as isize)) == ' ' as i32 {
-                count = count.wrapping_add(1);
+            i = i + 1;
+            if *str.offset(fresh0 as isize) as i32 == ' ' as i32 {
+                count += 1;
                 count;
             }
         }
         coeff.values =
-            malloc((count as u64).wrapping_mul(::core::mem::size_of::<libc::c_float>() as u64)).cast::<f32>();
+            malloc((count as u64).wrapping_mul(::core::mem::size_of::<libc::c_float>() as u64))
+                as *mut libc::c_float;
         coeff.size = count;
-        token = strtok(str, (b" \0" as *const u8).cast::<i8>());
-        i = 0_i32;
+        token = strtok(str, b" \0" as *const u8 as *const i8);
+        i = 0;
         while !token.is_null() {
             let fresh1 = i;
-            i = i.wrapping_add(1);
+            i = i + 1;
             *(coeff.values).offset(fresh1 as isize) = atof(token) as libc::c_float;
-            token = strtok(std::ptr::null_mut::<i8>(), (b" \0" as *const u8).cast::<i8>());
+            token = strtok(0 as *mut i8, b" \0" as *const u8 as *const i8);
         }
-        coeff
+        return coeff;
     }
 }
 
 #[no_mangle]
 pub extern "C" fn processSignalFile(mut fileName: *mut i8) -> vector {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut j: i32 = 0;
         let mut sum: libc::c_float = 0.;
         let mut str: [i8; 1000] = [0; 1000];
         let mut coeff1: vector = vector {
-            values: std::ptr::null_mut::<libc::c_float>(),
+            values: 0 as *mut libc::c_float,
             size: 0,
         };
         let mut coeff2: vector = vector {
-            values: std::ptr::null_mut::<libc::c_float>(),
+            values: 0 as *mut libc::c_float,
             size: 0,
         };
         let mut signal: vector = vector {
-            values: std::ptr::null_mut::<libc::c_float>(),
+            values: 0 as *mut libc::c_float,
             size: 0,
         };
         let mut filteredSignal: vector = vector {
-            values: std::ptr::null_mut::<libc::c_float>(),
+            values: 0 as *mut libc::c_float,
             size: 0,
         };
-        let mut fp: *mut FILE = fopen(fileName, (b"r\0" as *const u8).cast::<i8>());
+        let mut fp: *mut FILE = fopen(fileName, b"r\0" as *const u8 as *const i8);
         fgets(str.as_mut_ptr(), 1000, fp);
         coeff1 = extractVector(str.as_mut_ptr());
         fgets(str.as_mut_ptr(), 1000, fp);
@@ -149,68 +145,67 @@ pub extern "C" fn processSignalFile(mut fileName: *mut i8) -> vector {
         filteredSignal.values = calloc(
             signal.size as u64,
             ::core::mem::size_of::<libc::c_float>() as u64,
-        ).cast::<f32>();
+        ) as *mut libc::c_float;
         filteredSignal.size = signal.size;
-        i = 0_i32;
+        i = 0;
         while i < signal.size {
-            sum = 0_i32 as libc::c_float;
-            j = 0_i32;
+            sum = 0 as libc::c_float;
+            j = 0;
             while j < coeff2.size {
-                if i - j >= 0_i32 {
+                if i - j >= 0 {
                     sum += *(coeff2.values).offset(j as isize)
                         * *(signal.values).offset((i - j) as isize);
                 }
-                j = j.wrapping_add(1);
+                j += 1;
                 j;
             }
-            j = 0_i32;
+            j = 0;
             while j < coeff1.size {
-                if i - j >= 0_i32 {
+                if i - j >= 0 {
                     sum -= *(coeff1.values).offset(j as isize)
                         * *(filteredSignal.values).offset((i - j) as isize);
                 }
-                j = j.wrapping_add(1);
+                j += 1;
                 j;
             }
-            sum /= *(coeff1.values).offset(0_isize);
+            sum /= *(coeff1.values).offset(0 as isize);
             *(filteredSignal.values).offset(i as isize) = sum;
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
-        filteredSignal
+        return filteredSignal;
     }
 }
 
 #[no_mangle]
 pub extern "C" fn printVector(mut v: vector, mut outputFile: *mut i8) {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         if outputFile.is_null() {
             print!("[");
-            i = 0_i32;
+            i = 0;
             while i < v.size {
-                print!("{:.12}, ", f64::from(*(v.values).offset(i as isize)));
-                i = i.wrapping_add(1);
+                print!("{:.12}, ", *(v.values).offset(i as isize) as f64);
+                i += 1;
                 i;
             }
             print!("\x08\x08]");
         } else {
-            let mut fp: *mut FILE = fopen(outputFile, (b"w\0" as *const u8).cast::<i8>());
-            i = 0_i32;
-            while i < v.size - 1_i32 {
+            let mut fp: *mut FILE = fopen(outputFile, b"w\0" as *const u8 as *const i8);
+            i = 0;
+            while i < v.size - 1 {
                 fprintf(
                     fp,
-                    (b"%.12f, \0" as *const u8).cast::<i8>(),
-                    f64::from(*(v.values).offset(i as isize)),
+                    b"%.12f, \0" as *const u8 as *const i8,
+                    *(v.values).offset(i as isize) as f64,
                 );
-                i = i.wrapping_add(1);
+                i += 1;
                 i;
             }
             fprintf(
                 fp,
-                (b"%.12f\0" as *const u8).cast::<i8>(),
-                f64::from(*(v.values).offset(i as isize)),
+                b"%.12f\0" as *const u8 as *const i8,
+                *(v.values).offset(i as isize) as f64,
             );
             fclose(fp);
         };
@@ -218,40 +213,39 @@ pub extern "C" fn printVector(mut v: vector, mut outputFile: *mut i8) {
 }
 
 fn main_0(mut argC: i32, mut argV: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
-        let mut str: *mut i8 = std::ptr::null_mut::<i8>();
-        if !(2_i32..=3_i32).contains(&argC) {
+        let mut str: *mut i8 = 0 as *mut i8;
+        if argC < 2 || argC > 3 {
             print!(
                 "Usage : {} <name of signal data file and optional output file.>",
-                build_str_from_raw_ptr((*argV.offset(0_isize)).cast::<u8>())
+                build_str_from_raw_ptr(*argV.offset(0 as isize) as *mut u8)
             );
         } else {
-            if argC != 2_i32 {
+            if argC != 2 {
                 str = malloc(
-                    (strlen(*argV.offset(2_isize)))
+                    (strlen(*argV.offset(2 as isize)))
                         .wrapping_add(strlen(str))
                         .wrapping_add(1)
                         .wrapping_mul(::core::mem::size_of::<i8>() as u64),
-                ).cast::<i8>();
-                strcpy(str, (b"written to \0" as *const u8).cast::<i8>());
+                ) as *mut i8;
+                strcpy(str, b"written to \0" as *const u8 as *const i8);
             }
-            if argC == 2_i32 {
-                print!("Filtered signal is:\n\0")
+            if argC == 2 {
+                print!("Filtered signal {}", "is:\n\0")
             } else {
                 print!(
                     "Filtered signal {}",
                     build_str_from_raw_ptr(
-                        strcat(str, *argV.offset(2_isize)) as *const i8 as *mut u8
+                        strcat(str, *argV.offset(2 as isize)) as *const i8 as *mut u8
                     )
                 )
             };
             printVector(
-                processSignalFile(*argV.offset(1_isize)),
-                *argV.offset(2_isize),
+                processSignalFile(*argV.offset(1 as isize)),
+                *argV.offset(2 as isize),
             );
         }
-        0_i32
+        return 0;
     }
 }
 
@@ -265,5 +259,5 @@ pub fn main() {
         );
     }
     args.push(::core::ptr::null_mut());
-    ::std::process::exit(main_0((args.len() - 1) as i32, args.as_mut_ptr()));
+    ::std::process::exit(main_0((args.len() - 1) as i32, args.as_mut_ptr() as *mut *mut i8) as i32);
 }

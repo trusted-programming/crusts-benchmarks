@@ -9,11 +9,10 @@
 )]
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -37,7 +36,6 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -74,7 +72,6 @@ pub type FILE = _IO_FILE;
 pub type string = *mut u8;
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct node_t {
     pub tag: u32,
     pub data: C2RustUnnamed,
@@ -92,7 +89,6 @@ pub const NODE_TREE: u32 = 1;
 pub const NODE_LEAF: u32 = 0;
 #[no_mangle]
 pub extern "C" fn allocate_node(mut tag: u32) -> *mut node {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut n: *mut node = malloc(::core::mem::size_of::<node>() as u64) as *mut node;
         if n.is_null() {
@@ -111,7 +107,6 @@ pub extern "C" fn allocate_node(mut tag: u32) -> *mut node {
 
 #[no_mangle]
 pub extern "C" fn make_leaf(mut str: string) -> *mut node {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut n: *mut node = allocate_node(NODE_LEAF);
         (*n).data.str_0 = str;
@@ -121,7 +116,6 @@ pub extern "C" fn make_leaf(mut str: string) -> *mut node {
 
 #[no_mangle]
 pub extern "C" fn make_tree() -> *mut node {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut n: *mut node = allocate_node(NODE_TREE);
         (*n).data.root = 0 as *mut node;
@@ -131,7 +125,6 @@ pub extern "C" fn make_tree() -> *mut node {
 
 #[no_mangle]
 pub extern "C" fn make_seq() -> *mut node {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut n: *mut node = allocate_node(NODE_SEQ);
         (*n).data.root = 0 as *mut node;
@@ -141,7 +134,6 @@ pub extern "C" fn make_seq() -> *mut node {
 
 #[no_mangle]
 pub extern "C" fn deallocate_node(mut n: *mut node) {
-// SAFETY: machine generated unsafe code
     unsafe {
         if n.is_null() {
             return;
@@ -168,7 +160,6 @@ pub extern "C" fn deallocate_node(mut n: *mut node) {
 
 #[no_mangle]
 pub extern "C" fn append(mut root: *mut node, mut elem: *mut node) {
-// SAFETY: machine generated unsafe code
     unsafe {
         if root.is_null() {
             fprintf(
@@ -203,7 +194,6 @@ pub extern "C" fn append(mut root: *mut node, mut elem: *mut node) {
 
 #[no_mangle]
 pub extern "C" fn count(mut n: *mut node) -> u64 {
-// SAFETY: machine generated unsafe code
     unsafe {
         if n.is_null() {
             return 0;
@@ -240,7 +230,6 @@ pub extern "C" fn count(mut n: *mut node) -> u64 {
 
 #[no_mangle]
 pub extern "C" fn expand(mut n: *mut node, mut pos: u64) {
-// SAFETY: machine generated unsafe code
     unsafe {
         if n.is_null() {
             return;
@@ -281,7 +270,6 @@ pub extern "C" fn expand(mut n: *mut node, mut pos: u64) {
 
 #[no_mangle]
 pub extern "C" fn allocate_string(mut src: string) -> string {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut len: u64 = strlen(src as *const i8);
         let mut out: string =
@@ -300,7 +288,6 @@ pub extern "C" fn allocate_string(mut src: string) -> string {
 
 #[no_mangle]
 pub extern "C" fn parse_tree(mut input: string, mut pos: *mut u64) -> *mut node {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut root: *mut node = make_tree();
         let mut buffer: [u8; 128] = [0; 128];
@@ -385,7 +372,6 @@ pub extern "C" fn parse_tree(mut input: string, mut pos: *mut u64) -> *mut node 
 
 #[no_mangle]
 pub extern "C" fn parse_seq(mut input: string, mut pos: *mut u64) -> *mut node {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut root: *mut node = make_seq();
         let mut buffer: [u8; 128] = [0; 128];
@@ -431,7 +417,6 @@ pub extern "C" fn parse_seq(mut input: string, mut pos: *mut u64) -> *mut node {
 
 #[no_mangle]
 pub extern "C" fn test(mut input: string) {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut pos: u64 = 0;
         let mut n: *mut node = parse_seq(input, &mut pos);
@@ -458,7 +443,6 @@ fn main_0() -> i32 {
 }
 
 pub fn main() {
-// SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(main_0() as i32);
     }

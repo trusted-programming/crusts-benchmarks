@@ -7,7 +7,7 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {
     fn puts(__s: *const i8) -> i32;
     fn free(_: *mut libc::c_void);
@@ -17,35 +17,33 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn string_repeat(mut n: i32, mut s: *const i8) -> *mut i8 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut slen: u64 = strlen(s);
-        let mut dest: *mut i8 = malloc((n as u64).wrapping_mul(slen).wrapping_add(1)).cast::<i8>();
+        let mut dest: *mut i8 = malloc((n as u64).wrapping_mul(slen).wrapping_add(1)) as *mut i8;
         let mut i: i32 = 0;
-        let mut p: *mut i8 = std::ptr::null_mut::<i8>();
-        i = 0_i32;
+        let mut p: *mut i8 = 0 as *mut i8;
+        i = 0;
         p = dest;
         while i < n {
-            memcpy(p.cast::<libc::c_void>(), s.cast::<libc::c_void>(), slen);
-            i = i.wrapping_add(1);
+            memcpy(p as *mut libc::c_void, s as *const libc::c_void, slen);
+            i += 1;
             i;
             p = p.offset(slen as isize);
         }
         *p = '\0' as i8;
-        dest
+        return dest;
     }
 }
 
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
-        let mut result: *mut i8 = string_repeat(5, (b"ha\0" as *const u8).cast::<i8>());
+        let mut result: *mut i8 = string_repeat(5, b"ha\0" as *const u8 as *const i8);
         puts(result);
-        free(result.cast::<libc::c_void>());
-        0_i32
+        free(result as *mut libc::c_void);
+        return 0;
     }
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

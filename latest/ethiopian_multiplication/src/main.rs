@@ -7,57 +7,55 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {}
 #[no_mangle]
 pub extern "C" fn halve(mut x: *mut i32) {
-// SAFETY: machine generated unsafe code
     unsafe {
-        *x >>= 1_i32;
+        *x >>= 1;
     }
 }
 
 #[no_mangle]
 pub extern "C" fn doublit(mut x: *mut i32) {
-// SAFETY: machine generated unsafe code
     unsafe {
-        *x <<= 1_i32;
+        *x <<= 1;
     }
 }
 
 #[no_mangle]
 pub extern "C" fn iseven(x: i32) -> bool {
-    x & 1_i32 == 0_i32
+    return x & 1 == 0;
 }
 
 #[no_mangle]
 pub extern "C" fn ethiopian(mut plier: i32, mut plicand: i32, tutor: bool) -> i32 {
     let mut result: i32 = 0;
     if tutor {
-        println!("ethiopian multiplication of {} by {}", plier, plicand);
+        print!("ethiopian multiplication of {} by {}\n", plier, plicand);
     }
-    while plier >= 1_i32 {
+    while plier >= 1 {
         if iseven(plier) {
             if tutor {
-                println!("{:4} {:6} struck", plier, plicand);
+                print!("{:4} {:6} struck\n", plier, plicand);
             }
         } else {
             if tutor {
-                println!("{:4} {:6} kept", plier, plicand);
+                print!("{:4} {:6} kept\n", plier, plicand);
             }
-            result = result.wrapping_add(plicand);
+            result += plicand;
         }
         halve(&mut plier);
         doublit(&mut plicand);
     }
-    result
+    return result;
 }
 
 fn main_0() -> i32 {
-    println!("{}", ethiopian(17, 34, 1_i32 != 0_i32));
-    0_i32
+    print!("{}\n", ethiopian(17, 34, 1 != 0));
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

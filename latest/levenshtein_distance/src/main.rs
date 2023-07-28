@@ -7,57 +7,53 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {
     fn printf(_: *const i8, _: ...) -> i32;
     fn strlen(_: *const i8) -> u64;
 }
 #[no_mangle]
 pub extern "C" fn levenshtein(mut s: *const i8, mut ls: i32, mut t: *const i8, mut lt: i32) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut a: i32 = 0;
         let mut b: i32 = 0;
         let mut c: i32 = 0;
-        if ls == 0_i32 {
+        if ls == 0 {
             return lt;
         }
-        if lt == 0_i32 {
+        if lt == 0 {
             return ls;
         }
-        if i32::from(*s.offset((ls.wrapping_sub(1i32)) as isize))
-            == i32::from(*t.offset((lt.wrapping_sub(1i32)) as isize))
-        {
-            return levenshtein(s, ls.wrapping_sub(1), t, lt.wrapping_sub(1));
+        if *s.offset((ls - 1i32) as isize) as i32 == *t.offset((lt - 1i32) as isize) as i32 {
+            return levenshtein(s, ls - 1, t, lt - 1);
         }
-        a = levenshtein(s, ls.wrapping_sub(1), t, lt.wrapping_sub(1));
-        b = levenshtein(s, ls, t, lt.wrapping_sub(1));
-        c = levenshtein(s, ls.wrapping_sub(1), t, lt);
+        a = levenshtein(s, ls - 1, t, lt - 1);
+        b = levenshtein(s, ls, t, lt - 1);
+        c = levenshtein(s, ls - 1, t, lt);
         if a > b {
             a = b;
         }
         if a > c {
             a = c;
         }
-        a.wrapping_add(1)
+        return a + 1;
     }
 }
 
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
-        let mut s1: *const i8 = (b"rosettacode\0" as *const u8).cast::<i8>();
-        let mut s2: *const i8 = (b"raisethysword\0" as *const u8).cast::<i8>();
+        let mut s1: *const i8 = b"rosettacode\0" as *const u8 as *const i8;
+        let mut s2: *const i8 = b"raisethysword\0" as *const u8 as *const i8;
         printf(
-            (b"distance between `%s' and `%s': %d\n\0" as *const u8).cast::<i8>(),
+            b"distance between `%s' and `%s': %d\n\0" as *const u8 as *const i8,
             s1,
             s2,
             levenshtein(s1, strlen(s1) as i32, s2, strlen(s2) as i32),
         );
-        0_i32
+        return 0;
     }
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

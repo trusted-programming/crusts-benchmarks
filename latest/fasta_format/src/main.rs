@@ -9,18 +9,17 @@
 )]
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
-        while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+        while *raw_ptr.offset(str_size as isize) != 0 {
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
     }
 }
 
-
+use c2rust_out::*;
 extern "C" {
     pub type _IO_wide_data;
     pub type _IO_codecvt;
@@ -33,7 +32,6 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -68,15 +66,14 @@ pub struct _IO_FILE {
 pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 fn main_0() {
-// SAFETY: machine generated unsafe code
     unsafe {
-        let mut fp: *mut FILE = std::ptr::null_mut::<FILE>();
-        let mut line: *mut i8 = std::ptr::null_mut::<i8>();
+        let mut fp: *mut FILE = 0 as *mut FILE;
+        let mut line: *mut i8 = 0 as *mut i8;
         let mut len: u64 = 0;
         let mut read: i64 = 0;
         fp = fopen(
-            (b"fasta.txt\0" as *const u8).cast::<i8>(),
-            (b"r\0" as *const u8).cast::<i8>(),
+            b"fasta.txt\0" as *const u8 as *const i8,
+            b"r\0" as *const u8 as *const i8,
         );
         if fp.is_null() {
             exit(1);
@@ -84,29 +81,29 @@ fn main_0() {
         let mut state: i32 = 0;
         loop {
             read = getline(&mut line, &mut len, fp);
-            if read == -1_i64 {
+            if !(read != -1 as i64) {
                 break;
             }
-            if i32::from(*line.offset((read.wrapping_sub(1i64)) as isize)) == '\n' as i32 {
-                *line.offset((read.wrapping_sub(1i64)) as isize) = 0;
+            if *line.offset((read - 1i64) as isize) as i32 == '\n' as i32 {
+                *line.offset((read - 1i64) as isize) = 0;
             }
-            if i32::from(*line.offset(0_isize)) == '>' as i32 {
-                if state == 1_i32 {
-                    println!();
+            if *line.offset(0 as isize) as i32 == '>' as i32 {
+                if state == 1 {
+                    print!("\n");
                 }
                 print!(
                     "{}: ",
-                    build_str_from_raw_ptr(line.offset(1_isize).cast::<u8>())
+                    build_str_from_raw_ptr(line.offset(1 as isize) as *mut u8)
                 );
-                state = 1_i32;
+                state = 1;
             } else {
-                print!("{}", build_str_from_raw_ptr(line.cast::<u8>()));
+                print!("{}", build_str_from_raw_ptr(line as *mut u8));
             }
         }
-        println!();
+        print!("\n");
         fclose(fp);
         if !line.is_null() {
-            free(line.cast::<libc::c_void>());
+            free(line as *mut libc::c_void);
         }
         exit(0);
     }
@@ -114,7 +111,6 @@ fn main_0() {
 
 pub fn main() {
     main_0();
-// SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(0i32);
     }

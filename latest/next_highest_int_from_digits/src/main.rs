@@ -8,18 +8,17 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
-        while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+        while *raw_ptr.offset(str_size as isize) != 0 {
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
     }
 }
 
-
+use c2rust_out::*;
 extern "C" {
     fn snprintf(_: *mut i8, _: u64, _: *const i8, _: ...) -> i32;
     fn strtoul(_: *const i8, _: *mut *mut i8, _: i32) -> u64;
@@ -28,7 +27,6 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn swap(mut str: *mut i8, mut i: i32, mut j: i32) {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut c: i8 = *str.offset(i as isize);
         *str.offset(i as isize) = *str.offset(j as isize);
@@ -38,13 +36,12 @@ pub extern "C" fn swap(mut str: *mut i8, mut i: i32, mut j: i32) {
 
 #[no_mangle]
 pub extern "C" fn reverse(mut str: *mut i8, mut i: i32, mut j: i32) {
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < j {
             swap(str, i, j);
-            i = i.wrapping_add(1);
+            i += 1;
             i;
-            j = j.wrapping_sub(1);
+            j -= 1;
             j;
         }
     }
@@ -52,52 +49,49 @@ pub extern "C" fn reverse(mut str: *mut i8, mut i: i32, mut j: i32) {
 
 #[no_mangle]
 pub extern "C" fn next_permutation(mut str: *mut i8) -> bool {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut len: i32 = strlen(str) as i32;
-        if len < 2_i32 {
-            return 0_i32 != 0_i32;
+        if len < 2 {
+            return 0 != 0;
         }
-        let mut i: i32 = len.wrapping_sub(1);
-        while i > 0_i32 {
+        let mut i: i32 = len - 1;
+        while i > 0 {
             let mut j: i32 = i;
             let mut k: i32 = 0;
-            i = i.wrapping_sub(1);
-            if i32::from(*str.offset(i as isize)) < i32::from(*str.offset(j as isize)) {
+            i -= 1;
+            if (*str.offset(i as isize) as i32) < *str.offset(j as isize) as i32 {
                 k = len;
                 loop {
-                    k = k.wrapping_sub(1);
-                    if i32::from(*str.offset(i as isize)) < i32::from(*str.offset(k as isize)) {
+                    k -= 1;
+                    if !(*str.offset(i as isize) as i32 >= *str.offset(k as isize) as i32) {
                         break;
                     }
                 }
                 swap(str, i, k);
-                reverse(str, j, len.wrapping_sub(1));
-                return 1_i32 != 0_i32;
+                reverse(str, j, len - 1);
+                return 1 != 0;
             }
         }
-        0_i32 != 0_i32
+        return 0 != 0;
     }
 }
 
 #[no_mangle]
 pub extern "C" fn next_highest_int(mut n: u32) -> u32 {
     let mut str: [i8; 16] = [0; 16];
-// SAFETY: machine generated unsafe code
     unsafe {
         snprintf(
             str.as_mut_ptr(),
             ::core::mem::size_of::<[i8; 16]>() as u64,
-            (b"%u\0" as *const u8).cast::<i8>(),
+            b"%u\0" as *const u8 as *const i8,
             n,
         );
     }
     if !next_permutation(str.as_mut_ptr()) {
         return 0;
     }
-// SAFETY: machine generated unsafe code
     unsafe {
-        strtoul(str.as_mut_ptr(), std::ptr::null_mut::<*mut i8>(), 10) as u32
+        return strtoul(str.as_mut_ptr(), 0 as *mut *mut i8, 10) as u32;
     }
 }
 
@@ -107,34 +101,33 @@ fn main_0() -> i32 {
         .wrapping_div(::core::mem::size_of::<i32>() as u64) as i32;
     let mut i: i32 = 0;
     while i < count {
-        println!(
-            "{} -> {}",
+        print!(
+            "{} -> {}\n",
             numbers[i as usize],
             next_highest_int(numbers[i as usize])
         );
-        i = i.wrapping_add(1);
+        i += 1;
         i;
     }
-// SAFETY: machine generated unsafe code
     unsafe {
         let big: [i8; 23] =
             *::core::mem::transmute::<&[u8; 23], &[i8; 23]>(b"9589776899767587796600\0");
         let mut next: [i8; 23] = [0; 23];
         memcpy(
-            next.as_mut_ptr().cast::<libc::c_void>(),
-            big.as_ptr().cast::<libc::c_void>(),
+            next.as_mut_ptr() as *mut libc::c_void,
+            big.as_ptr() as *const libc::c_void,
             ::core::mem::size_of::<[i8; 23]>() as u64,
         );
         next_permutation(next.as_mut_ptr());
-        println!(
-            "{} -> {}",
+        print!(
+            "{} -> {}\n",
             build_str_from_raw_ptr(big.as_ptr() as *mut u8),
-            build_str_from_raw_ptr(next.as_mut_ptr().cast::<u8>())
+            build_str_from_raw_ptr(next.as_mut_ptr() as *mut u8)
         );
     }
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

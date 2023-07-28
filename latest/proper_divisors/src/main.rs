@@ -7,27 +7,27 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {}
 #[no_mangle]
 pub extern "C" fn proper_divisors(n: i32, mut print_flag: bool) -> i32 {
     let mut count: i32 = 0;
     let mut i: i32 = 1;
     while i < n {
-        if n % i == 0_i32 {
-            count = count.wrapping_add(1);
+        if n % i == 0 {
+            count += 1;
             count;
             if print_flag {
                 print!("{} ", i);
             }
         }
-        i = i.wrapping_add(1);
+        i += 1;
         i;
     }
     if print_flag {
-        println!();
+        print!("\n");
     }
-    count
+    return count;
 }
 
 #[no_mangle]
@@ -35,53 +35,53 @@ pub extern "C" fn countProperDivisors(mut n: i32) -> i32 {
     let mut prod: i32 = 1;
     let mut i: i32 = 0;
     let mut count: i32 = 0;
-    while n % 2_i32 == 0_i32 {
-        count = count.wrapping_add(1);
+    while n % 2 == 0 {
+        count += 1;
         count;
-        n = n.wrapping_div(2);
+        n /= 2;
     }
-    prod *= count.wrapping_add(1);
-    i = 3_i32;
+    prod *= 1 + count;
+    i = 3;
     while i * i <= n {
-        count = 0_i32;
-        while n % i == 0_i32 {
-            count = count.wrapping_add(1);
+        count = 0;
+        while n % i == 0 {
+            count += 1;
             count;
-            n = n.wrapping_div(i);
+            n /= i;
         }
-        prod *= count.wrapping_add(1);
-        i = i.wrapping_add(2);
+        prod *= 1 + count;
+        i += 2;
     }
-    if n > 2_i32 {
-        prod = prod.wrapping_mul(2);
+    if n > 2 {
+        prod *= 2;
     }
-    prod.wrapping_sub(1)
+    return prod - 1;
 }
 
 fn main_0() -> i32 {
     let mut i: i32 = 1;
-    while i <= 10_i32 {
+    while i <= 10 {
         print!("{}: ", i);
-        proper_divisors(i, 1_i32 != 0_i32);
-        i = i.wrapping_add(1);
+        proper_divisors(i, 1 != 0);
+        i += 1;
         i;
     }
     let mut max: i32 = 0;
     let mut max_i: i32 = 1;
     let mut i_0: i32 = 1;
-    while i_0 <= 20_000_i32 {
+    while i_0 <= 20000 {
         let mut v: i32 = countProperDivisors(i_0);
         if v >= max {
             max = v;
             max_i = i_0;
         }
-        i_0 = i_0.wrapping_add(1);
+        i_0 += 1;
         i_0;
     }
-    println!("{} with {} divisors", max_i, max);
-    0_i32
+    print!("{} with {} divisors\n", max_i, max);
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

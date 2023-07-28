@@ -15,44 +15,30 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn rk4(
-// SAFETY: machine generated unsafe code
     mut f: Option<unsafe extern "C" fn(f64, f64) -> f64>,
     mut dx: f64,
     mut x: f64,
     mut y: f64,
 ) -> f64 {
-// SAFETY: machine generated unsafe code
     unsafe {
-        let mut k1: f64 = match f {
-            Some(f_m) => dx * f_m(x, y),
-            None => panic!("non-null function pointer"),
-        };
-        let mut k2: f64 = match f {
-            Some(f_m) => dx * f_m(x + dx / 2 as f64, y + k1 / 2 as f64),
-            None => panic!("non-null function pointer"),
-        };
-        let mut k3: f64 = match f {
-            Some(f_m) => dx * f_m(x + dx / 2 as f64, y + k2 / 2 as f64),
-            None => panic!("non-null function pointer"),
-        };
-        let mut k4: f64 = match f {
-            Some(f_m) => dx * f_m(x.wrapping_add(dx), y.wrapping_add(k3)),
-            None => panic!("non-null function pointer"),
-        };
-        return y + (k1 + 2 as f64 * k2 + 2 as f64 * k3.wrapping_add(k4)) / 6 as f64;
+        let mut k1: f64 = dx * f.expect("non-null function pointer")(x, y);
+        let mut k2: f64 =
+            dx * f.expect("non-null function pointer")(x + dx / 2 as f64, y + k1 / 2 as f64);
+        let mut k3: f64 =
+            dx * f.expect("non-null function pointer")(x + dx / 2 as f64, y + k2 / 2 as f64);
+        let mut k4: f64 = dx * f.expect("non-null function pointer")(x + dx, y + k3);
+        return y + (k1 + 2 as f64 * k2 + 2 as f64 * k3 + k4) / 6 as f64;
     }
 }
 
 #[no_mangle]
 pub extern "C" fn rate(mut x: f64, mut y: f64) -> f64 {
-// SAFETY: machine generated unsafe code
     unsafe {
         return x * sqrt(y);
     }
 }
 
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut y: *mut f64 = 0 as *mut f64;
         let mut x: f64 = 0.;
@@ -67,13 +53,12 @@ fn main_0() -> i32 {
         i = 1;
         while i < n {
             *y.offset(i as isize) = rk4(
-// SAFETY: machine generated unsafe code
                 Some(rate as unsafe extern "C" fn(f64, f64) -> f64),
                 dx,
-                x0 + dx * (i.wrapping_sub(1i32)) as f64,
-                *y.offset((i.wrapping_sub(1i32)) as isize),
+                x0 + dx * (i - 1i32) as f64,
+                *y.offset((i - 1i32) as isize),
             );
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
         print!("x	y	rel. err.\n------------\n");
@@ -87,7 +72,7 @@ fn main_0() -> i32 {
                 *y.offset(i as isize),
                 *y.offset(i as isize) / y2 - 1 as f64
             );
-            i = i.wrapping_add(10);
+            i += 10;
         }
         return 0;
     }

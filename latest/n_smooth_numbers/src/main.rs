@@ -8,7 +8,7 @@
     unused_mut
 )]
 #![feature(extern_types)]
-
+use c2rust_out::*;
 extern "C" {
     pub type _IO_wide_data;
     pub type _IO_codecvt;
@@ -22,7 +22,6 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -58,56 +57,54 @@ pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 #[no_mangle]
 pub extern "C" fn xmalloc(mut n: u64) -> *mut libc::c_void {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut ptr: *mut libc::c_void = malloc(n);
         if ptr.is_null() {
-            fprintf(stderr, (b"Out of memory\n\0" as *const u8).cast::<i8>());
+            fprintf(stderr, b"Out of memory\n\0" as *const u8 as *const i8);
             exit(1);
         }
-        ptr
+        return ptr;
     }
 }
 
 #[no_mangle]
 pub extern "C" fn xrealloc(mut p: *mut libc::c_void, mut n: u64) -> *mut libc::c_void {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut ptr: *mut libc::c_void = realloc(p, n);
         if ptr.is_null() {
-            fprintf(stderr, (b"Out of memory\n\0" as *const u8).cast::<i8>());
+            fprintf(stderr, b"Out of memory\n\0" as *const u8 as *const i8);
             exit(1);
         }
-        ptr
+        return ptr;
     }
 }
 
 #[no_mangle]
 pub extern "C" fn is_prime(mut n: u32) -> bool {
     if n == 2 {
-        return 1_i32 != 0_i32;
+        return 1 != 0;
     }
     if n < 2 || n.wrapping_rem(2) == 0 {
-        return 0_i32 != 0_i32;
+        return 0 != 0;
     }
     let mut p: u32 = 3;
     while p.wrapping_mul(p) <= n {
         if n.wrapping_rem(p) == 0 {
-            return 0_i32 != 0_i32;
+            return 0 != 0;
         }
-        p = (p).wrapping_add(2);
+        p = (p).wrapping_add(2) as u32;
     }
-    1_i32 != 0_i32
+    return 1 != 0;
 }
 
 #[no_mangle]
 pub extern "C" fn find_primes(mut from: u32, mut to: u32, mut primes: *mut *mut u32) -> u32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut count: u32 = 0;
         let mut buffer_length: u32 = 16;
         let mut buffer: *mut u32 =
-            xmalloc((::core::mem::size_of::<u32>() as u64).wrapping_mul(u64::from(buffer_length))).cast::<u32>();
+            xmalloc((::core::mem::size_of::<u32>() as u64).wrapping_mul(buffer_length as u64))
+                as *mut u32;
         let mut p: u32 = from;
         while p <= to {
             if is_prime(p) {
@@ -117,9 +114,9 @@ pub extern "C" fn find_primes(mut from: u32, mut to: u32, mut primes: *mut *mut 
                         new_length = count.wrapping_add(1);
                     }
                     buffer = xrealloc(
-                        buffer.cast::<libc::c_void>(),
-                        (::core::mem::size_of::<u32>() as u64).wrapping_mul(u64::from(new_length)),
-                    ).cast::<u32>();
+                        buffer as *mut libc::c_void,
+                        (::core::mem::size_of::<u32>() as u64).wrapping_mul(new_length as u64),
+                    ) as *mut u32;
                     buffer_length = new_length;
                 }
                 let fresh0 = count;
@@ -130,16 +127,16 @@ pub extern "C" fn find_primes(mut from: u32, mut to: u32, mut primes: *mut *mut 
             p;
         }
         *primes = buffer;
-        count
+        return count;
     }
 }
 
 #[no_mangle]
-pub extern "C" fn free_numbers(mut _numbers: *mut i32, mut _count: u64) {}
+pub extern "C" fn free_numbers(mut numbers: *mut i32, mut count: u64) {}
 
 #[no_mangle]
 pub extern "C" fn print_nsmooth_numbers(mut n: u32, mut begin: u32, mut count: u32) {
-    let mut _num: u32 = begin.wrapping_add(count);
+    let mut num: u32 = begin.wrapping_add(count);
     print!("{}: ", n);
     let mut i: u32 = 1;
     while i < count {
@@ -147,11 +144,11 @@ pub extern "C" fn print_nsmooth_numbers(mut n: u32, mut begin: u32, mut count: u
         i = i.wrapping_add(1);
         i;
     }
-    println!();
+    print!("\n");
 }
 
 fn main_0() -> i32 {
-    println!("First 25 n-smooth numbers for n = 2 -> 29:");
+    print!("First 25 n-smooth numbers for n = 2 -> 29:\n");
     let mut n: u32 = 2;
     while n <= 29 {
         if is_prime(n) {
@@ -178,12 +175,11 @@ fn main_0() -> i32 {
         n_1 = n_1.wrapping_add(1);
         n_1;
     }
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-// SAFETY: machine generated unsafe code
     unsafe {
-        ::std::process::exit(main_0());
+        ::std::process::exit(main_0() as i32);
     }
 }

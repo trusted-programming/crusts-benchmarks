@@ -7,7 +7,7 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {}
 fn main_0() -> i32 {
     let mut sum: i32 = 0;
@@ -15,44 +15,44 @@ fn main_0() -> i32 {
     let mut j: i32 = 0;
     let mut try_max: i32 = 0;
     let mut count_list: [i32; 3] = [1, 0, 0];
-    i = 2_i32;
-    while i <= 20_000_i32 {
-        try_max = i.wrapping_add(2);
-        sum = 1_i32;
-        j = 2_i32;
+    i = 2;
+    while i <= 20000 {
+        try_max = i / 2;
+        sum = 1;
+        j = 2;
         while j < try_max {
-            if i % j == 0_i32 {
-                try_max = i.wrapping_add(j);
-                sum = sum.wrapping_add(j);
+            if !(i % j != 0) {
+                try_max = i / j;
+                sum += j;
                 if j != try_max {
-                    sum = sum.wrapping_add(try_max);
+                    sum += try_max;
                 }
             }
-            j = j.wrapping_add(1);
+            j += 1;
             j;
         }
         if sum < i {
-            count_list[0_usize] += 1_i32;
-            count_list[0_usize];
+            count_list[0 as usize] += 1;
+            count_list[0 as usize];
         } else if sum > i {
-            count_list[2_usize] += 1_i32;
-            count_list[2_usize];
+            count_list[2 as usize] += 1;
+            count_list[2 as usize];
         } else {
-            count_list[1_usize] += 1_i32;
-            count_list[1_usize];
+            count_list[1 as usize] += 1;
+            count_list[1 as usize];
         }
-        i = i.wrapping_add(1);
+        i += 1;
         i;
     }
-    print!("\nThere are {} deficient,", count_list[0_usize]);
-    print!(" {} perfect,", count_list[1_usize]);
-    println!(
-        " {} abundant numbers between 1 and 20000.",
-        count_list[2_usize]
+    print!("\nThere are {} deficient,", count_list[0 as usize]);
+    print!(" {} perfect,", count_list[1 as usize]);
+    print!(
+        " {} abundant numbers between 1 and 20000.\n",
+        count_list[2 as usize]
     );
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

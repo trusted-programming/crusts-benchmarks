@@ -7,18 +7,18 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {}
 #[no_mangle]
 pub extern "C" fn inf() -> f64 {
-    ::core::f64::INFINITY
+    return ::core::f64::INFINITY;
 }
 
 fn main_0() -> i32 {
-    println!("{}", inf());
-    0_i32
+    print!("{}\n", inf());
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

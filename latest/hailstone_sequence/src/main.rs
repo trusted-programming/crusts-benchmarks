@@ -7,78 +7,72 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {
     fn malloc(_: u64) -> *mut libc::c_void;
     fn free(_: *mut libc::c_void);
 }
 #[no_mangle]
 pub extern "C" fn hailstone(mut n: i32, mut arry: *mut i32) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut hs: i32 = 1;
-        while n != 1_i32 {
-            hs = hs.wrapping_add(1);
+        while n != 1 {
+            hs += 1;
             hs;
             if !arry.is_null() {
                 let fresh0 = arry;
                 arry = arry.offset(1);
                 *fresh0 = n;
             }
-            n = if n & 1_i32 != 0_i32 {
-                3_i32 * n.wrapping_add(1)
-            } else {
-                n.wrapping_div(2)
-            };
+            n = if n & 1 != 0 { 3 * n + 1 } else { n / 2 };
         }
         if !arry.is_null() {
             let fresh1 = arry;
             arry = arry.offset(1);
             *fresh1 = n;
         }
-        hs
+        return hs;
     }
 }
 
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut j: i32 = 0;
         let mut hmax: i32 = 0;
         let mut jatmax: i32 = 0;
         let mut n: i32 = 0;
-        let mut arry: *mut i32 = std::ptr::null_mut::<i32>();
-        j = 1_i32;
-        while j < 100_000_i32 {
-            n = hailstone(j, std::ptr::null_mut::<i32>());
+        let mut arry: *mut i32 = 0 as *mut i32;
+        j = 1;
+        while j < 100000 {
+            n = hailstone(j, 0 as *mut i32);
             if hmax < n {
                 hmax = n;
                 jatmax = j;
             }
-            j = j.wrapping_add(1);
+            j += 1;
             j;
         }
-        n = hailstone(27, std::ptr::null_mut::<i32>());
-        arry = malloc((n as u64).wrapping_mul(::core::mem::size_of::<i32>() as u64)).cast::<i32>();
+        n = hailstone(27, 0 as *mut i32);
+        arry = malloc((n as u64).wrapping_mul(::core::mem::size_of::<i32>() as u64)) as *mut i32;
         n = hailstone(27, arry);
-        println!(
-            "[ {}, {}, {}, {}, ...., {}, {}, {}, {}] len={}",
-            *arry.offset(0_isize),
-            *arry.offset(1_isize),
-            *arry.offset(2_isize),
-            *arry.offset(3_isize),
+        print!(
+            "[ {}, {}, {}, {}, ...., {}, {}, {}, {}] len={}\n",
+            *arry.offset(0 as isize),
+            *arry.offset(1 as isize),
+            *arry.offset(2 as isize),
+            *arry.offset(3 as isize),
             *arry.offset((n - 4i32) as isize),
             *arry.offset((n - 3i32) as isize),
             *arry.offset((n - 2i32) as isize),
             *arry.offset((n - 1i32) as isize),
             n
         );
-        println!("Max {} at j= {}", hmax, jatmax);
-        free(arry.cast::<libc::c_void>());
-        0_i32
+        print!("Max {} at j= {}\n", hmax, jatmax);
+        free(arry as *mut libc::c_void);
+        return 0;
     }
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

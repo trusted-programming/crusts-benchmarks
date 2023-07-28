@@ -7,18 +7,17 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {}
-fn main_0(mut _argc: i32, mut _argv: *mut *const i8) -> i32 {
-// SAFETY: machine generated unsafe code
+fn main_0(mut argc: i32, mut argv: *mut *const i8) -> i32 {
     unsafe {
-        println!("F(0) = 3 -> PRIME");
+        print!("F(0) = 3 -> PRIME\n");
         let mut i: u32 = 1;
         while i < 7 {
             i = i.wrapping_add(1);
             i;
         }
-        0_i32
+        return 0;
     }
 }
 
@@ -33,6 +32,6 @@ pub fn main() {
     }
     args.push(::core::ptr::null_mut());
     ::std::process::exit(
-        main_0((args.len() - 1) as i32, args.as_mut_ptr().cast::<*const i8>()),
+        main_0((args.len() - 1) as i32, args.as_mut_ptr() as *mut *const i8) as i32,
     );
 }

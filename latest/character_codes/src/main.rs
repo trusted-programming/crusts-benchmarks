@@ -7,14 +7,14 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {}
 fn main_0() -> i32 {
-    println!("{}", 'a' as i32);
-    println!("{}", 97_i32);
-    0_i32
+    print!("{}\n", 'a' as i32);
+    print!("{}\n", 97);
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

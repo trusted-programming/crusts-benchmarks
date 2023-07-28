@@ -9,18 +9,17 @@
 )]
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
-        while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+        while *raw_ptr.offset(str_size as isize) != 0 {
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
     }
 }
 
-
+use c2rust_out::*;
 extern "C" {
     pub type _IO_wide_data;
     pub type _IO_codecvt;
@@ -31,7 +30,6 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -66,44 +64,42 @@ pub struct _IO_FILE {
 pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut items: [*const i8; 5] = [
-            (b"fee fie\0" as *const u8).cast::<i8>(),
-            (b"huff and puff\0" as *const u8).cast::<i8>(),
-            (b"mirror mirror\0" as *const u8).cast::<i8>(),
-            (b"tick tock\0" as *const u8).cast::<i8>(),
-            std::ptr::null::<i8>(),
+            b"fee fie\0" as *const u8 as *const i8,
+            b"huff and puff\0" as *const u8 as *const i8,
+            b"mirror mirror\0" as *const u8 as *const i8,
+            b"tick tock\0" as *const u8 as *const i8,
+            0 as *const i8,
         ];
-        let mut prompt: *const i8 = (b"Which is from the three pigs?\0" as *const u8).cast::<i8>();
-        println!(
-            "You chose {}.",
+        let mut prompt: *const i8 = b"Which is from the three pigs?\0" as *const u8 as *const i8;
+        print!(
+            "You chose {}.\n",
             build_str_from_raw_ptr(menu_select(items.as_mut_ptr(), prompt) as *mut u8)
         );
-        0_i32
+        return 0;
     }
 }
 
 #[no_mangle]
 pub extern "C" fn menu_select(mut items: *const *const i8, mut prompt: *const i8) -> *const i8 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut buf: [i8; 8192] = [0; 8192];
         let mut i: i32 = 0;
         let mut choice: i32 = 0;
         let mut choice_max: i32 = 0;
         if items.is_null() {
-            return std::ptr::null::<i8>();
+            return 0 as *const i8;
         }
         loop {
-            i = 0_i32;
+            i = 0;
             while !(*items.offset(i as isize)).is_null() {
-                println!(
-                    "{}) {}",
-                    i + 1_i32,
+                print!(
+                    "{}) {}\n",
+                    i + 1,
                     build_str_from_raw_ptr(*items.offset(i as isize) as *mut u8)
                 );
-                i = i.wrapping_add(1);
+                i += 1;
                 i;
             }
             choice_max = i;
@@ -121,14 +117,14 @@ pub extern "C" fn menu_select(mut items: *const *const i8, mut prompt: *const i8
             {
                 choice = atoi(buf.as_mut_ptr());
             }
-            if !(1_i32 > choice || choice > choice_max) {
+            if !(1 > choice || choice > choice_max) {
                 break;
             }
         }
-        *items.offset((choice.wrapping_sub(1i32)) as isize)
+        return *items.offset((choice - 1i32) as isize);
     }
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

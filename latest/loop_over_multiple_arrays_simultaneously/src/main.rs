@@ -7,30 +7,29 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {}
 #[no_mangle]
 pub static mut a1: [i8; 3] = ['a' as i8, 'b' as i8, 'c' as i8];
 #[no_mangle]
 pub static mut a2: [i8; 3] = ['A' as i8, 'B' as i8, 'C' as i8];
 #[no_mangle]
-pub static mut a3: [i32; 3] = [1_i32, 2_i32, 3_i32];
+pub static mut a3: [i32; 3] = [1, 2, 3];
 fn main_0() -> i32 {
     let mut i: i32 = 0;
-// SAFETY: machine generated unsafe code
     unsafe {
-        while i < 3_i32 {
-            println!(
-                "{}{}{}",
-                i32::from(a1[i as usize]), i32::from(a2[i as usize]), a3[i as usize]
+        while i < 3 {
+            print!(
+                "{}{}{}\n",
+                a1[i as usize] as i32, a2[i as usize] as i32, a3[i as usize]
             );
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

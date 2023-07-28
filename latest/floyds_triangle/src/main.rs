@@ -7,7 +7,7 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {}
 #[no_mangle]
 pub extern "C" fn t(mut n: i32) {
@@ -15,42 +15,42 @@ pub extern "C" fn t(mut n: i32) {
     let mut j: i32 = 0;
     let mut c: i32 = 0;
     let mut len: i32 = 0;
-    i = n * (n.wrapping_sub(1)) / 2_i32;
-    c = 1_i32;
+    i = n * (n - 1) / 2;
+    c = 1;
     len = c;
     while c < i {
-        c = c.wrapping_mul(10);
-        len = len.wrapping_add(1);
+        c *= 10;
+        len += 1;
         len;
     }
-    c = c.wrapping_sub(i);
+    c -= i;
     let mut num: i32 = 0;
-    i = 1_i32;
+    i = 1;
     num = i;
     while i <= n {
-        j = 1_i32;
+        j = 1;
         while j <= i {
             let fresh0 = num;
-            num = num.wrapping_add(1);
-            if i - j != 0_i32 {
+            num = num + 1;
+            if i - j != 0 {
                 print!(
                     "{1:0$}{2:}",
-                    (len - i32::from(j < c)).unsigned_abs() as usize,
+                    (len - (j < c) as i32).abs() as usize,
                     fresh0,
                     ' ' as i32
                 )
             } else {
                 print!(
                     "{1:0$}{2:}",
-                    (len - i32::from(j < c)).unsigned_abs() as usize,
+                    (len - (j < c) as i32).abs() as usize,
                     fresh0,
                     '\n' as i32
                 )
             };
-            j = j.wrapping_add(1);
+            j += 1;
             j;
         }
-        i = i.wrapping_add(1);
+        i += 1;
         i;
     }
 }
@@ -58,9 +58,9 @@ pub extern "C" fn t(mut n: i32) {
 fn main_0() -> i32 {
     t(5);
     t(14);
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

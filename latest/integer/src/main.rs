@@ -7,32 +7,31 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {
     fn atoi(__nptr: *const i8) -> i32;
     fn exit(_: i32) -> !;
 }
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut a: i32 = 0;
         let mut b: i32 = 0;
-        if argc < 3_i32 {
+        if argc < 3 {
             exit(1);
         }
-        argc = argc.wrapping_sub(1);
+        argc -= 1;
         b = atoi(*argv.offset(argc as isize));
-        if b == 0_i32 {
+        if b == 0 {
             exit(2);
         }
-        argc = argc.wrapping_sub(1);
+        argc -= 1;
         a = atoi(*argv.offset(argc as isize));
-        println!("a+b = {}", a + b);
-        println!("a-b = {}", a - b);
-        println!("a*b = {}", a * b);
-        println!("a/b = {}", a / b);
-        println!("a%b = {}", a % b);
-        0_i32
+        print!("a+b = {}\n", a + b);
+        print!("a-b = {}\n", a - b);
+        print!("a*b = {}\n", a * b);
+        print!("a/b = {}\n", a / b);
+        print!("a%b = {}\n", a % b);
+        return 0;
     }
 }
 
@@ -46,10 +45,9 @@ pub fn main() {
         );
     }
     args.push(::core::ptr::null_mut());
-// SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(
-            main_0((args.len() - 1) as i32, args.as_mut_ptr()),
+            main_0((args.len() - 1) as i32, args.as_mut_ptr() as *mut *mut i8) as i32,
         );
     }
 }

@@ -7,46 +7,45 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {
     fn sqrt(_: f64) -> f64;
 }
 #[no_mangle]
 pub extern "C" fn perfect(mut n: i32) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
-        let mut max: i32 = sqrt(f64::from(n)) as i32 + 1;
+        let mut max: i32 = sqrt(n as f64) as i32 + 1;
         let mut tot: i32 = 1;
         let mut i: i32 = 0;
-        i = 2_i32;
+        i = 2;
         while i < max {
-            if n % i == 0_i32 {
-                tot = tot.wrapping_add(i);
+            if n % i == 0 {
+                tot += i;
                 let mut q: i32 = n / i;
                 if q > i {
-                    tot = tot.wrapping_add(q);
+                    tot += q;
                 }
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
-        i32::from(tot == n)
+        return (tot == n) as i32;
     }
 }
 
 fn main_0() -> i32 {
     let mut n: i32 = 0;
-    n = 2_i32;
-    while n < 200_i32 {
-        if perfect(n) != 0_i32 {
-            println!("{}", n);
+    n = 2;
+    while n < 200 {
+        if perfect(n) != 0 {
+            print!("{}\n", n);
         }
-        n = n.wrapping_add(1);
+        n += 1;
         n;
     }
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

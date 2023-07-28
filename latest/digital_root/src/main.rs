@@ -11,7 +11,6 @@ use c2rust_out::*;
 extern "C" {}
 #[no_mangle]
 pub extern "C" fn droot(mut x: i64, mut base: i32, mut pers: *mut i32) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut d: i32 = 0;
         if !pers.is_null() {
@@ -26,13 +25,11 @@ pub extern "C" fn droot(mut x: i64, mut base: i32, mut pers: *mut i32) -> i32 {
                 *pers += 1;
                 *pers;
             }
-        } else if x
-            != 0 & &{
-                d = (x % (base.wrapping_sub(1i32)) as i64) as i32;
-                d == 0
-            }
-        {
-            d = base.wrapping_sub(1);
+        } else if x != 0 && {
+            d = (x % (base - 1i32) as i64) as i32;
+            d == 0
+        } {
+            d = base - 1;
         }
         return d;
     }
@@ -47,7 +44,7 @@ fn main_0() -> i32 {
     while i < 4 {
         d = droot(x[i as usize], 10, &mut pers);
         print!("{}: pers {}, root {}\n", x[i as usize], pers, d);
-        i = i.wrapping_add(1);
+        i += 1;
         i;
     }
     return 0;

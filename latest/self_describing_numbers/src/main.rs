@@ -36,13 +36,11 @@ pub extern "C" fn self_desc(mut xx: u64) -> i32 {
     loop {
         let fresh2 = d;
         d = d.wrapping_sub(1);
-        if !(fresh2
-            != 0 & &{
-                let fresh3 = x;
-                x = x.wrapping_add(1);
-                dig[fresh3 as usize] as i32 == cnt[d as usize] as i32
-            })
-        {
+        if !(fresh2 != 0 && {
+            let fresh3 = x;
+            x = x.wrapping_add(1);
+            dig[fresh3 as usize] as i32 == cnt[d as usize] as i32
+        }) {
             break;
         }
     }
@@ -56,7 +54,7 @@ fn main_0() -> i32 {
         if self_desc(i as u64) != 0 {
             print!("{}\n", i);
         }
-        i = i.wrapping_add(1);
+        i += 1;
         i;
     }
     return 0;

@@ -8,7 +8,7 @@
     unused_mut
 )]
 #![feature(extern_types)]
-
+use c2rust_out::*;
 extern "C" {
     pub type _IO_wide_data;
     pub type _IO_codecvt;
@@ -28,7 +28,6 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -71,74 +70,72 @@ pub static mut medium: [i8; 30] = [0; 30];
 #[no_mangle]
 pub static mut word: [i8; 30] = [0; 30];
 #[no_mangle]
-// SAFETY: machine generated unsafe code
 pub static mut dd: [*mut i8; 2] = unsafe { [dih.as_ptr() as *mut _, dah.as_ptr() as *mut _] };
 #[no_mangle]
 pub static mut ascii: *const i8 =
-    (b"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,?'!/()&:;=+-_\"$@\0" as *const u8).cast::<i8>();
+    b"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,?'!/()&:;=+-_\"$@\0" as *const u8 as *const i8;
 #[no_mangle]
 pub static mut itu: [*const i8; 54] = [
-    (b"13\0" as *const u8).cast::<i8>(),
-    (b"3111\0" as *const u8).cast::<i8>(),
-    (b"3131\0" as *const u8).cast::<i8>(),
-    (b"311\0" as *const u8).cast::<i8>(),
-    (b"1\0" as *const u8).cast::<i8>(),
-    (b"1131\0" as *const u8).cast::<i8>(),
-    (b"331\0" as *const u8).cast::<i8>(),
-    (b"1111\0" as *const u8).cast::<i8>(),
-    (b"11\0" as *const u8).cast::<i8>(),
-    (b"1333\0" as *const u8).cast::<i8>(),
-    (b"313\0" as *const u8).cast::<i8>(),
-    (b"1311\0" as *const u8).cast::<i8>(),
-    (b"33\0" as *const u8).cast::<i8>(),
-    (b"31\0" as *const u8).cast::<i8>(),
-    (b"333\0" as *const u8).cast::<i8>(),
-    (b"1331\0" as *const u8).cast::<i8>(),
-    (b"3313\0" as *const u8).cast::<i8>(),
-    (b"131\0" as *const u8).cast::<i8>(),
-    (b"111\0" as *const u8).cast::<i8>(),
-    (b"3\0" as *const u8).cast::<i8>(),
-    (b"113\0" as *const u8).cast::<i8>(),
-    (b"1113\0" as *const u8).cast::<i8>(),
-    (b"133\0" as *const u8).cast::<i8>(),
-    (b"3113\0" as *const u8).cast::<i8>(),
-    (b"3133\0" as *const u8).cast::<i8>(),
-    (b"3311\0" as *const u8).cast::<i8>(),
-    (b"33333\0" as *const u8).cast::<i8>(),
-    (b"13333\0" as *const u8).cast::<i8>(),
-    (b"11333\0" as *const u8).cast::<i8>(),
-    (b"11133\0" as *const u8).cast::<i8>(),
-    (b"11113\0" as *const u8).cast::<i8>(),
-    (b"11111\0" as *const u8).cast::<i8>(),
-    (b"31111\0" as *const u8).cast::<i8>(),
-    (b"33111\0" as *const u8).cast::<i8>(),
-    (b"33311\0" as *const u8).cast::<i8>(),
-    (b"33331\0" as *const u8).cast::<i8>(),
-    (b"131313\0" as *const u8).cast::<i8>(),
-    (b"331133\0" as *const u8).cast::<i8>(),
-    (b"113311\0" as *const u8).cast::<i8>(),
-    (b"133331\0" as *const u8).cast::<i8>(),
-    (b"313133\0" as *const u8).cast::<i8>(),
-    (b"31131\0" as *const u8).cast::<i8>(),
-    (b"31331\0" as *const u8).cast::<i8>(),
-    (b"313313\0" as *const u8).cast::<i8>(),
-    (b"13111\0" as *const u8).cast::<i8>(),
-    (b"333111\0" as *const u8).cast::<i8>(),
-    (b"313131\0" as *const u8).cast::<i8>(),
-    (b"31113\0" as *const u8).cast::<i8>(),
-    (b"13131\0" as *const u8).cast::<i8>(),
-    (b"311113\0" as *const u8).cast::<i8>(),
-    (b"113313\0" as *const u8).cast::<i8>(),
-    (b"131131\0" as *const u8).cast::<i8>(),
-    (b"1113113\0" as *const u8).cast::<i8>(),
-    (b"133131\0" as *const u8).cast::<i8>(),
+    b"13\0" as *const u8 as *const i8,
+    b"3111\0" as *const u8 as *const i8,
+    b"3131\0" as *const u8 as *const i8,
+    b"311\0" as *const u8 as *const i8,
+    b"1\0" as *const u8 as *const i8,
+    b"1131\0" as *const u8 as *const i8,
+    b"331\0" as *const u8 as *const i8,
+    b"1111\0" as *const u8 as *const i8,
+    b"11\0" as *const u8 as *const i8,
+    b"1333\0" as *const u8 as *const i8,
+    b"313\0" as *const u8 as *const i8,
+    b"1311\0" as *const u8 as *const i8,
+    b"33\0" as *const u8 as *const i8,
+    b"31\0" as *const u8 as *const i8,
+    b"333\0" as *const u8 as *const i8,
+    b"1331\0" as *const u8 as *const i8,
+    b"3313\0" as *const u8 as *const i8,
+    b"131\0" as *const u8 as *const i8,
+    b"111\0" as *const u8 as *const i8,
+    b"3\0" as *const u8 as *const i8,
+    b"113\0" as *const u8 as *const i8,
+    b"1113\0" as *const u8 as *const i8,
+    b"133\0" as *const u8 as *const i8,
+    b"3113\0" as *const u8 as *const i8,
+    b"3133\0" as *const u8 as *const i8,
+    b"3311\0" as *const u8 as *const i8,
+    b"33333\0" as *const u8 as *const i8,
+    b"13333\0" as *const u8 as *const i8,
+    b"11333\0" as *const u8 as *const i8,
+    b"11133\0" as *const u8 as *const i8,
+    b"11113\0" as *const u8 as *const i8,
+    b"11111\0" as *const u8 as *const i8,
+    b"31111\0" as *const u8 as *const i8,
+    b"33111\0" as *const u8 as *const i8,
+    b"33311\0" as *const u8 as *const i8,
+    b"33331\0" as *const u8 as *const i8,
+    b"131313\0" as *const u8 as *const i8,
+    b"331133\0" as *const u8 as *const i8,
+    b"113311\0" as *const u8 as *const i8,
+    b"133331\0" as *const u8 as *const i8,
+    b"313133\0" as *const u8 as *const i8,
+    b"31131\0" as *const u8 as *const i8,
+    b"31331\0" as *const u8 as *const i8,
+    b"313313\0" as *const u8 as *const i8,
+    b"13111\0" as *const u8 as *const i8,
+    b"333111\0" as *const u8 as *const i8,
+    b"313131\0" as *const u8 as *const i8,
+    b"31113\0" as *const u8 as *const i8,
+    b"13131\0" as *const u8 as *const i8,
+    b"311113\0" as *const u8 as *const i8,
+    b"113313\0" as *const u8 as *const i8,
+    b"131131\0" as *const u8 as *const i8,
+    b"1113113\0" as *const u8 as *const i8,
+    b"133131\0" as *const u8 as *const i8,
 ];
 #[no_mangle]
 pub extern "C" fn append(mut s: *mut i8, mut morse: *const i8) {
-// SAFETY: machine generated unsafe code
     unsafe {
         while *morse != 0 {
-            strcat(s, dd[i32::from('3' as i32 == i32::from(*morse)) as usize]);
+            strcat(s, dd[('3' as i32 == *morse as i32) as i32 as usize]);
             morse = morse.offset(1);
             morse;
         }
@@ -148,12 +145,11 @@ pub extern "C" fn append(mut s: *mut i8, mut morse: *const i8) {
 
 #[no_mangle]
 pub extern "C" fn translate(mut i: *const i8, mut o: *mut i8) -> *mut i8 {
-// SAFETY: machine generated unsafe code
     unsafe {
-        let mut pc: *const i8 = std::ptr::null::<i8>();
-        sprintf(o, (b"beep\0" as *const u8).cast::<i8>());
+        let mut pc: *const i8 = 0 as *const i8;
+        sprintf(o, b"beep\0" as *const u8 as *const i8);
         while *i != 0 {
-            pc = strchr(ascii, toupper(i32::from(*i)));
+            pc = strchr(ascii, toupper(*i as i32));
             if pc.is_null() {
                 strcat(o, word.as_mut_ptr());
             } else {
@@ -163,66 +159,65 @@ pub extern "C" fn translate(mut i: *const i8, mut o: *mut i8) -> *mut i8 {
             i;
         }
         strcat(o, word.as_mut_ptr());
-        o
+        return o;
     }
 }
 
 fn main_0(mut ac: i32, mut av: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut sin: [i8; 73] = [0; 73];
         let mut sout: [i8; 100000] = [0; 100000];
         let mut dit: i32 = 100;
-        if 1_i32 < ac {
-            if strlen(*av.offset(1_isize))
+        if 1 < ac {
+            if strlen(*av.offset(1 as isize))
                 != strspn(
-                    *av.offset(1_isize),
-                    (b"0123456789\0" as *const u8).cast::<i8>(),
+                    *av.offset(1 as isize),
+                    b"0123456789\0" as *const u8 as *const i8,
                 )
             {
-                return 0_i32 * fprintf(
+                return 0 * fprintf(
                     stderr,
-                    (b"use: %s [duration]   dit in ms, default %d\n\0" as *const u8).cast::<i8>(),
+                    b"use: %s [duration]   dit in ms, default %d\n\0" as *const u8 as *const i8,
                     *av,
                     dit,
                 );
             }
-            dit = if 1_i32 < atoi(*av.offset(1_isize)) {
-                if atoi(*av.offset(1_isize)) < 1_000_i32 {
-                    atoi(*av.offset(1_isize))
+            dit = if 1 < atoi(*av.offset(1 as isize)) {
+                if atoi(*av.offset(1 as isize)) < 1000 {
+                    atoi(*av.offset(1 as isize))
                 } else {
-                    1_000_i32
+                    1000
                 }
             } else {
-                1_i32
+                1
             };
         }
         sprintf(
             dah.as_mut_ptr(),
-            (b" -n -f 440 -l %d -D %d\0" as *const u8).cast::<i8>(),
+            b" -n -f 440 -l %d -D %d\0" as *const u8 as *const i8,
             3 * dit,
             dit,
         );
         sprintf(
             dih.as_mut_ptr(),
-            (b" -n -f 440 -l %d -D %d\0" as *const u8).cast::<i8>(),
+            b" -n -f 440 -l %d -D %d\0" as *const u8 as *const i8,
             dit,
             dit,
         );
         sprintf(
             medium.as_mut_ptr(),
-            (b" -n -D %d\0" as *const u8).cast::<i8>(),
+            b" -n -D %d\0" as *const u8 as *const i8,
             (3 - 1) * dit,
         );
         sprintf(
             word.as_mut_ptr(),
-            (b" -n -D %d\0" as *const u8).cast::<i8>(),
+            b" -n -D %d\0" as *const u8 as *const i8,
             (7 - (3 - 1) - 1) * dit,
         );
         while !(fgets(sin.as_mut_ptr(), 72, stdin)).is_null() {
             puts(translate(sin.as_mut_ptr(), sout.as_mut_ptr()));
         }
-        0_i32
+        return 0;
     }
 }
 
@@ -236,5 +231,5 @@ pub fn main() {
         );
     }
     args.push(::core::ptr::null_mut());
-    ::std::process::exit(main_0((args.len() - 1) as i32, args.as_mut_ptr()));
+    ::std::process::exit(main_0((args.len() - 1) as i32, args.as_mut_ptr() as *mut *mut i8) as i32);
 }

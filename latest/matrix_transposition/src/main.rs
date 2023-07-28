@@ -7,7 +7,7 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {}
 #[no_mangle]
 pub extern "C" fn transpose(
@@ -16,24 +16,23 @@ pub extern "C" fn transpose(
     mut src_h: i32,
     mut src_w: i32,
 ) {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut j: i32 = 0;
         let vla = src_h as usize;
-        let mut d: *mut f64 = dest.cast::<f64>();
+        let mut d: *mut f64 = dest as *mut f64;
         let vla_0 = src_w as usize;
-        let mut s: *mut f64 = src.cast::<f64>();
-        i = 0_i32;
+        let mut s: *mut f64 = src as *mut f64;
+        i = 0;
         while i < src_h {
-            j = 0_i32;
+            j = 0;
             while j < src_w {
                 *d.offset(j as isize * vla as isize).offset(i as isize) =
                     *s.offset(i as isize * vla_0 as isize).offset(j as isize);
-                j = j.wrapping_add(1);
+                j += 1;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }
@@ -43,35 +42,35 @@ fn main_0() -> i32 {
     let mut i: i32 = 0;
     let mut j: i32 = 0;
     let mut a: [[f64; 5]; 3] = [
-        [f64::from(0_i32), 1_f64, 2_f64, 3_f64, 4_f64],
-        [5_f64, 6_f64, 7_f64, 8_f64, 9_f64],
-        [1_f64, f64::from(0_i32), f64::from(0_i32), f64::from(0_i32), 42_f64],
+        [0 as f64, 1 as f64, 2 as f64, 3 as f64, 4 as f64],
+        [5 as f64, 6 as f64, 7 as f64, 8 as f64, 9 as f64],
+        [1 as f64, 0 as f64, 0 as f64, 0 as f64, 42 as f64],
     ];
     let mut b: [[f64; 3]; 5] = [[0.; 3]; 5];
     transpose(
-        b.as_mut_ptr().cast::<libc::c_void>(),
-        a.as_mut_ptr().cast::<libc::c_void>(),
+        b.as_mut_ptr() as *mut libc::c_void,
+        a.as_mut_ptr() as *mut libc::c_void,
         3,
         5,
     );
-    i = 0_i32;
-    while i < 5_i32 {
-        j = 0_i32;
-        while j < 3_i32 {
-            if j == 2_i32 {
+    i = 0;
+    while i < 5 {
+        j = 0;
+        while j < 3 {
+            if j == 2 {
                 print!("{}{}", b[i as usize][j as usize], '\n' as i32)
             } else {
                 print!("{}{}", b[i as usize][j as usize], ' ' as i32)
             };
-            j = j.wrapping_add(1);
+            j += 1;
             j;
         }
-        i = i.wrapping_add(1);
+        i += 1;
         i;
     }
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

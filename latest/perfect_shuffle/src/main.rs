@@ -21,7 +21,6 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -58,7 +57,6 @@ pub type FILE = _IO_FILE;
 #[no_mangle]
 pub static mut kDecks: [i32; 7] = [8, 24, 52, 100, 1020, 1024, 10000];
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut nCards: i32 = 0;
@@ -78,7 +76,7 @@ fn main_0() -> i32 {
             nShuffles = 0;
             loop {
                 ShuffleDeck(deck, nCards);
-                nShuffles = nShuffles.wrapping_add(1);
+                nShuffles += 1;
                 nShuffles;
                 if !(InitedDeck(deck, nCards) == 0) {
                     break;
@@ -89,7 +87,7 @@ fn main_0() -> i32 {
                 nCards, nShuffles
             );
             FreeDeck(&mut deck);
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
         return 0;
@@ -98,7 +96,6 @@ fn main_0() -> i32 {
 
 #[no_mangle]
 pub extern "C" fn CreateDeck(mut deck: *mut *mut i32, mut nCards: i32) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut tmp: *mut i32 = 0 as *mut i32;
         if !deck.is_null() {
@@ -116,14 +113,13 @@ pub extern "C" fn CreateDeck(mut deck: *mut *mut i32, mut nCards: i32) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn InitDeck(mut deck: *mut i32, mut nCards: i32) {
-// SAFETY: machine generated unsafe code
     unsafe {
         if !deck.is_null() {
             let mut i: i32 = 0;
             i = 0;
             while i < nCards {
                 *deck.offset(i as isize) = i;
-                i = i.wrapping_add(1);
+                i += 1;
                 i;
             }
         }
@@ -136,9 +132,8 @@ pub extern "C" fn DuplicateDeck(
     mut orig: *const i32,
     mut nCards: i32,
 ) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
-        if !orig.is_null() & &CreateDeck(dest, nCards) != 0 {
+        if !orig.is_null() && CreateDeck(dest, nCards) != 0 {
             memcpy(
                 *dest as *mut libc::c_void,
                 orig as *const libc::c_void,
@@ -153,7 +148,6 @@ pub extern "C" fn DuplicateDeck(
 
 #[no_mangle]
 pub extern "C" fn InitedDeck(mut deck: *mut i32, mut nCards: i32) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         i = 0;
@@ -161,7 +155,7 @@ pub extern "C" fn InitedDeck(mut deck: *mut i32, mut nCards: i32) -> i32 {
             if *deck.offset(i as isize) != i {
                 return 0;
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
         return 1;
@@ -170,7 +164,6 @@ pub extern "C" fn InitedDeck(mut deck: *mut i32, mut nCards: i32) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn ShuffleDeck(mut deck: *mut i32, mut nCards: i32) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut copy: *mut i32 = 0 as *mut i32;
         if DuplicateDeck(&mut copy, deck, nCards) != 0 {
@@ -178,13 +171,12 @@ pub extern "C" fn ShuffleDeck(mut deck: *mut i32, mut nCards: i32) -> i32 {
             let mut j: i32 = 0;
             j = 0;
             i = j;
-            while i < nCards.wrapping_div(2) {
+            while i < nCards / 2 {
                 *deck.offset(j as isize) = *copy.offset(i as isize);
-                *deck.offset((j.wrapping_add(1i32)) as isize) =
-                    *copy.offset((i + nCards.wrapping_div(2i32)) as isize);
-                i = i.wrapping_add(1);
+                *deck.offset((j + 1i32) as isize) = *copy.offset((i + nCards / 2i32) as isize);
+                i += 1;
                 i;
-                j = j.wrapping_add(2);
+                j += 2;
             }
             FreeDeck(&mut copy);
             return 1;
@@ -196,7 +188,6 @@ pub extern "C" fn ShuffleDeck(mut deck: *mut i32, mut nCards: i32) -> i32 {
 
 #[no_mangle]
 pub extern "C" fn FreeDeck(mut deck: *mut *mut i32) {
-// SAFETY: machine generated unsafe code
     unsafe {
         if !(*deck).is_null() {
             free(*deck as *mut libc::c_void);

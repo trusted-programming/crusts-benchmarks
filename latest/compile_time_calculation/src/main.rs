@@ -7,18 +7,17 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {}
 #[no_mangle]
-pub static mut val: i32 = 2_i32 * 3_i32 * 4_i32 * 5_i32 * 6_i32 * 7_i32 * 8_i32 * 9_i32 * 10_i32;
+pub static mut val: i32 = 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10;
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
-        println!("10! = {}", val);
+        print!("10! = {}\n", val);
     }
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

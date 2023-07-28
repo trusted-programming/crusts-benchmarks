@@ -9,18 +9,17 @@
 )]
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
-        while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+        while *raw_ptr.offset(str_size as isize) != 0 {
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
     }
 }
 
-
+use c2rust_out::*;
 extern "C" {
     pub type _IO_wide_data;
     pub type _IO_codecvt;
@@ -35,7 +34,6 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -71,7 +69,6 @@ pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct genome {
     pub strand: *mut i8,
     pub length: i32,
@@ -80,77 +77,76 @@ pub struct genome {
 #[no_mangle]
 pub static mut genomeData: *mut genome = 0 as *const genome as *mut genome;
 #[no_mangle]
-pub static mut totalLength: i32 = 0_i32;
+pub static mut totalLength: i32 = 0;
 #[no_mangle]
-pub static mut Adenine: i32 = 0_i32;
+pub static mut Adenine: i32 = 0;
 #[no_mangle]
-pub static mut Cytosine: i32 = 0_i32;
+pub static mut Cytosine: i32 = 0;
 #[no_mangle]
-pub static mut Guanine: i32 = 0_i32;
+pub static mut Guanine: i32 = 0;
 #[no_mangle]
-pub static mut Thymine: i32 = 0_i32;
+pub static mut Thymine: i32 = 0;
 #[no_mangle]
 pub extern "C" fn numDigits(mut num: i32) -> i32 {
     let mut len: i32 = 1;
-    while num > 10_i32 {
-        num = num.wrapping_add(10);
-        len = len.wrapping_add(1);
+    while num > 10 {
+        num = num / 10;
+        len += 1;
         len;
     }
-    len
+    return len;
 }
 
 #[no_mangle]
 pub extern "C" fn buildGenome(mut str: *mut i8) {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut len: i32 = strlen(str as *const i8) as i32;
         let mut i: i32 = 0;
-        let mut genomeIterator: *mut genome = std::ptr::null_mut::<genome>();
-        let mut newGenome: *mut genome = std::ptr::null_mut::<genome>();
-        totalLength = totalLength.wrapping_add(len);
-        i = 0_i32;
+        let mut genomeIterator: *mut genome = 0 as *mut genome;
+        let mut newGenome: *mut genome = 0 as *mut genome;
+        totalLength += len;
+        i = 0;
         while i < len {
-            match i32::from(*str.offset(i as isize)) {
-                65_i32 => {
-                    Adenine = Adenine.wrapping_add(1);
+            match *str.offset(i as isize) as i32 {
+                65 => {
+                    Adenine += 1;
                     Adenine;
                 }
-                84_i32 => {
-                    Thymine = Thymine.wrapping_add(1);
+                84 => {
+                    Thymine += 1;
                     Thymine;
                 }
-                67_i32 => {
-                    Cytosine = Cytosine.wrapping_add(1);
+                67 => {
+                    Cytosine += 1;
                     Cytosine;
                 }
-                71_i32 => {
-                    Guanine = Guanine.wrapping_add(1);
+                71 => {
+                    Guanine += 1;
                     Guanine;
                 }
                 _ => {}
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
         if genomeData.is_null() {
-            genomeData = malloc(::core::mem::size_of::<genome>() as u64).cast::<genome>();
+            genomeData = malloc(::core::mem::size_of::<genome>() as u64) as *mut genome;
             (*genomeData).strand =
-                malloc((len as u64).wrapping_mul(::core::mem::size_of::<i8>() as u64)).cast::<i8>();
+                malloc((len as u64).wrapping_mul(::core::mem::size_of::<i8>() as u64)) as *mut i8;
             strcpy((*genomeData).strand, str as *const i8);
             (*genomeData).length = len;
-            (*genomeData).next = std::ptr::null_mut::<genome>();
+            (*genomeData).next = 0 as *mut genome;
         } else {
             genomeIterator = genomeData;
             while !((*genomeIterator).next).is_null() {
                 genomeIterator = (*genomeIterator).next;
             }
-            newGenome = malloc(::core::mem::size_of::<genome>() as u64).cast::<genome>();
+            newGenome = malloc(::core::mem::size_of::<genome>() as u64) as *mut genome;
             (*newGenome).strand =
-                malloc((len as u64).wrapping_mul(::core::mem::size_of::<i8>() as u64)).cast::<i8>();
+                malloc((len as u64).wrapping_mul(::core::mem::size_of::<i8>() as u64)) as *mut i8;
             strcpy((*newGenome).strand, str as *const i8);
             (*newGenome).length = len;
-            (*newGenome).next = std::ptr::null_mut::<genome>();
+            (*newGenome).next = 0 as *mut genome;
             (*genomeIterator).next = newGenome;
         };
     }
@@ -158,82 +154,80 @@ pub extern "C" fn buildGenome(mut str: *mut i8) {
 
 #[no_mangle]
 pub extern "C" fn printGenome() {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut genomeIterator: *mut genome = genomeData;
         let mut width: i32 = numDigits(totalLength);
         let mut len: i32 = 0;
-        println!("Sequence:");
+        print!("Sequence:\n");
         while !genomeIterator.is_null() {
             print!(
                 "\n{1:0$}{2:3}{3:3}",
-                (width + 1).unsigned_abs() as usize,
+                (width + 1).abs() as usize,
                 len,
                 ":\0",
-                build_str_from_raw_ptr((*genomeIterator).strand.cast::<u8>())
+                build_str_from_raw_ptr((*genomeIterator).strand as *mut u8)
             );
             len += (*genomeIterator).length;
             genomeIterator = (*genomeIterator).next;
         }
         print!("\n\nBase Count\n----------\n\n");
-        println!(
-            "{0:3}{1:3}{3:2$}",
+        print!(
+            "{0:3}{1:3}{3:2$}\n",
             'A' as i32,
             ":\0",
-            (width + 1).unsigned_abs() as usize,
+            (width + 1).abs() as usize,
             Adenine
         );
-        println!(
-            "{0:3}{1:3}{3:2$}",
+        print!(
+            "{0:3}{1:3}{3:2$}\n",
             'T' as i32,
             ":\0",
-            (width + 1).unsigned_abs() as usize,
+            (width + 1).abs() as usize,
             Thymine
         );
-        println!(
-            "{0:3}{1:3}{3:2$}",
+        print!(
+            "{0:3}{1:3}{3:2$}\n",
             'C' as i32,
             ":\0",
-            (width + 1).unsigned_abs() as usize,
+            (width + 1).abs() as usize,
             Cytosine
         );
-        println!(
-            "{0:3}{1:3}{3:2$}",
+        print!(
+            "{0:3}{1:3}{3:2$}\n",
             'G' as i32,
             ":\0",
-            (width + 1).unsigned_abs() as usize,
+            (width + 1).abs() as usize,
             Guanine
         );
         print!(
             "\n{0:3}{2:1$}\n",
             "Total:\0",
-            (width + 1).unsigned_abs() as usize,
+            (width + 1).abs() as usize,
             Adenine + Thymine + Cytosine + Guanine
         );
-        free(genomeData.cast::<libc::c_void>());
+        free(genomeData as *mut libc::c_void);
     }
 }
 
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str: [i8; 100] = [0; 100];
-        let mut _counter: i32 = 0;
-        let mut _len: i32 = 0;
-        if argc != 2_i32 {
-            println!(
-                "Usage : {} <Gene file name>",
-                build_str_from_raw_ptr((*argv.offset(0_isize)).cast::<u8>())
+        let mut counter: i32 = 0;
+        let mut len: i32 = 0;
+        if argc != 2 {
+            print!(
+                "Usage : {} <Gene file name>\n",
+                build_str_from_raw_ptr(*argv.offset(0 as isize) as *mut u8)
             );
-            return 0_i32;
+            return 0;
         }
-        let mut fp: *mut FILE = fopen(*argv.offset(1_isize), (b"r\0" as *const u8).cast::<i8>());
-        while fscanf(fp, (b"%s\0" as *const u8).cast::<i8>(), str.as_mut_ptr()) != -1_i32 {
+        let mut fp: *mut FILE = fopen(*argv.offset(1 as isize), b"r\0" as *const u8 as *const i8);
+        while fscanf(fp, b"%s\0" as *const u8 as *const i8, str.as_mut_ptr()) != -1 {
             buildGenome(str.as_mut_ptr());
         }
         fclose(fp);
         printGenome();
-        0_i32
+        return 0;
     }
 }
 
@@ -247,5 +241,5 @@ pub fn main() {
         );
     }
     args.push(::core::ptr::null_mut());
-    ::std::process::exit(main_0((args.len() - 1) as i32, args.as_mut_ptr()));
+    ::std::process::exit(main_0((args.len() - 1) as i32, args.as_mut_ptr() as *mut *mut i8) as i32);
 }

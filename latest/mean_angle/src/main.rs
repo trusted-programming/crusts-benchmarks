@@ -7,7 +7,7 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {
     fn atan2(_: f64, _: f64) -> f64;
     fn cos(_: f64) -> f64;
@@ -15,26 +15,26 @@ extern "C" {
 }
 #[no_mangle]
 pub extern "C" fn meanAngle(mut angles: *mut f64, mut size: i32) -> f64 {
-// SAFETY: machine generated unsafe code
     unsafe {
-        let mut y_part: f64 = f64::from(0_i32);
-        let mut x_part: f64 = f64::from(0_i32);
+        let mut y_part: f64 = 0 as f64;
+        let mut x_part: f64 = 0 as f64;
         let mut i: i32 = 0;
-        i = 0_i32;
+        i = 0;
         while i < size {
-            x_part += cos((*angles.offset(i as isize)).to_radians());
-            y_part += sin((*angles.offset(i as isize)).to_radians());
-            i = i.wrapping_add(1);
+            x_part += cos(*angles.offset(i as isize) * 3.14159265358979323846f64 / 180 as f64);
+            y_part += sin(*angles.offset(i as isize) * 3.14159265358979323846f64 / 180 as f64);
+            i += 1;
             i;
         }
-        atan2(y_part / f64::from(size), x_part / f64::from(size)).to_degrees()
+        return atan2(y_part / size as f64, x_part / size as f64) * 180 as f64
+            / 3.14159265358979323846f64;
     }
 }
 
 fn main_0() -> i32 {
-    let mut angleSet1: [f64; 2] = [350_f64, 10_f64];
-    let mut angleSet2: [f64; 4] = [90_f64, 180_f64, 270_f64, 360_f64];
-    let mut angleSet3: [f64; 3] = [10_f64, 20_f64, 30_f64];
+    let mut angleSet1: [f64; 2] = [350 as f64, 10 as f64];
+    let mut angleSet2: [f64; 4] = [90 as f64, 180 as f64, 270 as f64, 360 as f64];
+    let mut angleSet3: [f64; 3] = [10 as f64, 20 as f64, 30 as f64];
     print!(
         "\nMean Angle for 1st set : {} degrees",
         meanAngle(angleSet1.as_mut_ptr(), 2)
@@ -47,9 +47,9 @@ fn main_0() -> i32 {
         "\nMean Angle for 3rd set : {} degrees\n",
         meanAngle(angleSet3.as_mut_ptr(), 3)
     );
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

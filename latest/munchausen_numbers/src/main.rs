@@ -7,32 +7,31 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {
     fn pow(_: f64, _: f64) -> f64;
 }
 fn main_0() -> i32 {
     let mut i: i32 = 1;
-// SAFETY: machine generated unsafe code
     unsafe {
-        while i < 5_000_i32 {
+        while i < 5000 {
             let mut sum: i32 = 0;
             let mut number: i32 = i;
-            while number > 0_i32 {
+            while number > 0 {
                 let mut digit: i32 = number % 10;
-                sum = (f64::from(sum) + pow(f64::from(digit), f64::from(digit))) as i32;
-                number = number.wrapping_div(10);
+                sum = (sum as f64 + pow(digit as f64, digit as f64)) as i32;
+                number /= 10;
             }
             if sum == i {
-                println!("{}", i);
+                print!("{}\n", i);
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

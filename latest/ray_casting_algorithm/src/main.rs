@@ -14,14 +14,12 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct vec {
     pub x: f64,
     pub y: f64,
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct polygon_t {
     pub n: i32,
     pub v: *mut vec,
@@ -70,7 +68,6 @@ pub extern "C" fn intersect(
     mut tol: f64,
     mut sect: *mut vec,
 ) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut dx: vec = vsub(x1, x0);
         let mut dy: vec = vsub(y1, y0);
@@ -110,7 +107,6 @@ pub extern "C" fn dist(mut x: vec, mut y0: vec, mut y1: vec, mut tol: f64) -> f6
         return ::core::f64::INFINITY;
     }
     s = vsub(s, x);
-// SAFETY: machine generated unsafe code
     unsafe {
         return sqrt(vdot(s, s));
     }
@@ -118,7 +114,6 @@ pub extern "C" fn dist(mut x: vec, mut y0: vec, mut y1: vec, mut tol: f64) -> f6
 
 #[no_mangle]
 pub extern "C" fn inside(mut v: vec, mut p: polygon, mut tol: f64) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut k: i32 = 0;
@@ -131,7 +126,7 @@ pub extern "C" fn inside(mut v: vec, mut p: polygon, mut tol: f64) -> i32 {
         let mut max_y: f64 = 0.;
         i = 0;
         while i < (*p).n {
-            k = (i.wrapping_add(1)) % (*p).n;
+            k = (i + 1) % (*p).n;
             min_x = dist(
                 v,
                 *((*p).v).offset(i as isize),
@@ -141,7 +136,7 @@ pub extern "C" fn inside(mut v: vec, mut p: polygon, mut tol: f64) -> i32 {
             if min_x < tol {
                 return 0;
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
         max_x = (*((*p).v).offset(0 as isize)).x;
@@ -163,7 +158,7 @@ pub extern "C" fn inside(mut v: vec, mut p: polygon, mut tol: f64) -> i32 {
             if (*pv).y < min_y {
                 min_y = (*pv).y;
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
             pv = pv.offset(1);
             pv;
@@ -171,11 +166,11 @@ pub extern "C" fn inside(mut v: vec, mut p: polygon, mut tol: f64) -> i32 {
         if v.x < min_x || v.x > max_x || v.y < min_y || v.y > max_y {
             return -1;
         }
-        max_x = max_x.wrapping_sub(min_x);
+        max_x -= min_x;
         max_x *= 2 as f64;
-        max_y = max_y.wrapping_sub(min_y);
+        max_y -= min_y;
         max_y *= 2 as f64;
-        max_x = max_x.wrapping_add(max_y);
+        max_x += max_y;
         let mut e: vec = vec { x: 0., y: 0. };
         loop {
             crosses = 0;
@@ -183,7 +178,7 @@ pub extern "C" fn inside(mut v: vec, mut p: polygon, mut tol: f64) -> i32 {
             e.y = v.y + (1 as f64 + rand() as f64 / (2147483647 as f64 + 1.0f64)) * max_x;
             i = 0;
             while i < (*p).n {
-                k = (i.wrapping_add(1)) % (*p).n;
+                k = (i + 1) % (*p).n;
                 intersectResult = intersect(
                     v,
                     e,
@@ -196,10 +191,10 @@ pub extern "C" fn inside(mut v: vec, mut p: polygon, mut tol: f64) -> i32 {
                     break;
                 }
                 if intersectResult == 1 {
-                    crosses = crosses.wrapping_add(1);
+                    crosses += 1;
                     crosses;
                 }
-                i = i.wrapping_add(1);
+                i += 1;
                 i;
             }
             if i == (*p).n {

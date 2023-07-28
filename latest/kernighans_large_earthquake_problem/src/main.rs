@@ -9,18 +9,17 @@
 )]
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
-        while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+        while *raw_ptr.offset(str_size as isize) != 0 {
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
     }
 }
 
-
+use c2rust_out::*;
 extern "C" {
     pub type _IO_wide_data;
     pub type _IO_codecvt;
@@ -35,7 +34,6 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -70,26 +68,25 @@ pub struct _IO_FILE {
 pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
-        let mut fp: *mut FILE = std::ptr::null_mut::<FILE>();
-        let mut line: *mut i8 = std::ptr::null_mut::<i8>();
+        let mut fp: *mut FILE = 0 as *mut FILE;
+        let mut line: *mut i8 = 0 as *mut i8;
         let mut len: u64 = 0;
         let mut read: i64 = 0;
-        let mut lw: *mut i8 = std::ptr::null_mut::<i8>();
-        let mut lt: *mut i8 = std::ptr::null_mut::<i8>();
+        let mut lw: *mut i8 = 0 as *mut i8;
+        let mut lt: *mut i8 = 0 as *mut i8;
         fp = fopen(
-            (b"data.txt\0" as *const u8).cast::<i8>(),
-            (b"r\0" as *const u8).cast::<i8>(),
+            b"data.txt\0" as *const u8 as *const i8,
+            b"r\0" as *const u8 as *const i8,
         );
         if fp.is_null() {
-            println!("Unable to open file");
+            print!("Unable to open file\n");
             exit(1);
         }
         print!("Those earthquakes with a magnitude > 6.0 are:\n\n");
         loop {
             read = getline(&mut line, &mut len, fp);
-            if read == -1_i64 {
+            if !(read != -1 as i64) {
                 break;
             }
             if read < 2 {
@@ -97,27 +94,26 @@ fn main_0() -> i32 {
             }
             lw = strrchr(line, ' ' as i32);
             lt = strrchr(line, '\t' as i32);
-            if lw.is_null() & &lt.is_null() {
+            if lw.is_null() && lt.is_null() {
                 continue;
             }
             if lt > lw {
                 lw = lt;
             }
-            if atof(lw.offset(1_isize)) > 6.0f64 {
-                print!("{}", build_str_from_raw_ptr(line.cast::<u8>()));
+            if atof(lw.offset(1 as isize)) > 6.0f64 {
+                print!("{}", build_str_from_raw_ptr(line as *mut u8));
             }
         }
         fclose(fp);
         if !line.is_null() {
-            free(line.cast::<libc::c_void>());
+            free(line as *mut libc::c_void);
         }
-        0_i32
+        return 0;
     }
 }
 
 pub fn main() {
-// SAFETY: machine generated unsafe code
     unsafe {
-        ::std::process::exit(main_0());
+        ::std::process::exit(main_0() as i32);
     }
 }

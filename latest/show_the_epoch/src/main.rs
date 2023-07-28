@@ -8,25 +8,23 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
-        while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+        while *raw_ptr.offset(str_size as isize) != 0 {
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
     }
 }
 
-
+use c2rust_out::*;
 extern "C" {
     fn gmtime(__timer: *const i64) -> *mut tm;
     fn asctime(__tp: *const tm) -> *mut i8;
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct tm {
     pub tm_sec: i32,
     pub tm_min: i32,
@@ -42,16 +40,15 @@ pub struct tm {
 }
 fn main_0() -> i32 {
     let mut t: i64 = 0;
-// SAFETY: machine generated unsafe code
     unsafe {
         print!(
             "{}",
-            build_str_from_raw_ptr(asctime(gmtime(&mut t)).cast::<u8>())
+            build_str_from_raw_ptr(asctime(gmtime(&mut t)) as *mut u8)
         );
     }
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

@@ -8,7 +8,7 @@
     unused_mut
 )]
 #![feature(extern_types)]
-
+use c2rust_out::*;
 extern "C" {
     pub type _IO_wide_data;
     pub type _IO_codecvt;
@@ -20,7 +20,6 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -63,14 +62,13 @@ pub extern "C" fn pi(mut tolerance: f64) -> f64 {
     let mut sampled: u64 = 0;
     let mut hit: u64 = 0;
     let mut i: u64 = 0;
-// SAFETY: machine generated unsafe code
     unsafe {
         loop {
             i = 1000000;
             while i != 0 {
-                x = f64::from(rand()) / (2147483647_f64 + 1.0f64);
-                y = f64::from(rand()) / (2147483647_f64 + 1.0f64);
-                if x.mul_add(x, y * y) < 1_f64 {
+                x = rand() as f64 / (2147483647 as f64 + 1.0f64);
+                y = rand() as f64 / (2147483647 as f64 + 1.0f64);
+                if x * x + y * y < 1 as f64 {
                     hit = hit.wrapping_add(1);
                     hit;
                 }
@@ -80,11 +78,11 @@ pub extern "C" fn pi(mut tolerance: f64) -> f64 {
                 sampled;
             }
             val = hit as f64 / sampled as f64;
-            error = sqrt(val * (1_f64 - val) / sampled as f64) * 4_f64;
-            val *= 4_f64;
+            error = sqrt(val * (1 as f64 - val) / sampled as f64) * 4 as f64;
+            val *= 4 as f64;
             fprintf(
                 stderr,
-                (b"Pi = %f +/- %5.3e at %ldM samples.\r\0" as *const u8).cast::<i8>(),
+                b"Pi = %f +/- %5.3e at %ldM samples.\r\0" as *const u8 as *const i8,
                 val,
                 error,
                 sampled.wrapping_div(1000000),
@@ -94,14 +92,14 @@ pub extern "C" fn pi(mut tolerance: f64) -> f64 {
             }
         }
     }
-    val
+    return val;
 }
 
 fn main_0() -> i32 {
-    println!("Pi is {}", pi(3e-4f64));
-    0_i32
+    print!("Pi is {}\n", pi(3e-4f64));
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

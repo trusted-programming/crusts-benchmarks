@@ -7,13 +7,12 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {
     fn puts(__s: *const i8) -> i32;
 }
 #[no_mangle]
 pub extern "C" fn damm(mut input: *mut u8, mut length: u64) -> bool {
-// SAFETY: machine generated unsafe code
     unsafe {
         static mut table: [[u8; 10]; 10] = [
             [0, 3, 1, 7, 5, 9, 8, 6, 4, 2],
@@ -34,23 +33,22 @@ pub extern "C" fn damm(mut input: *mut u8, mut length: u64) -> bool {
             i = i.wrapping_add(1);
             i;
         }
-        i32::from(interim) == 0_i32
+        return interim as i32 == 0;
     }
 }
 
 fn main_0() -> i32 {
     let mut input: [u8; 4] = [5, 7, 2, 4];
-// SAFETY: machine generated unsafe code
     unsafe {
-        puts(if i32::from(damm(input.as_mut_ptr(), 4)) != 0_i32 {
-            (b"Checksum correct\0" as *const u8).cast::<i8>()
+        puts(if damm(input.as_mut_ptr(), 4) as i32 != 0 {
+            b"Checksum correct\0" as *const u8 as *const i8
         } else {
-            (b"Checksum incorrect\0" as *const u8).cast::<i8>()
+            b"Checksum incorrect\0" as *const u8 as *const i8
         });
     }
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

@@ -8,7 +8,7 @@
     unused_mut
 )]
 #![feature(extern_types)]
-
+use c2rust_out::*;
 extern "C" {
     pub type _IO_wide_data;
     pub type _IO_codecvt;
@@ -27,7 +27,6 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -63,7 +62,6 @@ pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct rgb {
     pub r: f64,
     pub g: f64,
@@ -85,92 +83,94 @@ pub static mut clen: i64 = 0;
 pub static mut pix: *mut *mut rgb = 0 as *const *mut rgb as *mut *mut rgb;
 #[no_mangle]
 pub extern "C" fn sc_up() {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut tmp: i64 = dx - dy;
-        dy = dx.wrapping_add(dy);
+        dy = dx + dy;
         dx = tmp;
-        scale = scale.wrapping_mul(2);
-        x = x.wrapping_mul(2);
-        y = y.wrapping_mul(2);
+        scale *= 2;
+        x *= 2;
+        y *= 2;
     }
 }
 
 #[no_mangle]
 pub extern "C" fn h_rgb(mut x_0: i64, mut y_0: i64) {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut p: *mut rgb = &mut *(*pix.offset(y_0 as isize)).offset(x_0 as isize) as *mut rgb;
         let mut h: f64 = 6.0f64 * clen as f64 / scale as f64;
-        let mut VAL: f64 = 1_f64
-            - (cos(3.141592653579f64 * 64_f64 * clen as f64 / scale as f64) - 1_f64)
-                / 4_f64;
-        let mut c: f64 = 1_f64 * VAL;
-        let mut X: f64 = c * (1_f64 - fabs(fmod(h, 2_f64) - 1_f64));
+        let mut VAL: f64 = 1 as f64
+            - (cos(3.141592653579f64 * 64 as f64 * clen as f64 / scale as f64) - 1 as f64)
+                / 4 as f64;
+        let mut c: f64 = 1 as f64 * VAL;
+        let mut X: f64 = c * (1 as f64 - fabs(fmod(h, 2 as f64) - 1 as f64));
         match h as i32 {
-            0_i32 => {
+            0 => {
                 (*p).r += c;
                 (*p).g += X;
+                return;
             }
-            1_i32 => {
+            1 => {
                 (*p).r += X;
                 (*p).g += c;
+                return;
             }
-            2_i32 => {
+            2 => {
                 (*p).g += c;
                 (*p).b += X;
+                return;
             }
-            3_i32 => {
+            3 => {
                 (*p).g += X;
                 (*p).b += c;
+                return;
             }
-            4_i32 => {
+            4 => {
                 (*p).r += X;
                 (*p).b += c;
+                return;
             }
             _ => {
                 (*p).r += c;
                 (*p).b += X;
             }
-        }
+        };
     }
 }
 
 #[no_mangle]
 pub extern "C" fn iter_string(mut str: *const i8, mut d: i32) {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut tmp: i64 = 0;
-        while i32::from(*str) != '\0' as i32 {
+        while *str as i32 != '\0' as i32 {
             let fresh0 = str;
             str = str.offset(1);
-            match i32::from(*fresh0) {
-                88_i32 => {
-                    if d != 0_i32 {
-                        iter_string((b"X+YF+\0" as *const u8).cast::<i8>(), d.wrapping_sub(1));
+            match *fresh0 as i32 {
+                88 => {
+                    if d != 0 {
+                        iter_string(b"X+YF+\0" as *const u8 as *const i8, d - 1);
                     }
                 }
-                89_i32 => {
-                    if d != 0_i32 {
-                        iter_string((b"-FX-Y\0" as *const u8).cast::<i8>(), d.wrapping_sub(1));
+                89 => {
+                    if d != 0 {
+                        iter_string(b"-FX-Y\0" as *const u8 as *const i8, d - 1);
                     }
                 }
-                43_i32 => {
-                    tmp = dy;
+                43 => {
+                    tmp = dy as i64;
                     dy = -dx;
                     dx = tmp;
                 }
-                45_i32 => {
-                    tmp = -dy;
+                45 => {
+                    tmp = -dy as i64;
                     dy = dx;
                     dx = tmp;
                 }
-                70_i32 => {
-                    clen = clen.wrapping_add(1);
+                70 => {
+                    clen += 1;
                     clen;
                     h_rgb(x / scale, y / scale);
-                    x = x.wrapping_add(dx);
-                    y = y.wrapping_add(dy);
+                    x += dx;
+                    y += dy;
                 }
                 _ => {}
             }
@@ -180,27 +180,27 @@ pub extern "C" fn iter_string(mut str: *const i8, mut d: i32) {
 
 #[no_mangle]
 pub extern "C" fn dragon(mut leng: i64, mut depth: i32) {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i64 = 0;
         let mut d: i64 = leng / 3 + 1;
-        let mut h: i64 = leng.wrapping_add(3);
+        let mut h: i64 = leng + 3;
         let mut w: i64 = leng + d * 3 / 2 + 2;
         let mut buf: *mut rgb = malloc(
             (::core::mem::size_of::<rgb>() as u64)
                 .wrapping_mul(w as u64)
                 .wrapping_mul(h as u64),
-        ).cast::<rgb>();
-        pix = malloc((::core::mem::size_of::<*mut rgb>() as u64).wrapping_mul(h as u64)).cast::<*mut rgb>();
+        ) as *mut rgb;
+        pix = malloc((::core::mem::size_of::<*mut rgb>() as u64).wrapping_mul(h as u64))
+            as *mut *mut rgb;
         i = 0;
         while i < h {
-            let fresh1 = &mut (*pix.offset(i as isize));
-            *fresh1 = buf.offset((w.wrapping_mul(i)) as isize);
-            i = i.wrapping_add(1);
+            let ref mut fresh1 = *pix.offset(i as isize);
+            *fresh1 = buf.offset((w * i) as isize);
+            i += 1;
             i;
         }
         memset(
-            buf.cast::<libc::c_void>(),
+            buf as *mut libc::c_void,
             0,
             (::core::mem::size_of::<rgb>() as u64)
                 .wrapping_mul(w as u64)
@@ -208,39 +208,39 @@ pub extern "C" fn dragon(mut leng: i64, mut depth: i32) {
         );
         y = d;
         x = y;
-        dx = leng;
+        dx = leng as i64;
         dy = 0;
         scale = 1;
         clen = 0;
         i = 0;
-        while i < i64::from(depth) {
+        while i < depth as i64 {
             sc_up();
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
-        iter_string((b"FX\0" as *const u8).cast::<i8>(), depth);
-        let mut fpix: *mut u8 = malloc((w * h.wrapping_mul(3i64)) as u64).cast::<u8>();
-        let mut maxv: f64 = f64::from(0_i32);
-        let mut dbuf: *mut f64 = buf.cast::<f64>();
-        i = 3 * w * h.wrapping_sub(1);
+        iter_string(b"FX\0" as *const u8 as *const i8, depth);
+        let mut fpix: *mut u8 = malloc((w * h * 3i64) as u64) as *mut u8;
+        let mut maxv: f64 = 0 as f64;
+        let mut dbuf: *mut f64 = buf as *mut f64;
+        i = 3 * w * h - 1;
         while i >= 0 {
             if *dbuf.offset(i as isize) > maxv {
                 maxv = *dbuf.offset(i as isize);
             }
-            i = i.wrapping_sub(1);
+            i -= 1;
             i;
         }
-        i = 3 * h * w.wrapping_sub(1);
+        i = 3 * h * w - 1;
         while i >= 0 {
-            *fpix.offset(i as isize) = (255_f64 * *dbuf.offset(i as isize) / maxv) as u8;
-            i = i.wrapping_sub(1);
+            *fpix.offset(i as isize) = (255 as f64 * *dbuf.offset(i as isize) / maxv) as u8;
+            i -= 1;
             i;
         }
         print!("P6\n{} {}\n255\n", w, h);
         fflush(stdout);
         fwrite(
             fpix as *const libc::c_void,
-            (h * w.wrapping_mul(3i64)) as u64,
+            (h * w * 3i64) as u64,
             1,
             stdout,
         );
@@ -248,24 +248,23 @@ pub extern "C" fn dragon(mut leng: i64, mut depth: i32) {
 }
 
 fn main_0(mut c: i32, mut v: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut size: i32 = 0;
         let mut depth: i32 = 0;
-        depth = if c > 1_i32 {
-            atoi(*v.offset(1_isize))
+        depth = if c > 1 {
+            atoi(*v.offset(1 as isize))
         } else {
-            10_i32
+            10
         };
-        size = 1_i32 << depth;
+        size = 1 << depth;
         fprintf(
             stderr,
-            (b"size: %d depth: %d\n\0" as *const u8).cast::<i8>(),
+            b"size: %d depth: %d\n\0" as *const u8 as *const i8,
             size,
             depth,
         );
-        dragon(i64::from(size), depth.wrapping_mul(2));
-        0_i32
+        dragon(size as i64, depth * 2);
+        return 0;
     }
 }
 
@@ -279,5 +278,5 @@ pub fn main() {
         );
     }
     args.push(::core::ptr::null_mut());
-    ::std::process::exit(main_0((args.len() - 1) as i32, args.as_mut_ptr()));
+    ::std::process::exit(main_0((args.len() - 1) as i32, args.as_mut_ptr() as *mut *mut i8) as i32);
 }

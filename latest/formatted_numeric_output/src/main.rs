@@ -7,19 +7,19 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {}
 fn main_0() -> i32 {
     let mut r: libc::c_float = 7.125f64 as libc::c_float;
-    println!(" {:9.3}", f64::from(-r));
-    println!(" {:9.3}", f64::from(r));
-    println!(" {:-9.3}", f64::from(r));
-    println!(" {:09.3}", f64::from(-r));
-    println!(" {:09.3}", f64::from(r));
-    println!(" {:-09.3}", f64::from(r));
-    0_i32
+    print!(" {:9.3}\n", -r as f64);
+    print!(" {:9.3}\n", r as f64);
+    print!(" {:-9.3}\n", r as f64);
+    print!(" {:09.3}\n", -r as f64);
+    print!(" {:09.3}\n", r as f64);
+    print!(" {:-09.3}\n", r as f64);
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

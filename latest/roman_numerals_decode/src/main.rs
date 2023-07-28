@@ -8,11 +8,10 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -27,7 +26,6 @@ pub static mut digits: [i32; 26] = [
 ];
 #[no_mangle]
 pub extern "C" fn decode(mut roman: *const i8) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut bigger: *const i8 = 0 as *const i8;
         let mut current: i32 = 0;
@@ -35,15 +33,12 @@ pub extern "C" fn decode(mut roman: *const i8) -> i32 {
         while *roman as i32 != '\0' as i32 {
             current = digits[((!0x20i32 & *roman as i32) - 'A' as i32) as usize];
             bigger = roman;
-            while digits[((!0x20i32 & *bigger as i32) - 'A' as i32) as usize]
-                <= current
-                    & &{
-                        bigger = bigger.offset(1);
-                        *bigger as i32 != '\0' as i32
-                    }
-            {}
+            while digits[((!0x20i32 & *bigger as i32) - 'A' as i32) as usize] <= current && {
+                bigger = bigger.offset(1);
+                *bigger as i32 != '\0' as i32
+            } {}
             if *bigger as i32 == '\0' as i32 {
-                arabic = arabic.wrapping_add(current);
+                arabic += current;
             } else {
                 arabic += digits[((!0x20i32 & *bigger as i32) - 'A' as i32) as usize];
                 while roman < bigger {
@@ -68,7 +63,6 @@ fn main_0() -> i32 {
     ];
     let mut i: i32 = 0;
     i = 0;
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < 4 {
             print!(
@@ -76,7 +70,7 @@ fn main_0() -> i32 {
                 build_str_from_raw_ptr(romans[i as usize] as *mut u8),
                 decode(romans[i as usize])
             );
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }

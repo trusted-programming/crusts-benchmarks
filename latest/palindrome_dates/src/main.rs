@@ -8,11 +8,10 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -40,7 +39,6 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct tm {
     pub tm_sec: i32,
     pub tm_min: i32,
@@ -56,7 +54,6 @@ pub struct tm {
 }
 #[no_mangle]
 pub extern "C" fn is_palindrome(mut str: *const i8) -> bool {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut n: u64 = strlen(str);
         let mut i: u64 = 0;
@@ -74,7 +71,6 @@ pub extern "C" fn is_palindrome(mut str: *const i8) -> bool {
 }
 
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut timestamp: i64 = rust_time(None);
         let seconds_per_day: i32 = 24 * 60 * 60;
@@ -97,7 +93,7 @@ fn main_0() -> i32 {
                     ptr,
                 );
                 print!("{}\n", build_str_from_raw_ptr(str.as_mut_ptr() as *mut u8));
-                count = count.wrapping_sub(1);
+                count -= 1;
                 count;
             }
             timestamp += seconds_per_day as i64;

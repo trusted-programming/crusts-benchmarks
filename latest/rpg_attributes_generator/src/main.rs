@@ -27,11 +27,9 @@ extern "C" {
     fn qsort(__base: *mut libc::c_void, __nmemb: u64, __size: u64, __compar: __compar_fn_t);
 }
 pub type __compar_fn_t =
-// SAFETY: machine generated unsafe code
     Option<unsafe extern "C" fn(*const libc::c_void, *const libc::c_void) -> i32>;
 #[no_mangle]
 pub extern "C" fn compareInts(mut i1: *const libc::c_void, mut i2: *const libc::c_void) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut a: i32 = *(i1 as *mut i32);
         let mut b: i32 = *(i2 as *mut i32);
@@ -47,7 +45,6 @@ fn main_0() -> i32 {
     let mut vcount: i32 = 0;
     let mut values: [i32; 6] = [0; 6];
     let mut numbers: [i32; 4] = [0; 4];
-// SAFETY: machine generated unsafe code
     unsafe {
         srand(rust_time(None) as u32);
         loop {
@@ -57,7 +54,7 @@ fn main_0() -> i32 {
                 j = 0;
                 while j < 4 {
                     numbers[j as usize] = 1 + rand() % 6;
-                    j = j.wrapping_add(1);
+                    j += 1;
                     j;
                 }
                 qsort(
@@ -66,7 +63,6 @@ fn main_0() -> i32 {
                     ::core::mem::size_of::<i32>() as u64,
                     Some(
                         compareInts
-// SAFETY: machine generated unsafe code
                             as unsafe extern "C" fn(
                                 *const libc::c_void,
                                 *const libc::c_void,
@@ -77,12 +73,12 @@ fn main_0() -> i32 {
                 j = 1;
                 while j < 4 {
                     nsum += numbers[j as usize];
-                    j = j.wrapping_add(1);
+                    j += 1;
                     j;
                 }
                 values[i as usize] = nsum;
                 vsum += values[i as usize];
-                i = i.wrapping_add(1);
+                i += 1;
                 i;
             }
             if vsum < 75 {
@@ -92,10 +88,10 @@ fn main_0() -> i32 {
             j = 0;
             while j < 6 {
                 if values[j as usize] >= 15 {
-                    vcount = vcount.wrapping_add(1);
+                    vcount += 1;
                     vcount;
                 }
-                j = j.wrapping_add(1);
+                j += 1;
                 j;
             }
             if vcount < 2 {
@@ -106,7 +102,7 @@ fn main_0() -> i32 {
             j = 0;
             while j < 6 {
                 print!("{} ", values[j as usize]);
-                j = j.wrapping_add(1);
+                j += 1;
                 j;
             }
             print!("\x08]\n");

@@ -19,18 +19,15 @@ pub extern "C" fn dist(mut th1: f64, mut ph1: f64, mut th2: f64, mut ph2: f64) -
     let mut dx: f64 = 0.;
     let mut dy: f64 = 0.;
     let mut dz: f64 = 0.;
-    ph1 = ph1.wrapping_sub(ph2);
+    ph1 -= ph2;
     ph1 *= 3.1415926536f64 / 180 as f64;
     th1 *= 3.1415926536f64 / 180 as f64;
     th2 *= 3.1415926536f64 / 180 as f64;
-// SAFETY: machine generated unsafe code
     unsafe {
         dz = sin(th1) - sin(th2);
         dx = cos(ph1) * cos(th1) - cos(th2);
         dy = sin(ph1) * cos(th1);
-        return asin(sqrt(dx * dx + dy * dy + dz.wrapping_mul(dz)) / 2 as f64)
-            * 2 as f64
-            * 6371 as f64;
+        return asin(sqrt(dx * dx + dy * dy + dz * dz) / 2 as f64) * 2 as f64 * 6371 as f64;
     }
 }
 

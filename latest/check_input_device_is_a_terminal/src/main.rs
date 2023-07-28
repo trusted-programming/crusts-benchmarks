@@ -8,7 +8,7 @@
     unused_mut
 )]
 #![feature(extern_types)]
-
+use c2rust_out::*;
 extern "C" {
     pub type _IO_wide_data;
     pub type _IO_codecvt;
@@ -20,7 +20,6 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -55,17 +54,16 @@ pub struct _IO_FILE {
 pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
-        puts(if isatty(fileno(stdin)) != 0_i32 {
-            (b"stdin is tty\0" as *const u8).cast::<i8>()
+        puts(if isatty(fileno(stdin)) != 0 {
+            b"stdin is tty\0" as *const u8 as *const i8
         } else {
-            (b"stdin is not tty\0" as *const u8).cast::<i8>()
+            b"stdin is not tty\0" as *const u8 as *const i8
         });
     }
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

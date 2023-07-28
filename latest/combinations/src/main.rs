@@ -7,44 +7,38 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {}
 #[no_mangle]
 pub static mut one: u64 = 1;
 #[no_mangle]
 pub extern "C" fn comb(mut pool: i32, mut need: i32, mut chosen: u64, mut at: i32) {
-    if pool < need.wrapping_add(at) {
+    if pool < need + at {
         return;
     }
-// SAFETY: machine generated unsafe code
     unsafe {
-        if need == 0_i32 {
-            at = 0_i32;
+        if need == 0 {
+            at = 0;
             while at < pool {
                 if chosen & one << at != 0 {
                     print!("{} ", at);
                 }
-                at = at.wrapping_add(1);
+                at += 1;
                 at;
             }
-            println!();
+            print!("\n");
             return;
         }
-        comb(
-            pool,
-            need.wrapping_sub(1),
-            chosen | one << at,
-            at.wrapping_add(1),
-        );
+        comb(pool, need - 1, chosen | one << at, at + 1);
     }
-    comb(pool, need, chosen, at.wrapping_add(1));
+    comb(pool, need, chosen, at + 1);
 }
 
 fn main_0() -> i32 {
     comb(5, 3, 0, 0);
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

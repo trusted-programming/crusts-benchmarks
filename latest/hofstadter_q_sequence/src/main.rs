@@ -7,51 +7,50 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {
     fn malloc(_: u64) -> *mut libc::c_void;
 }
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut flip: i32 = 0;
-        let mut q: *mut i32 = malloc((::core::mem::size_of::<i32>() as u64).wrapping_mul(100000)).cast::<i32>()
-            .offset(-1_isize);
-        let fresh0 = &mut (*q.offset(2_isize));
-        *fresh0 = 1_i32;
-        *q.offset(1_isize) = *fresh0;
-        i = 3_i32;
-        while i <= 100_000_i32 {
-            *q.offset(i as isize) = *q
-                .offset((i - *q.offset((i.wrapping_sub(1i32)) as isize)) as isize)
-                + *q.offset((i - *q.offset((i.wrapping_sub(2i32)) as isize)) as isize);
-            i = i.wrapping_add(1);
+        let mut q: *mut i32 = (malloc((::core::mem::size_of::<i32>() as u64).wrapping_mul(100000))
+            as *mut i32)
+            .offset(-(1 as isize));
+        let ref mut fresh0 = *q.offset(2 as isize);
+        *fresh0 = 1;
+        *q.offset(1 as isize) = *fresh0;
+        i = 3;
+        while i <= 100000 {
+            *q.offset(i as isize) = *q.offset((i - *q.offset((i - 1i32) as isize)) as isize)
+                + *q.offset((i - *q.offset((i - 2i32) as isize)) as isize);
+            i += 1;
             i;
         }
-        i = 1_i32;
-        while i <= 10_i32 {
-            if i == 10_i32 {
+        i = 1;
+        while i <= 10 {
+            if i == 10 {
                 print!("{}{}", *q.offset(i as isize), '\n' as i32)
             } else {
                 print!("{}{}", *q.offset(i as isize), ' ' as i32)
             };
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
-        println!("{}", *q.offset(1000_isize));
-        flip = 0_i32;
-        i = 1_i32;
-        while i < 100_000_i32 {
-            flip += i32::from(*q.offset(i as isize) > *q.offset((i.wrapping_add(1i32)) as isize));
-            i = i.wrapping_add(1);
+        print!("{}\n", *q.offset(1000 as isize));
+        flip = 0;
+        i = 1;
+        while i < 100000 {
+            flip += (*q.offset(i as isize) > *q.offset((i + 1i32) as isize)) as i32;
+            i += 1;
             i;
         }
-        println!("flips: {}", flip);
-        0_i32
+        print!("flips: {}\n", flip);
+        return 0;
     }
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

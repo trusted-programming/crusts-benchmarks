@@ -8,7 +8,7 @@
     unused_mut
 )]
 #![feature(extern_types)]
-
+use c2rust_out::*;
 extern "C" {
     pub type _IO_wide_data;
     pub type _IO_codecvt;
@@ -16,7 +16,6 @@ extern "C" {
     fn fcntl(__fd: i32, __cmd: i32, _: ...) -> i32;
     fn open(__file: *const i8, __oflag: i32, _: ...) -> i32;
     fn malloc(_: u64) -> *mut libc::c_void;
-// SAFETY: machine generated unsafe code
     fn atexit(__func: Option<unsafe extern "C" fn() -> ()>) -> i32;
     fn exit(_: i32) -> !;
     fn getenv(__name: *const i8) -> *mut i8;
@@ -33,7 +32,6 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct flock {
     pub l_type: i16,
     pub l_whence: i16,
@@ -43,7 +41,6 @@ pub struct flock {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -79,7 +76,6 @@ pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 #[no_mangle]
 pub extern "C" fn fail(mut message: *const i8) {
-// SAFETY: machine generated unsafe code
     unsafe {
         perror(message);
         exit(1);
@@ -89,7 +85,6 @@ pub extern "C" fn fail(mut message: *const i8) {
 static mut ooi_path: *mut i8 = 0 as *const i8 as *mut i8;
 #[no_mangle]
 pub extern "C" fn ooi_unlink() {
-// SAFETY: machine generated unsafe code
     unsafe {
         unlink(ooi_path);
     }
@@ -97,7 +92,6 @@ pub extern "C" fn ooi_unlink() {
 
 #[no_mangle]
 pub extern "C" fn only_one_instance() {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut fl: flock = flock {
             l_type: 0,
@@ -108,44 +102,43 @@ pub extern "C" fn only_one_instance() {
         };
         let mut dirlen: u64 = 0;
         let mut fd: i32 = 0;
-        let mut dir: *mut i8 = std::ptr::null_mut::<i8>();
-        dir = getenv((b"HOME\0" as *const u8).cast::<i8>());
-        if dir.is_null() || i32::from(*dir.offset(0_isize)) != '/' as i32 {
-            fputs((b"Bad home directory.\n\0" as *const u8).cast::<i8>(), stderr);
+        let mut dir: *mut i8 = 0 as *mut i8;
+        dir = getenv(b"HOME\0" as *const u8 as *const i8);
+        if dir.is_null() || *dir.offset(0 as isize) as i32 != '/' as i32 {
+            fputs(b"Bad home directory.\n\0" as *const u8 as *const i8, stderr);
             exit(1);
         }
         dirlen = strlen(dir);
         ooi_path =
-            malloc(dirlen.wrapping_add(::core::mem::size_of::<[i8; 19]>() as u64)).cast::<i8>();
+            malloc(dirlen.wrapping_add(::core::mem::size_of::<[i8; 19]>() as u64)) as *mut i8;
         if ooi_path.is_null() {
-            fail((b"malloc\0" as *const u8).cast::<i8>());
+            fail(b"malloc\0" as *const u8 as *const i8);
         }
         memcpy(
-            ooi_path.cast::<libc::c_void>(),
+            ooi_path as *mut libc::c_void,
             dir as *const libc::c_void,
             dirlen,
         );
         memcpy(
-            ooi_path.offset(dirlen as isize).cast::<libc::c_void>(),
-            (b"/rosetta-code-lock\0" as *const u8).cast::<i8>().cast::<libc::c_void>(),
+            ooi_path.offset(dirlen as isize) as *mut libc::c_void,
+            b"/rosetta-code-lock\0" as *const u8 as *const i8 as *const libc::c_void,
             ::core::mem::size_of::<[i8; 19]>() as u64,
         );
         fd = open(ooi_path, 0o2 | 0o100, 0o600);
-        if fd < 0_i32 {
+        if fd < 0 {
             fail(ooi_path);
         }
         fl.l_start = 0;
         fl.l_len = 0;
         fl.l_type = 1;
         fl.l_whence = 0;
-        if fcntl(fd, 6, &mut fl as *mut flock) < 0_i32 {
+        if fcntl(fd, 6, &mut fl as *mut flock) < 0 {
             fputs(
-                (b"Another instance of this program is running.\n\0" as *const u8).cast::<i8>(),
+                b"Another instance of this program is running.\n\0" as *const u8 as *const i8,
                 stderr,
             );
             exit(1);
         }
-// SAFETY: machine generated unsafe code
         atexit(Some(ooi_unlink as unsafe extern "C" fn() -> ()));
     }
 }
@@ -153,28 +146,26 @@ pub extern "C" fn only_one_instance() {
 fn main_0() -> i32 {
     let mut i: i32 = 0;
     only_one_instance();
-    i = 10_i32;
-// SAFETY: machine generated unsafe code
+    i = 10;
     unsafe {
-        while i > 0_i32 {
-            if i % 5_i32 == 1_i32 {
-                print!("{}...\n\0", i)
+        while i > 0 {
+            if i % 5 == 1 {
+                print!("{}...{}", i, "\n\0")
             } else {
-                print!("{}... \0", i)
+                print!("{}...{}", i, " \0")
             };
             fflush(stdout);
             sleep(1);
-            i = i.wrapping_sub(1);
+            i -= 1;
             i;
         }
-        puts((b"Fin!\0" as *const u8).cast::<i8>());
+        puts(b"Fin!\0" as *const u8 as *const i8);
     }
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-// SAFETY: machine generated unsafe code
     unsafe {
-        ::std::process::exit(main_0());
+        ::std::process::exit(main_0() as i32);
     }
 }

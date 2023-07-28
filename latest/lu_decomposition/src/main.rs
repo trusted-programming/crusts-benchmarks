@@ -7,7 +7,7 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {
     fn printf(_: *const i8, _: ...) -> i32;
     fn malloc(_: u64) -> *mut libc::c_void;
@@ -18,16 +18,15 @@ pub type mat = *mut *mut f64;
 #[no_mangle]
 pub extern "C" fn mat_zero(mut x: mat, mut n: i32) {
     let mut i: i32 = 0;
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < n {
             let mut j: i32 = 0;
             while j < n {
-                *(*x.offset(i as isize)).offset(j as isize) = f64::from(0_i32);
-                j = j.wrapping_add(1);
+                *(*x.offset(i as isize)).offset(j as isize) = 0 as f64;
+                j += 1;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }
@@ -35,31 +34,29 @@ pub extern "C" fn mat_zero(mut x: mat, mut n: i32) {
 
 #[no_mangle]
 pub extern "C" fn mat_new(mut n: i32) -> mat {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut x: mat =
-            malloc((::core::mem::size_of::<*mut f64>() as u64).wrapping_mul(n as u64)).cast::<*mut f64>();
-        let fresh0 = &mut (*x.offset(0_isize));
+            malloc((::core::mem::size_of::<*mut f64>() as u64).wrapping_mul(n as u64)) as mat;
+        let ref mut fresh0 = *x.offset(0 as isize);
         *fresh0 = malloc(
             (::core::mem::size_of::<f64>() as u64)
                 .wrapping_mul(n as u64)
                 .wrapping_mul(n as u64),
-        ).cast::<f64>();
+        ) as *mut f64;
         let mut i: i32 = 0;
         while i < n {
-            let fresh1 = &mut (*x.offset(i as isize));
-            *fresh1 = (*x.offset(0_isize)).offset((n.wrapping_mul(i)) as isize);
-            i = i.wrapping_add(1);
+            let ref mut fresh1 = *x.offset(i as isize);
+            *fresh1 = (*x.offset(0 as isize)).offset((n * i) as isize);
+            i += 1;
             i;
         }
         mat_zero(x, n);
-        x
+        return x;
     }
 }
 
 #[no_mangle]
 pub extern "C" fn mat_copy(mut s: *mut libc::c_void, mut n: i32) -> mat {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut x: mat = mat_new(n);
         let mut i: i32 = 0;
@@ -67,38 +64,36 @@ pub extern "C" fn mat_copy(mut s: *mut libc::c_void, mut n: i32) -> mat {
             let mut j: i32 = 0;
             while j < n {
                 let vla = n as usize;
-                *(*x.offset(i as isize)).offset(j as isize) = *s.cast::<f64>()
+                *(*x.offset(i as isize)).offset(j as isize) = *(s as *mut f64)
                     .offset(i as isize * vla as isize)
                     .offset(j as isize);
-                j = j.wrapping_add(1);
+                j += 1;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
-        x
+        return x;
     }
 }
 
 #[no_mangle]
 pub extern "C" fn mat_del(mut x: mat) {
-// SAFETY: machine generated unsafe code
     unsafe {
-        free((*x.offset(0_isize)).cast::<libc::c_void>());
-        free(x.cast::<libc::c_void>());
+        free(*x.offset(0 as isize) as *mut libc::c_void);
+        free(x as *mut libc::c_void);
     }
 }
 
 #[no_mangle]
 pub extern "C" fn mat_show(mut x: mat, mut fmt: *mut i8, mut n: i32) {
-// SAFETY: machine generated unsafe code
     unsafe {
         if fmt.is_null() {
-            fmt = (b"%8.4g\0" as *const u8).cast::<i8>() as *mut i8;
+            fmt = b"%8.4g\0" as *const u8 as *const i8 as *mut i8;
         }
         let mut i: i32 = 0;
         while i < n {
-            if i != 0_i32 {
+            if i != 0 {
                 print!("      ")
             } else {
                 print!(" [ ")
@@ -106,17 +101,19 @@ pub extern "C" fn mat_show(mut x: mat, mut fmt: *mut i8, mut n: i32) {
             let mut j: i32 = 0;
             while j < n {
                 printf(fmt, *(*x.offset(i as isize)).offset(j as isize));
-                if j < n.wrapping_sub(1) {
+                if j < n - 1 {
                     print!("  ")
-                } else if i == n.wrapping_sub(1) {
-                    println!(" ]")
                 } else {
-                    println!()
+                    if i == n - 1 {
+                        print!(" ]\n")
+                    } else {
+                        print!("\n")
+                    }
                 };
-                j = j.wrapping_add(1);
+                j += 1;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }
@@ -124,11 +121,10 @@ pub extern "C" fn mat_show(mut x: mat, mut fmt: *mut i8, mut n: i32) {
 
 #[no_mangle]
 pub extern "C" fn mat_mul(mut a: mat, mut b: mat, mut n: i32) -> mat {
-    let mut c: mat = std::ptr::null_mut::<*mut f64>();
+    let mut c: mat = 0 as *mut *mut f64;
     c = mat_new(n);
     c = c;
     let mut i: i32 = 0;
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < n {
             let mut j: i32 = 0;
@@ -138,37 +134,35 @@ pub extern "C" fn mat_mul(mut a: mat, mut b: mat, mut n: i32) -> mat {
                     *(*c.offset(i as isize)).offset(j as isize) += *(*a.offset(i as isize))
                         .offset(k as isize)
                         * *(*b.offset(k as isize)).offset(j as isize);
-                    k = k.wrapping_add(1);
+                    k += 1;
                     k;
                 }
-                j = j.wrapping_add(1);
+                j += 1;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }
-    c
+    return c;
 }
 
 #[no_mangle]
 pub extern "C" fn mat_pivot(mut a: mat, mut p: mat, mut n: i32) {
     let mut i: i32 = 0;
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < n {
             let mut j: i32 = 0;
             while j < n {
-                *(*p.offset(i as isize)).offset(j as isize) = f64::from(i32::from(i == j));
-                j = j.wrapping_add(1);
+                *(*p.offset(i as isize)).offset(j as isize) = (i == j) as i32 as f64;
+                j += 1;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }
     let mut i_0: i32 = 0;
-// SAFETY: machine generated unsafe code
     unsafe {
         while i_0 < n {
             let mut max_j: i32 = i_0;
@@ -179,7 +173,7 @@ pub extern "C" fn mat_pivot(mut a: mat, mut p: mat, mut n: i32) {
                 {
                     max_j = j_0;
                 }
-                j_0 = j_0.wrapping_add(1);
+                j_0 += 1;
                 j_0;
             }
             if max_j != i_0 {
@@ -189,11 +183,11 @@ pub extern "C" fn mat_pivot(mut a: mat, mut p: mat, mut n: i32) {
                     *(*p.offset(i_0 as isize)).offset(k as isize) =
                         *(*p.offset(max_j as isize)).offset(k as isize);
                     *(*p.offset(max_j as isize)).offset(k as isize) = tmp;
-                    k = k.wrapping_add(1);
+                    k += 1;
                     k;
                 }
             }
-            i_0 = i_0.wrapping_add(1);
+            i_0 += 1;
             i_0;
         }
     }
@@ -206,50 +200,48 @@ pub extern "C" fn mat_LU(mut A: mat, mut L: mat, mut U: mat, mut P: mat, mut n: 
     mat_pivot(A, P, n);
     let mut Aprime: mat = mat_mul(P, A, n);
     let mut i: i32 = 0;
-// SAFETY: machine generated unsafe code
     unsafe {
         while i < n {
-            *(*L.offset(i as isize)).offset(i as isize) = 1_f64;
-            i = i.wrapping_add(1);
+            *(*L.offset(i as isize)).offset(i as isize) = 1 as f64;
+            i += 1;
             i;
         }
     }
     let mut i_0: i32 = 0;
-// SAFETY: machine generated unsafe code
     unsafe {
         while i_0 < n {
             let mut j: i32 = 0;
             while j < n {
                 let mut s: f64 = 0.;
                 if j <= i_0 {
-                    s = f64::from(0_i32);
+                    s = 0 as f64;
                     let mut k: i32 = 0;
                     while k < j {
                         s += *(*L.offset(j as isize)).offset(k as isize)
                             * *(*U.offset(k as isize)).offset(i_0 as isize);
-                        k = k.wrapping_add(1);
+                        k += 1;
                         k;
                     }
                     *(*U.offset(j as isize)).offset(i_0 as isize) =
                         *(*Aprime.offset(j as isize)).offset(i_0 as isize) - s;
                 }
                 if j >= i_0 {
-                    s = f64::from(0_i32);
+                    s = 0 as f64;
                     let mut k_0: i32 = 0;
                     while k_0 < i_0 {
                         s += *(*L.offset(j as isize)).offset(k_0 as isize)
                             * *(*U.offset(k_0 as isize)).offset(i_0 as isize);
-                        k_0 = k_0.wrapping_add(1);
+                        k_0 += 1;
                         k_0;
                     }
                     *(*L.offset(j as isize)).offset(i_0 as isize) =
                         (*(*Aprime.offset(j as isize)).offset(i_0 as isize) - s)
                             / *(*U.offset(i_0 as isize)).offset(i_0 as isize);
                 }
-                j = j.wrapping_add(1);
+                j += 1;
                 j;
             }
-            i_0 = i_0.wrapping_add(1);
+            i_0 += 1;
             i_0;
         }
     }
@@ -258,68 +250,66 @@ pub extern "C" fn mat_LU(mut A: mat, mut L: mat, mut U: mat, mut P: mat, mut n: 
 
 #[no_mangle]
 pub static mut A3: [[f64; 3]; 3] = [
-    [1_f64, 3_f64, 5_f64],
-    [2_f64, 4_f64, 7_f64],
-    [1_f64, 1_f64, 0_i32 as f64],
+    [1 as f64, 3 as f64, 5 as f64],
+    [2 as f64, 4 as f64, 7 as f64],
+    [1 as f64, 1 as f64, 0 as f64],
 ];
 #[no_mangle]
 pub static mut A4: [[f64; 4]; 4] = [
-    [11_f64, 9_f64, 24_f64, 2_f64],
-    [1_f64, 5_f64, 2_f64, 6_f64],
-    [3_f64, 17_f64, 18_f64, 1_f64],
-    [2_f64, 5_f64, 7_f64, 1_f64],
+    [11 as f64, 9 as f64, 24 as f64, 2 as f64],
+    [1 as f64, 5 as f64, 2 as f64, 6 as f64],
+    [3 as f64, 17 as f64, 18 as f64, 1 as f64],
+    [2 as f64, 5 as f64, 7 as f64, 1 as f64],
 ];
 fn main_0() -> i32 {
     let mut n: i32 = 3;
-    let mut A: mat = std::ptr::null_mut::<*mut f64>();
-    let mut L: mat = std::ptr::null_mut::<*mut f64>();
-    let mut P: mat = std::ptr::null_mut::<*mut f64>();
-    let mut U: mat = std::ptr::null_mut::<*mut f64>();
+    let mut A: mat = 0 as *mut *mut f64;
+    let mut L: mat = 0 as *mut *mut f64;
+    let mut P: mat = 0 as *mut *mut f64;
+    let mut U: mat = 0 as *mut *mut f64;
     L = mat_new(n);
     P = mat_new(n);
     U = mat_new(n);
-// SAFETY: machine generated unsafe code
     unsafe {
-        A = mat_copy(A3.as_mut_ptr().cast::<libc::c_void>(), n);
+        A = mat_copy(A3.as_mut_ptr() as *mut libc::c_void, n);
     }
     mat_LU(A, L, U, P, n);
     print!("A =");
-    mat_show(A, std::ptr::null_mut::<i8>(), n);
+    mat_show(A, 0 as *mut i8, n);
     print!("L =");
-    mat_show(L, std::ptr::null_mut::<i8>(), n);
+    mat_show(L, 0 as *mut i8, n);
     print!("U =");
-    mat_show(U, std::ptr::null_mut::<i8>(), n);
+    mat_show(U, 0 as *mut i8, n);
     print!("P =");
-    mat_show(P, std::ptr::null_mut::<i8>(), n);
+    mat_show(P, 0 as *mut i8, n);
     mat_del(A);
     mat_del(L);
     mat_del(U);
     mat_del(P);
-    println!();
-    n = 4_i32;
+    print!("\n");
+    n = 4;
     L = mat_new(n);
     P = mat_new(n);
     U = mat_new(n);
-// SAFETY: machine generated unsafe code
     unsafe {
-        A = mat_copy(A4.as_mut_ptr().cast::<libc::c_void>(), n);
+        A = mat_copy(A4.as_mut_ptr() as *mut libc::c_void, n);
     }
     mat_LU(A, L, U, P, n);
     print!("A =");
-    mat_show(A, std::ptr::null_mut::<i8>(), n);
+    mat_show(A, 0 as *mut i8, n);
     print!("L =");
-    mat_show(L, std::ptr::null_mut::<i8>(), n);
+    mat_show(L, 0 as *mut i8, n);
     print!("U =");
-    mat_show(U, std::ptr::null_mut::<i8>(), n);
+    mat_show(U, 0 as *mut i8, n);
     print!("P =");
-    mat_show(P, std::ptr::null_mut::<i8>(), n);
+    mat_show(P, 0 as *mut i8, n);
     mat_del(A);
     mat_del(L);
     mat_del(U);
     mat_del(P);
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

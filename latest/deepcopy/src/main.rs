@@ -7,17 +7,15 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {}
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct layer1 {
     pub a: i32,
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct layer2 {
     pub l1: layer1,
     pub b: libc::c_float,
@@ -25,7 +23,6 @@ pub struct layer2 {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct layer3 {
     pub l2: layer2,
     pub l1: layer1,
@@ -37,7 +34,7 @@ pub extern "C" fn showCake(mut cake: layer3) {
     print!("\ncake.d = {}", cake.d);
     print!("\ncake.e = {}", cake.e);
     print!("\ncake.l1.a = {}", cake.l1.a);
-    print!("\ncake.l2.b = {}", f64::from(cake.l2.b));
+    print!("\ncake.l2.b = {}", cake.l2.b as f64);
     print!("\ncake.l2.l1.a = {}", cake.l2.l1.a);
 }
 
@@ -62,20 +59,20 @@ fn main_0() -> i32 {
         d: 0,
         e: 0,
     };
-    cake1.d = 1_i32;
-    cake1.e = 2_i32;
-    cake1.l1.a = 3_i32;
-    cake1.l2.b = 4_i32 as libc::c_float;
-    cake1.l2.l1.a = 5_i32;
+    cake1.d = 1;
+    cake1.e = 2;
+    cake1.l1.a = 3;
+    cake1.l2.b = 4 as libc::c_float;
+    cake1.l2.l1.a = 5;
     print!("Cake 1 is : ");
     showCake(cake1);
     cake2 = cake1;
     cake2.l2.b += cake2.l2.l1.a as libc::c_float;
     print!("\nCake 2 is : ");
     showCake(cake2);
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

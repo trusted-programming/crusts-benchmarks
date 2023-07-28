@@ -9,18 +9,17 @@
 )]
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
-        while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+        while *raw_ptr.offset(str_size as isize) != 0 {
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
     }
 }
 
-
+use c2rust_out::*;
 extern "C" {
     pub type _IO_wide_data;
     pub type _IO_codecvt;
@@ -43,7 +42,6 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -79,7 +77,6 @@ pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct dstr {
     pub data: *mut i8,
     pub alloc: u64,
@@ -87,66 +84,61 @@ pub struct dstr {
 }
 #[no_mangle]
 pub extern "C" fn dstr_space(mut s: *mut dstr, mut grow_amount: u64) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
-        i32::from(((*s).length).wrapping_add(grow_amount) < (*s).alloc)
+        return (((*s).length).wrapping_add(grow_amount) < (*s).alloc) as i32;
     }
 }
 
 #[no_mangle]
 pub extern "C" fn dstr_grow(mut s: *mut dstr) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
-        (*s).alloc = (*s).alloc.wrapping_mul(2);
-        let mut attempt: *mut i8 = realloc((*s).data.cast::<libc::c_void>(), (*s).alloc).cast::<i8>();
+        (*s).alloc = ((*s).alloc as u64).wrapping_mul(2) as u64;
+        let mut attempt: *mut i8 = realloc((*s).data as *mut libc::c_void, (*s).alloc) as *mut i8;
         if attempt.is_null() {
-            return 0_i32;
+            return 0;
         } else {
             (*s).data = attempt;
         }
-        1_i32
+        return 1;
     }
 }
 
 #[no_mangle]
 pub extern "C" fn dstr_init(to_allocate: u64) -> *mut dstr {
-// SAFETY: machine generated unsafe code
     unsafe {
-        let mut s: *mut dstr = malloc(::core::mem::size_of::<dstr>() as u64).cast::<dstr>();
+        let mut s: *mut dstr = malloc(::core::mem::size_of::<dstr>() as u64) as *mut dstr;
         if !s.is_null() {
             (*s).length = 0;
             (*s).alloc = to_allocate;
-            (*s).data = malloc((*s).alloc).cast::<i8>();
+            (*s).data = malloc((*s).alloc) as *mut i8;
             if !((*s).data).is_null() {
                 return s;
             }
         }
         if !((*s).data).is_null() {
-            free((*s).data.cast::<libc::c_void>());
+            free((*s).data as *mut libc::c_void);
         }
         if !s.is_null() {
-            free(s.cast::<libc::c_void>());
+            free(s as *mut libc::c_void);
         }
-        std::ptr::null_mut::<dstr>()
+        return 0 as *mut dstr;
     }
 }
 
 #[no_mangle]
 pub extern "C" fn dstr_delete(mut s: *mut dstr) {
-// SAFETY: machine generated unsafe code
     unsafe {
         if !((*s).data).is_null() {
-            free((*s).data.cast::<libc::c_void>());
+            free((*s).data as *mut libc::c_void);
         }
         if !s.is_null() {
-            free(s.cast::<libc::c_void>());
+            free(s as *mut libc::c_void);
         }
     }
 }
 
 #[no_mangle]
 pub extern "C" fn readinput(mut fd: *mut FILE) -> *mut dstr {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut current_block: u64;
         static mut buffer_size: u64 = 4096;
@@ -162,12 +154,12 @@ pub extern "C" fn readinput(mut fd: *mut FILE) -> *mut dstr {
             match current_block {
                 17156671859070965445 => {
                     dstr_delete(s);
-                    return std::ptr::null_mut::<dstr>();
+                    return 0 as *mut dstr;
                 }
                 _ => {
                     if !(fgets(buffer.as_mut_ptr(), buffer_size as i32, fd)).is_null() {
-                        while dstr_space(s, buffer_size) == 0_i32 {
-                            if dstr_grow(s) == 0_i32 {
+                        while dstr_space(s, buffer_size) == 0 {
+                            if dstr_grow(s) == 0 {
                                 current_block = 17156671859070965445;
                                 continue '_failure;
                             }
@@ -195,7 +187,6 @@ pub extern "C" fn dstr_replace_all(
     mut replace: *const i8,
     mut insert: *const i8,
 ) {
-// SAFETY: machine generated unsafe code
     unsafe {
         let replace_l: u64 = strlen(replace);
         let insert_l: u64 = strlen(insert);
@@ -205,28 +196,30 @@ pub extern "C" fn dstr_replace_all(
             if start.is_null() {
                 break;
             }
-            if dstr_space(story, insert_l.wrapping_sub(replace_l)) == 0_i32 && dstr_grow(story) == 0_i32 {
-                fprintf(
-                    stderr,
-                    (b"Failed to allocate memory\0" as *const u8).cast::<i8>(),
-                );
-                exit(1);
+            if dstr_space(story, insert_l.wrapping_sub(replace_l)) == 0 {
+                if dstr_grow(story) == 0 {
+                    fprintf(
+                        stderr,
+                        b"Failed to allocate memory\0" as *const u8 as *const i8,
+                    );
+                    exit(1);
+                }
             }
             if insert_l != replace_l {
                 memmove(
-                    start.offset(insert_l as isize).cast::<libc::c_void>(),
+                    start.offset(insert_l as isize) as *mut libc::c_void,
                     start.offset(replace_l as isize) as *const libc::c_void,
                     ((*story).length).wrapping_sub(
                         start.offset(replace_l as isize).offset_from((*story).data) as u64,
                     ),
                 );
                 (*story).length =
-                    (*story).length.wrapping_add(insert_l.wrapping_sub(replace_l));
+                    ((*story).length as u64).wrapping_add(insert_l.wrapping_sub(replace_l)) as u64;
                 *((*story).data).offset((*story).length as isize) = 0;
             }
             memmove(
-                start.cast::<libc::c_void>(),
-                insert.cast::<libc::c_void>(),
+                start as *mut libc::c_void,
+                insert as *const libc::c_void,
                 insert_l,
             );
         }
@@ -235,14 +228,13 @@ pub extern "C" fn dstr_replace_all(
 
 #[no_mangle]
 pub extern "C" fn madlibs(mut story: *mut dstr) {
-// SAFETY: machine generated unsafe code
     unsafe {
         static mut buffer_size: u64 = 128;
         let vla = buffer_size as usize;
         let mut insert: Vec<i8> = ::std::vec::from_elem(0, vla);
         let vla_0 = buffer_size as usize;
         let mut replace: Vec<i8> = ::std::vec::from_elem(0, vla_0);
-        let mut start: *mut i8 = std::ptr::null_mut::<i8>();
+        let mut start: *mut i8 = 0 as *mut i8;
         let mut end: *mut i8 = (*story).data;
         loop {
             start = strchr(end, '<' as i32);
@@ -253,7 +245,7 @@ pub extern "C" fn madlibs(mut story: *mut dstr) {
             if end.is_null() {
                 fprintf(
                     stderr,
-                    (b"Malformed brackets in input\0" as *const u8).cast::<i8>(),
+                    b"Malformed brackets in input\0" as *const u8 as *const i8,
                 );
                 exit(1);
             }
@@ -267,31 +259,30 @@ pub extern "C" fn madlibs(mut story: *mut dstr) {
                 .offset((end.offset_from(start) as i64 + 1i64) as isize) = '\0' as i8;
             print!(
                 "Enter value for field {}: ",
-                build_str_from_raw_ptr(replace.as_mut_ptr().cast::<u8>())
+                build_str_from_raw_ptr(replace.as_mut_ptr() as *mut u8)
             );
             fgets(insert.as_mut_ptr(), buffer_size as i32, stdin);
             let il: u64 = (strlen(insert.as_mut_ptr())).wrapping_sub(1);
-            if i32::from(*insert.as_mut_ptr().offset(il as isize)) == '\n' as i32 {
+            if *insert.as_mut_ptr().offset(il as isize) as i32 == '\n' as i32 {
                 *insert.as_mut_ptr().offset(il as isize) = '\0' as i8;
             }
             dstr_replace_all(story, replace.as_mut_ptr(), insert.as_mut_ptr());
         }
-        println!();
+        print!("\n");
     }
 }
 
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
-        if argc < 2_i32 {
-            return 0_i32;
+        if argc < 2 {
+            return 0;
         }
-        let mut fd: *mut FILE = fopen(*argv.offset(1_isize), (b"r\0" as *const u8).cast::<i8>());
+        let mut fd: *mut FILE = fopen(*argv.offset(1 as isize), b"r\0" as *const u8 as *const i8);
         if fd.is_null() {
             fprintf(
                 stderr,
-                (b"Could not open file: '%s\n\0" as *const u8).cast::<i8>(),
-                *argv.offset(1_isize),
+                b"Could not open file: '%s\n\0" as *const u8 as *const i8,
+                *argv.offset(1 as isize),
             );
             exit(1);
         }
@@ -300,14 +291,14 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
         if story.is_null() {
             fprintf(
                 stderr,
-                (b"Failed to allocate memory\0" as *const u8).cast::<i8>(),
+                b"Failed to allocate memory\0" as *const u8 as *const i8,
             );
             exit(1);
         }
         madlibs(story);
-        println!("{}", build_str_from_raw_ptr((*story).data.cast::<u8>()));
+        print!("{}\n", build_str_from_raw_ptr((*story).data as *mut u8));
         dstr_delete(story);
-        0_i32
+        return 0;
     }
 }
 
@@ -321,10 +312,9 @@ pub fn main() {
         );
     }
     args.push(::core::ptr::null_mut());
-// SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(
-            main_0((args.len() - 1) as i32, args.as_mut_ptr()),
+            main_0((args.len() - 1) as i32, args.as_mut_ptr() as *mut *mut i8) as i32,
         );
     }
 }

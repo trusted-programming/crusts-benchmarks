@@ -8,18 +8,17 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
-        while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+        while *raw_ptr.offset(str_size as isize) != 0 {
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
     }
 }
 
-
+use c2rust_out::*;
 extern "C" {
     fn strlen(_: *const i8) -> u64;
     fn __ctype_b_loc() -> *mut *const u16;
@@ -39,64 +38,63 @@ pub const _ISlower: u32 = 512;
 pub const _ISupper: u32 = 256;
 #[no_mangle]
 pub extern "C" fn rot(mut c: i32, mut str: *mut i8) {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut l: i32 = strlen(str) as i32;
         let mut alpha: [*const i8; 2] = [
-            (b"abcdefghijklmnopqrstuvwxyz\0" as *const u8).cast::<i8>(),
-            (b"ABCDEFGHIJKLMNOPQRSTUVWXYZ\0" as *const u8).cast::<i8>(),
+            b"abcdefghijklmnopqrstuvwxyz\0" as *const u8 as *const i8,
+            b"ABCDEFGHIJKLMNOPQRSTUVWXYZ\0" as *const u8 as *const i8,
         ];
         let mut i: i32 = 0;
-        i = 0_i32;
+        i = 0;
         while i < l {
-            if i32::from(*(*__ctype_b_loc()).offset(i32::from(*str.offset(i as isize)) as isize))
-                & _ISalpha as i32 != 0_i32
+            if !(*(*__ctype_b_loc()).offset(*str.offset(i as isize) as i32 as isize) as i32
+                & _ISalpha as i32
+                == 0)
             {
-                if i32::from(*(*__ctype_b_loc()).offset(i32::from(*str.offset(i as isize)) as isize))
+                if *(*__ctype_b_loc()).offset(*str.offset(i as isize) as i32 as isize) as i32
                     & _ISupper as i32
-                    != 0_i32
+                    != 0
                 {
-                    *str.offset(i as isize) = *(alpha[1_usize]).offset(
-                        ((tolower(i32::from(*str.offset(i as isize))) - 'a' as i32 + c) % 26i32)
+                    *str.offset(i as isize) = *(alpha[1 as usize]).offset(
+                        ((tolower(*str.offset(i as isize) as i32) - 'a' as i32 + c) % 26i32)
                             as isize,
                     );
                 } else {
-                    *str.offset(i as isize) = *(alpha[0_usize]).offset(
-                        ((tolower(i32::from(*str.offset(i as isize))) - 'a' as i32 + c) % 26i32)
+                    *str.offset(i as isize) = *(alpha[0 as usize]).offset(
+                        ((tolower(*str.offset(i as isize) as i32) - 'a' as i32 + c) % 26i32)
                             as isize,
                     );
                 }
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }
 }
 
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str: [i8; 35] = *::core::mem::transmute::<&[u8; 35], &mut [i8; 35]>(
             b"This is a top secret text message!\0",
         );
-        println!(
-            "Original: {}",
-            build_str_from_raw_ptr(str.as_mut_ptr().cast::<u8>())
+        print!(
+            "Original: {}\n",
+            build_str_from_raw_ptr(str.as_mut_ptr() as *mut u8)
         );
         rot(13, str.as_mut_ptr());
-        println!(
-            "Encrypted: {}",
-            build_str_from_raw_ptr(str.as_mut_ptr().cast::<u8>())
+        print!(
+            "Encrypted: {}\n",
+            build_str_from_raw_ptr(str.as_mut_ptr() as *mut u8)
         );
         rot(13, str.as_mut_ptr());
-        println!(
-            "Decrypted: {}",
-            build_str_from_raw_ptr(str.as_mut_ptr().cast::<u8>())
+        print!(
+            "Decrypted: {}\n",
+            build_str_from_raw_ptr(str.as_mut_ptr() as *mut u8)
         );
     }
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

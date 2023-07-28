@@ -7,43 +7,41 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {}
 #[no_mangle]
 pub extern "C" fn bsearch(mut a: *mut i32, mut n: i32, mut x: i32) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
-        let mut j: i32 = n.wrapping_sub(1);
+        let mut j: i32 = n - 1;
         while i <= j {
             let mut k: i32 = i + (j - i) / 2;
             if *a.offset(k as isize) == x {
                 return k;
             } else if *a.offset(k as isize) < x {
-                i = k.wrapping_add(1);
+                i = k + 1;
             } else {
-                j = k.wrapping_sub(1);
+                j = k - 1;
             }
         }
-        -1_i32
+        return -1;
     }
 }
 
 #[no_mangle]
 pub extern "C" fn bsearch_r(mut a: *mut i32, mut x: i32, mut i: i32, mut j: i32) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         if j < i {
-            return -1_i32;
+            return -1;
         }
         let mut k: i32 = i + (j - i) / 2;
         if *a.offset(k as isize) == x {
-            k
+            return k;
         } else if *a.offset(k as isize) < x {
-            return bsearch_r(a, x, k.wrapping_add(1), j);
+            return bsearch_r(a, x, k + 1, j);
         } else {
-            return bsearch_r(a, x, i, k.wrapping_sub(1));
-        }
+            return bsearch_r(a, x, i, k - 1);
+        };
     }
 }
 
@@ -53,13 +51,13 @@ fn main_0() -> i32 {
         .wrapping_div(::core::mem::size_of::<i32>() as u64) as i32;
     let mut x: i32 = 2;
     let mut i: i32 = bsearch(a.as_mut_ptr(), n, x);
-    println!("{} is at index {}", x, i);
-    x = 5_i32;
-    i = bsearch_r(a.as_mut_ptr(), x, 0, n.wrapping_sub(1));
-    println!("{} is at index {}", x, i);
-    0_i32
+    print!("{} is at index {}\n", x, i);
+    x = 5;
+    i = bsearch_r(a.as_mut_ptr(), x, 0, n - 1);
+    print!("{} is at index {}\n", x, i);
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

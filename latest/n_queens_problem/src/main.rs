@@ -16,10 +16,9 @@ extern "C" {
 pub static mut count: i32 = 0;
 #[no_mangle]
 pub extern "C" fn solve(mut n: i32, mut col: i32, mut hist: *mut i32) {
-// SAFETY: machine generated unsafe code
     unsafe {
         if col == n {
-            count = count.wrapping_add(1);
+            count += 1;
             print!("\nNo. {}\n-----\n", count);
             let mut i: i32 = 0;
             while i < n {
@@ -35,10 +34,10 @@ pub extern "C" fn solve(mut n: i32, mut col: i32, mut hist: *mut i32) {
                             '.' as i32
                         }
                     );
-                    j = j.wrapping_add(1);
+                    j += 1;
                     j;
                 }
-                i = i.wrapping_add(1);
+                i += 1;
                 i;
                 print!("{}", '\n' as i32);
             }
@@ -48,26 +47,24 @@ pub extern "C" fn solve(mut n: i32, mut col: i32, mut hist: *mut i32) {
         let mut j_0: i32 = 0;
         while i_0 < n {
             j_0 = 0;
-            while j_0
-                < col
-                    & &!(*hist.offset(j_0 as isize) == i_0
-                        || abs(*hist.offset(j_0 as isize) - i_0) == col - j_0)
+            while j_0 < col
+                && !(*hist.offset(j_0 as isize) == i_0
+                    || abs(*hist.offset(j_0 as isize) - i_0) == col - j_0)
             {
-                j_0 = j_0.wrapping_add(1);
+                j_0 += 1;
                 j_0;
             }
             if !(j_0 < col) {
                 *hist.offset(col as isize) = i_0;
-                solve(n, col.wrapping_add(1), hist);
+                solve(n, col + 1, hist);
             }
-            i_0 = i_0.wrapping_add(1);
+            i_0 += 1;
             i_0;
         }
     }
 }
 
 fn main_0(mut n: i32, mut argv: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         if n <= 1 || {
             n = atoi(*argv.offset(1 as isize));

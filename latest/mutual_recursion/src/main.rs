@@ -7,45 +7,37 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {}
 #[no_mangle]
 pub extern "C" fn F(n: i32) -> i32 {
-    if n == 0_i32 {
-        1_i32
-    } else {
-        n - M(F(n.wrapping_sub(1)))
-    }
+    return if n == 0 { 1 } else { n - M(F(n - 1)) };
 }
 
 #[no_mangle]
 pub extern "C" fn M(n: i32) -> i32 {
-    if n == 0_i32 {
-        0_i32
-    } else {
-        n - F(M(n.wrapping_sub(1)))
-    }
+    return if n == 0 { 0 } else { n - F(M(n - 1)) };
 }
 
 fn main_0() -> i32 {
     let mut i: i32 = 0;
-    i = 0_i32;
-    while i < 20_i32 {
+    i = 0;
+    while i < 20 {
         print!("{:2} ", F(i));
-        i = i.wrapping_add(1);
+        i += 1;
         i;
     }
-    println!();
-    i = 0_i32;
-    while i < 20_i32 {
+    print!("\n");
+    i = 0;
+    while i < 20 {
         print!("{:2} ", M(i));
-        i = i.wrapping_add(1);
+        i += 1;
         i;
     }
-    println!();
-    0_i32
+    print!("\n");
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

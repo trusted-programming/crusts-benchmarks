@@ -11,18 +11,8 @@ for d in */; do
     # RUN CRUSTS
     (cd "${d}" && crusts) >>crusts.log 2>&1
 
-    # REMOVE UNSAFE WARNINGS AND DERIVE DEBUG
-    find "$d" -name "*.rs" -print0 | while IFS= read -r -d '' file; do
-        if grep -q "unsafe " "$file"; then
-            sed -i '/unsafe / i\// SAFETY: machine generated unsafe code' "$file"
-        fi
-        if grep -q "struct " "$file"; then
-            sed -i '/struct / i\#[derive(Debug)]' "$file"
-        fi
-    done
-
-    # RUN CLIPPY FIX
-    (cd "${d}" && cargo +nightly-2023-06-29 clippy --fix --allow-dirty --allow-no-vcs) >>clippy_fix.log 2>&1
+    # RUN CLIPPY
+    (cd "${d}" && cargo +nightly-2023-06-29 check) >>clippy_fix.log 2>&1
 
     # FILTER OUT NON COMPILING
     if [ $? -eq 0 ]; then

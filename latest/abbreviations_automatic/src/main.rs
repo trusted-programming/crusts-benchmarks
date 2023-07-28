@@ -9,18 +9,17 @@
 )]
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
-        while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+        while *raw_ptr.offset(str_size as isize) != 0 {
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
     }
 }
 
-
+use c2rust_out::*;
 extern "C" {
     pub type _IO_wide_data;
     pub type _IO_codecvt;
@@ -34,7 +33,6 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -70,107 +68,106 @@ pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 #[no_mangle]
 pub extern "C" fn process(mut lineNum: i32, mut buffer: *mut i8) {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut days: [[i8; 64]; 7] = [[0; 64]; 7];
         let mut i: i32 = 0;
         let mut d: i32 = 0;
         let mut j: i32 = 0;
-        while i32::from(*buffer.offset(i as isize)) != 0_i32 {
-            if i32::from(*buffer.offset(i as isize)) == ' ' as i32 {
+        while *buffer.offset(i as isize) as i32 != 0 {
+            if *buffer.offset(i as isize) as i32 == ' ' as i32 {
                 days[d as usize][j as usize] = '\0' as i8;
-                d = d.wrapping_add(1);
+                d += 1;
                 d;
-                j = 0_i32;
-            } else if i32::from(*buffer.offset(i as isize)) == '\n' as i32
-                || i32::from(*buffer.offset(i as isize)) == '\r' as i32
+                j = 0;
+            } else if *buffer.offset(i as isize) as i32 == '\n' as i32
+                || *buffer.offset(i as isize) as i32 == '\r' as i32
             {
                 days[d as usize][j as usize] = '\0' as i8;
-                d = d.wrapping_add(1);
+                d += 1;
                 d;
                 break;
             } else {
                 days[d as usize][j as usize] = *buffer.offset(i as isize);
-                j = j.wrapping_add(1);
+                j += 1;
                 j;
             }
-            if d >= 7_i32 {
+            if d >= 7 {
                 printf(
-                    (b"There aren't 7 days in line %d\n\0" as *const u8).cast::<i8>(),
+                    b"There aren't 7 days in line %d\n\0" as *const u8 as *const i8,
                     lineNum,
                 );
                 return;
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
-        if i32::from(*buffer.offset(i as isize)) == '\0' as i32 {
+        if *buffer.offset(i as isize) as i32 == '\0' as i32 {
             days[d as usize][j as usize] = '\0' as i8;
-            d = d.wrapping_add(1);
+            d += 1;
             d;
         }
-        if d < 7_i32 {
+        if d < 7 {
             printf(
-                (b"There aren't 7 days in line %d\n\0" as *const u8).cast::<i8>(),
+                b"There aren't 7 days in line %d\n\0" as *const u8 as *const i8,
                 lineNum,
             );
             return;
         } else {
             let mut len: i32 = 0;
-            len = 1_i32;
-            while len < 64_i32 {
+            len = 1;
+            while len < 64 {
                 let mut current_block_35: u64;
                 let mut d1: i32 = 0;
-                d1 = 0_i32;
+                d1 = 0;
                 's_113: loop {
-                    if d1 >= 7_i32 {
+                    if !(d1 < 7) {
                         current_block_35 = 18153031941552419006;
                         break;
                     }
                     let mut d2: i32 = 0;
-                    d2 = d1.wrapping_add(1);
-                    while d2 < 7_i32 {
+                    d2 = d1 + 1;
+                    while d2 < 7 {
                         let mut unique: i32 = 0;
-                        i = 0_i32;
+                        i = 0;
                         while i < len {
-                            if i32::from(days[d1 as usize][i as usize])
-                                != i32::from(days[d2 as usize][i as usize])
+                            if days[d1 as usize][i as usize] as i32
+                                != days[d2 as usize][i as usize] as i32
                             {
-                                unique = 1_i32;
+                                unique = 1;
                                 break;
                             } else {
-                                i = i.wrapping_add(1);
+                                i += 1;
                                 i;
                             }
                         }
-                        if unique == 0_i32 {
+                        if unique == 0 {
                             current_block_35 = 10891380440665537214;
                             break 's_113;
                         }
-                        d2 = d2.wrapping_add(1);
+                        d2 += 1;
                         d2;
                     }
-                    d1 = d1.wrapping_add(1);
+                    d1 += 1;
                     d1;
                 }
                 match current_block_35 {
                     10891380440665537214 => {}
                     _ => {
                         print!("{:2} ", len);
-                        i = 0_i32;
-                        while i < 7_i32 {
+                        i = 0;
+                        while i < 7 {
                             print!(
                                 " {}",
-                                build_str_from_raw_ptr((days[i as usize]).as_mut_ptr().cast::<u8>())
+                                build_str_from_raw_ptr((days[i as usize]).as_mut_ptr() as *mut u8)
                             );
-                            i = i.wrapping_add(1);
+                            i += 1;
                             i;
                         }
-                        println!();
+                        print!("\n");
                         return;
                     }
                 }
-                len = len.wrapping_add(1);
+                len += 1;
                 len;
             }
         }
@@ -179,19 +176,18 @@ pub extern "C" fn process(mut lineNum: i32, mut buffer: *mut i8) {
 }
 
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut buffer: [i8; 1024] = [0; 1024];
         let mut lineNum: i32 = 1;
         let mut len: i32 = 0;
-        let mut fp: *mut FILE = std::ptr::null_mut::<FILE>();
+        let mut fp: *mut FILE = 0 as *mut FILE;
         fp = fopen(
-            (b"days_of_week.txt\0" as *const u8).cast::<i8>(),
-            (b"r\0" as *const u8).cast::<i8>(),
+            b"days_of_week.txt\0" as *const u8 as *const i8,
+            b"r\0" as *const u8 as *const i8,
         );
         loop {
             memset(
-                buffer.as_mut_ptr().cast::<libc::c_void>(),
+                buffer.as_mut_ptr() as *mut libc::c_void,
                 0,
                 ::core::mem::size_of::<[i8; 1024]>() as u64,
             );
@@ -201,18 +197,18 @@ fn main_0() -> i32 {
                 fp,
             );
             len = strlen(buffer.as_mut_ptr()) as i32;
-            if len == 0_i32 || i32::from(buffer[(len.wrapping_sub(1i32)) as usize]) == '\0' as i32 {
+            if len == 0 || buffer[(len - 1i32) as usize] as i32 == '\0' as i32 {
                 break;
             }
             let fresh0 = lineNum;
-            lineNum = lineNum.wrapping_add(1);
+            lineNum = lineNum + 1;
             process(fresh0, buffer.as_mut_ptr());
         }
         fclose(fp);
-        0_i32
+        return 0;
     }
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

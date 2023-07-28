@@ -7,28 +7,27 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {}
 #[no_mangle]
 pub extern "C" fn horner(mut coeffs: *mut f64, mut s: i32, mut x: f64) -> f64 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut res: f64 = 0.0f64;
-        i = s.wrapping_sub(1);
-        while i >= 0_i32 {
-            res = res.mul_add(x, *coeffs.offset(i as isize));
-            i = i.wrapping_sub(1);
+        i = s - 1;
+        while i >= 0 {
+            res = res * x + *coeffs.offset(i as isize);
+            i -= 1;
             i;
         }
-        res
+        return res;
     }
 }
 
 fn main_0() -> i32 {
     let mut coeffs: [f64; 4] = [-19.0f64, 7.0f64, -4.0f64, 6.0f64];
-    println!(
-        "{:5.1}",
+    print!(
+        "{:5.1}\n",
         horner(
             coeffs.as_mut_ptr(),
             (::core::mem::size_of::<[f64; 4]>() as u64)
@@ -36,9 +35,9 @@ fn main_0() -> i32 {
             3.0f64,
         )
     );
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

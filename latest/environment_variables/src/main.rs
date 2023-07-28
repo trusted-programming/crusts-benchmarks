@@ -7,19 +7,18 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {
     fn getenv(__name: *const i8) -> *mut i8;
     fn puts(__s: *const i8) -> i32;
 }
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
-        puts(getenv((b"HOME\0" as *const u8).cast::<i8>()));
+        puts(getenv(b"HOME\0" as *const u8 as *const i8));
     }
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

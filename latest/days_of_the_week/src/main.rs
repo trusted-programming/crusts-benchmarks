@@ -7,7 +7,7 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {
     fn printf(_: *const i8, _: ...) -> i32;
 }
@@ -16,29 +16,27 @@ pub extern "C" fn wday(mut year: i32, mut month: i32, mut day: i32) -> i32 {
     let mut adjustment: i32 = 0;
     let mut mm: i32 = 0;
     let mut yy: i32 = 0;
-    adjustment = (14_i32 - month) / 12_i32;
-    mm = month + 12_i32 * adjustment.wrapping_sub(2);
+    adjustment = (14 - month) / 12;
+    mm = month + 12 * adjustment - 2;
     yy = year - adjustment;
-    (day + (13_i32 * mm.wrapping_sub(1)) / 5_i32 + yy + yy / 4_i32 - yy / 100_i32 + yy.wrapping_div(400))
-        % 7_i32
+    return (day + (13 * mm - 1) / 5 + yy + yy / 4 - yy / 100 + yy / 400) % 7;
 }
 
 fn main_0() -> i32 {
     let mut y: i32 = 0;
-    y = 2_008_i32;
-// SAFETY: machine generated unsafe code
+    y = 2008;
     unsafe {
-        while y <= 2_121_i32 {
-            if wday(y, 12, 25) == 0_i32 {
-                printf((b"%04d-12-25\n\0" as *const u8).cast::<i8>(), y);
+        while y <= 2121 {
+            if wday(y, 12, 25) == 0 {
+                printf(b"%04d-12-25\n\0" as *const u8 as *const i8, y);
             }
-            y = y.wrapping_add(1);
+            y += 1;
             y;
         }
     }
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

@@ -7,11 +7,10 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {}
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct test {
     pub a: i32,
     pub b: i32,
@@ -19,15 +18,14 @@ pub struct test {
 }
 #[no_mangle]
 pub extern "C" fn swap(mut va: *mut libc::c_void, mut vb: *mut libc::c_void, mut s: u64) {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut t: i8 = 0;
-        let mut a: *mut i8 = va.cast::<i8>();
-        let mut b: *mut i8 = vb.cast::<i8>();
+        let mut a: *mut i8 = va as *mut i8;
+        let mut b: *mut i8 = vb as *mut i8;
         loop {
             let fresh0 = s;
             s = s.wrapping_sub(1);
-            if fresh0 == 0 {
+            if !(fresh0 != 0) {
                 break;
             }
             t = *a.offset(s as isize);
@@ -38,34 +36,39 @@ pub extern "C" fn swap(mut va: *mut libc::c_void, mut vb: *mut libc::c_void, mut
 }
 
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut t: test = {
-            
-            test { a: 1, b: 2, c: 3 }
+            let mut init = test { a: 1, b: 2, c: 3 };
+            init
         };
         let mut h: test = {
-            
-            test { a: 4, b: 5, c: 6 }
+            let mut init = test { a: 4, b: 5, c: 6 };
+            init
         };
         let mut alfa: f64 = 0.45f64;
         let mut omega: f64 = 9.98f64;
         let mut pt: *mut test = &mut t;
         let mut th: *mut test = &mut h;
-        println!("{} {} {}", t.a, t.b, t.c);
-        std::mem::swap(&mut t, &mut h);
-        println!("{} {} {}", t.a, t.b, t.c);
-        println!("{} {} {}", h.a, h.b, h.c);
-        println!("{}", alfa);
-        std::mem::swap(&mut alfa, &mut omega);
-        println!("{}", alfa);
-        println!("{}", (*pt).a);
-        std::mem::swap(&mut pt, &mut th);
-        println!("{}", (*pt).a);
-        0_i32
+        print!("{} {} {}\n", t.a, t.b, t.c);
+        let mut _T: test = t;
+        t = h;
+        h = _T;
+        print!("{} {} {}\n", t.a, t.b, t.c);
+        print!("{} {} {}\n", h.a, h.b, h.c);
+        print!("{}\n", alfa);
+        let mut _T_0: f64 = alfa;
+        alfa = omega;
+        omega = _T_0;
+        print!("{}\n", alfa);
+        print!("{}\n", (*pt).a);
+        let mut _T_1: *mut test = pt;
+        pt = th;
+        th = _T_1;
+        print!("{}\n", (*pt).a);
+        return 0;
     }
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

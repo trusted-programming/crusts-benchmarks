@@ -7,21 +7,20 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {
     fn puts(__s: *const i8) -> i32;
 }
 fn main_0() -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
-        let mut object: *mut i8 = std::ptr::null_mut::<i8>();
+        let mut object: *mut i8 = 0 as *mut i8;
         if object.is_null() {
-            puts((b"object is null\0" as *const u8).cast::<i8>());
+            puts(b"object is null\0" as *const u8 as *const i8);
         }
-        0_i32
+        return 0;
     }
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

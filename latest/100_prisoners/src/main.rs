@@ -8,11 +8,10 @@
     unused_mut
 )]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
         while *raw_ptr.offset(str_size as isize) != 0 {
-            str_size = str_size.wrapping_add(1);
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
@@ -42,7 +41,6 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct drawer {
     pub cardNum: i32,
     pub hasBeenOpened: bool,
@@ -55,13 +53,12 @@ pub extern "C" fn initialize(mut prisoners: i32) {
     let mut j: i32 = 0;
     let mut card: i32 = 0;
     let mut unique: bool = false;
-// SAFETY: machine generated unsafe code
     unsafe {
         drawerSet =
             (malloc((prisoners as u64).wrapping_mul(::core::mem::size_of::<drawer>() as u64))
                 as *mut drawer)
                 .offset(-(1 as isize));
-        card = rand() % prisoners.wrapping_add(1);
+        card = rand() % prisoners + 1;
         *drawerSet.offset(1 as isize) = {
             let mut init = drawer {
                 cardNum: card,
@@ -70,16 +67,16 @@ pub extern "C" fn initialize(mut prisoners: i32) {
             init
         };
         i = 1 + 1;
-        while i < prisoners.wrapping_add(1) {
+        while i < prisoners + 1 {
             unique = 0 != 0;
             while unique as i32 == 0 {
                 j = 0;
                 while j < i {
                     if (*drawerSet.offset(j as isize)).cardNum == card {
-                        card = rand() % prisoners.wrapping_add(1);
+                        card = rand() % prisoners + 1;
                         break;
                     } else {
-                        j = j.wrapping_add(1);
+                        j += 1;
                         j;
                     }
                 }
@@ -94,7 +91,7 @@ pub extern "C" fn initialize(mut prisoners: i32) {
                 };
                 init
             };
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }
@@ -104,11 +101,10 @@ pub extern "C" fn initialize(mut prisoners: i32) {
 pub extern "C" fn closeAllDrawers(mut prisoners: i32) {
     let mut i: i32 = 0;
     i = 1;
-// SAFETY: machine generated unsafe code
     unsafe {
-        while i < prisoners.wrapping_add(1) {
+        while i < prisoners + 1 {
             (*drawerSet.offset(i as isize)).hasBeenOpened = 0 != 0;
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }
@@ -120,14 +116,13 @@ pub extern "C" fn libertyOrDeathAtRandom(mut prisoners: i32, mut chances: i32) -
     let mut j: i32 = 0;
     let mut chosenDrawer: i32 = 0;
     i = 1;
-// SAFETY: machine generated unsafe code
     unsafe {
-        while i < prisoners.wrapping_add(1) {
+        while i < prisoners + 1 {
             let mut foundCard: bool = 0 != 0;
             j = 0;
             while j < chances {
                 loop {
-                    chosenDrawer = rand() % prisoners.wrapping_add(1);
+                    chosenDrawer = rand() % prisoners + 1;
                     if !((*drawerSet.offset(chosenDrawer as isize)).hasBeenOpened as i32 == 1) {
                         break;
                     }
@@ -137,7 +132,7 @@ pub extern "C" fn libertyOrDeathAtRandom(mut prisoners: i32, mut chances: i32) -
                     break;
                 } else {
                     (*drawerSet.offset(chosenDrawer as isize)).hasBeenOpened = 1 != 0;
-                    j = j.wrapping_add(1);
+                    j += 1;
                     j;
                 }
             }
@@ -145,7 +140,7 @@ pub extern "C" fn libertyOrDeathAtRandom(mut prisoners: i32, mut chances: i32) -
             if foundCard as i32 == 0 {
                 return 1 != 0;
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }
@@ -158,9 +153,8 @@ pub extern "C" fn libertyOrDeathPlanned(mut prisoners: i32, mut chances: i32) ->
     let mut j: i32 = 0;
     let mut chosenDrawer: i32 = 0;
     i = 1;
-// SAFETY: machine generated unsafe code
     unsafe {
-        while i < prisoners.wrapping_add(1) {
+        while i < prisoners + 1 {
             chosenDrawer = i;
             let mut foundCard: bool = 0 != 0;
             j = 0;
@@ -172,7 +166,7 @@ pub extern "C" fn libertyOrDeathPlanned(mut prisoners: i32, mut chances: i32) ->
                 } else {
                     if chosenDrawer == (*drawerSet.offset(chosenDrawer as isize)).cardNum {
                         loop {
-                            chosenDrawer = rand() % prisoners.wrapping_add(1);
+                            chosenDrawer = rand() % prisoners + 1;
                             if !((*drawerSet.offset(chosenDrawer as isize)).hasBeenOpened as i32
                                 == 1)
                             {
@@ -182,7 +176,7 @@ pub extern "C" fn libertyOrDeathPlanned(mut prisoners: i32, mut chances: i32) ->
                     } else {
                         chosenDrawer = (*drawerSet.offset(chosenDrawer as isize)).cardNum;
                     }
-                    j = j.wrapping_add(1);
+                    j += 1;
                     j;
                 }
             }
@@ -190,7 +184,7 @@ pub extern "C" fn libertyOrDeathPlanned(mut prisoners: i32, mut chances: i32) ->
             if foundCard as i32 == 0 {
                 return 1 != 0;
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
     }
@@ -198,7 +192,6 @@ pub extern "C" fn libertyOrDeathPlanned(mut prisoners: i32, mut chances: i32) ->
 }
 
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut prisoners: i32 = 0;
         let mut chances: i32 = 0;

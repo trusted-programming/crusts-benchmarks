@@ -8,7 +8,7 @@
     unused_mut
 )]
 #![feature(label_break_value)]
-
+use c2rust_out::*;
 extern "C" {
     fn __assert_fail(
         __assertion: *const i8,
@@ -19,30 +19,31 @@ extern "C" {
 }
 fn main_0() -> i32 {
     let mut a: i32 = 0;
-// SAFETY: machine generated unsafe code
     unsafe {
-        if a == 42_i32 {
+        if a == 42 {
         } else {
             __assert_fail(
-                (b"a == 42\0" as *const u8).cast::<i8>(),
-                (b"main.c\0" as *const u8).cast::<i8>(),
+                b"a == 42\0" as *const u8 as *const i8,
+                b"main.c\0" as *const u8 as *const i8,
                 6,
                 (*::core::mem::transmute::<&[u8; 11], &[i8; 11]>(b"int main()\0")).as_ptr(),
             );
         }
-        if a == 42_i32 {
+        'c_59: {
+            if a == 42 {
             } else {
                 __assert_fail(
-                    (b"a == 42\0" as *const u8).cast::<i8>(),
-                    (b"main.c\0" as *const u8).cast::<i8>(),
+                    b"a == 42\0" as *const u8 as *const i8,
+                    b"main.c\0" as *const u8 as *const i8,
                     6,
                     (*::core::mem::transmute::<&[u8; 11], &[i8; 11]>(b"int main()\0")).as_ptr(),
                 );
-            };
+            }
+        };
     }
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

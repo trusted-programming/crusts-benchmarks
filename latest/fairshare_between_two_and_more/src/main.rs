@@ -7,7 +7,7 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {
     fn calloc(_: u64, _: u64) -> *mut libc::c_void;
     fn free(_: *mut libc::c_void);
@@ -15,58 +15,57 @@ extern "C" {
 #[no_mangle]
 pub extern "C" fn turn(mut base: i32, mut n: i32) -> i32 {
     let mut sum: i32 = 0;
-    while n != 0_i32 {
+    while n != 0 {
         let mut rem: i32 = n % base;
-        n = n.wrapping_add(base);
-        sum = sum.wrapping_add(rem);
+        n = n / base;
+        sum += rem;
     }
-    sum % base
+    return sum % base;
 }
 
 #[no_mangle]
 pub extern "C" fn fairshare(mut base: i32, mut count: i32) {
     let mut i: i32 = 0;
     print!("Base {:2}:", base);
-    i = 0_i32;
+    i = 0;
     while i < count {
         let mut t: i32 = turn(base, i);
         print!(" {:2}", t);
-        i = i.wrapping_add(1);
+        i += 1;
         i;
     }
-    println!();
+    print!("\n");
 }
 
 #[no_mangle]
 pub extern "C" fn turnCount(mut base: i32, mut count: i32) {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut cnt: *mut i32 =
-            calloc(base as u64, ::core::mem::size_of::<i32>() as u64).cast::<i32>();
+            calloc(base as u64, ::core::mem::size_of::<i32>() as u64) as *mut i32;
         let mut i: i32 = 0;
         let mut minTurn: i32 = 0;
         let mut maxTurn: i32 = 0;
         let mut portion: i32 = 0;
         if cnt.is_null() {
-            println!("Failed to allocate space to determine the spread of turns.");
+            print!("Failed to allocate space to determine the spread of turns.\n");
             return;
         }
-        i = 0_i32;
+        i = 0;
         while i < count {
             let mut t: i32 = turn(base, i);
-            let fresh0 = &mut (*cnt.offset(t as isize));
-            *fresh0 += 1_i32;
+            let ref mut fresh0 = *cnt.offset(t as isize);
+            *fresh0 += 1;
             *fresh0;
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
-        minTurn = 2_147_483_647_i32;
-        maxTurn = -2_147_483_647_i32 - 1_i32;
-        portion = 0_i32;
-        i = 0_i32;
+        minTurn = 2147483647;
+        maxTurn = -2147483647 - 1;
+        portion = 0;
+        i = 0;
         while i < base {
-            if *cnt.offset(i as isize) > 0_i32 {
-                portion = portion.wrapping_add(1);
+            if *cnt.offset(i as isize) > 0 {
+                portion += 1;
                 portion;
             }
             if *cnt.offset(i as isize) < minTurn {
@@ -75,18 +74,18 @@ pub extern "C" fn turnCount(mut base: i32, mut count: i32) {
             if *cnt.offset(i as isize) > maxTurn {
                 maxTurn = *cnt.offset(i as isize);
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
         print!("  With {} people: ", base);
-        if 0_i32 == minTurn {
-            println!("Only {} have a turn", portion);
+        if 0 == minTurn {
+            print!("Only {} have a turn\n", portion);
         } else if minTurn == maxTurn {
-            println!("{}", minTurn);
+            print!("{}\n", minTurn);
         } else {
-            println!("{} or {}", minTurn, maxTurn);
+            print!("{} or {}\n", minTurn, maxTurn);
         }
-        free(cnt.cast::<libc::c_void>());
+        free(cnt as *mut libc::c_void);
     }
 }
 
@@ -95,15 +94,15 @@ fn main_0() -> i32 {
     fairshare(3, 25);
     fairshare(5, 25);
     fairshare(11, 25);
-    println!("How many times does each get a turn in 50000 iterations?");
+    print!("How many times does each get a turn in 50000 iterations?\n");
     turnCount(191, 50000);
     turnCount(1377, 50000);
     turnCount(49999, 50000);
     turnCount(50000, 50000);
     turnCount(50001, 50000);
-    0_i32
+    return 0;
 }
 
 pub fn main() {
-    ::std::process::exit(main_0());
+    ::std::process::exit(main_0() as i32);
 }

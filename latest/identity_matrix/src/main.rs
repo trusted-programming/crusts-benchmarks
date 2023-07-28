@@ -7,7 +7,7 @@
     unused_assignments,
     unused_mut
 )]
-
+use c2rust_out::*;
 extern "C" {
     fn atoi(__nptr: *const i8) -> i32;
     fn exit(_: i32) -> !;
@@ -15,21 +15,20 @@ extern "C" {
     fn calloc(_: u64, _: u64) -> *mut libc::c_void;
 }
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
-        if argc < 2_i32 {
-            println!("usage: identitymatrix <number of rows>");
+        if argc < 2 {
+            print!("usage: identitymatrix <number of rows>\n");
             exit(1);
         }
-        let mut rowsize: i32 = atoi(*argv.offset(1_isize));
-        if rowsize < 0_i32 {
-            println!("Dimensions of matrix cannot be negative");
+        let mut rowsize: i32 = atoi(*argv.offset(1 as isize));
+        if rowsize < 0 {
+            print!("Dimensions of matrix cannot be negative\n");
             exit(1);
         }
-        let mut numElements: i32 = rowsize.wrapping_mul(rowsize);
+        let mut numElements: i32 = rowsize * rowsize;
         if numElements < rowsize {
-            println!(
-                "Squaring {} caused result to overflow to {}.",
+            print!(
+                "Squaring {} caused result to overflow to {}.\n",
                 rowsize, numElements
             );
             abort();
@@ -37,10 +36,10 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
         let mut matrix: *mut *mut i32 = calloc(
             numElements as u64,
             ::core::mem::size_of::<*mut i32>() as u64,
-        ).cast::<*mut i32>();
+        ) as *mut *mut i32;
         if matrix.is_null() {
-            println!(
-                "Failed to allocate {} elements of {} bytes each",
+            print!(
+                "Failed to allocate {} elements of {} bytes each\n",
                 numElements,
                 ::core::mem::size_of::<*mut i32>() as u64
             );
@@ -48,21 +47,21 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
         }
         let mut row: u32 = 0;
         while row < rowsize as u32 {
-            let fresh0 = &mut (*matrix.offset(row as isize));
-            *fresh0 = calloc(numElements as u64, ::core::mem::size_of::<i32>() as u64).cast::<i32>();
+            let ref mut fresh0 = *matrix.offset(row as isize);
+            *fresh0 = calloc(numElements as u64, ::core::mem::size_of::<i32>() as u64) as *mut i32;
             if (*matrix.offset(row as isize)).is_null() {
-                println!(
-                    "Failed to allocate {} elements of {} bytes each",
+                print!(
+                    "Failed to allocate {} elements of {} bytes each\n",
                     numElements,
                     ::core::mem::size_of::<i32>() as u64
                 );
                 abort();
             };
-            *(*matrix.offset(row as isize)).offset(row as isize) = 1_i32;
+            *(*matrix.offset(row as isize)).offset(row as isize) = 1;
             row = row.wrapping_add(1);
             row;
         }
-        println!("Matrix is: ");
+        print!("Matrix is: \n");
         let mut row_0: u32 = 0;
         while row_0 < rowsize as u32 {
             let mut column: u32 = 0;
@@ -74,11 +73,11 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
                 column = column.wrapping_add(1);
                 column;
             }
-            println!();
+            print!("\n");
             row_0 = row_0.wrapping_add(1);
             row_0;
         }
-        0_i32
+        return 0;
     }
 }
 
@@ -92,10 +91,9 @@ pub fn main() {
         );
     }
     args.push(::core::ptr::null_mut());
-// SAFETY: machine generated unsafe code
     unsafe {
         ::std::process::exit(
-            main_0((args.len() - 1) as i32, args.as_mut_ptr()),
+            main_0((args.len() - 1) as i32, args.as_mut_ptr() as *mut *mut i8) as i32,
         );
     }
 }

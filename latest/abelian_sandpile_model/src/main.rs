@@ -9,18 +9,17 @@
 )]
 #![feature(extern_types)]
 fn build_str_from_raw_ptr(raw_ptr: *mut u8) -> String {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut str_size: usize = 0;
-        while *raw_ptr.add(str_size) != 0 {
-            str_size = str_size.wrapping_add(1);
+        while *raw_ptr.offset(str_size as isize) != 0 {
+            str_size += 1;
         }
         return std::str::from_utf8_unchecked(std::slice::from_raw_parts(raw_ptr, str_size))
             .to_owned();
     }
 }
 
-
+use c2rust_out::*;
 extern "C" {
     pub type _IO_wide_data;
     pub type _IO_codecvt;
@@ -38,7 +37,6 @@ extern "C" {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[derive(Debug)]
 pub struct _IO_FILE {
     pub _flags: i32,
     pub _IO_read_ptr: *mut i8,
@@ -73,7 +71,6 @@ pub struct _IO_FILE {
 pub type _IO_lock_t = ();
 pub type FILE = _IO_FILE;
 fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
-// SAFETY: machine generated unsafe code
     unsafe {
         let mut i: i32 = 0;
         let mut j: i32 = 0;
@@ -84,169 +81,153 @@ fn main_0(mut argc: i32, mut argv: *mut *mut i8) -> i32 {
         let mut down: i32 = 0;
         let mut left: i32 = 0;
         let mut right: i32 = 0;
-        let mut sandPile: *mut *mut i32 = std::ptr::null_mut::<*mut i32>();
-        let mut fileName: *mut i8 = std::ptr::null_mut::<i8>();
+        let mut sandPile: *mut *mut i32 = 0 as *mut *mut i32;
+        let mut fileName: *mut i8 = 0 as *mut i8;
         static mut colour: [u8; 3] = [0; 3];
-        if argc != 3_i32 {
+        if argc != 3 {
             print!(
                 "Usage: {} <Sand pile side> <Center pile height>",
-                build_str_from_raw_ptr((*argv.offset(0_isize)).cast::<u8>())
+                build_str_from_raw_ptr(*argv.offset(0 as isize) as *mut u8)
             );
-            return 0_i32;
+            return 0;
         }
-        sandPileEdge = atoi(*argv.offset(1_isize));
-        centerPileHeight = atoi(*argv.offset(2_isize));
-        if sandPileEdge <= 0_i32 || centerPileHeight <= 0_i32 {
+        sandPileEdge = atoi(*argv.offset(1 as isize));
+        centerPileHeight = atoi(*argv.offset(2 as isize));
+        if sandPileEdge <= 0 || centerPileHeight <= 0 {
             print!("Sand pile and center pile dimensions must be positive integers.");
-            return 0_i32;
+            return 0;
         }
         sandPile =
-            malloc((sandPileEdge as u64).wrapping_mul(::core::mem::size_of::<*mut i32>() as u64)).cast::<*mut i32>();
-        i = 0_i32;
+            malloc((sandPileEdge as u64).wrapping_mul(::core::mem::size_of::<*mut i32>() as u64))
+                as *mut *mut i32;
+        i = 0;
         while i < sandPileEdge {
-            let fresh0 = &mut (*sandPile.offset(i as isize));
-            *fresh0 = calloc(sandPileEdge as u64, ::core::mem::size_of::<i32>() as u64).cast::<i32>();
-            i = i.wrapping_add(1);
+            let ref mut fresh0 = *sandPile.offset(i as isize);
+            *fresh0 = calloc(sandPileEdge as u64, ::core::mem::size_of::<i32>() as u64) as *mut i32;
+            i += 1;
             i;
         }
-        *(*sandPile.offset((sandPileEdge.wrapping_div(2i32)) as isize))
-            .offset((sandPileEdge.wrapping_div(2i32)) as isize) = centerPileHeight;
+        *(*sandPile.offset((sandPileEdge / 2i32) as isize))
+            .offset((sandPileEdge / 2i32) as isize) = centerPileHeight;
         print!("Initial sand pile :\n\n");
-        i = 0_i32;
+        i = 0;
         while i < sandPileEdge {
-            j = 0_i32;
+            j = 0;
             while j < sandPileEdge {
                 print!("{:3}", *(*sandPile.offset(i as isize)).offset(j as isize));
-                j = j.wrapping_add(1);
+                j += 1;
                 j;
             }
-            println!();
-            i = i.wrapping_add(1);
+            print!("\n");
+            i += 1;
             i;
         }
-        while processAgain == 1_i32 {
-            processAgain = 0_i32;
-            top = 0_i32;
-            down = 0_i32;
-            left = 0_i32;
-            right = 0_i32;
-            i = 0_i32;
+        while processAgain == 1 {
+            processAgain = 0;
+            top = 0;
+            down = 0;
+            left = 0;
+            right = 0;
+            i = 0;
             while i < sandPileEdge {
-                j = 0_i32;
+                j = 0;
                 while j < sandPileEdge {
-                    if *(*sandPile.offset(i as isize)).offset(j as isize) >= 4_i32 {
-                        if i > 0_i32 {
-                            top = 1_i32;
-                            *(*sandPile.offset((i.wrapping_sub(1i32)) as isize))
-                                .offset(j as isize) += 1_i32;
-                            if *(*sandPile.offset((i.wrapping_sub(1i32)) as isize))
-                                .offset(j as isize)
-                                >= 4_i32
-                            {
-                                processAgain = 1_i32;
+                    if *(*sandPile.offset(i as isize)).offset(j as isize) >= 4 {
+                        if i - 1 >= 0 {
+                            top = 1;
+                            *(*sandPile.offset((i - 1i32) as isize)).offset(j as isize) += 1;
+                            if *(*sandPile.offset((i - 1i32) as isize)).offset(j as isize) >= 4 {
+                                processAgain = 1;
                             }
                         }
-                        if (i.wrapping_add(1)) < sandPileEdge {
-                            down = 1_i32;
-                            *(*sandPile.offset((i.wrapping_add(1i32)) as isize))
-                                .offset(j as isize) += 1_i32;
-                            if *(*sandPile.offset((i.wrapping_add(1i32)) as isize))
-                                .offset(j as isize)
-                                >= 4_i32
-                            {
-                                processAgain = 1_i32;
+                        if (i + 1) < sandPileEdge {
+                            down = 1;
+                            *(*sandPile.offset((i + 1i32) as isize)).offset(j as isize) += 1;
+                            if *(*sandPile.offset((i + 1i32) as isize)).offset(j as isize) >= 4 {
+                                processAgain = 1;
                             }
                         }
-                        if j > 0_i32 {
-                            left = 1_i32;
-                            *(*sandPile.offset(i as isize))
-                                .offset((j.wrapping_sub(1i32)) as isize) += 1_i32;
-                            if *(*sandPile.offset(i as isize))
-                                .offset((j.wrapping_sub(1i32)) as isize)
-                                >= 4_i32
-                            {
-                                processAgain = 1_i32;
+                        if j - 1 >= 0 {
+                            left = 1;
+                            *(*sandPile.offset(i as isize)).offset((j - 1i32) as isize) += 1;
+                            if *(*sandPile.offset(i as isize)).offset((j - 1i32) as isize) >= 4 {
+                                processAgain = 1;
                             }
                         }
-                        if (j.wrapping_add(1)) < sandPileEdge {
-                            right = 1_i32;
-                            *(*sandPile.offset(i as isize))
-                                .offset((j.wrapping_add(1i32)) as isize) += 1_i32;
-                            if *(*sandPile.offset(i as isize))
-                                .offset((j.wrapping_add(1i32)) as isize)
-                                >= 4_i32
-                            {
-                                processAgain = 1_i32;
+                        if (j + 1) < sandPileEdge {
+                            right = 1;
+                            *(*sandPile.offset(i as isize)).offset((j + 1i32) as isize) += 1;
+                            if *(*sandPile.offset(i as isize)).offset((j + 1i32) as isize) >= 4 {
+                                processAgain = 1;
                             }
                         };
                         *(*sandPile.offset(i as isize)).offset(j as isize) -=
-                            top + down + left.wrapping_add(right);
-                        if *(*sandPile.offset(i as isize)).offset(j as isize) >= 4_i32 {
-                            processAgain = 1_i32;
+                            top + down + left + right;
+                        if *(*sandPile.offset(i as isize)).offset(j as isize) >= 4 {
+                            processAgain = 1;
                         }
                     }
-                    j = j.wrapping_add(1);
+                    j += 1;
                     j;
                 }
-                i = i.wrapping_add(1);
+                i += 1;
                 i;
             }
         }
         print!("Final sand pile : \n\n");
-        i = 0_i32;
+        i = 0;
         while i < sandPileEdge {
-            j = 0_i32;
+            j = 0;
             while j < sandPileEdge {
                 print!("{:3}", *(*sandPile.offset(i as isize)).offset(j as isize));
-                j = j.wrapping_add(1);
+                j += 1;
                 j;
             }
-            println!();
-            i = i.wrapping_add(1);
+            print!("\n");
+            i += 1;
             i;
         }
         fileName = malloc(
-            (strlen(*argv.offset(1_isize)))
-                .wrapping_add(strlen(*argv.offset(2_isize)))
+            (strlen(*argv.offset(1 as isize)))
+                .wrapping_add(strlen(*argv.offset(2 as isize)))
                 .wrapping_add(23)
                 .wrapping_mul(::core::mem::size_of::<i8>() as u64),
-        ).cast::<i8>();
-        strcpy(fileName, (b"Final_Sand_Pile_\0" as *const u8).cast::<i8>());
-        strcat(fileName, *argv.offset(1_isize));
-        strcat(fileName, (b"_\0" as *const u8).cast::<i8>());
-        strcat(fileName, *argv.offset(2_isize));
-        strcat(fileName, (b".ppm\0" as *const u8).cast::<i8>());
-        let mut fp: *mut FILE = fopen(fileName, (b"wb\0" as *const u8).cast::<i8>());
+        ) as *mut i8;
+        strcpy(fileName, b"Final_Sand_Pile_\0" as *const u8 as *const i8);
+        strcat(fileName, *argv.offset(1 as isize));
+        strcat(fileName, b"_\0" as *const u8 as *const i8);
+        strcat(fileName, *argv.offset(2 as isize));
+        strcat(fileName, b".ppm\0" as *const u8 as *const i8);
+        let mut fp: *mut FILE = fopen(fileName, b"wb\0" as *const u8 as *const i8);
         fprintf(
             fp,
-            (b"P6\n%d %d\n255\n\0" as *const u8).cast::<i8>(),
+            b"P6\n%d %d\n255\n\0" as *const u8 as *const i8,
             sandPileEdge,
             sandPileEdge,
         );
-        i = 0_i32;
+        i = 0;
         while i < sandPileEdge {
-            j = 0_i32;
+            j = 0;
             while j < sandPileEdge {
-                colour[0_usize] =
+                colour[0 as usize] =
                     ((*(*sandPile.offset(i as isize)).offset(j as isize) + i) % 256i32) as u8;
-                colour[1_usize] =
+                colour[1 as usize] =
                     ((*(*sandPile.offset(i as isize)).offset(j as isize) + j) % 256i32) as u8;
-                colour[2_usize] = ((*(*sandPile.offset(i as isize)).offset(j as isize)
-                    + i.wrapping_mul(j))
-                    % 256i32) as u8;
+                colour[2 as usize] =
+                    ((*(*sandPile.offset(i as isize)).offset(j as isize) + i * j) % 256i32) as u8;
                 fwrite(colour.as_mut_ptr() as *const libc::c_void, 1, 3, fp);
-                j = j.wrapping_add(1);
+                j += 1;
                 j;
             }
-            i = i.wrapping_add(1);
+            i += 1;
             i;
         }
         fclose(fp);
         print!(
             "\nImage file written to {}\n",
-            build_str_from_raw_ptr(fileName.cast::<u8>())
+            build_str_from_raw_ptr(fileName as *mut u8)
         );
-        0_i32
+        return 0;
     }
 }
 
@@ -260,5 +241,5 @@ pub fn main() {
         );
     }
     args.push(::core::ptr::null_mut());
-    ::std::process::exit(main_0((args.len() - 1) as i32, args.as_mut_ptr()));
+    ::std::process::exit(main_0((args.len() - 1) as i32, args.as_mut_ptr() as *mut *mut i8) as i32);
 }
